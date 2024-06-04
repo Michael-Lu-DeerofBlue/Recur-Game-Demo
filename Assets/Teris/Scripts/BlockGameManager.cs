@@ -14,6 +14,7 @@ public class BlockManager : MonoBehaviour
     private SpawnBlock spawnblock;
 
 
+
     private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
 
     void Start()
@@ -71,11 +72,9 @@ public class BlockManager : MonoBehaviour
                 CheckForLines();
                 this.enabled = false;
                 FindObjectOfType<SpawnBlock>().NewBlock();
-
             }
             previousTime = Time.time;
         }
-
     }
 
     public bool IsOccupied(Vector3 position)
