@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class SpawnBlock : MonoBehaviour
 {
     public GameObject[] BlockShapes;
@@ -16,11 +15,10 @@ public class SpawnBlock : MonoBehaviour
     public void NewBlock()
     {
         // Instantiate a random Tetromino
-        GameObject NewBlock = Instantiate(BlockShapes[Random.Range(0, BlockShapes.Length)], transform.position, Quaternion.identity);
-        //for easy testing , use the following code.
-        //GameObject NewTetromino = Instantiate(Blocks[2], transform.position, Quaternion.identity);
-        ApplyRandomColor(NewBlock);
+        GameObject newBlock = Instantiate(BlockShapes[Random.Range(0, BlockShapes.Length)], transform.position, Quaternion.identity);
+        ApplyRandomColor(newBlock);
     }
+
 
     public void ApplyRandomColor(GameObject block)
     {
@@ -36,6 +34,9 @@ public class SpawnBlock : MonoBehaviour
             renderer.material.color = randomColor;
         }
     }
+
 }
+
+
 
 

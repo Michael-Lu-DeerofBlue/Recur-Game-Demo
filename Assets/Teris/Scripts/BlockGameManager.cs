@@ -10,9 +10,9 @@ public class BlockManager : MonoBehaviour
     public static int height = 20;
     public static int width = 10;
     public static int extendedWidth = 20; // Extended width to display blocks moved to the right side
-    private static Transform[,] grid = new Transform[extendedWidth, height];
-
+    public static Transform[,] grid = new Transform[extendedWidth, height];
     private SpawnBlock spawnblock;
+
 
     private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
 
@@ -23,18 +23,35 @@ public class BlockManager : MonoBehaviour
 
     void Update()
     {
-        // Handle user inputs for moving and rotating the block
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
+        {
+            while (true)
+            {
+                transform.position += new Vector3(0, -1, 0);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(0, -1, 0);
+                    AddToGrid();
+                    CheckForLines();
+                    this.enabled = false;
+                    FindObjectOfType<SpawnBlock>().NewBlock();
+                    break;
+                }
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
         {
             transform.position += new Vector3(-1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(-1, 0, 0);
+
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             transform.position += new Vector3(1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(1, 0, 0);
+
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
@@ -54,9 +71,27 @@ public class BlockManager : MonoBehaviour
                 CheckForLines();
                 this.enabled = false;
                 FindObjectOfType<SpawnBlock>().NewBlock();
+
             }
             previousTime = Time.time;
         }
+
+    }
+
+    public bool IsOccupied(Vector3 position)
+    {
+        int x = Mathf.RoundToInt(position.x);
+        int y = Mathf.RoundToInt(position.y);
+        if (x >= 0 && x < extendedWidth && y >= 0 && y < height)
+        {
+            return grid[x, y] != null;
+        }
+        return false;
+    }
+
+    public Vector3 RoundVector(Vector3 vector)
+    {
+        return new Vector3(Mathf.Round(vector.x), Mathf.Round(vector.y), Mathf.Round(vector.z));
     }
 
     // Check for complete lines and move them to the right side
@@ -74,7 +109,7 @@ public class BlockManager : MonoBehaviour
     }
 
     // Check if a line is complete
-    bool HasLine(int i)
+    public bool HasLine(int i)
     {
         for (int j = 0; j < width; j++)
         {
@@ -236,13 +271,13 @@ public class BlockManager : MonoBehaviour
     }
 
     // Check if a position is inside the main grid
-    bool IsInsideGrid(Vector3 position)
+    public bool IsInsideGrid(Vector3 position)
     {
         return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
     }
 
     // Check if a position is inside the extended grid
-    bool IsInsideExtendedGrid(Vector3 position)
+    public bool IsInsideExtendedGrid(Vector3 position)
     {
         return position.x >= 0 && position.x < extendedWidth && position.y >= 0 && position.y < height;
     }
