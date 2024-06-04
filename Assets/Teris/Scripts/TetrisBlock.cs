@@ -9,21 +9,21 @@ public class TetrisBlock : MonoBehaviour
     public float fallTime = 0.8f;
     public static int height = 20;
     public static int width = 10;
-    private static Transform[,] grid = new Transform[width, height];
+    public static int extendedWidth = 20; // Extended width to display blocks moved to the right side
+    private static Transform[,] grid = new Transform[extendedWidth, height];
 
     private SpawnTetromino spawnTetromino;
 
-    private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>(); // Create a global dictionary to count colors
+    private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
 
-    // Start is called before the first frame update
     void Start()
     {
         spawnTetromino = FindObjectOfType<SpawnTetromino>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Handle user inputs for moving and rotating the Tetris block
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             transform.position += new Vector3(-1, 0, 0);
@@ -38,12 +38,12 @@ public class TetrisBlock : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            // Rotate
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             if (!ValidMove())
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
         }
 
+        // Handle block falling over time
         if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
         {
             transform.position += new Vector3(0, -1, 0);
@@ -59,32 +59,21 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
+    // Check for complete lines and move them to the right side
     void CheckForLines()
     {
         for (int i = height - 1; i >= 0; i--)
         {
             if (HasLine(i))
             {
-                DeleteLine(i);
+                MoveLineToRightSide(i);
                 RowDown(i);
             }
         }
-
-        // Output the deleted color count after checking all lines
-        if (globalColorCount.Count > 0)
-        {
-            string result = "Eliminated Colors: ";  // Eliminated Colors: #00FF07FF Count: 15; #0010FFFF Count: 1; #FF0000FF Count: 4; 
-                                                    // We can decide the attack method based on this parameter.
-
-            foreach (var entry in globalColorCount)
-            {
-                result += $"#{entry.Key} Count: {entry.Value}; ";
-            }
-            Debug.Log(result);
-            globalColorCount.Clear(); // Clear the global dictionary for the next set of eliminations
-        }
+        StartCoroutine(ClearRightSideBlocks());
     }
 
+    // Check if a line is complete
     bool HasLine(int i)
     {
         for (int j = 0; j < width; j++)
@@ -95,46 +84,112 @@ public class TetrisBlock : MonoBehaviour
         return true;
     }
 
-    void DeleteLine(int i)
+    // Move a complete line to the right side and position it vertically
+    void MoveLineToRightSide(int i)
     {
+        int startX = width + 2; // Display on the right side
+        int startY = height - 1;
+
         for (int j = 0; j < width; j++)
         {
             if (grid[j, i] != null)
             {
-                Renderer renderer = grid[j, i].GetComponent<Renderer>();
-                string colorCode = ColorUtility.ToHtmlStringRGBA(renderer.material.color);
-
-                if (globalColorCount.ContainsKey(colorCode))
-                {
-                    globalColorCount[colorCode]++;
-                }
-                else
-                {
-                    globalColorCount[colorCode] = 1;
-                }
-
-                Destroy(grid[j, i].gameObject);
+                Transform block = grid[j, i];
                 grid[j, i] = null;
+                Vector3 newPosition = new Vector3(startX, startY - j, 0);
+
+                while (IsInsideExtendedGrid(newPosition) && grid[(int)newPosition.x, (int)newPosition.y] != null)
+                {
+                    startX++;
+                    newPosition = new Vector3(startX, startY - j, 0);
+                }
+
+                if (IsInsideExtendedGrid(newPosition))
+                {
+                    block.position = newPosition;
+                    grid[(int)newPosition.x, (int)newPosition.y] = block;
+                }
             }
         }
     }
 
+    // Coroutine to clear connected blocks on the right side with the same color
+    IEnumerator ClearRightSideBlocks()
+    {
+        while (true)
+        {
+            Transform upleftBlock = FindUpleftBlock();
+            if (upleftBlock == null) yield break;
+
+            string color = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
+            List<Transform> blocksToClear = new List<Transform>();
+            FindConnectedBlocks(upleftBlock, color, blocksToClear);
+
+            foreach (var block in blocksToClear)
+            {
+                grid[(int)block.position.x, (int)block.position.y] = null;
+                Destroy(block.gameObject);
+            }
+
+            Debug.Log($"Cleared {blocksToClear.Count} blocks of color #{color}");
+
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    // Find the top-left block in the extended grid
+    Transform FindUpleftBlock()
+    {
+        for (int x = width; x < extendedWidth; x++)
+        {
+            for (int y = height - 1; y >= 0; y--)
+            {
+                if (grid[x, y] != null)
+                {
+                    return grid[x, y];
+                }
+            }
+        }
+        return null;
+    }
+
+    // Find all connected blocks with the same color and add them to the list
+    void FindConnectedBlocks(Transform block, string color, List<Transform> blocksToClear)
+    {
+        if (block == null || blocksToClear.Contains(block)) return;
+
+        string blockColor = ColorUtility.ToHtmlStringRGBA(block.GetComponent<Renderer>().material.color);
+        if (blockColor != color) return;
+
+        blocksToClear.Add(block);
+
+        int x = (int)block.position.x;
+        int y = (int)block.position.y;
+
+        if (IsInsideExtendedGrid(new Vector3(x + 1, y, 0))) FindConnectedBlocks(grid[x + 1, y], color, blocksToClear);
+        if (IsInsideExtendedGrid(new Vector3(x - 1, y, 0))) FindConnectedBlocks(grid[x - 1, y], color, blocksToClear);
+        if (IsInsideExtendedGrid(new Vector3(x, y + 1, 0))) FindConnectedBlocks(grid[x, y + 1], color, blocksToClear);
+        if (IsInsideExtendedGrid(new Vector3(x, y - 1, 0))) FindConnectedBlocks(grid[x, y - 1], color, blocksToClear);
+    }
+
+    // Move rows down after clearing a line
     void RowDown(int i)
     {
-        for (int y = i; y < height; y++)
+        for (int y = i; y < height - 1; y++)
         {
             for (int j = 0; j < width; j++)
             {
-                if (grid[j, y] != null)
+                if (grid[j, y + 1] != null)
                 {
-                    grid[j, y - 1] = grid[j, y];
-                    grid[j, y] = null;
-                    grid[j, y - 1].transform.position -= new Vector3(0, 1, 0);
+                    grid[j, y] = grid[j, y + 1];
+                    grid[j, y + 1] = null;
+                    grid[j, y].transform.position -= new Vector3(0, 1, 0);
                 }
             }
         }
     }
 
+    // Add the Tetris block to the grid
     void AddToGrid()
     {
         foreach (Transform children in transform)
@@ -142,10 +197,14 @@ public class TetrisBlock : MonoBehaviour
             int roundedX = Mathf.RoundToInt(children.transform.position.x);
             int roundedY = Mathf.RoundToInt(children.transform.position.y);
 
-            grid[roundedX, roundedY] = children;
+            if (IsInsideGrid(new Vector3(roundedX, roundedY, 0)))
+            {
+                grid[roundedX, roundedY] = children;
+            }
         }
     }
 
+    // Check if the current move is valid
     bool ValidMove()
     {
         foreach (Transform children in transform)
@@ -163,5 +222,16 @@ public class TetrisBlock : MonoBehaviour
         }
         return true;
     }
-}
 
+    // Check if a position is inside the main grid
+    bool IsInsideGrid(Vector3 position)
+    {
+        return position.x >= 0 && position.x < width && position.y >= 0 && position.y < height;
+    }
+
+    // Check if a position is inside the extended grid
+    bool IsInsideExtendedGrid(Vector3 position)
+    {
+        return position.x >= 0 && position.x < extendedWidth && position.y >= 0 && position.y < height;
+    }
+}
