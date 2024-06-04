@@ -87,35 +87,47 @@ public class TetrisBlock : MonoBehaviour
     // Move a complete line to the right side and position it vertically
     void MoveLineToRightSide(int i)
     {
-        int startX = width + 2; // Display on the right side
+        int startX = extendedWidth - 1; // Display on the right side
         int startY = height - 1;
 
+      
+        List<Transform> blocks = new List<Transform>();
         for (int j = 0; j < width; j++)
         {
             if (grid[j, i] != null)
             {
                 Transform block = grid[j, i];
+                blocks.Add(block);
                 grid[j, i] = null;
-                Vector3 newPosition = new Vector3(startX, startY - j, 0);
+            }
+        }
 
-                while (IsInsideExtendedGrid(newPosition) && grid[(int)newPosition.x, (int)newPosition.y] != null)
-                {
-                    startX++;
-                    newPosition = new Vector3(startX, startY - j, 0);
-                }
+        
+        for (int k = 0; k < blocks.Count; k++)
+        {
+            Transform block = blocks[k];
+            Vector3 newPosition = new Vector3(startX, startY - k, 0);
 
-                if (IsInsideExtendedGrid(newPosition))
-                {
-                    block.position = newPosition;
-                    grid[(int)newPosition.x, (int)newPosition.y] = block;
-                }
+            while (IsInsideExtendedGrid(newPosition) && grid[(int)newPosition.x, (int)newPosition.y] != null)
+            {
+                startX--;
+                newPosition = new Vector3(startX, startY - k, 0);
+            }
+
+            if (IsInsideExtendedGrid(newPosition))
+            {
+                block.position = newPosition;
+                grid[(int)newPosition.x, (int)newPosition.y] = block;
             }
         }
     }
 
+
     // Coroutine to clear connected blocks on the right side with the same color
     IEnumerator ClearRightSideBlocks()
     {
+        yield return new WaitForSeconds(1); // Wait for 1 second before starting the first clear
+
         while (true)
         {
             Transform upleftBlock = FindUpleftBlock();
@@ -137,12 +149,11 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
-    // Find the top-left block in the extended grid
     Transform FindUpleftBlock()
     {
-        for (int x = width; x < extendedWidth; x++)
+        for (int y = height - 1; y >= 0; y--)
         {
-            for (int y = height - 1; y >= 0; y--)
+            for (int x = width; x < extendedWidth; x++)
             {
                 if (grid[x, y] != null)
                 {
@@ -152,6 +163,7 @@ public class TetrisBlock : MonoBehaviour
         }
         return null;
     }
+
 
     // Find all connected blocks with the same color and add them to the list
     void FindConnectedBlocks(Transform block, string color, List<Transform> blocksToClear)

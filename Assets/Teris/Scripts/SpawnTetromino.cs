@@ -16,8 +16,9 @@ public class SpawnTetromino : MonoBehaviour
     public void NewTetromino()
     {
         // Instantiate a random Tetromino
-        //GameObject NewTetromino = Instantiate(Tetrominoes[get.Range(0, Tetrominoes.Length)], transform.position, Quaternion.identity);
-        GameObject NewTetromino = Instantiate(Tetrominoes[3], transform.position, Quaternion.identity);
+        GameObject NewTetromino = Instantiate(Tetrominoes[Random.Range(0, Tetrominoes.Length)], transform.position, Quaternion.identity);
+       //for easy testing , use the following code.
+       // GameObject NewTetromino = Instantiate(Tetrominoes[3], transform.position, Quaternion.identity);
         ApplyRandomColor(NewTetromino);
     }
 
