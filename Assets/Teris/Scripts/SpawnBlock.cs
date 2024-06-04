@@ -2,33 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnTetromino : MonoBehaviour
+public class SpawnBlock : MonoBehaviour
 {
-    public GameObject[] Tetrominoes;
+    public GameObject[] BlockShapes;
     public Color[] Colors;
 
     // Start is called before the first frame update
     void Start()
     {
-        NewTetromino();
+        NewBlock();
     }
 
-    public void NewTetromino()
+    public void NewBlock()
     {
         // Instantiate a random Tetromino
-        GameObject NewTetromino = Instantiate(Tetrominoes[Random.Range(0, Tetrominoes.Length)], transform.position, Quaternion.identity);
-       //for easy testing , use the following code.
-       // GameObject NewTetromino = Instantiate(Tetrominoes[3], transform.position, Quaternion.identity);
-        ApplyRandomColor(NewTetromino);
+        GameObject NewBlock = Instantiate(BlockShapes[Random.Range(0, BlockShapes.Length)], transform.position, Quaternion.identity);
+        //for easy testing , use the following code.
+        //GameObject NewTetromino = Instantiate(Blocks[2], transform.position, Quaternion.identity);
+        ApplyRandomColor(NewBlock);
     }
 
-    public void ApplyRandomColor(GameObject tetromino)
+    public void ApplyRandomColor(GameObject block)
     {
         // Choose a random color from the Colors array
         Color randomColor = Colors[Random.Range(0, Colors.Length)];
 
         // Get all Renderer components in the Tetromino and its children
-        Renderer[] renderers = tetromino.GetComponentsInChildren<Renderer>();
+        Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
 
         // Apply the random color to each Renderer
         foreach (Renderer renderer in renderers)

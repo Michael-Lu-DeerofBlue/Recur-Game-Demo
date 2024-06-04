@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TetrisBlock : MonoBehaviour
+public class BlockManager : MonoBehaviour
 {
     public Vector3 rotationPoint;
     private float previousTime;
@@ -12,31 +12,31 @@ public class TetrisBlock : MonoBehaviour
     public static int extendedWidth = 20; // Extended width to display blocks moved to the right side
     private static Transform[,] grid = new Transform[extendedWidth, height];
 
-    private SpawnTetromino spawnTetromino;
+    private SpawnBlock spawnblock;
 
     private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
 
     void Start()
     {
-        spawnTetromino = FindObjectOfType<SpawnTetromino>();
+        spawnblock = FindObjectOfType<SpawnBlock>();
     }
 
     void Update()
     {
-        // Handle user inputs for moving and rotating the Tetris block
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        // Handle user inputs for moving and rotating the block
+        if (Input.GetKeyDown(KeyCode.A))
         {
             transform.position += new Vector3(-1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(-1, 0, 0);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             transform.position += new Vector3(1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(1, 0, 0);
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(KeyCode.W))
         {
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             if (!ValidMove())
@@ -44,7 +44,7 @@ public class TetrisBlock : MonoBehaviour
         }
 
         // Handle block falling over time
-        if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
+        if (Time.time - previousTime > (Input.GetKey(KeyCode.S) ? fallTime / 10 : fallTime))
         {
             transform.position += new Vector3(0, -1, 0);
             if (!ValidMove())
@@ -53,7 +53,7 @@ public class TetrisBlock : MonoBehaviour
                 AddToGrid();
                 CheckForLines();
                 this.enabled = false;
-                FindObjectOfType<SpawnTetromino>().NewTetromino();
+                FindObjectOfType<SpawnBlock>().NewBlock();
             }
             previousTime = Time.time;
         }
@@ -201,7 +201,7 @@ public class TetrisBlock : MonoBehaviour
         }
     }
 
-    // Add the Tetris block to the grid
+    // Add the  block to the grid
     void AddToGrid()
     {
         foreach (Transform children in transform)
