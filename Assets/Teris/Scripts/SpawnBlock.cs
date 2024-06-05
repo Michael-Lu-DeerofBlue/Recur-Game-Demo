@@ -19,6 +19,7 @@ public class SpawnBlock : MonoBehaviour
     {
         // Instantiate a random Tetromino
         currentBlock = Instantiate(BlockShapes[Random.Range(0, BlockShapes.Length)], transform.position, Quaternion.identity);
+        //currentBlock = Instantiate(BlockShapes[3], transform.position, Quaternion.identity);
         ApplyRandomColor(currentBlock);
     }
 

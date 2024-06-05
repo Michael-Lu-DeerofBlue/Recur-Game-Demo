@@ -9,10 +9,10 @@ public class BlockManager : MonoBehaviour
     public float fallTime = 0.8f;
     public static int height = 20;
     public static int width = 10;
-    public static int extendedWidth = 20; // Extended width to display blocks moved to the right side
+    public static int extendedWidth = 15; // Extended width to display blocks moved to the right side
     public static Transform[,] grid = new Transform[extendedWidth, height];
     private SpawnBlock spawnblock;
-
+    private BattleManager battleManager;
 
 
     private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
@@ -20,6 +20,7 @@ public class BlockManager : MonoBehaviour
     void Start()
     {
         spawnblock = FindObjectOfType<SpawnBlock>();
+        battleManager = FindObjectOfType<BattleManager>();
     }
 
     void Update()
@@ -177,7 +178,7 @@ public class BlockManager : MonoBehaviour
                 Destroy(block.gameObject);
             }
 
-            Debug.Log($"Cleared {blocksToClear.Count} blocks of color #{color}");
+            battleManager.ReceColorMessage(color);
 
             yield return new WaitForSeconds(1);
         }
