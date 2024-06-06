@@ -20,7 +20,6 @@ public class BattleManager : MonoBehaviour
 
     public void ReceColorMessage(string colorCode)
     {
-        Debug.Log("Received color code: " + colorCode);
         heroInfo.ExecuteBehavior(colorCode);
     }
 }
