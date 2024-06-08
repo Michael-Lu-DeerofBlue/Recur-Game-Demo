@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Fungus;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,9 +24,10 @@ public class SpawnBlock : MonoBehaviour
         lastSpawnedIndex = Random.Range(0, BlockShapes.Length);
 
         // Instantiate a random Tetromino
-        NewBlock = Instantiate(BlockShapes[lastSpawnedIndex], transform.position, Quaternion.identity);
-        ApplyRandomColor(NewBlock);
-        SpawnGhostBlock();
+
+            NewBlock = Instantiate(BlockShapes[lastSpawnedIndex], transform.position, Quaternion.identity);
+            ApplyRandomColor(NewBlock);
+            SpawnGhostBlock();
     }
 
     public void SpawnGhostBlock()

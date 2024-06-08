@@ -73,7 +73,6 @@ public class BlockManager : MonoBehaviour
                 AddToGrid();
                 CheckForLines();
                 this.enabled = false;
-                FindObjectOfType<SpawnBlock>().SpawnNewBlock();
             }
             previousTime = Time.time;
         }
