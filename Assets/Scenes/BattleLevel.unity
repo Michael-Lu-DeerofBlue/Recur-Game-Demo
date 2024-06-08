@@ -326,11 +326,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 11.2
+  orthographic size: 14.493086
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -355,7 +355,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.99, y: 9.96, z: -10}
+  m_LocalPosition: {x: 25, y: 12, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -455,7 +455,7 @@ Transform:
   m_GameObject: {fileID: 846681391}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.91, y: 17, z: 0}
+  m_LocalPosition: {x: 4.6, y: 22.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -481,11 +481,19 @@ MonoBehaviour:
   - {fileID: 3097495885099341015, guid: 71701b259240be54899ff8595cb2868e, type: 3}
   - {fileID: 5933914586323795205, guid: 35e14fe1033892141a610442035b2896, type: 3}
   - {fileID: 5439442933408414500, guid: 3d628b877c4fadb4fae0613aa46fd339, type: 3}
+  GGhostBlockShapes:
+  - {fileID: 7250696363613272848, guid: 7b2822d0f3fc3f64f924fde0f8f0463d, type: 3}
+  - {fileID: 6198534605848676226, guid: 2a070f2adbeacc14b9141c3241395ffa, type: 3}
+  - {fileID: 4290743320113375981, guid: cc202a4c35391fb4aab6e6fdfad91c41, type: 3}
+  - {fileID: 5322768137652454613, guid: b6762d64efb87fe4d9e18c7bbbefc91c, type: 3}
+  - {fileID: 3097495885099341015, guid: 50cbce7de8106ff4996402b94be67573, type: 3}
+  - {fileID: 5933914586323795205, guid: 002e26c45b0cbe842a2dbcdd8dacb949, type: 3}
+  - {fileID: 5439442933408414500, guid: 9a4edd36daf0e714b9bbc977da883965, type: 3}
   Colors:
   - {r: 0, g: 0.8868499, b: 1, a: 1}
   - {r: 0, g: 1, b: 0.029324532, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0.7877358, g: 0.7599334, b: 0, a: 1}
+  - {r: 0.9103774, g: 0.8786727, b: 0, a: 1}
   - {r: 1, g: 0.52711624, b: 0, a: 1}
   - {r: 0.64118624, g: 0, b: 1, a: 1}
   - {r: 0.0032290807, g: 0, b: 0.759434, a: 1}
@@ -648,8 +656,8 @@ Transform:
   m_GameObject: {fileID: 1120857409}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.42, y: 9.516738, z: 0}
-  m_LocalScale: {x: 10, y: 20, z: 1}
+  m_LocalPosition: {x: 5.16, y: 11.05, z: 0}
+  m_LocalScale: {x: 12, y: 24, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -708,7 +716,7 @@ Transform:
   m_GameObject: {fileID: 1458799458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.03, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -830,6 +838,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
+    - target: {fileID: 2771841317843498016, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.19
+      objectReference: {fileID: 0}
     - target: {fileID: 8789264491275045699, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
       propertyPath: HitPoint
       value: 10
@@ -890,6 +902,10 @@ PrefabInstance:
     - target: {fileID: 5964190630730061655, guid: 2c06ab6eae91c324383fd78353150f3a, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5964190630730061655, guid: 2c06ab6eae91c324383fd78353150f3a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 11.63
       objectReference: {fileID: 0}
     - target: {fileID: 5964190630730061655, guid: 2c06ab6eae91c324383fd78353150f3a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

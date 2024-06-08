@@ -5,24 +5,37 @@ using UnityEngine;
 public class SpawnBlock : MonoBehaviour
 {
     public GameObject[] BlockShapes;
+    public GameObject[] GGhostBlockShapes;
     public Color[] Colors;
-    private GameObject currentBlock;
-
+    private GameObject NewBlock;
+    private GameObject ghostBlock;
+    private int lastSpawnedIndex;
 
     // Start is called before the first frame update
     void Start()
     {
-        NewBlock();
+        SpawnNewBlock();
     }
 
-    public void NewBlock()
+    public void SpawnNewBlock()
     {
+        // Generate a random index
+        lastSpawnedIndex = Random.Range(0, BlockShapes.Length);
+
         // Instantiate a random Tetromino
-        currentBlock = Instantiate(BlockShapes[Random.Range(0, BlockShapes.Length)], transform.position, Quaternion.identity);
-        //currentBlock = Instantiate(BlockShapes[3], transform.position, Quaternion.identity);
-        ApplyRandomColor(currentBlock);
+        NewBlock = Instantiate(BlockShapes[lastSpawnedIndex], transform.position, Quaternion.identity);
+        ApplyRandomColor(NewBlock);
+
+
+        SpawnGhostBlock();
+        ApplyGhostColor(ghostBlock);
     }
 
+    public void SpawnGhostBlock()
+    {
+        ghostBlock = Instantiate(GGhostBlockShapes[lastSpawnedIndex], transform.position, Quaternion.identity);
+        ApplyGhostColor(ghostBlock);
+    }
 
     public void ApplyRandomColor(GameObject block)
     {
@@ -38,4 +51,22 @@ public class SpawnBlock : MonoBehaviour
             renderer.material.color = randomColor;
         }
     }
+    public void ApplyGhostColor(GameObject block)
+    {
+        // Get all Renderer components in the ghost block and its children
+        Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
+
+        // Apply the fixed gray color to each Renderer
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material.color = Color.gray;
+        }
+    }
+
+    // Method to get the last spawned index
+    public int GetLastSpawnedIndex()
+    {
+        return lastSpawnedIndex;
+    }
 }
+

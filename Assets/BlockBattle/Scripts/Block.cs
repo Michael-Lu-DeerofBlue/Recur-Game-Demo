@@ -7,13 +7,13 @@ public class BlockManager : MonoBehaviour
     public Vector3 rotationPoint;
     private float previousTime;
     public float fallTime = 0.8f;
-    public static int height = 20;
-    public static int width = 10;
-    public static int extendedWidth = 15; // Extended width to display blocks moved to the right side
+    public static int height = 24;
+    public static int width = 12;
+    public static int extendedWidth = 17; // Extended width to display blocks moved to the right side
     public static Transform[,] grid = new Transform[extendedWidth, height];
     private SpawnBlock spawnblock;
     private BattleManager battleManager;
-
+    private GhostBlock ghostBlock;
 
     private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
 
@@ -21,6 +21,7 @@ public class BlockManager : MonoBehaviour
     {
         spawnblock = FindObjectOfType<SpawnBlock>();
         battleManager = FindObjectOfType<BattleManager>();
+        ghostBlock = FindObjectOfType<GhostBlock>();
     }
 
     void Update()
@@ -36,7 +37,7 @@ public class BlockManager : MonoBehaviour
                     AddToGrid();
                     CheckForLines();
                     this.enabled = false;
-                    FindObjectOfType<SpawnBlock>().NewBlock();
+                    FindObjectOfType<SpawnBlock>().SpawnNewBlock();
                     break;
                 }
             }
@@ -46,6 +47,8 @@ public class BlockManager : MonoBehaviour
             transform.position += new Vector3(-1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(-1, 0, 0);
+            else
+                ghostBlock.UpdateGhostBlock(transform.position.x); // Update the GhostBlock position
 
         }
         else if (Input.GetKeyDown(KeyCode.D))
@@ -53,6 +56,8 @@ public class BlockManager : MonoBehaviour
             transform.position += new Vector3(1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(1, 0, 0);
+            else
+                ghostBlock.UpdateGhostBlock(transform.position.x); // Update the GhostBlock position
 
         }
         else if (Input.GetKeyDown(KeyCode.W))
@@ -72,7 +77,7 @@ public class BlockManager : MonoBehaviour
                 AddToGrid();
                 CheckForLines();
                 this.enabled = false;
-                FindObjectOfType<SpawnBlock>().NewBlock();
+                FindObjectOfType<SpawnBlock>().SpawnNewBlock();
             }
             previousTime = Time.time;
         }

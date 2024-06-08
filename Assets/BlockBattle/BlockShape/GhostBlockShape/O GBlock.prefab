@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5322768137652454615}
-  - component: {fileID: 5322768137652454612}
+  - component: {fileID: -4264850149004901818}
   m_Layer: 0
-  m_Name: O Tetromino
+  m_Name: O GBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 5322768139326537874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5322768137652454612
+--- !u!114 &-4264850149004901818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,11 +45,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5322768137652454613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b7cba163e0f99348ba1da80c2be9658, type: 3}
+  m_Script: {fileID: 11500000, guid: 5573a8bb03326e14b8ae5a120101d806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationPoint: {x: 0.5, y: 0.5, z: 0}
-  fallTime: 0.8
+  playerControlledBlock: {fileID: 0}
 --- !u!1 &5322768139187291671
 GameObject:
   m_ObjectHideFlags: 0
