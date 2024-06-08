@@ -4,46 +4,72 @@ using UnityEngine;
 
 public class GhostBlock : MonoBehaviour
 {
-    public static int height = 24;
-    public static int width = 12;
-    public static int extendedWidth = 17;
-    public static Transform[,] grid = new Transform[extendedWidth, height];
+    private BlockManager blockManager;
+
+    private void Start()
+    {
+        blockManager = FindObjectOfType<BlockManager>();
+        SetTransparent();
+    }
+
     private void Update()
     {
-        while (true)
+        transform.position += new Vector3(0, -1, 0);
+        if (!ValidMove())
         {
-            transform.position += new Vector3(0, -1, 0);
-            if (!ValidMove())
-            {
-                transform.position -= new Vector3(0, -1, 0);
-                this.enabled = false;
-                break;
-            }
+            SetOpaque();
+            transform.position -= new Vector3(0, -1, 0);
+            this.enabled = false;
         }
     }
+
     public void UpdateGhostBlock(float x)
     {
-        Vector3 newPosition = transform.position;
-        newPosition.x = x;
-        transform.position = newPosition;
+        if (!ValidMove())
+        {
+            transform.position -= new Vector3(x, 0, 0);
+        }
     }
 
     bool ValidMove()
     {
-        foreach (Transform children in transform)
+        foreach (Transform child in transform)
         {
-            int roundedX = Mathf.RoundToInt(children.transform.position.x);
-            int roundedY = Mathf.RoundToInt(children.transform.position.y);
-
-            if (roundedX < 0 || roundedX >= width || roundedY < 0 || roundedY >= height)
+            Vector3 pos = blockManager.RoundVector(child.position);
+            if (!blockManager.IsInsideGrid(pos) || blockManager.IsOccupied(pos))
             {
                 return false;
             }
-
-            if (grid[roundedX, roundedY] != null)
-                return false;
         }
         return true;
     }
+
+    void SetTransparent()
+    {
+        // Get all Renderer components in the ghost block and its children
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        // Set the color to transparent
+        foreach (Renderer renderer in renderers)
+        {
+            Color color = renderer.material.color;
+            color.a = 0.0f; // Set transparency (0 = fully transparent, 1 = fully opaque)
+            renderer.material.color = color;
+        }
+    }
+    void SetOpaque()
+    {
+        // Get all Renderer components in the ghost block and its children
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        // Set the color to fully opaque
+        foreach (Renderer renderer in renderers)
+        {
+            Color color = renderer.material.color;
+            color.a = 1f; // Set transparency to fully opaque
+            renderer.material.color = color;
+        }
+    }
 }
+
 

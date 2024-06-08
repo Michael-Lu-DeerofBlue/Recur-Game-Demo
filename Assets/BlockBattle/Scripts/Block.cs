@@ -37,7 +37,6 @@ public class BlockManager : MonoBehaviour
                     AddToGrid();
                     CheckForLines();
                     this.enabled = false;
-                    FindObjectOfType<SpawnBlock>().SpawnNewBlock();
                     break;
                 }
             }
@@ -47,24 +46,21 @@ public class BlockManager : MonoBehaviour
             transform.position += new Vector3(-1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(-1, 0, 0);
-            else
-                ghostBlock.UpdateGhostBlock(transform.position.x); // Update the GhostBlock position
-
+            FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             transform.position += new Vector3(1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(1, 0, 0);
-            else
-                ghostBlock.UpdateGhostBlock(transform.position.x); // Update the GhostBlock position
-
+            FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             if (!ValidMove())
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+            FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
         }
 
         // Handle block falling over time
@@ -254,6 +250,7 @@ public class BlockManager : MonoBehaviour
                 grid[roundedX, roundedY] = children;
             }
         }
+        FindObjectOfType<SpawnBlock>().SpawnNewBlock();
     }
 
     // Check if the current move is valid
@@ -286,4 +283,5 @@ public class BlockManager : MonoBehaviour
     {
         return position.x >= 0 && position.x < extendedWidth && position.y >= 0 && position.y < height;
     }
+
 }

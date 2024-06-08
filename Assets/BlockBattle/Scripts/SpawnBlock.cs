@@ -25,15 +25,17 @@ public class SpawnBlock : MonoBehaviour
         // Instantiate a random Tetromino
         NewBlock = Instantiate(BlockShapes[lastSpawnedIndex], transform.position, Quaternion.identity);
         ApplyRandomColor(NewBlock);
-
-
         SpawnGhostBlock();
-        ApplyGhostColor(ghostBlock);
     }
 
     public void SpawnGhostBlock()
     {
-        ghostBlock = Instantiate(GGhostBlockShapes[lastSpawnedIndex], transform.position, Quaternion.identity);
+        if (ghostBlock != null)
+        {
+            Destroy(ghostBlock);
+        }
+        ghostBlock = Instantiate(GGhostBlockShapes[lastSpawnedIndex], NewBlock.transform.position, NewBlock.transform.localRotation);
+
         ApplyGhostColor(ghostBlock);
     }
 
