@@ -12,23 +12,40 @@ public class SpawnBlock : MonoBehaviour
     private GameObject ghostBlock;
     private int lastSpawnedIndex;
     public int blockIdCounter;
+    private BlockManager blockManager;
     // Start is called before the first frame update
     void Start()
     {
+        blockManager = FindObjectOfType<BlockManager>();
         SpawnNewBlock();
     }
 
     public void SpawnNewBlock()
     {
-        blockIdCounter++;
-        // Generate a random index
-        lastSpawnedIndex = Random.Range(0, BlockShapes.Length);
+        if (!checkGameEnd())
+        {
+            blockIdCounter++;
+            // Generate a random index
+            lastSpawnedIndex = Random.Range(0, BlockShapes.Length);
 
-        // Instantiate a random Tetromino
+            // Instantiate a random Tetromino
 
             NewBlock = Instantiate(BlockShapes[lastSpawnedIndex], transform.position, Quaternion.identity);
             ApplyRandomColor(NewBlock);
             SpawnGhostBlock();
+        }
+    }
+
+    public bool checkGameEnd()
+    {
+        for (int i = 0; i < 13; i++)
+        {
+            if (BlockManager.grid[i, 23] != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void SpawnGhostBlock()
