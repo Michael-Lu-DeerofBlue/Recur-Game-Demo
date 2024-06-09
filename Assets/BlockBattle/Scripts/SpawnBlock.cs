@@ -11,7 +11,7 @@ public class SpawnBlock : MonoBehaviour
     private GameObject NewBlock;
     private GameObject ghostBlock;
     private int lastSpawnedIndex;
-
+    public int blockIdCounter;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,7 @@ public class SpawnBlock : MonoBehaviour
 
     public void SpawnNewBlock()
     {
+        blockIdCounter++;
         // Generate a random index
         lastSpawnedIndex = Random.Range(0, BlockShapes.Length);
 

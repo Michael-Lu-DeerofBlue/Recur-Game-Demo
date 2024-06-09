@@ -6,7 +6,7 @@ using UnityEngine.UI;  // Make sure to include this namespace
 public class BaseEnemy : MonoBehaviour
 {
     public int HP;
-    public int AttackValue;
+    public int AttackValue = 2;
     public float timeToExecuteTurn;
 
     private float timer;

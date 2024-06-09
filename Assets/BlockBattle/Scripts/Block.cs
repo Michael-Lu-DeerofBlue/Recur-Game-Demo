@@ -14,7 +14,7 @@ public class BlockManager : MonoBehaviour
     private SpawnBlock spawnblock;
     private BattleManager battleManager;
     private GhostBlock ghostBlock;
-
+    public int id; //used to get a id for the block to check for homogenousty
     private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
 
     void Start()
@@ -22,6 +22,7 @@ public class BlockManager : MonoBehaviour
         spawnblock = FindObjectOfType<SpawnBlock>();
         battleManager = FindObjectOfType<BattleManager>();
         ghostBlock = FindObjectOfType<GhostBlock>();
+        id = spawnblock.blockIdCounter;
     }
 
     void Update()
@@ -169,8 +170,9 @@ public class BlockManager : MonoBehaviour
             if (upleftBlock == null) yield break;
 
             string color = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
+            int passedInId = upleftBlock.parent.GetComponent<BlockManager>().id;
             List<Transform> blocksToClear = new List<Transform>();
-            FindConnectedBlocks(upleftBlock, color, blocksToClear);
+            FindConnectedBlocks(upleftBlock, color, passedInId, blocksToClear);
 
             foreach (var block in blocksToClear)
             {
@@ -201,22 +203,24 @@ public class BlockManager : MonoBehaviour
 
 
     // Find all connected blocks with the same color and add them to the list
-    void FindConnectedBlocks(Transform block, string color, List<Transform> blocksToClear)
+    void FindConnectedBlocks(Transform block, string color, int checkId, List<Transform> blocksToClear)
     {
         if (block == null || blocksToClear.Contains(block)) return;
 
         string blockColor = ColorUtility.ToHtmlStringRGBA(block.GetComponent<Renderer>().material.color);
         if (blockColor != color) return;
+        int otherID = block.parent.GetComponent<BlockManager>().id;
+        if (otherID != checkId) return; 
 
         blocksToClear.Add(block);
 
         int x = (int)block.position.x;
         int y = (int)block.position.y;
 
-        if (IsInsideExtendedGrid(new Vector3(x + 1, y, 0))) FindConnectedBlocks(grid[x + 1, y], color, blocksToClear);
-        if (IsInsideExtendedGrid(new Vector3(x - 1, y, 0))) FindConnectedBlocks(grid[x - 1, y], color, blocksToClear);
-        if (IsInsideExtendedGrid(new Vector3(x, y + 1, 0))) FindConnectedBlocks(grid[x, y + 1], color, blocksToClear);
-        if (IsInsideExtendedGrid(new Vector3(x, y - 1, 0))) FindConnectedBlocks(grid[x, y - 1], color, blocksToClear);
+        if (IsInsideExtendedGrid(new Vector3(x + 1, y, 0))) FindConnectedBlocks(grid[x + 1, y], color, checkId, blocksToClear);
+        if (IsInsideExtendedGrid(new Vector3(x - 1, y, 0))) FindConnectedBlocks(grid[x - 1, y], color, checkId, blocksToClear);
+        if (IsInsideExtendedGrid(new Vector3(x, y + 1, 0))) FindConnectedBlocks(grid[x, y + 1], color, checkId, blocksToClear);
+        if (IsInsideExtendedGrid(new Vector3(x, y - 1, 0))) FindConnectedBlocks(grid[x, y - 1], color, checkId, blocksToClear);
     }
 
     // Move rows down after clearing a line
