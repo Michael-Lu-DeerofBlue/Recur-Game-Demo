@@ -36,8 +36,8 @@ public class BaseEnemy : MonoBehaviour
 
     }
 
-
-    void ExecuteTurn()
+    
+    void ExecuteTurn() 
     {
         AttackPlayer();
     }
@@ -57,6 +57,7 @@ public class BaseEnemy : MonoBehaviour
             }
         }
     }
+
 
     public void HitHandle(int damage)
     {

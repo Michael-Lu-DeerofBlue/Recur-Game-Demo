@@ -5,7 +5,8 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     private HeroInfo heroInfo;
-
+    public float Timer;
+    public bool RotationLocked=false;
     // Start is called before the first frame update
     void Start()
     {

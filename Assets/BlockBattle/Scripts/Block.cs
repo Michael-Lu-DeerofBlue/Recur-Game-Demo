@@ -129,7 +129,7 @@ public class BlockManager : MonoBehaviour
         int startX = extendedWidth - 1; // Display on the right side
         int startY = height - 1;
 
-      
+
         List<Transform> blocks = new List<Transform>();
         for (int j = 0; j < width; j++)
         {
@@ -141,7 +141,7 @@ public class BlockManager : MonoBehaviour
             }
         }
 
-        
+
         for (int k = 0; k < blocks.Count; k++)
         {
             Transform block = blocks[k];
@@ -214,7 +214,7 @@ public class BlockManager : MonoBehaviour
         string blockColor = ColorUtility.ToHtmlStringRGBA(block.GetComponent<Renderer>().material.color);
         if (blockColor != color) return;
         int otherID = block.parent.GetComponent<BlockManager>().id;
-        if (otherID != checkId) return; 
+        if (otherID != checkId) return;
 
         blocksToClear.Add(block);
 
