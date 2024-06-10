@@ -32,6 +32,10 @@ public class BlockManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
         {
+            if(battleManager.RotationLocked == true)
+            {
+                return;
+            }
             while (true)
             {
                 transform.position += new Vector3(0, -1, 0);
