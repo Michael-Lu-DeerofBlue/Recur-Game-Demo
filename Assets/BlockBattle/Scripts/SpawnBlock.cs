@@ -18,7 +18,7 @@ public class SpawnBlock : MonoBehaviour
     public bool SettedColors;
     // Start is called before the first frame update
 
-    public void SpawnNewBlock(int blockIndex, Color color)
+    public void SpawnNewBlock(int blockIndex, Color color, int colorCode)
     {
         if (!checkGameEnd())
         {
@@ -27,6 +27,7 @@ public class SpawnBlock : MonoBehaviour
             NewBlock = Instantiate(BlockShapes[lastSpawnedIndex], transform.position, Quaternion.identity);
             ApplySetColor(NewBlock, color);
             NewBlock.GetComponent<BlockStageController>().inFall = true;
+            NewBlock.GetComponent<BlockManager>().colorId = colorCode;
             SpawnGhostBlock();
         }
     }

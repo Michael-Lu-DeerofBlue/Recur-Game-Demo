@@ -18,8 +18,8 @@ public class BattleManager : MonoBehaviour
 
     }
 
-    public void ReceColorMessage(string colorCode)
+    public void ReceColorMessage(int colorCode, int clearNumber)
     {
-        heroInfo.ExecuteBehavior(colorCode);
+        heroInfo.ExecuteBehavior(colorCode, clearNumber);
     }
 }

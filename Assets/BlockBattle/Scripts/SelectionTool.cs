@@ -38,7 +38,7 @@ public class SelectionTool : MonoBehaviour
         threeBlockList = DrawRandomIntegers(blockList, 3);
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
         Color color = Translator.GetComponent<IntTranslator>().intToColor(actionBlockDictionary[index]);
-        Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color);
+        Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color, actionBlockDictionary[index]);
     }
 
     List<int> DrawRandomIntegers(List<int> list, int count)

@@ -17,7 +17,7 @@ public class BlockManager : MonoBehaviour
     public int id; //used to get a id for the block to check for homogenousty
     private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
     private SelectionTool selectionToolProcessor;
-
+    public int colorId;
 
     void Start()
     {
@@ -173,6 +173,7 @@ public class BlockManager : MonoBehaviour
             if (upleftBlock == null) yield break;
 
             string color = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
+            int colorCode = upleftBlock.parent.GetComponent<BlockManager>().colorId;
             int passedInId = upleftBlock.parent.GetComponent<BlockManager>().id;
             List<Transform> blocksToClear = new List<Transform>();
             FindConnectedBlocks(upleftBlock, color, passedInId, blocksToClear);
@@ -183,7 +184,7 @@ public class BlockManager : MonoBehaviour
                 Destroy(block.gameObject);
             }
 
-            battleManager.ReceColorMessage(color);
+            battleManager.ReceColorMessage(colorCode, blocksToClear.Count);
 
             yield return new WaitForSeconds(1);
         }

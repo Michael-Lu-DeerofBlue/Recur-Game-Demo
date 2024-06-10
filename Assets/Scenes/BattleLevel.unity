@@ -1242,7 +1242,7 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 0, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
   - {r: 0.62352943, g: 0, b: 1, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.4712171, b: 0, a: 1}
   - {r: 0, g: 0.85882354, b: 1, a: 1}
   - {r: 0, g: 0, b: 0.47843137, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
@@ -2014,7 +2014,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789264491275045699, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
       propertyPath: AttackValue
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789264491275045699, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
+      propertyPath: MaxHitPoint
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2040,7 +2044,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 354621656185459444, guid: 2c06ab6eae91c324383fd78353150f3a, type: 3}
       propertyPath: HP
-      value: 15
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 354621656185459444, guid: 2c06ab6eae91c324383fd78353150f3a, type: 3}
       propertyPath: AttackValue
@@ -2048,7 +2052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 354621656185459444, guid: 2c06ab6eae91c324383fd78353150f3a, type: 3}
       propertyPath: timeToExecuteTurn
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4444360017635078992, guid: 2c06ab6eae91c324383fd78353150f3a, type: 3}
       propertyPath: m_LocalScale.x

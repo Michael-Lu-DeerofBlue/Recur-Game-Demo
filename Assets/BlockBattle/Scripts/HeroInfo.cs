@@ -23,37 +23,139 @@ public class HeroInfo : MonoBehaviour
 
     }
 
-    public void ExecuteBehavior(string behavior)
+    public void ExecuteBehavior(int colorCode, int clearNumber)
     {
-        //switch (behavior)
-        //{
-        //    case "0010FFFF":
-        //        Debug.Log("Executing Blue Behavior");
-        //        break;
-        //    case "00FF07FF":
-        //        Debug.Log("Executing Green Behavior");
-        //        break;
-        //    case "FF0000FF":
-        //        Debug.Log("Executing Red Behavior");
-        //        break;
-        //    case "C9C200FF":
-        //        Debug.Log("Executing Yellow Behavior");
-        //        break;
-        //    case "FF8600FF":
-        //        Debug.Log("Executing Orange Behavior");
-        //        break;
-        //    case "A400FFFF":
-        //        Debug.Log("Executing Purple Behavior");
-        //        break;
-        //    case "0100C2FF":
-        //        Debug.Log("Executing Dark Blue Behavior");
-        //        break;
-        //    default:
-        //        Debug.Log("Unknown behavior");
-        //        break;
-        //}
-        AttackEnemy();
+        switch (colorCode)
+        {
+            case 0:
+                LightAttack(clearNumber);
+                //Debug.Log("Executing Red Behavior, Clear " + clearNumber);
+                break;
+            case 1:
+                //Debug.Log("Executing Yellow Behavior, Clear " + clearNumber);
+                break;
+            case 2:
+                Heal(clearNumber);
+                //Debug.Log("Executing Green Behavior, Clear " + clearNumber);
+                break;
+            case 3:
+                //Debug.Log("Executing Purple Behavior, Clear " + clearNumber);
+                break;
+            case 4:
+                HeavyAttack(clearNumber);
+                //Debug.Log("Executing Blue Behavior, Clear " + clearNumber);
+                break;
+            case 5:
+                SpUlt(clearNumber);
+                //Debug.Log("Executing Light Blue Behavior, Clear " + clearNumber);
+                break;
+            case 6:
+                //Debug.Log("Executing Dark Blue Behavior, Clear " + clearNumber);
+                break;
+            default:
+                //Debug.Log("Unknown behavior, Clear " + clearNumber);
+                break;
+        }
+        
     }
+
+    public void LightAttack(int clearNumber)
+    {
+        int value;
+        switch (clearNumber)
+        {
+            case 1:
+                value = 1;
+                break;
+            case 2:
+                value = 2;
+                break;
+            case 3:
+                value = 3;
+                break;
+            case 4:
+                value = 5;
+                break;
+            default:
+                value = 0;
+                break;
+        }
+        AttackEnemy(value);
+    }
+
+    public void HeavyAttack(int clearNumber)
+    {
+        int value;
+        switch (clearNumber)
+        {
+            case 1:
+                value = 3;
+                break;
+            case 2:
+                value = 4;
+                break;
+            case 3:
+                value = 5;
+                break;
+            case 4:
+                value = 8;
+                break;
+            default:
+                value = 0;
+                break;
+        }
+        AttackEnemy(value);
+    }
+
+    public void SpUlt(int clearNumber)
+    {
+        int value;
+        switch (clearNumber)
+        {
+            case 1:
+                value = 1;
+                break;
+            case 2:
+                value = 1;
+                break;
+            case 3:
+                value = 1;
+                break;
+            case 4:
+                value = 10;
+                break;
+            default:
+                value = 0;
+                break;
+        }
+        AttackEnemy(value);
+    }
+
+    public void Heal(int clearNumber)
+    {
+        int value;
+        switch (clearNumber)
+        {
+            case 1:
+                value = 2;
+                break;
+            case 2:
+                value = 3;
+                break;
+            case 3:
+                value = 4;
+                break;
+            case 4:
+                value = 5;
+                break;
+            default:
+                value = 0;
+                break;
+        }
+        HitHandle(-value);
+    }
+
+
 
     public void HitHandle(int damage)
     {
@@ -67,7 +169,7 @@ public class HeroInfo : MonoBehaviour
         }
     }
 
-    void AttackEnemy()
+    void AttackEnemy(int value)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -76,7 +178,7 @@ public class HeroInfo : MonoBehaviour
             BaseEnemy enemy = enemies[0].GetComponent<BaseEnemy>();
             if (enemy != null)
             {
-                enemy.HitHandle(AttackValue);
+                enemy.HitHandle(value);
             }
         }
         else if (enemies.Length > 1)
