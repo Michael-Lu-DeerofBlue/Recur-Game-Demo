@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class HeroInfo : MonoBehaviour
 {
@@ -9,10 +10,11 @@ public class HeroInfo : MonoBehaviour
     public int AttackValue;
     private float MaxWeight;
     public string WeaponType;
+    public TextMeshPro Hp;
     // Start is called before the first frame update
     void Start()
     {
-
+        Hp.text = "HP: " + HitPoint.ToString();
     }
 
     // Update is called once per frame
@@ -56,6 +58,7 @@ public class HeroInfo : MonoBehaviour
     public void HitHandle(int damage)
     {
         HitPoint -= damage;
+        Hp.text = "HP: " + HitPoint.ToString();
         Debug.Log("Player is hit. HP: " + HitPoint);
         if (HitPoint <= 0)
         {

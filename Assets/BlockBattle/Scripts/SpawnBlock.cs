@@ -5,33 +5,28 @@ using UnityEngine;
 
 public class SpawnBlock : MonoBehaviour
 {
+    public Dictionary<GameObject, Color> heroBlocks = new Dictionary<GameObject, Color>();
+    public Dictionary<GameObject, GameObject> ghosthBlocksDictionary = new Dictionary<GameObject, GameObject>();
     public GameObject[] BlockShapes;
     public GameObject[] GGhostBlockShapes;
-    public Color[] Colors;
+    public Color[] SetColors;
+    public Color[] RandomColors;
     private GameObject NewBlock;
     private GameObject ghostBlock;
     private int lastSpawnedIndex;
     public int blockIdCounter;
-    private BlockManager blockManager;
+    public bool SettedColors;
     // Start is called before the first frame update
-    void Start()
-    {
-        blockManager = FindObjectOfType<BlockManager>();
-        SpawnNewBlock();
-    }
 
-    public void SpawnNewBlock()
+    public void SpawnNewBlock(int blockIndex, Color color)
     {
         if (!checkGameEnd())
         {
             blockIdCounter++;
-            // Generate a random index
-            lastSpawnedIndex = Random.Range(0, BlockShapes.Length);
-
-            // Instantiate a random Tetromino
-
+            lastSpawnedIndex = blockIndex;
             NewBlock = Instantiate(BlockShapes[lastSpawnedIndex], transform.position, Quaternion.identity);
-            ApplyRandomColor(NewBlock);
+            ApplySetColor(NewBlock, color);
+            NewBlock.GetComponent<BlockStageController>().inFall = true;
             SpawnGhostBlock();
         }
     }
@@ -59,10 +54,19 @@ public class SpawnBlock : MonoBehaviour
         ApplyGhostColor(ghostBlock);
     }
 
+    public void ApplySetColor(GameObject block, Color color)
+    {
+        Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material.color = color;
+        }
+    }
+
     public void ApplyRandomColor(GameObject block)
     {
         // Choose a random color from the Colors array
-        Color randomColor = Colors[Random.Range(0, Colors.Length)];
+        Color randomColor = RandomColors[Random.Range(0, RandomColors.Length)];
 
         // Get all Renderer components in the Tetromino and its children
         Renderer[] renderers = block.GetComponentsInChildren<Renderer>();

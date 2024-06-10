@@ -16,9 +16,12 @@ public class BlockManager : MonoBehaviour
     private GhostBlock ghostBlock;
     public int id; //used to get a id for the block to check for homogenousty
     private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
+    private SelectionTool selectionToolProcessor;
+
 
     void Start()
     {
+        selectionToolProcessor = FindObjectOfType<SelectionTool>();
         spawnblock = FindObjectOfType<SpawnBlock>();
         battleManager = FindObjectOfType<BattleManager>();
         ghostBlock = FindObjectOfType<GhostBlock>();
@@ -253,7 +256,8 @@ public class BlockManager : MonoBehaviour
                 grid[roundedX, roundedY] = children;
             }
         }
-        FindObjectOfType<SpawnBlock>().SpawnNewBlock();
+        selectionToolProcessor.GetComponent<SelectionTool>().stillFalling = false;
+        //FindObjectOfType<SpawnBlock>().SpawnNewBlock(1);
     }
 
     // Check if the current move is valid
