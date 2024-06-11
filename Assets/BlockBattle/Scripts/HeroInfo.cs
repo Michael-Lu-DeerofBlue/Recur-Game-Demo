@@ -169,7 +169,7 @@ public class HeroInfo : MonoBehaviour
         }
     }
 
-    void AttackEnemy(int value)
+    public void AttackEnemy(int value)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 

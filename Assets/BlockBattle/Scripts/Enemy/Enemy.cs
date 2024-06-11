@@ -16,10 +16,10 @@ public abstract class Enemy : MonoBehaviour
 
     public void Start()
     {
-        timer = timeToExecuteTurn;
         enemyInfoText = GameObject.Find("EnemyInfoText").GetComponent<Text>();
         hero = GameObject.Find("Hero");
         battleManager = FindObjectOfType<BattleManager>();
+        GetNextMove();//get casting time for the first turn.
     }
     public void Update()
     {
@@ -35,9 +35,18 @@ public abstract class Enemy : MonoBehaviour
 
     }
 
-    public virtual void ExecuteTurn()
+    public virtual void ExecuteTurn()//all enemy will get casting time before they spend skill.
     {
-        Attack(AttackValue);
+        ExecuteSkill();
+        GetNextMove();
+    }
+
+    public virtual void ExecuteSkill()
+    {
+
+    }
+    public virtual void GetNextMove()
+    {
     }
 
     public void Attack(int Damage)
@@ -60,19 +69,17 @@ public abstract class Enemy : MonoBehaviour
     public void LockRotation()
     {
         // Access the BattleManager instance and set LockRotation to true
-        battleManager.RotationLocked = true;
-        StartCoroutine(ResetLockRotation());
+        battleManager.LockRotation();
     }
-    private IEnumerator ResetLockRotation()
+
+    public void LockRotationForNextBlock()
     {
-        // Wait for 3 seconds
-        yield return new WaitForSeconds(3);
-        // Reset LockRotation to false
-        battleManager.RotationLocked = false;
+        // Access the BattleManager instance and set LockRotation to true
+        battleManager.LockRotationForNextBlock();
     }
 
 
-    public void HitHandle(int damage)
+    public virtual void HitHandle(int damage)
     {
         HP -= damage;
         Debug.Log("Enemy is hit. HP: " + HP);
@@ -83,5 +90,11 @@ public abstract class Enemy : MonoBehaviour
             Destroy(gameObject);  // Destroy the enemy object if HP is zero or less
         }
     }
+    public void RefreshChoiceSectionBlock()
+    {
+        // Access the BattleManager instance and set LockRotation to true
+        battleManager.refreshSelectionBlocks();
+    }
+
 
 }

@@ -6,32 +6,58 @@ using UnityEngine;
 
 public class CorruptedCanva : Enemy
 {
-    public int attackdamage = 2;
-    public int OrruptingWindDamage = 2;
+    public int attackDamage = 2;
+    public int corruptingWindDamage = 2;
     public int attackWeight = 2;
-    public int PaintingSplashWeight = 1;
+    public int paintingSplashWeight = 1;
     public int corruptingWindWeight = 1;
+    public float attackCastingTime = 8;
+    public float splashCastingTime = 10;
+    public float corruptingWindCastingTime = 10;
 
-    public override void ExecuteTurn()
+    private enum SkillType { Attack, PaintingSplash, CorruptingWind }
+    private SkillType nextSkill;
+
+    public override void ExecuteSkill()
     {
-        int sum = attackWeight + PaintingSplashWeight + corruptingWindWeight;
+        RefreshChoiceSectionBlock();
+        //switch (nextSkill)
+        //{
+        //    case SkillType.Attack:
+        //        Attack(attackDamage);
+        //        break;
+        //    case SkillType.PaintingSplash:
+        //        LockRotation();
+        //        break;
+        //    case SkillType.CorruptingWind:
+        //        Attack(corruptingWindDamage);
+        //        LockRotationForNextBlock();
+        //        break;
+        //}
+    }
+
+    public override void GetNextMove()
+    {
+        int sum = attackWeight + paintingSplashWeight + corruptingWindWeight;
         float attackProbability = (float)attackWeight / sum;
-        float paintingSplashProbability = (float)PaintingSplashWeight / sum;
+        float paintingSplashProbability = (float)paintingSplashWeight / sum;
         float corruptingWindProbability = (float)corruptingWindWeight / sum;
         float randomValue = Random.value;
+
         if (randomValue < attackProbability)
         {
-             Attack(attackdamage);  // Attack action
+            timer = attackCastingTime;  // Attack action
+            nextSkill = SkillType.Attack;
         }
         else if (randomValue < attackProbability + paintingSplashProbability)
         {
-            LockRotation();  // PaintingSplash action
+            timer = splashCastingTime;  // PaintingSplash action
+            nextSkill = SkillType.PaintingSplash;
         }
         else
         {
-            Attack(OrruptingWindDamage);
-            Debug.Log("LockRatationforNextBlock");// CorruptingWind action
+            timer = corruptingWindCastingTime;  // CorruptingWind action
+            nextSkill = SkillType.CorruptingWind;
         }
     }
 }
-    // Start is called before the first frame update

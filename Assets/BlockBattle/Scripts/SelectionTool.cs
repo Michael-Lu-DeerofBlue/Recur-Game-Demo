@@ -58,4 +58,7 @@ public class SelectionTool : MonoBehaviour
 
         return result;
     }
+    public void refreshSelectionBlocks()
+    {
+    }
 }

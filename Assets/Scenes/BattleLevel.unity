@@ -167,6 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ab4931b0a06554eb027f2373c684f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Timer: 0
+  LockNextBlockRotation: 0
+  RotationLocked: 0
+  selectionTool: {fileID: 0}
 --- !u!1 &301493627
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +184,7 @@ GameObject:
   m_Layer: 0
   m_Name: SelectionTool
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
@@ -1324,6 +1328,14 @@ MonoBehaviour:
   enemyInfoText: {fileID: 0}
   timer: 10
   hero: {fileID: 0}
+  attackDamage: 2
+  corruptingWindDamage: 2
+  attackWeight: 2
+  paintingSplashWeight: 1
+  corruptingWindWeight: 1
+  attackCastingTime: 8
+  splashCastingTime: 10
+  corruptingWindCastingTime: 10
 --- !u!1 &1413046380
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,10 +32,6 @@ public class BlockManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
         {
-            if(battleManager.RotationLocked == true)
-            {
-                return;
-            }
             while (true)
             {
                 transform.position += new Vector3(0, -1, 0);
@@ -65,6 +61,10 @@ public class BlockManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
+            if (battleManager.RotationLocked == true)
+            {
+                return;
+            }
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             if (!ValidMove())
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);

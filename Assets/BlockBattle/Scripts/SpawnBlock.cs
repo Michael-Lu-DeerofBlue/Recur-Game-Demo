@@ -16,7 +16,12 @@ public class SpawnBlock : MonoBehaviour
     private int lastSpawnedIndex;
     public int blockIdCounter;
     public bool SettedColors;
+    private BattleManager battleManager;
     // Start is called before the first frame update
+    void Start()
+    {
+        battleManager = FindObjectOfType<BattleManager>(); // Initialize battleManager
+    }
 
     public void SpawnNewBlock(int blockIndex, Color color, int colorCode)
     {
@@ -28,6 +33,11 @@ public class SpawnBlock : MonoBehaviour
             ApplySetColor(NewBlock, color);
             NewBlock.GetComponent<BlockStageController>().inFall = true;
             NewBlock.GetComponent<BlockManager>().colorId = colorCode;
+            if (battleManager.LockNextBlockRotation)
+            {
+                battleManager.RotationLocked = true; // set the bool instead of method, aviod to reset in 3 seconds.
+                battleManager.LockNextBlockRotation = false; // Reset the flag
+            }
             SpawnGhostBlock();
         }
     }
