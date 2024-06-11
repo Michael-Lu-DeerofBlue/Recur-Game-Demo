@@ -20,21 +20,21 @@ public class CorruptedCanva : Enemy
 
     public override void ExecuteSkill()
     {
-        DropDownblock(5);
-        //RefreshChoiceSectionBlock(); 这个交给你了！！！！！！！！！！！！！！！！！！！！
-        //switch (nextSkill)
-        //{
-        //    case SkillType.Attack:
-        //        Attack(attackDamage);
-        //        break;
-        //    case SkillType.PaintingSplash:
-        //        LockRotation();
-        //        break;
-        //    case SkillType.CorruptingWind:
-        //        Attack(corruptingWindDamage);
-        //        LockRotationForNextBlock();
-        //        break;
-        //}
+
+        //RefreshChoiceSectionBlock(); //这个交给你了！！！！！！！！！！！！！！！！！！！！
+        switch (nextSkill)
+        {
+            case SkillType.Attack:
+                Attack(attackDamage);
+                break;
+            case SkillType.PaintingSplash:
+                DropDownblock(3);
+                break;
+            case SkillType.CorruptingWind:
+                Attack(corruptingWindDamage);
+                LockRotationForNextBlock();
+                break;
+        }
     }
 
     public override void GetNextMove()
