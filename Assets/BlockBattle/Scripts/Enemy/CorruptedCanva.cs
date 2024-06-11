@@ -47,17 +47,17 @@ public class CorruptedCanva : Enemy
 
         if (randomValue < attackProbability)
         {
-            timer = attackCastingTime;  // Attack action
+            SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
         }
         else if (randomValue < attackProbability + paintingSplashProbability)
         {
-            timer = splashCastingTime;  // PaintingSplash action
+            SkillCastingTime = splashCastingTime;  // PaintingSplash action
             nextSkill = SkillType.PaintingSplash;
         }
         else
         {
-            timer = corruptingWindCastingTime;  // CorruptingWind action
+            SkillCastingTime = corruptingWindCastingTime;  // CorruptingWind action
             nextSkill = SkillType.CorruptingWind;
         }
     }

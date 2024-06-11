@@ -126,4 +126,10 @@ public class BattleManager : MonoBehaviour
     {
         selectionTool= FindObjectOfType<SelectionTool>();
     }
+
+    public void ResetEnemyActionBar()
+    {
+        Enemy enemy = FindObjectOfType<Enemy>();//for now, we only have one enemy in default, have to modify that after we have method to choice enmey target.
+        enemy.ResetCasting();
+    }
 }

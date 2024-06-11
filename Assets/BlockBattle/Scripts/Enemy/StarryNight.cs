@@ -63,22 +63,22 @@ public class StarryNight : Enemy
 
             if (randomValue < attackProbability)
             {
-                timer = attackCastingTime;  // Attack action
+                SkillCastingTime = attackCastingTime;  // Attack action
                 nextSkill = SkillType.Attack;
             }
             else if (randomValue < attackProbability + paintingSplashProbability)
             {
-                timer = splashCastingTime;  // PaintingSplash action
+                SkillCastingTime = splashCastingTime;  // PaintingSplash action
                 nextSkill = SkillType.PaintingSplash;
             }
             else if (randomValue < attackProbability + paintingSplashProbability + GazeStarsProbability)
             {
-                timer = GazeStarsCastingtime;  // GazeStars action
+                SkillCastingTime = GazeStarsCastingtime;  // GazeStars action
                 nextSkill = SkillType.GazeStars;
             }
             else if (randomValue <= attackProbability + paintingSplashProbability + GazeStarsProbability + CorruptionProbability)
             {
-                timer = corruptionCastingTime;  // Corruption action
+                SkillCastingTime = corruptionCastingTime;  // Corruption action
                 nextSkill = SkillType.corruption;
                 StartChargingCorruption();
             }

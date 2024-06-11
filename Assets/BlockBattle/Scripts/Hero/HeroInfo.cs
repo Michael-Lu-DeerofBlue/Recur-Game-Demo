@@ -11,6 +11,7 @@ public class HeroInfo : MonoBehaviour
     private float MaxWeight;
     public TextMeshPro Hp;
     BattleManager battleManager;
+    public int parryCount=0;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +55,11 @@ public class HeroInfo : MonoBehaviour
 
     public virtual void HitHandle(int damage)
     {
+       if(parryCount > 0)
+        {
+            parryCount--;
+            return;
+        }
         HitPoint -= damage;
         Hp.text = "HP: " + HitPoint.ToString();
         Debug.Log("Player is hit. HP: " + HitPoint);
@@ -64,13 +70,18 @@ public class HeroInfo : MonoBehaviour
         }
     }
 
+    public virtual void parry(int turnnumber)
+    {
+        parryCount+= turnnumber;
+    }
+
     public virtual void AttackEnemy(int value)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         if (enemies.Length == 1)
         {
-            BaseEnemy enemy = enemies[0].GetComponent<BaseEnemy>();
+            Enemy enemy = enemies[0].GetComponent<Enemy>();
             if (enemy != null)
             {
                 enemy.HitHandle(value);
@@ -82,16 +93,47 @@ public class HeroInfo : MonoBehaviour
         }
     }
 
+
+    public virtual void Zornhauy(int damagevalue)
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        if (enemies.Length > 1)
+        {
+            Enemy enemy = enemies[0].GetComponent<Enemy>();
+            //assume we select the first enemy
+            if (enemy != null)
+            {
+                if (damagevalue < enemy.HP)
+                {
+                    enemy.HitHandle(damagevalue);
+                }else
+                {
+                    Debug.Log("play can choice target and repeat");
+                }
+            }
+        }
+
+    }
+
     public virtual void Heal(int number)
     {
         HitPoint += number;
         Hp.text = "HP: " + HitPoint.ToString();
         Debug.Log("Player is healed. HP: " + HitPoint);
     }
+
+
     public virtual void PauseEnemyActionBar(float Delay)
     {
         battleManager.PuaseEnemyActionBar(Delay);
     }
+
+    public virtual void resetEnemyActionBar()
+    {
+        battleManager.ResetEnemyActionBar();
+    }
+
 
     public virtual void HandleIndex0(int clearNumber)
     {

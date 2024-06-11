@@ -52,7 +52,7 @@ public class LongSword : HeroInfo
         }
     }
 
-    public override void HandleIndex2(int clearNumber) // 2: Blue
+    public override void HandleIndex2(int clearNumber) // 2: orange
     {
         switch (clearNumber)
         {
@@ -73,7 +73,7 @@ public class LongSword : HeroInfo
         }
     }
 
-    public override void HandleIndex3(int clearNumber) // 3: Yellow
+    public override void HandleIndex3(int clearNumber) // 3: Dblue
     {
         switch (clearNumber)
         {
@@ -95,21 +95,22 @@ public class LongSword : HeroInfo
         }
     }
 
-    public override void HandleIndex4(int clearNumber) // 4: Purple
+    public override void HandleIndex4(int clearNumber) // 4: purple
     {
         switch (clearNumber)
         {
             case 1:
-                // Add your logic for Index 4, clearNumber 1 here
+                AttackEnemy(2);
                 break;
             case 2:
-                // Add your logic for Index 4, clearNumber 2 here
+                AttackEnemy(3);
                 break;
             case 3:
-                // Add your logic for Index 4, clearNumber 3 here
+                AttackEnemy(4);
                 break;
             case 4:
-                // Add your logic for Index 4, clearNumber 4 here
+                AttackEnemy(14);
+                resetEnemyActionBar();
                 break;
             default:
                 // Handle unexpected clearNumber here
@@ -117,21 +118,21 @@ public class LongSword : HeroInfo
         }
     }
 
-    public override void HandleIndex5(int clearNumber) // 5: Orange
+    public override void HandleIndex5(int clearNumber) // 5: Yellow
     {
         switch (clearNumber)
         {
             case 1:
-                // Add your logic for Index 5, clearNumber 1 here
+                parry(1);
                 break;
             case 2:
-                // Add your logic for Index 5, clearNumber 2 here
+                parry(1);
                 break;
             case 3:
-                // Add your logic for Index 5, clearNumber 3 here
+                parry(2);
                 break;
             case 4:
-                // Add your logic for Index 5, clearNumber 4 here
+                parry(2);
                 break;
             default:
                 // Handle unexpected clearNumber here
@@ -139,21 +140,21 @@ public class LongSword : HeroInfo
         }
     }
 
-    public override void HandleIndex6(int clearNumber) // 6: Dark blue
+    public override void HandleIndex6(int clearNumber) // 6: Lblue
     {
         switch (clearNumber)
         {
             case 1:
-                // Add your logic for Index 6, clearNumber 1 here
+                AttackEnemy(1);
                 break;
             case 2:
-                // Add your logic for Index 6, clearNumber 2 here
+                AttackEnemy(1);
                 break;
             case 3:
-                // Add your logic for Index 6, clearNumber 3 here
+                AttackEnemy(1);
                 break;
             case 4:
-                // Add your logic for Index 6, clearNumber 4 here
+                Zornhauy(10);
                 break;
             default:
                 // Handle unexpected clearNumber here

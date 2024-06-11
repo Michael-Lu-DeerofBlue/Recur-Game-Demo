@@ -8,7 +8,7 @@ public abstract class Enemy : MonoBehaviour
 {
     public int HP;
     public int AttackValue;
-    public float timeToExecuteTurn;
+    public float SkillCastingTime;
     public Text enemyInfoText;
     public float timer;
     public GameObject hero;// Start is called before the first frame update
@@ -32,8 +32,6 @@ public abstract class Enemy : MonoBehaviour
         if (timer <= 0)
         {
             ExecuteTurn();
-
-            timer = timeToExecuteTurn;
         }
 
         enemyInfoText.text = "HP: " + HP + "\nTime to Execute Turn: " + timer.ToString("F2");
@@ -44,6 +42,7 @@ public abstract class Enemy : MonoBehaviour
     {
         ExecuteSkill();
         GetNextMove();
+        timer = SkillCastingTime;
     }
 
     public virtual void ExecuteSkill()
@@ -52,6 +51,12 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void GetNextMove()
     {
+    }
+
+    public virtual void ResetCasting()
+    {
+        // timetoExecuteTurn = skillcastingtime; view in child class
+        timer = SkillCastingTime;
     }
 
     public void Attack(int Damage)
@@ -104,6 +109,5 @@ public abstract class Enemy : MonoBehaviour
         // Access the BattleManager instance and set LockRotation to true
         battleManager.refreshSelectionBlocks();
     }
-
 
 }
