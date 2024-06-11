@@ -74,20 +74,7 @@ public class SpawnBlock : MonoBehaviour
         }
     }
 
-    public void ApplyRandomColor(GameObject block)
-    {
-        // Choose a random color from the Colors array
-        Color randomColor = RandomColors[Random.Range(0, RandomColors.Length)];
 
-        // Get all Renderer components in the Tetromino and its children
-        Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
-
-        // Apply the random color to each Renderer
-        foreach (Renderer renderer in renderers)
-        {
-            renderer.material.color = randomColor;
-        }
-    }
     public void ApplyGhostColor(GameObject block)
     {
         // Get all Renderer components in the ghost block and its children

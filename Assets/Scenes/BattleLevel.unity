@@ -168,9 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Timer: 0
-  LockNextBlockRotation: 0
-  RotationLocked: 0
   selectionTool: {fileID: 0}
+  inttranslator: {fileID: 0}
+  RotationLocked: 0
+  LockNextBlockRotation: 0
 --- !u!1 &301493627
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +633,7 @@ MonoBehaviour:
   RandomColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.47058824, b: 0, a: 1}
   - {r: 0.62347794, g: 0, b: 1, a: 1}
   - {r: 0.9986727, g: 1, b: 0, a: 1}
   - {r: 0, g: 0, b: 0.47798735, a: 1}
@@ -1243,12 +1244,12 @@ MonoBehaviour:
   - {fileID: 5439442933408414500, guid: 9a4edd36daf0e714b9bbc977da883965, type: 3}
   Colors:
   - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0.62352943, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0.4712171, b: 0, a: 1}
-  - {r: 0, g: 0.85882354, b: 1, a: 1}
-  - {r: 0, g: 0, b: 0.47843137, a: 1}
+  - {r: 0, g: 1, b: 0.12514448, a: 1}
+  - {r: 1, g: 0.51329076, b: 0, a: 1}
+  - {r: 0, g: 0.045587063, b: 1, a: 1}
+  - {r: 0.6843219, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0.93330204, b: 0, a: 1}
+  - {r: 0.3443396, g: 0.75618017, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1169557503
 Transform:
@@ -1936,6 +1937,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2007681605 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1768124912416172449, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
+  m_PrefabInstance: {fileID: 2795398999488416898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2007681606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007681605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8574c27ec5f27f54692800446820f615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HitPoint: 15
+  MaxHitPoint: 15
+  AttackValue: 2
+  WeaponType: LongSword
+  Hp: {fileID: 0}
 --- !u!1 &2011669567
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,7 +2078,8 @@ PrefabInstance:
       propertyPath: MaxHitPoint
       value: 20
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8789264491275045699, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1704203129995938973, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
@@ -2067,7 +2091,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1704203129995938973, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1938741491}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1768124912416172449, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2007681606}
   m_SourcePrefab: {fileID: 100100000, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
 --- !u!1001 &5679960003010254864
 PrefabInstance:

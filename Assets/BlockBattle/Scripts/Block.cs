@@ -175,7 +175,6 @@ public class BlockManager : MonoBehaviour
         {
             Transform upleftBlock = FindUpleftBlock();
             if (upleftBlock == null) yield break;
-
             string color = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
             int colorCode = upleftBlock.parent.GetComponent<BlockManager>().colorId;
             int passedInId = upleftBlock.parent.GetComponent<BlockManager>().id;
@@ -188,7 +187,7 @@ public class BlockManager : MonoBehaviour
                 Destroy(block.gameObject);
             }
 
-            battleManager.ReceColorMessage(colorCode, blocksToClear.Count);
+            battleManager.ReceColorMessage(color, blocksToClear.Count);
 
             yield return new WaitForSeconds(1);
         }
@@ -296,4 +295,20 @@ public class BlockManager : MonoBehaviour
         return position.x >= 0 && position.x < extendedWidth && position.y >= 0 && position.y < height;
     }
 
+
+    public void DropDown()
+    {
+        while (true)
+        {
+            transform.position += new Vector3(0, -1, 0);
+            if (!ValidMove())
+            {
+                transform.position -= new Vector3(0, -1, 0);
+                AddToGrid();
+                CheckForLines();
+                this.enabled = false;
+                break;
+            }
+        }
+    }
 }

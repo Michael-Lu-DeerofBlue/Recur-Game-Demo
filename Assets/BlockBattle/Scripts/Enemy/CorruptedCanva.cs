@@ -20,7 +20,8 @@ public class CorruptedCanva : Enemy
 
     public override void ExecuteSkill()
     {
-        RefreshChoiceSectionBlock();
+        DropDownblock(5);
+        //RefreshChoiceSectionBlock(); 这个交给你了！！！！！！！！！！！！！！！！！！！！
         //switch (nextSkill)
         //{
         //    case SkillType.Attack:

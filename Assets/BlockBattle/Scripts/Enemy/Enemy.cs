@@ -13,6 +13,7 @@ public abstract class Enemy : MonoBehaviour
     public float timer;
     public GameObject hero;// Start is called before the first frame update
     private BattleManager battleManager;
+    public bool PauseActionBar = false;
 
     public void Start()
     {
@@ -23,6 +24,10 @@ public abstract class Enemy : MonoBehaviour
     }
     public void Update()
     {
+        if (PauseActionBar)
+        {
+            return;
+        }
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
@@ -65,6 +70,10 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    public void DropDownblock(float second)
+    {
+        battleManager.DropDownBlock(second);
+    }
 
     public void LockRotation()
     {
