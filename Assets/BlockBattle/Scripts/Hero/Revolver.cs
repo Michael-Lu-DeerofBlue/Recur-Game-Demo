@@ -22,6 +22,7 @@ public class Revolover: HeroInfo
         if (CounterReady&& !battleManager.PauseBlockGame)
         {
             CounterTimer -= Time.deltaTime;
+            UpdateUI();
             if (CounterTimer <= 0)
             {
                 CounterReady = false;
@@ -36,6 +37,7 @@ public class Revolover: HeroInfo
         {
             CounterReady = true;
             CounterTimer = 0.5f;
+            UpdateUI();
             Debug.Log("Counter Ready");
         }
     }
