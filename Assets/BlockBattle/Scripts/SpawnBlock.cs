@@ -35,8 +35,8 @@ public class SpawnBlock : MonoBehaviour
             NewBlock.GetComponent<BlockManager>().colorId = colorCode;
             if (battleManager.LockNextBlockRotation)
             {
-                battleManager.RotationLocked = true; // set the bool instead of method, aviod to reset in 3 seconds.
-                battleManager.LockNextBlockRotation = false; // Reset the flag
+                NewBlock.GetComponent<BlockManager>().lockedRotation = true;
+                battleManager.LockNextBlockRotation = false;
             }
             SpawnGhostBlock();
         }
@@ -61,7 +61,7 @@ public class SpawnBlock : MonoBehaviour
             Destroy(ghostBlock);
         }
         ghostBlock = Instantiate(GGhostBlockShapes[lastSpawnedIndex], NewBlock.transform.position, NewBlock.transform.localRotation);
-
+        NewBlock.GetComponent<BlockManager>().ghostBlock = ghostBlock;
         ApplyGhostColor(ghostBlock);
     }
 

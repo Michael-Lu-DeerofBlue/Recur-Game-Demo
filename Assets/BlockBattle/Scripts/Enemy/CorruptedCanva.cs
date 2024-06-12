@@ -13,8 +13,7 @@ public class CorruptedCanva : Enemy
     public int corruptingWindWeight = 1;
     public float attackCastingTime = 8;
     public float splashCastingTime = 10;
-    public float corruptingWindCastingTime = 10;
-
+    public float corruptingWindCastingTime = 10;    
     private enum SkillType { Attack, PaintingSplash, CorruptingWind }
     private SkillType nextSkill;
 

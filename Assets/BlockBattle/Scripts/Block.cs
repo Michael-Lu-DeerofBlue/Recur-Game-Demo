@@ -13,18 +13,19 @@ public class BlockManager : MonoBehaviour
     public static Transform[,] grid = new Transform[extendedWidth, height];
     private SpawnBlock spawnblock;
     private BattleManager battleManager;
-    private GhostBlock ghostBlock;
+    public GameObject ghostBlock;
     public int id; //used to get a id for the block to check for homogenousty
     private static Dictionary<string, int> globalColorCount = new Dictionary<string, int>();
     private SelectionTool selectionToolProcessor;
     public int colorId;
+    public bool lockedRotation;
 
     void Start()
     {
+        
         selectionToolProcessor = FindObjectOfType<SelectionTool>();
         spawnblock = FindObjectOfType<SpawnBlock>();
         battleManager = FindObjectOfType<BattleManager>();
-        ghostBlock = FindObjectOfType<GhostBlock>();
         id = spawnblock.blockIdCounter;
     }
 
@@ -61,7 +62,7 @@ public class BlockManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            if (battleManager.RotationLocked == true)
+            if (lockedRotation == true)
             {
                 return;
             }
@@ -261,6 +262,10 @@ public class BlockManager : MonoBehaviour
             }
         }
         selectionToolProcessor.GetComponent<SelectionTool>().stillFalling = false;
+        if (ghostBlock != null)
+        {
+            Destroy(ghostBlock);
+        }
         //FindObjectOfType<SpawnBlock>().SpawnNewBlock(1);
     }
 
