@@ -14,7 +14,7 @@ public abstract class Enemy : MonoBehaviour
     public float SkillCastingTime;
     public TextMeshPro enemyInfoText;
     public float timer;
-    public GameObject hero;// Start is called before the first frame update
+    public GameObject hero;
     public BattleManager battleManager;
     public bool PauseCasting = false; 
     public string nextMove;//name of the skill that will be executed next.
@@ -28,7 +28,7 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void Update()
     {
-        if (PauseCasting)
+        if (PauseCasting)//the casting time will not decrease sometime because of debug, or during interruption of block game.
         {
             return;
         }

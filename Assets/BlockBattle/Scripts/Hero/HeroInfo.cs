@@ -27,6 +27,7 @@ public class HeroInfo : MonoBehaviour
     }
 
     public virtual void ExecuteBehavior(int index, int clearNumber)
+    //whatever the player character do, it will be executed here. 
     {
         switch (index)
         {

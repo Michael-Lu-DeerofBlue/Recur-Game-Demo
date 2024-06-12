@@ -102,6 +102,10 @@ public class StarryNight : Enemy
             HP -= damage;
             Debug.Log("Enemy is hit. HP: " + HP);
         }
+        if(HP<=50)
+        {
+            CorruptionWeight = 1;
+        }
         if (HP <= 0)
         {
             HP = 0;
