@@ -8,6 +8,7 @@ using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class BattleManager : MonoBehaviour
 {
+    //Manage various situations in various battles, such as buffs, debuffs, etc.
     public SpawnBlock spawnBlock;
     private HeroInfo heroInfo;
     public float Timer;
@@ -122,7 +123,7 @@ public class BattleManager : MonoBehaviour
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
         {
-            enemy.PauseActionBar = true;
+            enemy.PauseCasting = true;
             StartCoroutine(ResumeEnemyActionBarAfterDelay());
         }
     }
@@ -137,7 +138,7 @@ public class BattleManager : MonoBehaviour
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
         {
-            enemy.PauseActionBar = false;
+            enemy.PauseCasting = false;
         }
     }
     public void refreshSelectionBlocks()

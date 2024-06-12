@@ -32,7 +32,7 @@ public class StarryNight : Enemy
                 Attack(attackDamage);
                 break;
             case SkillType.PaintingSplash:
-                LockRotation();
+                DropDownblock(3);
                 break;
             case SkillType.GazeStars:
                 RefreshChoiceSectionBlock();

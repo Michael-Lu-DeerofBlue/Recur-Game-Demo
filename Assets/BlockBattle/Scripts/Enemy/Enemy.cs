@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public abstract class Enemy : MonoBehaviour
 {
+    // Parent Class of enemy character
     public float HP;
     public float MaxHp;
     public float SkillCastingTime;
@@ -15,8 +16,8 @@ public abstract class Enemy : MonoBehaviour
     public float timer;
     public GameObject hero;// Start is called before the first frame update
     public BattleManager battleManager;
-    public bool PauseActionBar = false;
-    public string nextMove;
+    public bool PauseCasting = false; 
+    public string nextMove;//name of the skill that will be executed next.
 
     public void Start()
     {       
@@ -27,7 +28,7 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void Update()
     {
-        if (PauseActionBar)
+        if (PauseCasting)
         {
             return;
         }
@@ -49,6 +50,7 @@ public abstract class Enemy : MonoBehaviour
         ExecuteSkill();
         GetNextMove();
         timer = SkillCastingTime;
+        //after that, look at the update method. 
     }
 
     public virtual void ExecuteSkill()

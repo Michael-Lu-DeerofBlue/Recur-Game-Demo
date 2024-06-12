@@ -72,6 +72,10 @@ public class Revolover: HeroInfo
     public void Reload(int Num)
     {
         BulletNum += Num;
+        if (BulletNum > 6)
+        {
+            BulletNum = 6;
+        }
         UpdateUI();
     }
     public void BulletCostingSkill(int BulletCost, float attackvalue)

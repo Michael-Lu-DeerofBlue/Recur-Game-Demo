@@ -5,6 +5,7 @@ using TMPro;
 
 public class HeroInfo : MonoBehaviour
 {
+    // Parent Class of player character
     public float HitPoint;
     public float MaxHitPoint;
     private float MaxWeight;
