@@ -31,7 +31,8 @@ public class BlockManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
+        if (battleManager.PauseBlockGame == false) {
+            if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
         {
             while (true)
             {
@@ -73,17 +74,20 @@ public class BlockManager : MonoBehaviour
         }
 
         // Handle block falling over time
-        if (Time.time - previousTime > (Input.GetKey(KeyCode.S) ? fallTime / 10 : fallTime))
-        {
-            transform.position += new Vector3(0, -1, 0);
-            if (!ValidMove())
+
+
+            if (Time.time - previousTime > (Input.GetKey(KeyCode.S) ? fallTime / 10 : fallTime))
             {
-                transform.position -= new Vector3(0, -1, 0);
-                AddToGrid();
-                CheckForLines();
-                this.enabled = false;
+                transform.position += new Vector3(0, -1, 0);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(0, -1, 0);
+                    AddToGrid();
+                    CheckForLines();
+                    this.enabled = false;
+                }
+                previousTime = Time.time;
             }
-            previousTime = Time.time;
         }
     }
 
@@ -112,6 +116,7 @@ public class BlockManager : MonoBehaviour
             {
                 MoveLineToRightSide(i);
                 RowDown(i);
+                PauseBlockGame(true);
             }
         }
         StartCoroutine(ClearRightSideBlocks());
@@ -128,6 +133,10 @@ public class BlockManager : MonoBehaviour
         return true;
     }
 
+    void PauseBlockGame(bool Pause)
+    {
+        battleManager.IntrruptBlockGame(Pause);
+    }
     // Move a complete line to the right side and position it vertically
     void MoveLineToRightSide(int i)
     {
@@ -206,6 +215,7 @@ public class BlockManager : MonoBehaviour
                 }
             }
         }
+        PauseBlockGame(false);
         return null;
     }
 

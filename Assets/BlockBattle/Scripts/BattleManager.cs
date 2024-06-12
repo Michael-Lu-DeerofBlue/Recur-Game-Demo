@@ -10,6 +10,8 @@ public class BattleManager : MonoBehaviour
     public float Timer;
     public SelectionTool selectionTool;
     public IntTranslator inttranslator;
+    public bool PauseBlockGame = false;
+
 
     //Player debug type:
     public bool RotationLocked=false;
@@ -81,7 +83,10 @@ public class BattleManager : MonoBehaviour
         }
         DropCountDown = false;
     }
-
+    public void IntrruptBlockGame(bool PauseOrNot)
+    {
+        PauseBlockGame = PauseOrNot;
+    }
     public void LockRotation()
     {
         RotationLocked = true;
