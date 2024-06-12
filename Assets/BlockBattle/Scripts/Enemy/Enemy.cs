@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public abstract class Enemy : MonoBehaviour
 {
     public int HP;
+    public int MaxHp;
     public int AttackValue;
     public float SkillCastingTime;
     public TextMeshPro enemyInfoText;
@@ -30,7 +31,10 @@ public abstract class Enemy : MonoBehaviour
         {
             return;
         }
-        timer -= Time.deltaTime;
+        if(battleManager.PauseBlockGame==false)
+        {
+            timer -= Time.deltaTime;
+        }
         if (timer <= 0)
         {
             ExecuteTurn();
@@ -93,7 +97,14 @@ public abstract class Enemy : MonoBehaviour
         // Access the BattleManager instance and set LockRotation to true
         battleManager.LockRotationForNextBlock();
     }
-
+    public void Heal(int healValue)
+    {
+        HitHandle(-healValue);
+        if (HP >= 0)
+        {
+            HP = MaxHp;
+        }
+    }
 
     public virtual void HitHandle(int damage)
     {

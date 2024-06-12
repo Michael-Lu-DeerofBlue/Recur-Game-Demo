@@ -119,6 +119,10 @@ public class HeroInfo : MonoBehaviour
     public virtual void Heal(int number)
     {
         HitPoint += number;
+        if (HitPoint >= MaxHitPoint)
+        {
+            HitPoint = MaxHitPoint;
+        }
         Hp.text = "HP: " + HitPoint.ToString();
         Debug.Log("Player is healed. HP: " + HitPoint);
     }

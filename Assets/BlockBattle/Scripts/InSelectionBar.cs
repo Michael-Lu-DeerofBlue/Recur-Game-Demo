@@ -7,11 +7,13 @@ public class InSelectionBar : MonoBehaviour
     public int index;
     public bool inStorage;
     private SelectionTool selectionToolProcessor;
+    public BattleManager battleManager;
     // Start is called before the first frame update
     void Start()
     {
         selectionToolProcessor = FindObjectOfType<SelectionTool>();
         index = gameObject.GetComponent<BlockStageController>().index;
+        battleManager= FindObjectOfType<BattleManager>();
     }
 
     // Update is called once per frame
@@ -36,6 +38,10 @@ public class InSelectionBar : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0)) // 1 is the right mouse button
         {
+            if (battleManager.PauseBlockGame == true)
+            {
+                return;
+            }
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 

@@ -2,8 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LongSword : HeroInfo
+public class Revolover: HeroInfo
 {
+    public int BulletNum=0;
+
+    public void Reload(int Num)
+    {
+        BulletNum += Num;
+    }
+
+    public void BulletCostingSkill(int BulletCost, int attackvalue)
+    {
+        if (BulletNum >= BulletCost)
+        {
+            BulletNum -= BulletCost;
+            AttackEnemy(attackvalue);
+        }
+    }
 
     public override void HandleIndex0(int clearNumber) // 0: Red
     {
@@ -12,17 +27,19 @@ public class LongSword : HeroInfo
             case 1:
                 
                 AttackEnemy(1);
+                Reload(1);
                 break;
             case 2:
                 AttackEnemy(2);
+                Reload(1);
                 break;
             case 3:
-                AttackEnemy(3);
-                PauseEnemyActionBar(2);
+                AttackEnemy(2);
+                Reload(2);
                 break;
             case 4:
-                AttackEnemy(4);
-                PauseEnemyActionBar(3);
+                AttackEnemy(3);
+                Reload(2);
                 break;
             default:
                 // Handle unexpected clearNumber here
@@ -35,16 +52,16 @@ public class LongSword : HeroInfo
         switch (clearNumber)
         {
             case 1:
-                Heal(2);
+                Heal(1);
                 break;
             case 2:
-                Heal(3);
+                Heal(2);
                 break;
             case 3:
-                Heal(4);
+                Heal(3);
                 break;
             case 4:
-                Heal(5);
+                Heal(4);
                 break;
             default:
                 // Handle unexpected clearNumber here
@@ -57,16 +74,16 @@ public class LongSword : HeroInfo
         switch (clearNumber)
         {
             case 1:
-                AttackEnemy(3);
+                BulletCostingSkill(1, 5);
                 break;
             case 2:
-                AttackEnemy(4);
+                BulletCostingSkill(1, 6);
                 break;
             case 3:
-                AttackEnemy(5);
+                BulletCostingSkill(1, 6);
                 break;
             case 4:
-                AttackEnemy(8);
+                BulletCostingSkill(1, 7);
                 break;
             default:
                 break;
@@ -78,16 +95,16 @@ public class LongSword : HeroInfo
         switch (clearNumber)
         {
             case 1:
-                Debug.Log("remove debuff will add in future");
+                Reload(3);
                 break;
             case 2:
-                Debug.Log("remove debuff will add in future");
+                Reload(4);
                 break;
             case 3:
-                Debug.Log("remove debuff will add in future");
+                Reload(5);
                 break;
             case 4:
-                Debug.Log("remove debuff will add in future");
+                Reload(6);
                 break;
             default:
                 // Handle unexpected clearNumber here
