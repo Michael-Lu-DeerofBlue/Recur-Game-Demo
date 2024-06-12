@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
         hero = GameObject.Find("Hero");
         battleManager = FindObjectOfType<BattleManager>();
         GetNextMove();//get casting time for the first turn.
+        timer = SkillCastingTime; //added this so that the first move is executed with a timer
     }
     public void Update()
     {
@@ -107,7 +108,6 @@ public abstract class Enemy : MonoBehaviour
     }
     public void RefreshChoiceSectionBlock()
     {
-        // Access the BattleManager instance and set LockRotation to true
         battleManager.refreshSelectionBlocks();
     }
 

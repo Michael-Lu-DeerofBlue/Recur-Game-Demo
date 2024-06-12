@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class StarryNight : Enemy
 {
-    new int HP=100;
     public bool ChargingCorruption = false;
 
     public int attackDamage = 5;
@@ -15,75 +14,77 @@ public class StarryNight : Enemy
     public int attackWeight = 2;
     public int paintingSplashWeight = 2;
     public int GazeStarsWeight = 1;
-    public int CorruptionWeight = 15;
+    public int CorruptionWeight = 0;
 
     public float attackCastingTime = 8;
     public float splashCastingTime = 10;
     public float GazeStarsCastingtime = 5;
     public float corruptionCastingTime = 15;
-
+    public bool firstCorruption = false;
     private enum SkillType { Attack, PaintingSplash, GazeStars, corruption }
     private SkillType nextSkill;
 
     public override void ExecuteSkill()
     {
-        RefreshChoiceSectionBlock();
-        //switch (nextSkill)
-        //{
-        //    case SkillType.Attack:
-        //        Attack(attackDamage);
-        //        break;
-        //    case SkillType.PaintingSplash:
-        //        LockRotation();
-        //        break;
-        //    case SkillType.Corruption:
-        //        Attack(corruptionDamage);
-        //        ChargingCorruption = false;
-        //        break;
-        //}
+        switch (nextSkill)
+        {
+            case SkillType.Attack:
+                Attack(attackDamage);
+                break;
+            case SkillType.PaintingSplash:
+                LockRotation();
+                break;
+            case SkillType.GazeStars:
+                RefreshChoiceSectionBlock();
+                break;
+            case SkillType.corruption:
+                Attack(RealityCorruptionDamage);
+                ChargingCorruption = false;
+                break;
+        }
     }
 
     public override void GetNextMove()
     {
-        if (HP < 50)
+        if (HP < 50 && !firstCorruption)
         {
-            timer = corruptionCastingTime;  // Corruption action
+            firstCorruption = true;
+            SkillCastingTime = corruptionCastingTime;  // Corruption action
             nextSkill = SkillType.corruption;
             StartChargingCorruption();
             CorruptionWeight = 1;
+            nextMove = nextSkill.ToString();
+            return;
         }
-        else
+        int sum = attackWeight + paintingSplashWeight + GazeStarsWeight + CorruptionWeight;
+        float attackProbability = (float)attackWeight / sum;
+        float paintingSplashProbability = (float)paintingSplashWeight / sum;
+        float GazeStarsProbability = (float)GazeStarsWeight / sum;
+        float CorruptionProbability = (float)CorruptionWeight / sum;
+        float randomValue = Random.value; //range : 0 ~ 1
+
+        if (randomValue < attackProbability)
         {
-            int sum = attackWeight + paintingSplashWeight + GazeStarsWeight + CorruptionWeight;
-            float attackProbability = (float)attackWeight / sum;
-            float paintingSplashProbability = (float)paintingSplashWeight / sum;
-            float GazeStarsProbability = (float)GazeStarsWeight / sum;
-            float CorruptionProbability = (float)CorruptionWeight / sum;
-            float randomValue = Random.value; //range : 0 ~ 1
-
-            if (randomValue < attackProbability)
-            {
-                SkillCastingTime = attackCastingTime;  // Attack action
-                nextSkill = SkillType.Attack;
-            }
-            else if (randomValue < attackProbability + paintingSplashProbability)
-            {
-                SkillCastingTime = splashCastingTime;  // PaintingSplash action
-                nextSkill = SkillType.PaintingSplash;
-            }
-            else if (randomValue < attackProbability + paintingSplashProbability + GazeStarsProbability)
-            {
-                SkillCastingTime = GazeStarsCastingtime;  // GazeStars action
-                nextSkill = SkillType.GazeStars;
-            }
-            else if (randomValue <= attackProbability + paintingSplashProbability + GazeStarsProbability + CorruptionProbability)
-            {
-                SkillCastingTime = corruptionCastingTime;  // Corruption action
-                nextSkill = SkillType.corruption;
-                StartChargingCorruption();
-            }
+            SkillCastingTime = attackCastingTime;  // Attack action
+            nextSkill = SkillType.Attack;
         }
-
+        else if (randomValue < attackProbability + paintingSplashProbability)
+        {
+            SkillCastingTime = splashCastingTime;  // PaintingSplash action
+            nextSkill = SkillType.PaintingSplash;
+        }
+        else if (randomValue < attackProbability + paintingSplashProbability + GazeStarsProbability)
+        {
+            SkillCastingTime = GazeStarsCastingtime;  // GazeStars action
+            nextSkill = SkillType.GazeStars;
+        }
+        else if (randomValue <= attackProbability + paintingSplashProbability + GazeStarsProbability + CorruptionProbability)
+        {
+            SkillCastingTime = corruptionCastingTime;  // Corruption action
+            nextSkill = SkillType.corruption;
+            StartChargingCorruption();
+        }
+        nextMove = nextSkill.ToString();
 
     }
     public override void HitHandle(int damage)

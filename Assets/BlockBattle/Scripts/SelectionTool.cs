@@ -9,6 +9,7 @@ public class SelectionTool : MonoBehaviour
     public Dictionary<int, int> actionBlockDictionary = new Dictionary<int, int>();
     public List<int> blockList = new List<int>();
     public List<int> threeBlockList = new List<int>();
+    public List<int> threeColorList = new List<int>();
     public int storageBlock = 7;
     public GameObject SelectionUI;
     public GameObject Spawner;
@@ -24,6 +25,10 @@ public class SelectionTool : MonoBehaviour
         }
 
         threeBlockList = DrawRandomIntegers(blockList, 3);
+        for (int i = 0; i < threeBlockList.Count; i++)
+        {
+            threeColorList.Add(actionBlockDictionary[threeBlockList[i]]);
+        }
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
     }
 
@@ -35,9 +40,20 @@ public class SelectionTool : MonoBehaviour
     public void addToFall(int index)
     {
         stillFalling = true;
-        threeBlockList = DrawRandomIntegers(blockList, 3);
-        SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
         Color color = Translator.GetComponent<IntTranslator>().intToColor(actionBlockDictionary[index]);
+        if (BattleManager.refreshedBlocks)
+        {
+            color = Translator.GetComponent<IntTranslator>().intToColor(threeColorList[threeBlockList.FindIndex(x => x == index)]);
+            BattleManager.refreshedBlocks = false;
+        }
+        threeBlockList = DrawRandomIntegers(blockList, 3);
+        for (int i = 0; i < threeBlockList.Count; i++)
+        {
+            threeColorList[i] = actionBlockDictionary[threeBlockList[i]];
+        }
+
+        SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
+        
         Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color, actionBlockDictionary[index]);
     }
 
@@ -55,10 +71,13 @@ public class SelectionTool : MonoBehaviour
             result.Add(tempList[randomIndex]);
             tempList.RemoveAt(randomIndex);
         }
-
+        
         return result;
     }
     public void refreshSelectionBlocks()
     {
+        List<int> allBlockList = new List<int> {0, 1, 2, 3, 4, 5, 6};
+        threeBlockList = DrawRandomIntegers(allBlockList, 3);
+        SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
     }
 }

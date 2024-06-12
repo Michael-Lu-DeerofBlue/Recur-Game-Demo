@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour
     public bool RotationLocked=false;
     public bool LockNextBlockRotation = false;
     public bool DropCountDown = false;
+    public static bool refreshedBlocks = false;
 
     // enemey debug type:
     public float PauseTime = 0;//enemy action bar pause time.
@@ -124,7 +125,9 @@ public class BattleManager : MonoBehaviour
     }
     public void refreshSelectionBlocks()
     {
+        refreshedBlocks=true;
         selectionTool= FindObjectOfType<SelectionTool>();
+        selectionTool.refreshSelectionBlocks();
     }
 
     public void ResetEnemyActionBar()

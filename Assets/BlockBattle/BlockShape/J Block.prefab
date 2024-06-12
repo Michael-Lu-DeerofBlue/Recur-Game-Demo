@@ -389,6 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inSelection: 0
   inFall: 0
+  index: 0
 --- !u!114 &-7204744396028939999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +404,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationPoint: {x: 0, y: 0, z: 0}
   fallTime: 0.8
+  ghostBlock: {fileID: 0}
   id: 0
+  colorId: 0
+  lockedRotation: 0
 --- !u!114 &-2170845407728511762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,6 +420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb628b6dd18ce44486fafd802fddf37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: 0
+  inStorage: 0
 --- !u!65 &-819175169133656782
 BoxCollider:
   m_ObjectHideFlags: 0
