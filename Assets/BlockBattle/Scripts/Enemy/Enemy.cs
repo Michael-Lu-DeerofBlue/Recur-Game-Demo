@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class Enemy : MonoBehaviour
 {
-    public int HP;
-    public int MaxHp;
-    public int AttackValue;
+    public float HP;
+    public float MaxHp;
     public float SkillCastingTime;
     public TextMeshPro enemyInfoText;
     public float timer;
     public GameObject hero;// Start is called before the first frame update
-    private BattleManager battleManager;
+    public BattleManager battleManager;
     public bool PauseActionBar = false;
     public string nextMove;
 
@@ -25,7 +25,7 @@ public abstract class Enemy : MonoBehaviour
         GetNextMove();//get casting time for the first turn.
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
     }
-    public void Update()
+    public virtual void Update()
     {
         if (PauseActionBar)
         {
@@ -65,7 +65,7 @@ public abstract class Enemy : MonoBehaviour
         timer = SkillCastingTime;
     }
 
-    public void Attack(int Damage)
+    public void Attack(float Damage)
     {
         if (hero != null)
         {
@@ -97,7 +97,7 @@ public abstract class Enemy : MonoBehaviour
         // Access the BattleManager instance and set LockRotation to true
         battleManager.LockRotationForNextBlock();
     }
-    public void Heal(int healValue)
+    public void Heal(float healValue)
     {
         HitHandle(-healValue);
         if (HP >= 0)
@@ -106,10 +106,18 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    public virtual void HitHandle(int damage)
+    public virtual void HitHandle(float damage)
     {
-        HP -= damage;
-        Debug.Log("Enemy is hit. HP: " + HP);
+        if (battleManager.EnemyFragiling)
+        {
+            HP -= damage*1.5f;
+            Debug.Log("Enemy is receving 1.5 times damage. HP: " + HP);
+        }
+        else
+        {
+            HP -= damage;
+            Debug.Log("Enemy is hit. HP: " + HP);
+        }
         if (HP <= 0)
         {
             HP = 0;
@@ -121,5 +129,4 @@ public abstract class Enemy : MonoBehaviour
     {
         battleManager.refreshSelectionBlocks();
     }
-
 }

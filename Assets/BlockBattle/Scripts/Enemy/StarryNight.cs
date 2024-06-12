@@ -87,17 +87,21 @@ public class StarryNight : Enemy
         nextMove = nextSkill.ToString();
 
     }
-    public override void HitHandle(int damage)
+    public override void HitHandle(float damage)
     {
         if(ChargingCorruption == true)
         {
-            damage = 1;
+            HP -= 1;
+        }else if (battleManager.EnemyFragiling)
+        {
+            HP -= damage * 1.5f;
+            Debug.Log("Enemy is receving 1.5 times damage. HP: " + HP);
         }
         else
         {
-          HP -= damage;
+            HP -= damage;
+            Debug.Log("Enemy is hit. HP: " + HP);
         }
-        Debug.Log("Enemy is hit. HP: " + HP);
         if (HP <= 0)
         {
             HP = 0;

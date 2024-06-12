@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class BlockManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class BlockManager : MonoBehaviour
     private SelectionTool selectionToolProcessor;
     public int colorId;
     public bool lockedRotation;
+    public string color;
 
     void Start()
     {
@@ -27,6 +29,7 @@ public class BlockManager : MonoBehaviour
         spawnblock = FindObjectOfType<SpawnBlock>();
         battleManager = FindObjectOfType<BattleManager>();
         id = spawnblock.blockIdCounter;
+        color=GetBlockColor();
     }
 
     void Update()
@@ -185,11 +188,11 @@ public class BlockManager : MonoBehaviour
         {
             Transform upleftBlock = FindUpleftBlock();
             if (upleftBlock == null) yield break;
-            string color = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
+            string UpLeftColor = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
             int colorCode = upleftBlock.parent.GetComponent<BlockManager>().colorId;
             int passedInId = upleftBlock.parent.GetComponent<BlockManager>().id;
             List<Transform> blocksToClear = new List<Transform>();
-            FindConnectedBlocks(upleftBlock, color, passedInId, blocksToClear);
+            FindConnectedBlocks(upleftBlock, UpLeftColor, passedInId, blocksToClear);
 
             foreach (var block in blocksToClear)
             {
@@ -197,7 +200,7 @@ public class BlockManager : MonoBehaviour
                 Destroy(block.gameObject);
             }
 
-            battleManager.ReceColorMessage(color, blocksToClear.Count);
+            battleManager.ReceColorMessage(UpLeftColor, blocksToClear.Count);
 
             yield return new WaitForSeconds(1);
         }
@@ -271,6 +274,7 @@ public class BlockManager : MonoBehaviour
                 grid[roundedX, roundedY] = children;
             }
         }
+        CheckOnLand();
         selectionToolProcessor.GetComponent<SelectionTool>().stillFalling = false;
         if (ghostBlock != null)
         {
@@ -278,6 +282,12 @@ public class BlockManager : MonoBehaviour
         }
         //FindObjectOfType<SpawnBlock>().SpawnNewBlock(1);
     }
+
+    public void CheckOnLand()
+    {
+        battleManager.CheckOnLand(color);
+    }
+
 
     // Check if the current move is valid
     bool ValidMove()
@@ -325,5 +335,19 @@ public class BlockManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public string GetBlockColor()
+    {
+        foreach (Transform child in transform)
+        {
+            Renderer renderer = child.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                return ColorUtility.ToHtmlStringRGBA(renderer.material.color);
+            }
+        }
+        Debug.LogWarning("Renderer component not found on any of the block's children.");
+        return "FFFFFF"; 
     }
 }

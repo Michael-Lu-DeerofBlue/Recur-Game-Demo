@@ -1,23 +1,104 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Revolover: HeroInfo
 {
     public int BulletNum=0;
+    public TextMeshPro BulletNumber;
+    public TextMeshPro CounterRemindTime;
+    public float CounterTimer = 0;
+    public bool CounterReady = false;
+    public override void Start()
+    {
+        base.Start();
+        BulletNumber.text = "BulletNumber: " + BulletNum.ToString();
+        CounterRemindTime.text = "Counter Remind Time: " + CounterTimer.ToString();
+    }
+    public override void Update()
+    {
+        base.Update();
+        if (CounterReady&& !battleManager.PauseBlockGame)
+        {
+            CounterTimer -= Time.deltaTime;
+            if (CounterTimer <= 0)
+            {
+                CounterReady = false;
+                CounterTimer = 0;
+            }
+        }
+    }
+
+    public override void CheckLandOn(int ColorIndex)
+    {
+        if (ColorIndex == 5)
+        {
+            CounterReady = true;
+            CounterTimer = 0.5f;
+            Debug.Log("Counter Ready");
+        }
+    }
+
+
+    public override void HitHandle(float damage)
+    {
+        if (CounterReady)
+        {
+            AttackEnemy(16);
+            Debug.Log("Counter sucess!!!!!");
+            return;
+        }
+        HitPoint -= damage;
+        Hp.text = "HP: " + HitPoint.ToString();
+        Debug.Log("Player is hit. HP: " + HitPoint);
+        if (HitPoint <= 0)
+        {
+            HitPoint = 0;
+            Debug.Log("Player is dead.");
+        }
+    }
+
+
+
+    public void UpdateUI()
+    {
+        BulletNumber.text = "BulletNumber: " + BulletNum.ToString();
+        CounterRemindTime.text = "Counter Remind Time: " + CounterTimer.ToString();
+    }
 
     public void Reload(int Num)
     {
         BulletNum += Num;
+        UpdateUI();
     }
-
-    public void BulletCostingSkill(int BulletCost, int attackvalue)
+    public void BulletCostingSkill(int BulletCost, float attackvalue)
     {
         if (BulletNum >= BulletCost)
         {
             BulletNum -= BulletCost;
             AttackEnemy(attackvalue);
         }
+        else
+        {
+            Debug.Log("Not enough bullet");
+        }
+        UpdateUI();
+    }
+
+    public void FastFanning(int DamageRate)
+    {
+        if(BulletNum >= 6)
+        {
+            BulletNum -= 6;
+            AttackEnemy(5 * DamageRate);
+        }
+        else
+        {
+            AttackEnemy(5 * BulletNum);
+            BulletNum = 0;
+        }
+        UpdateUI();
     }
 
     public override void HandleIndex0(int clearNumber) // 0: Red
@@ -117,17 +198,20 @@ public class Revolover: HeroInfo
         switch (clearNumber)
         {
             case 1:
-                AttackEnemy(2);
+                AttackEnemy(1);
+                Fragile();
                 break;
             case 2:
-                AttackEnemy(3);
+                AttackEnemy(1);
+                Fragile();
                 break;
             case 3:
-                AttackEnemy(4);
+                AttackEnemy(3);
+                Fragile();
                 break;
             case 4:
-                AttackEnemy(7);
-                resetEnemyActionBar();
+                AttackEnemy(4);
+                Fragile();
                 break;
             default:
                 // Handle unexpected clearNumber here
@@ -140,16 +224,16 @@ public class Revolover: HeroInfo
         switch (clearNumber)
         {
             case 1:
-                parry(1);
+                BulletCostingSkill(2, 16);
                 break;
             case 2:
-                parry(1);
+                BulletCostingSkill(2, 16);
                 break;
             case 3:
-                parry(2);
+                BulletCostingSkill(2, 23);
                 break;
             case 4:
-                parry(2);
+                BulletCostingSkill(2, 23);
                 break;
             default:
                 // Handle unexpected clearNumber here
@@ -162,16 +246,16 @@ public class Revolover: HeroInfo
         switch (clearNumber)
         {
             case 1:
-                AttackEnemy(1);
+                FastFanning(7);
                 break;
             case 2:
-                AttackEnemy(1);
+                FastFanning(7); 
                 break;
             case 3:
-                AttackEnemy(1);
+                FastFanning(7); 
                 break;
             case 4:
-                Zornhauy(10);
+                FastFanning(8);
                 break;
             default:
                 // Handle unexpected clearNumber here

@@ -5,22 +5,22 @@ using TMPro;
 
 public class HeroInfo : MonoBehaviour
 {
-    public int HitPoint;
-    public int MaxHitPoint;
-    public int AttackValue;
+    public float HitPoint;
+    public float MaxHitPoint;
     private float MaxWeight;
     public TextMeshPro Hp;
-    BattleManager battleManager;
+    public BattleManager battleManager;
     public int parryCount=0;
+
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         Hp.text = "HP: " + HitPoint.ToString();
         battleManager = FindObjectOfType<BattleManager>();
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
 
     }
@@ -53,7 +53,7 @@ public class HeroInfo : MonoBehaviour
         }
     }
 
-    public virtual void HitHandle(int damage)
+    public virtual void HitHandle(float damage)
     {
        if(parryCount > 0)
         {
@@ -70,12 +70,17 @@ public class HeroInfo : MonoBehaviour
         }
     }
 
+    public virtual void Fragile()
+    {
+        battleManager.EnemyFragile(true);
+    }
+
     public virtual void parry(int turnnumber)
     {
         parryCount+= turnnumber;
     }
 
-    public virtual void AttackEnemy(int value)
+    public virtual void AttackEnemy(float value)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -94,7 +99,7 @@ public class HeroInfo : MonoBehaviour
     }
 
 
-    public virtual void Zornhauy(int damagevalue)
+    public virtual void Zornhauy(float damagevalue)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -116,7 +121,7 @@ public class HeroInfo : MonoBehaviour
 
     }
 
-    public virtual void Heal(int number)
+    public virtual void Heal(float number)
     {
         HitPoint += number;
         if (HitPoint >= MaxHitPoint)
@@ -138,6 +143,10 @@ public class HeroInfo : MonoBehaviour
         battleManager.ResetEnemyActionBar();
     }
 
+    public virtual void CheckLandOn(int ColorIndex)
+    {
+        
+    }
 
     public virtual void HandleIndex0(int clearNumber)
     {

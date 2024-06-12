@@ -1,31 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 using UnityEngine;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class BattleManager : MonoBehaviour
 {
+    public SpawnBlock spawnBlock;
     private HeroInfo heroInfo;
     public float Timer;
     public SelectionTool selectionTool;
     public IntTranslator inttranslator;
     public bool PauseBlockGame = false;
 
-
+    //Player status:
+    public bool PlayerLandOn = false;
     //Player debug type:
-    public bool RotationLocked=false;
+    public bool RotationLocked = false;
     public bool LockNextBlockRotation = false;
     public bool DropCountDown = false;
     public static bool refreshedBlocks = false;
 
     // enemey debug type:
     public float PauseTime = 0;//enemy action bar pause time.
+    public bool EnemyFragiling = false;
 
     void Start()
     {
         heroInfo = FindObjectOfType<HeroInfo>();
         inttranslator = FindObjectOfType<IntTranslator>();
+        spawnBlock = FindObjectOfType<SpawnBlock>();
     }
 
     // Update is called once per frame
@@ -52,16 +58,16 @@ public class BattleManager : MonoBehaviour
 
             if (index != -1)
             {
-                Debug.Log($"Color found at index: {index}"+"clearNumber: "+ clearNumber);
+                Debug.Log($"Color found at index: {index}" + "clearNumber: " + clearNumber);
             }
             else
             {
-                Debug.Log("Color not found in RandomColors."+ Colortofind);
+                Debug.Log("Color not found in RandomColors." + Colortofind);
             }
         }
         else
         {
-            Debug.LogError("SpawnBlock instance not found."+ Colortofind);
+            Debug.LogError("SpawnBlock instance not found." + Colortofind);
         }
         heroInfo.ExecuteBehavior(index, clearNumber);
     }
@@ -70,13 +76,13 @@ public class BattleManager : MonoBehaviour
     //we can just set the bool when doing remove rebug instead of using coroutine.
     {
         StartCoroutine(DropDownAfterDelay(second));
-       DropCountDown= true;
+        DropCountDown = true;
     }
 
     private IEnumerator DropDownAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (DropCountDown )
+        if (DropCountDown)
         {
             BlockManager blockManager = FindObjectOfType<BlockManager>();
             blockManager.DropDown();
@@ -86,6 +92,12 @@ public class BattleManager : MonoBehaviour
     public void IntrruptBlockGame(bool PauseOrNot)
     {
         PauseBlockGame = PauseOrNot;
+        CancelSingleTurnBuff();
+    }
+    //CancelSingleTurnBuff() applies to all buffs that need to be canceled from the action queue to continue the block game.
+    public void CancelSingleTurnBuff()
+    {
+        EnemyFragiling = false;
     }
     public void LockRotation()
     {
@@ -106,7 +118,7 @@ public class BattleManager : MonoBehaviour
 
     public void PuaseEnemyActionBar(float PausePeriod)
     {
-         PauseTime=+PausePeriod;
+        PauseTime = +PausePeriod;
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
         {
@@ -130,8 +142,8 @@ public class BattleManager : MonoBehaviour
     }
     public void refreshSelectionBlocks()
     {
-        refreshedBlocks=true;
-        selectionTool= FindObjectOfType<SelectionTool>();
+        refreshedBlocks = true;
+        selectionTool = FindObjectOfType<SelectionTool>();
         selectionTool.refreshSelectionBlocks();
     }
 
@@ -140,4 +152,27 @@ public class BattleManager : MonoBehaviour
         Enemy enemy = FindObjectOfType<Enemy>();//for now, we only have one enemy in default, have to modify that after we have method to choice enmey target.
         enemy.ResetCasting();
     }
+
+    public void CheckOnLand(string BlockColor)
+    {
+        if (inttranslator != null)
+        {
+            for (int i = 0; i < inttranslator.Colors.Length; i++)
+            {
+                string hexColor = ColorUtility.ToHtmlStringRGBA(inttranslator.Colors[i]);
+                if (hexColor == BlockColor)
+                { 
+                        heroInfo.CheckLandOn(i);
+                    break;
+                }
+            }
+
+        }
+    }
+
+    public void EnemyFragile(bool Fragiling)
+    {
+        EnemyFragiling = Fragiling;
+    }
+
 }
