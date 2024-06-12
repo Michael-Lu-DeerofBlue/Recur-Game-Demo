@@ -44,6 +44,7 @@ public class CorruptedCanva : Enemy
         float paintingSplashProbability = (float)paintingSplashWeight / sum;
         float corruptingWindProbability = (float)corruptingWindWeight / sum;
         float randomValue = Random.value;
+        
 
         if (randomValue < attackProbability)
         {
@@ -60,5 +61,6 @@ public class CorruptedCanva : Enemy
             SkillCastingTime = corruptingWindCastingTime;  // CorruptingWind action
             nextSkill = SkillType.CorruptingWind;
         }
+        nextMove = nextSkill.ToString();
     }
 }

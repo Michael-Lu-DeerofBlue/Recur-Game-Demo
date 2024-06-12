@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,15 +10,15 @@ public abstract class Enemy : MonoBehaviour
     public int HP;
     public int AttackValue;
     public float SkillCastingTime;
-    public Text enemyInfoText;
+    public TextMeshPro enemyInfoText;
     public float timer;
     public GameObject hero;// Start is called before the first frame update
     private BattleManager battleManager;
     public bool PauseActionBar = false;
+    public string nextMove;
 
     public void Start()
-    {
-        enemyInfoText = GameObject.Find("EnemyInfoText").GetComponent<Text>();
+    {       
         hero = GameObject.Find("Hero");
         battleManager = FindObjectOfType<BattleManager>();
         GetNextMove();//get casting time for the first turn.
@@ -34,7 +35,7 @@ public abstract class Enemy : MonoBehaviour
             ExecuteTurn();
         }
 
-        enemyInfoText.text = "HP: " + HP + "\nTime to Execute Turn: " + timer.ToString("F2");
+        enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
 
     }
 

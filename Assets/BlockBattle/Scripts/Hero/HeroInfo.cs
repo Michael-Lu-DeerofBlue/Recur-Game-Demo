@@ -15,7 +15,7 @@ public class HeroInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        Hp.text = "HP: " + HitPoint.ToString();
         battleManager = FindObjectOfType<BattleManager>();
     }
 
