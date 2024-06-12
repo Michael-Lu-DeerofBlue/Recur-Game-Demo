@@ -109,7 +109,7 @@ public class LongSword : HeroInfo
                 AttackEnemy(4);
                 break;
             case 4:
-                AttackEnemy(14);
+                AttackEnemy(7);
                 resetEnemyActionBar();
                 break;
             default:
