@@ -184,8 +184,6 @@ public class BlockManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1); // Wait for 1 second before starting the first clear
 
-        while (true)
-        {
             Transform upleftBlock = FindUpleftBlock();
             if (upleftBlock == null) yield break;
             string UpLeftColor = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
@@ -202,8 +200,6 @@ public class BlockManager : MonoBehaviour
 
             battleManager.ReceColorMessage(UpLeftColor, blocksToClear.Count);
 
-            yield return new WaitForSeconds(1);
-        }
     }
 
     Transform FindUpleftBlock()

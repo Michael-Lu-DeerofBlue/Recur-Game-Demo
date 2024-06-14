@@ -131,4 +131,25 @@ public abstract class Enemy : MonoBehaviour
     {
         battleManager.refreshSelectionBlocks();
     }
+    public virtual void OnMouseEnter()
+    {
+        Debug.Log("hovering");
+    }
+
+    public virtual void OnMouseExit()
+    {
+        Debug.Log("mouse exit");
+    }
+
+    public virtual void OnMouseDown()
+    {
+        Debug.Log("clicked");
+        SelectEnemy();
+    }
+
+    public virtual void SelectEnemy()
+    {
+        Debug.Log("Enemy selected");
+    }
+
 }

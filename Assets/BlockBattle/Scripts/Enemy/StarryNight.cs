@@ -117,4 +117,5 @@ public class StarryNight : Enemy
     {
        ChargingCorruption = true;
     }
+
 }

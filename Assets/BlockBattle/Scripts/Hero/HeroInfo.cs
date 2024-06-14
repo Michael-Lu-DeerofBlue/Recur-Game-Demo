@@ -96,10 +96,13 @@ public class HeroInfo : MonoBehaviour
         }
         else if (enemies.Length > 1)
         {
-            Debug.Log("muti enemies function will be added later.");
+            selectTarget();
         }
     }
+    public virtual void selectTarget()
+    {
 
+    }
 
     public virtual void Zornhauy(float damagevalue)
     {
