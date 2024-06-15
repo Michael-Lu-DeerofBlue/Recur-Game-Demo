@@ -20,6 +20,7 @@ public abstract class Enemy : MonoBehaviour
     public string nextMove;//name of the skill that will be executed next.
     public bool Fragiling = false;
     public bool isdead=false;
+    public float PauseTime = 0;
 
     public void Start()
     {       
@@ -162,7 +163,6 @@ public abstract class Enemy : MonoBehaviour
         if (battleManager.SelectingEnemy)
         { 
             SelectedByPlayer();
-            Debug.Log("Enemy is clicked.");
         }
     }
 

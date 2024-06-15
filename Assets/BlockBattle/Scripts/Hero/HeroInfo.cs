@@ -93,7 +93,7 @@ public class HeroInfo : MonoBehaviour
 
     public virtual void Zornhauy(float damagevalue)
     {
-            battleManager.AttackEnemy(damagevalue, selectedEnemy);
+        CheckAndSelectZornhauy(damagevalue);
     }
 
     public virtual void Heal(float number)
@@ -108,9 +108,9 @@ public class HeroInfo : MonoBehaviour
     }
 
 
-    public virtual void PauseEnemyActionBar(float Delay)
+    public virtual void PauseSingleEnemyActionBar(float Delay)
     {
-        battleManager.PuaseEnemyActionBar(Delay);
+        battleManager.PuaseSingleEnemyActionBar(Delay, selectedEnemy);
     }
 
     public virtual void resetEnemyActionBar()
@@ -149,6 +149,56 @@ public class HeroInfo : MonoBehaviour
             blockManager.StartClearBlock();
         }
     }
+
+
+    public virtual void CheckAndSelectZornhauy(float Damage)
+    {
+        BlockManager blockManager = FindObjectOfType<BlockManager>();
+        blockManager.StopClearBlock();
+        battleManager.SelectingEnemy = true;
+        StartCoroutine(GetZornhauyTargetCoroutine(Damage));
+    }
+    private IEnumerator GetZornhauyTargetCoroutine(float Damage)
+    {
+        selectedEnemy = null;
+        BlockManager blockManager = FindObjectOfType<BlockManager>();
+        blockManager.StopClearBlock();
+        Enemy[] enemies = FindObjectsOfType<Enemy>().Where(enemy => !enemy.isdead).ToArray();
+        if (enemies.Length == 1)
+        {
+            Enemy enemy = enemies[0].GetComponent<Enemy>();
+            Debug.Log("Only one enemy in the scene.");
+            selectedEnemy = enemy;
+            if (selectedEnemy.HP<=Damage)
+            {
+                selectedEnemy.HitHandle(Damage);
+                CheckAndSelectZornhauy(Damage);
+            }
+            else
+            {
+                HitHandle(Damage);
+            }
+            yield break;
+        }
+        else if (enemies.Length > 1)
+        {
+            Debug.Log("More than one enemy in the scene.");
+
+            yield return new WaitUntil(() => selectedEnemy != null);
+            Debug.Log("Enemy selected.");
+            battleManager.SelectingEnemy = false;
+            if (selectedEnemy.HP <= Damage)
+            {
+                selectedEnemy.HitHandle(Damage);
+                CheckAndSelectZornhauy(Damage);
+            }
+            else
+            {
+                selectedEnemy.HitHandle(Damage);
+            }
+        }
+    }
+
     public virtual void CheckLandOn(int ColorIndex)
     {
         
