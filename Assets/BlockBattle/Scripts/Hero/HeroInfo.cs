@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class HeroInfo : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class HeroInfo : MonoBehaviour
     public TextMeshPro Hp;
     public BattleManager battleManager;
     public int parryCount=0;
+    public Enemy selectedEnemy;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -30,29 +32,30 @@ public class HeroInfo : MonoBehaviour
     //whatever the player character do, it will be executed here. 
     {
         switch (index)
-        {
-            case 0:
-                HandleIndex0(clearNumber);
-                break;
-            case 1:
-                HandleIndex1(clearNumber);
-                break;
-            case 2:
-                HandleIndex2(clearNumber);
-                break;
-            case 3:
-                HandleIndex3(clearNumber);
-                break;
-            case 4:
-                HandleIndex4(clearNumber);
-                break;
-            case 5:
-                HandleIndex5(clearNumber);
-                break;
-            case 6:
-                HandleIndex6(clearNumber);
-                break;
+            {
+                case 0:
+                    HandleIndex0(clearNumber);
+                    break;
+                case 1:
+                    HandleIndex1(clearNumber);
+                    break;
+                case 2:
+                    HandleIndex2(clearNumber);
+                    break;
+                case 3:
+                    HandleIndex3(clearNumber);
+                    break;
+                case 4:
+                    HandleIndex4(clearNumber);
+                    break;
+                case 5:
+                    HandleIndex5(clearNumber);
+                    break;
+                case 6:
+                    HandleIndex6(clearNumber);
+                    break;
         }
+
     }
 
     public virtual void HitHandle(float damage)
@@ -72,9 +75,10 @@ public class HeroInfo : MonoBehaviour
         }
     }
 
-    public virtual void Fragile()
+    public virtual void Fragile(float damage)
     {
-        battleManager.EnemyFragile(true);
+        battleManager.AttackEnemy(damage, selectedEnemy);
+        battleManager.FragileEnemy(damage, selectedEnemy);
     }
 
     public virtual void parry(int turnnumber)
@@ -82,48 +86,14 @@ public class HeroInfo : MonoBehaviour
         parryCount+= turnnumber;
     }
 
-    public virtual void AttackEnemy(float value)
+    public virtual void AttackEnemy(float Damage)
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        if (enemies.Length == 1)
-        {
-            Enemy enemy = enemies[0].GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemy.HitHandle(value);
-            }
-        }
-        else if (enemies.Length > 1)
-        {
-            selectTarget();
-        }
-    }
-    public virtual void selectTarget()
-    {
-
+        battleManager.AttackEnemy(Damage,selectedEnemy);
     }
 
     public virtual void Zornhauy(float damagevalue)
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        if (enemies.Length > 1)
-        {
-            Enemy enemy = enemies[0].GetComponent<Enemy>();
-            //assume we select the first enemy
-            if (enemy != null)
-            {
-                if (damagevalue < enemy.HP)
-                {
-                    enemy.HitHandle(damagevalue);
-                }else
-                {
-                    Debug.Log("play can choice target and repeat");
-                }
-            }
-        }
-
+            battleManager.AttackEnemy(damagevalue, selectedEnemy);
     }
 
     public virtual void Heal(float number)
@@ -148,6 +118,37 @@ public class HeroInfo : MonoBehaviour
         battleManager.ResetEnemyActionBar();
     }
 
+    public virtual void CheckAndSelectEnemy()
+    {
+        BlockManager blockManager = FindObjectOfType<BlockManager>();
+        blockManager.StopClearBlock();
+        battleManager.SelectingEnemy = true;
+        StartCoroutine(GetEnemyTargetCoroutine());
+    }
+    private IEnumerator GetEnemyTargetCoroutine()
+    {
+        selectedEnemy = null;
+        BlockManager blockManager = FindObjectOfType<BlockManager>();
+        blockManager.StopClearBlock();
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        if (enemies.Length == 1)
+        {
+            Enemy enemy = enemies[0].GetComponent<Enemy>();
+            Debug.Log("Only one enemy in the scene.");
+            selectedEnemy = enemy;
+            blockManager.StartClearBlock();
+            yield break; 
+        }
+        else if (enemies.Length > 1)
+        {
+            Debug.Log("More than one enemy in the scene.");
+
+            yield return new WaitUntil(() => selectedEnemy != null);
+            Debug.Log("Enemy selected.");
+            battleManager.SelectingEnemy = false;
+            blockManager.StartClearBlock();
+        }
+    }
     public virtual void CheckLandOn(int ColorIndex)
     {
         

@@ -205,19 +205,19 @@ public class Revolover: HeroInfo
         {
             case 1:
                 AttackEnemy(1);
-                Fragile();
+                Fragile(1);
                 break;
             case 2:
                 AttackEnemy(1);
-                Fragile();
+                Fragile(1);
                 break;
             case 3:
                 AttackEnemy(3);
-                Fragile();
+                Fragile(3);
                 break;
             case 4:
                 AttackEnemy(4);
-                Fragile();
+                Fragile(4);
                 break;
             default:
                 // Handle unexpected clearNumber here

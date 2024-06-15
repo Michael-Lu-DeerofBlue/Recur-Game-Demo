@@ -21,7 +21,7 @@ public class BlockManager : MonoBehaviour
     public int colorId;
     public bool lockedRotation;
     public string color;
-
+    public bool pauseClearBlock = false;
     void Start()
     {
         
@@ -119,10 +119,9 @@ public class BlockManager : MonoBehaviour
             {
                 MoveLineToRightSide(i);
                 RowDown(i);
-                PauseBlockGame(true);
+                battleManager.IntrruptBlockGame();
             }
         }
-        StartCoroutine(ClearRightSideBlocks());
     }
 
     // Check if a line is complete
@@ -136,10 +135,7 @@ public class BlockManager : MonoBehaviour
         return true;
     }
 
-    void PauseBlockGame(bool Pause)
-    {
-        battleManager.IntrruptBlockGame(Pause);
-    }
+
     // Move a complete line to the right side and position it vertically
     void MoveLineToRightSide(int i)
     {
@@ -182,7 +178,8 @@ public class BlockManager : MonoBehaviour
     // Coroutine to clear connected blocks on the right side with the same color
     IEnumerator ClearRightSideBlocks()
     {
-        yield return new WaitForSeconds(1); // Wait for 1 second before starting the first clear
+        while (pauseClearBlock==false) {
+            yield return new WaitForSeconds(1);
 
             Transform upleftBlock = FindUpleftBlock();
             if (upleftBlock == null) yield break;
@@ -197,10 +194,22 @@ public class BlockManager : MonoBehaviour
                 grid[(int)block.position.x, (int)block.position.y] = null;
                 Destroy(block.gameObject);
             }
-
             battleManager.ReceColorMessage(UpLeftColor, blocksToClear.Count);
-
+        }
     }
+    public void StartClearBlock()
+    {
+        pauseClearBlock = false;
+        StartCoroutine(ClearRightSideBlocks());
+        Debug.Log("StartClearBlock");
+    }
+    public void StopClearBlock()
+    {
+        pauseClearBlock = true;
+        StopCoroutine(ClearRightSideBlocks());
+        Debug.Log("StopClearBlock");
+    }
+
 
     Transform FindUpleftBlock()
     {
@@ -214,7 +223,7 @@ public class BlockManager : MonoBehaviour
                 }
             }
         }
-        PauseBlockGame(false);
+        battleManager.ContinueBlockGame();
         return null;
     }
 

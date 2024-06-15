@@ -18,6 +18,7 @@ public class BattleManager : MonoBehaviour
 
     //Player status:
     public bool PlayerLandOn = false;
+    public bool SelectingEnemy = false;
     //Player debug type:
     public bool RotationLocked = false;
     public bool LockNextBlockRotation = false;
@@ -26,7 +27,6 @@ public class BattleManager : MonoBehaviour
 
     // enemey debug type:
     public float PauseTime = 0;//enemy action bar pause time.
-    public bool EnemyFragiling = false;
 
     void Start()
     {
@@ -73,6 +73,16 @@ public class BattleManager : MonoBehaviour
         heroInfo.ExecuteBehavior(index, clearNumber);
     }
 
+
+
+    public void AttackEnemy(float damage, Enemy Target)
+    {
+        Target.HitHandle(damage);
+    }
+    public void FragileEnemy(float damage, Enemy Target)
+    {
+        Target.Fragiling = true;
+    }
     public void DropDownBlock(float second)
     //we can just set the bool when doing remove rebug instead of using coroutine.
     {
@@ -90,16 +100,20 @@ public class BattleManager : MonoBehaviour
         }
         DropCountDown = false;
     }
-    public void IntrruptBlockGame(bool PauseOrNot)
+    public void IntrruptBlockGame()//called when start to select enemy.
     {
-        PauseBlockGame = PauseOrNot;
-        CancelSingleTurnBuff();
+        PauseBlockGame = true;
+        heroInfo.CheckAndSelectEnemy();
     }
-    //CancelSingleTurnBuff() applies to all buffs that need to be canceled from the action queue to continue the block game.
-    public void CancelSingleTurnBuff()
+    public void ContinueBlockGame()//called when start to select enemy.
     {
-        EnemyFragiling = false;
+        PauseBlockGame = false;
+        SelectingEnemy = false;
+        BlockManager blockManager = FindObjectOfType<BlockManager>();
+        blockManager.StopClearBlock();
     }
+
+
     public void LockRotation()
     {
         RotationLocked = true;
@@ -140,6 +154,7 @@ public class BattleManager : MonoBehaviour
         {
             enemy.PauseCasting = false;
         }
+
     }
     public void refreshSelectionBlocks()
     {
@@ -162,18 +177,13 @@ public class BattleManager : MonoBehaviour
             {
                 string hexColor = ColorUtility.ToHtmlStringRGBA(inttranslator.Colors[i]);
                 if (hexColor == BlockColor)
-                { 
-                        heroInfo.CheckLandOn(i);
+                {
+                    heroInfo.CheckLandOn(i);
                     break;
                 }
             }
 
         }
-    }
-
-    public void EnemyFragile(bool Fragiling)
-    {
-        EnemyFragiling = Fragiling;
     }
 
 }

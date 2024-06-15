@@ -18,6 +18,7 @@ public abstract class Enemy : MonoBehaviour
     public BattleManager battleManager;
     public bool PauseCasting = false; 
     public string nextMove;//name of the skill that will be executed next.
+    public bool Fragiling = false;
 
     public void Start()
     {       
@@ -110,10 +111,11 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void HitHandle(float damage)
     {
-        if (battleManager.EnemyFragiling)
+        if (Fragiling)
         {
             HP -= damage*1.5f;
             Debug.Log("Enemy is receving 1.5 times damage. HP: " + HP);
+            Fragiling = false;
         }
         else
         {
@@ -123,9 +125,15 @@ public abstract class Enemy : MonoBehaviour
         if (HP <= 0)
         {
             HP = 0;
-            Debug.Log("Enemy is dead.");
-            Destroy(gameObject);  // Destroy the enemy object if HP is zero or less
+            deadhandle();
         }
+    }
+
+    public virtual void deadhandle()
+    {
+        HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
+        heroInfo.CheckAndSelectEnemy();
+        Destroy(gameObject);
     }
     public void RefreshChoiceSectionBlock()
     {
@@ -133,23 +141,33 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void OnMouseEnter()
     {
-        Debug.Log("hovering");
+        if (battleManager.SelectingEnemy)
+        {
+            Debug.Log("hovering");
+        }
     }
 
     public virtual void OnMouseExit()
     {
-        Debug.Log("mouse exit");
+        if (battleManager.SelectingEnemy)
+        {
+            Debug.Log("hovering");
+        }
     }
 
     public virtual void OnMouseDown()
     {
-        Debug.Log("clicked");
-        SelectEnemy();
+        if (battleManager.SelectingEnemy)
+        { 
+            SelectedByPlayer();
+            Debug.Log("Enemy is clicked.");
+        }
     }
 
-    public virtual void SelectEnemy()
+    public virtual void SelectedByPlayer()
     {
-        Debug.Log("Enemy selected");
+        HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
+        heroInfo.selectedEnemy = (this);
     }
 
 }
