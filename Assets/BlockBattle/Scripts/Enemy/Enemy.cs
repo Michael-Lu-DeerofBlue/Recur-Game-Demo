@@ -19,6 +19,7 @@ public abstract class Enemy : MonoBehaviour
     public bool PauseCasting = false; 
     public string nextMove;//name of the skill that will be executed next.
     public bool Fragiling = false;
+    public bool isdead=false;
 
     public void Start()
     {       
@@ -131,6 +132,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void deadhandle()
     {
+        isdead = true;// to prevent the enemy from added into the existing enemy array or executing the turn after it is dead.
         HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
         heroInfo.CheckAndSelectEnemy();
         Destroy(gameObject);

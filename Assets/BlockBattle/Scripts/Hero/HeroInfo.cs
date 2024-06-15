@@ -130,7 +130,7 @@ public class HeroInfo : MonoBehaviour
         selectedEnemy = null;
         BlockManager blockManager = FindObjectOfType<BlockManager>();
         blockManager.StopClearBlock();
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Enemy[] enemies = FindObjectsOfType<Enemy>().Where(enemy => !enemy.isdead).ToArray();
         if (enemies.Length == 1)
         {
             Enemy enemy = enemies[0].GetComponent<Enemy>();

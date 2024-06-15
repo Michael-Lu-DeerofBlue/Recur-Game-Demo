@@ -197,13 +197,13 @@ public class BlockManager : MonoBehaviour
             battleManager.ReceColorMessage(UpLeftColor, blocksToClear.Count);
         }
     }
-    public void StartClearBlock()
+    public void StartClearBlock()//Please dont ask me why i have to set the bool while I run the coroutine. you could try to delete either one and you will see a lot of bug
     {
         pauseClearBlock = false;
         StartCoroutine(ClearRightSideBlocks());
         Debug.Log("StartClearBlock");
     }
-    public void StopClearBlock()
+    public void StopClearBlock()//Please dont ask me why i have to set the bool while I stop the coroutine. you could try to delete either one and you will see a lot of bug
     {
         pauseClearBlock = true;
         StopCoroutine(ClearRightSideBlocks());
