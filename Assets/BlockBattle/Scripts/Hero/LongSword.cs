@@ -18,11 +18,11 @@ public class LongSword : HeroInfo
                 break;
             case 3:
                 AttackEnemy(3);
-                PauseEnemyActionBar(2);
+                PauseSingleEnemyActionBar(2);
                 break;
             case 4:
                 AttackEnemy(4);
-                PauseEnemyActionBar(3);
+                PauseSingleEnemyActionBar(3);
                 break;
             default:
                 // Handle unexpected clearNumber here

@@ -26,7 +26,6 @@ public class BattleManager : MonoBehaviour
     public static bool refreshedBlocks = false;
 
     // enemey debug type:
-    public float PauseTime = 0;//enemy action bar pause time.
 
     void Start()
     {
@@ -83,6 +82,16 @@ public class BattleManager : MonoBehaviour
     {
         Target.Fragiling = true;
     }
+    public void ZornhauyEnmey(float damage, Enemy Target)
+    {
+        if (Target.HP <= damage)
+        {
+            Target.HitHandle(damage);
+            IntrruptBlockGame();
+        }
+        
+    }
+
     public void DropDownBlock(float second)
     //we can just set the bool when doing remove rebug instead of using coroutine.
     {
@@ -131,23 +140,20 @@ public class BattleManager : MonoBehaviour
         RotationLocked = false;
     }
 
-    public void PuaseEnemyActionBar(float PausePeriod)
+    public void PuaseSingleEnemyActionBar(float PausePeriod, Enemy Target)
     {
-        PauseTime = +PausePeriod;
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
-        foreach (Enemy enemy in enemies)
-        {
-            enemy.PauseCasting = true;
-            StartCoroutine(ResumeEnemyActionBarAfterDelay());
-        }
+        Target.PauseTime = +PausePeriod;
+        Target.PauseCasting = true;
+        StartCoroutine(ResumeEnemyActionBarAfterDelay(Target));
+        
     }
 
-    private IEnumerator ResumeEnemyActionBarAfterDelay()
+    private IEnumerator ResumeEnemyActionBarAfterDelay(Enemy Target)
     {
-        while (PauseTime > 0)
+        while (Target.PauseTime > 0)
         {
             yield return new WaitForSeconds(1);
-            PauseTime -= 1;
+            Target.PauseTime -= 1;
         }
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
