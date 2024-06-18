@@ -243,9 +243,24 @@ public class PlayerController : MonoBehaviour
                 closestSphereCastHit = hitBack;
         }
 
-        var normal = closestSphereCastHit?.normal ?? Vector3.zero;
+        var normal = new Vector3(0, 0, 0);
+        normal = closestSphereCastHit?.normal ?? Vector3.zero;
 
-        return Quaternion.LookRotation(Vector3.Cross(transform.right, normal), normal);
+        if (normal.sqrMagnitude > float.Epsilon)
+        {
+            return Quaternion.LookRotation(Vector3.Cross(transform.right, normal), normal);
+        }
+        else
+        {
+            var stickedRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+            Vector3 playerUp = transform.rotation * Vector3.up;
+            float dotProduct = Vector3.Dot(playerUp, Vector3.up);
+            if (dotProduct < 0)
+            {
+                stickedRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 180);
+            }
+            return stickedRotation;
+        }
     }
 
     /// <summary>
