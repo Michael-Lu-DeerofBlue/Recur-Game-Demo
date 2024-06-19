@@ -289,6 +289,8 @@ public class PlayerController : MonoBehaviour
         {
             stickedRotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 180);
         }
+        if (transform.rotation.eulerAngles.x < 1){ transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);}
+        if (transform.rotation.eulerAngles.z < 1) { transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, 0); }
         transform.rotation = Quaternion.Slerp(transform.rotation, stickedRotation, Time.fixedDeltaTime * currentMagneticRotationSpeed);
     }
 

@@ -6,6 +6,7 @@ using TMPro;
 public class PlayerToUI : MonoBehaviour
 {
     public TextMeshProUGUI MagneticBoots;
+    public TextMeshProUGUI FPS;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class PlayerToUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        string text = "FPS: ";
+        FPS.text = text + (1.0f / Time.deltaTime).ToString();
     }
 }
