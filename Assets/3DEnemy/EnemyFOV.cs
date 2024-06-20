@@ -24,7 +24,7 @@ public class EnemyFOV : MonoBehaviour
 
     private IEnumerator FOVRoutine()
     {
-        WaitForSeconds wait = new WaitForSeconds(0.2f);
+        WaitForSeconds wait = new WaitForSeconds(0.5f);
 
         while (true)
         {
@@ -48,7 +48,7 @@ public class EnemyFOV : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
                 {
-                    Debug.Log("here");
+                    Debug.Log(gameObject.name +" see player");
                     canSeePlayer = true;
                 }
                 else
