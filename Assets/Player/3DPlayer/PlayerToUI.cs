@@ -10,7 +10,6 @@ public class PlayerToUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     public void MagneticBootsUI(string value)
@@ -23,6 +22,6 @@ public class PlayerToUI : MonoBehaviour
     void Update()
     {
         string text = "FPS: ";
-        FPS.text = text + (1.0f / Time.deltaTime).ToString();
+        FPS.text = text + (1.0f / Time.unscaledDeltaTime).ToString("#0.0");
     }
 }
