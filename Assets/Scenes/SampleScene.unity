@@ -330,6 +330,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 607922846}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &630185225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4431256527321920181, guid: beae3c3608aad194aa077b67cb8eba35, type: 3}
+  m_PrefabInstance: {fileID: 1053612710521848615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -945,6 +950,22 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 6658558135858167995, guid: beae3c3608aad194aa077b67cb8eba35, type: 3}
   m_PrefabInstance: {fileID: 1053612710521848615}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2029046223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630185225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad285bd189a64c34a0779c849d09c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asset: {fileID: -4516626237390682484, guid: db5ffccf7e5175846b5e1c21d90c8487, type: 3}
+  cameraEvent: 14
+  fit: 2
+  material: {fileID: 0}
 --- !u!1001 &1053612710521848615
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1013,6 +1034,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2739179783426459969, guid: beae3c3608aad194aa077b67cb8eba35, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1073123423}
+    - targetCorrespondingSourceObject: {fileID: 4431256527321920181, guid: beae3c3608aad194aa077b67cb8eba35, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2029046223}
   m_SourcePrefab: {fileID: 100100000, guid: beae3c3608aad194aa077b67cb8eba35, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
