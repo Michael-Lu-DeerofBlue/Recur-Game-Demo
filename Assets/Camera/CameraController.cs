@@ -9,28 +9,31 @@ public class CameraController : MonoBehaviour
     public float zoomSpeed = 10f;
     public float minZoom = 20f;
     public float maxZoom = 60f;
-
+    public float maxDistance = 100f;
     private bool isCameraMode = false;
+    public LayerMask targetLayer;
+    public LayerMask wallLayer;
     public GameObject UIIndicator;
-
+    public int gridResolution = 10;
     void Update()
     {
         // Toggle camera mode
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (isCameraMode) { playerCamera.fieldOfView = 60; }
             isCameraMode = !isCameraMode;
-            UIIndicator.SetActive(isCameraMode);
+            UIIndicator.GetComponent<PlayerToUI>().CameraUI(isCameraMode.ToString());
         }
 
         // Zoom functionality
+        /*
         if (isCameraMode)
         {
             float scrollInput = Input.GetAxis("Mouse ScrollWheel");
             playerCamera.fieldOfView -= scrollInput * zoomSpeed;
             playerCamera.fieldOfView = Mathf.Clamp(playerCamera.fieldOfView, minZoom, maxZoom);
         }
-
+        */
         if (Input.GetMouseButtonDown(0) && isCameraMode)
         {
             DetectTargetsInFrame();
@@ -39,31 +42,40 @@ public class CameraController : MonoBehaviour
 
     void DetectTargetsInFrame()
     {
-        int targetCount = 0;
-        
-        // Alternative: Detect all objects within the camera's view frustum
-        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(playerCamera);
-        GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
+        int count = 0;
+        HashSet<Collider> detectedTargets = new HashSet<Collider>();
 
-        foreach (GameObject target in targets)
+        for (int x = 0; x < gridResolution; x++)
         {
-            if (target.GetComponent<Collider>() && GeometryUtility.TestPlanesAABB(planes, target.GetComponent<Collider>().bounds))
+            for (int y = 0; y < gridResolution; y++)
             {
-                // Raycast from the camera to the target to ensure it is not occluded
-                Vector3 direction = target.transform.position - playerCamera.transform.position;
-                Ray ray = new Ray(playerCamera.transform.position, direction);
-                RaycastHit hit;
+                float u = (float)x / (gridResolution - 1);
+                float v = (float)y / (gridResolution - 1);
+                Ray ray = playerCamera.ViewportPointToRay(new Vector3(u, v, 0));
 
-                if (Physics.Raycast(ray, out hit))
+                RaycastHit[] hits = Physics.RaycastAll(ray, maxDistance, targetLayer | wallLayer);
+                foreach (RaycastHit hit in hits)
                 {
-                    if (hit.transform.CompareTag("Target"))
+                    if ((targetLayer & (1 << hit.collider.gameObject.layer)) != 0)
                     {
-                        targetCount++;
+                        if (!IsObstructed(ray.origin, hit.point))
+                        {
+                            detectedTargets.Add(hit.collider);
+                        }
                     }
                 }
             }
         }
 
-        Debug.Log("Number of target objects in frame: " + targetCount);
+        count = detectedTargets.Count;
+
+        Debug.Log("Number of target objects in frame: " + count + " Time: " + Time.time);
+    }
+
+    bool IsObstructed(Vector3 start, Vector3 end)
+    {
+        Vector3 direction = end - start;
+        float distance = direction.magnitude;
+        return Physics.Raycast(start, direction, distance, wallLayer);
     }
 }
