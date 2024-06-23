@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour
     public Camera cam;
     private float xRotation = 0f;
     public float xSensitivity = 30f; public float ySensitivity = 30f;
+    public float rotationSmoothTime = 0.1f;
+    private Vector3 currentCamRotation;
+    private Vector3 camRotationVelocity;
+    private float currentPlayerRotation;
+    private float playerRotationVelocity;
 
     [Header("Magnetic Boots")]
     public bool isMageticBootsOn = false;
@@ -176,15 +181,24 @@ public class PlayerController : MonoBehaviour
 
     public void ProcessLook()
     {
-        float mouseX = Input.GetAxis("Mouse X") * xSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * ySensitivity;
-        //calculate camera rotation for looking up and down
-        xRotation -= (mouseY * Time.deltaTime) * ySensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * xSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * ySensitivity * Time.deltaTime;
+
+        // Calculate camera rotation for looking up and down
+        xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
-        //apply this to our camera transform.
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        //rotate player to look left and right
-        transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
+
+        // Smoothly interpolate the camera rotation
+        Vector3 targetCamRotation = new Vector3(xRotation, 0f, 0f);
+        currentCamRotation = Vector3.SmoothDamp(currentCamRotation, targetCamRotation, ref camRotationVelocity, rotationSmoothTime);
+
+        cam.transform.localRotation = Quaternion.Euler(currentCamRotation);
+
+        // Smoothly interpolate the player rotation
+        float targetPlayerRotation = transform.eulerAngles.y + mouseX;
+        currentPlayerRotation = Mathf.SmoothDampAngle(currentPlayerRotation, targetPlayerRotation, ref playerRotationVelocity, rotationSmoothTime);
+
+        transform.rotation = Quaternion.Euler(0f, currentPlayerRotation, 0f);
     }
 
     public void DoFieldofView()
