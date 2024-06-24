@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     public LayerMask wallLayer;
     public GameObject UIIndicator;
     public int gridResolution = 10;
+    private Dictionary<string, bool> detectedEnemies = new Dictionary<string, bool>();
     void Update()
     {
         // Toggle camera mode
@@ -43,7 +44,8 @@ public class CameraController : MonoBehaviour
     void DetectTargetsInFrame()
     {
         int count = 0;
-        HashSet<Collider> detectedTargets = new HashSet<Collider>();
+        detectedEnemies.Clear();
+        HashSet<Transform> detectedTargets = new HashSet<Transform>();
 
         for (int x = 0; x < gridResolution; x++)
         {
@@ -60,7 +62,7 @@ public class CameraController : MonoBehaviour
                     {
                         if (!IsObstructed(ray.origin, hit.point))
                         {
-                            detectedTargets.Add(hit.collider);
+                            detectedTargets.Add(hit.transform);
                         }
                     }
                 }
@@ -68,8 +70,27 @@ public class CameraController : MonoBehaviour
         }
 
         count = detectedTargets.Count;
+        foreach (var target in detectedTargets)
+        {
+            string targetName = target.gameObject.name;
+            bool isFacingAway = IsFacingAwayFromPlayer(target.transform);
+            detectedEnemies[targetName] = isFacingAway;
+        }
+
+        ThreeDTo2DData.dataDictionary = detectedEnemies;
 
         Debug.Log("Number of target objects in frame: " + count + " Time: " + Time.time);
+        foreach (var enemy in detectedEnemies)
+        {
+            Debug.Log($"Enemy: {enemy.Key}, Detected: {enemy.Value}" + " Time: " + Time.time);
+        }
+    }
+
+    bool IsFacingAwayFromPlayer(Transform enemyTransform)
+    {
+        Vector3 directionToPlayer = (playerCamera.transform.position - enemyTransform.position).normalized;
+        float dotProduct = Vector3.Dot(enemyTransform.forward, directionToPlayer);
+        return dotProduct < 0; // Returns true if the enemy is facing away from the player
     }
 
     bool IsObstructed(Vector3 start, Vector3 end)
