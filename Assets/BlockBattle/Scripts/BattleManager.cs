@@ -27,6 +27,8 @@ public class BattleManager : MonoBehaviour
 
     // enemey debug type:
 
+    //enemy status:
+    public bool WeakMinionCompanionsOnHold = false;
     void Start()
     {
         heroInfo = FindObjectOfType<HeroInfo>();
@@ -127,6 +129,28 @@ public class BattleManager : MonoBehaviour
     {
         RotationLocked = true;
         StartCoroutine(ResetLockRotation());
+    }
+
+    public void WeakMinoCompanionsStart()
+    {
+        WeakMinionCompanionsOnHold = true;
+    }
+    public void CheckCompanions()
+    {
+        WeakMinion[] WeakMinions = FindObjectsOfType<WeakMinion>();
+        foreach (WeakMinion minion in WeakMinions)
+        {
+            if (!minion.waiting)
+            {
+                return;
+            }
+        }
+        WeakMinion[] WeakMinions_a = FindObjectsOfType<WeakMinion>();
+        foreach (WeakMinion minion in WeakMinions_a)
+        {
+            minion.DoCampanions();
+        }
+        WeakMinionCompanionsOnHold = false;
     }
 
     public void LockRotationForNextBlock()

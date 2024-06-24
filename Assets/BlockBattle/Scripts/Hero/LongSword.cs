@@ -154,6 +154,7 @@ public class LongSword : HeroInfo
                 AttackEnemy(1);
                 break;
             case 4:
+                
                 Zornhauy(10);
                 break;
             default:

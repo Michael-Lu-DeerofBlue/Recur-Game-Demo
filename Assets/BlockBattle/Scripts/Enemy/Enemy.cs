@@ -86,6 +86,23 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    public void RandomDamageAttack(float DamageMin, float DamageMax)
+    {
+        float Damage= Random.Range(DamageMin, DamageMax);
+        if (hero != null)
+        {
+            HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
+            if (heroInfo != null)
+            {
+                heroInfo.HitHandle(Damage);
+            }
+            else
+            {
+                Debug.LogError("Hero object does not have a HeroInfo component.");
+            }
+        }
+    }
+
     public void DropDownblock(float second)
     {
         battleManager.DropDownBlock(second);
@@ -105,11 +122,14 @@ public abstract class Enemy : MonoBehaviour
     public void Heal(float healValue)
     {
         HitHandle(-healValue);
-        if (HP >= 0)
+        if (HP >= MaxHp)
         {
             HP = MaxHp;
         }
     }
+
+
+
 
     public virtual void HitHandle(float damage)
     {
