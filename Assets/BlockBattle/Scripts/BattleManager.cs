@@ -19,13 +19,16 @@ public class BattleManager : MonoBehaviour
     //Player status:
     public bool PlayerLandOn = false;
     public bool SelectingEnemy = false;
-    //Player debug type:
+    //Player debuff type:
     public bool RotationLocked = false;
     public bool LockNextBlockRotation = false;
     public bool DropCountDown = false;
     public static bool refreshedBlocks = false;
 
-    // enemey debug type:
+    //Player buffer Type:
+    public bool PlayerImmuingDebuff = false;
+
+    // enemey debuff type:
 
     //enemy status:
     public bool WeakMinionCompanionsOnHold = false;
@@ -41,6 +44,7 @@ public class BattleManager : MonoBehaviour
     {
 
     }
+
 
     public void ReceColorMessage(string Colortofind, int clearNumber)
     {
@@ -94,11 +98,35 @@ public class BattleManager : MonoBehaviour
         
     }
 
+
+    public void RemoveAllPlayerDebug()
+    {
+        RotationLocked = false;
+        LockNextBlockRotation = false;
+        DropCountDown = false;
+        refreshedBlocks = false;
+    }
+
+    public void PlayerImmueDebuffDuring(float second)
+    {
+        StartCoroutine(ImmueAllDebuffAfterDelay(second));
+    }
+
+    private IEnumerator ImmueAllDebuffAfterDelay(float seconds)
+    {
+        PlayerImmuingDebuff = true;  
+        yield return new WaitForSeconds(seconds);  
+        PlayerImmuingDebuff = false;  
+    }
+
     public void DropDownBlock(float second)
     //we can just set the bool when doing remove rebug instead of using coroutine.
     {
-        StartCoroutine(DropDownAfterDelay(second));
-        DropCountDown = true;
+        if(PlayerImmuingDebuff == false)
+        {
+            StartCoroutine(DropDownAfterDelay(second));
+            DropCountDown = true;
+        }
     }
 
     private IEnumerator DropDownAfterDelay(float delay)
@@ -127,8 +155,11 @@ public class BattleManager : MonoBehaviour
 
     public void LockRotation()
     {
-        RotationLocked = true;
-        StartCoroutine(ResetLockRotation());
+        if(PlayerImmuingDebuff == false)
+        {
+            RotationLocked = true;
+            StartCoroutine(ResetLockRotation());
+        }
     }
 
     public void WeakMinoCompanionsStart()
@@ -156,7 +187,10 @@ public class BattleManager : MonoBehaviour
     public void LockRotationForNextBlock()
     //set the bool instead of method, aviod to reset in 3 seconds.
     {
-        LockNextBlockRotation = true;
+        if (PlayerImmuingDebuff == false)
+        {
+            LockNextBlockRotation = true;
+        }
     }
     private IEnumerator ResetLockRotation()
     {
@@ -186,12 +220,17 @@ public class BattleManager : MonoBehaviour
         }
 
     }
-    public void refreshSelectionBlocks()
+    public void ReShapeSelectionBlock()
     {
-        refreshedBlocks = true;
-        selectionTool = FindObjectOfType<SelectionTool>();
-        selectionTool.refreshSelectionBlocks();
+        if (!PlayerImmuingDebuff)
+        {
+            refreshedBlocks = true;
+            selectionTool = FindObjectOfType<SelectionTool>();
+            selectionTool.ReShapeSelectionBlocks();
+        }
     }
+
+
 
     public void ResetEnemyActionBar()
     {

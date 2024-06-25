@@ -21,6 +21,7 @@ public abstract class Enemy : MonoBehaviour
     public bool Fragiling = false;
     public bool isdead=false;
     public float PauseTime = 0;
+    private ItemEventHandler itemEventHandler;
 
     public void Start()
     {       
@@ -28,6 +29,7 @@ public abstract class Enemy : MonoBehaviour
         battleManager = FindObjectOfType<BattleManager>();
         GetNextMove();//get casting time for the first turn.
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
+        itemEventHandler = FindObjectOfType<ItemEventHandler>();
     }
     public virtual void Update()
     {
@@ -160,7 +162,7 @@ public abstract class Enemy : MonoBehaviour
     }
     public void RefreshChoiceSectionBlock()
     {
-        battleManager.refreshSelectionBlocks();
+        battleManager.ReShapeSelectionBlock();
     }
     public virtual void OnMouseEnter()
     {
@@ -183,6 +185,20 @@ public abstract class Enemy : MonoBehaviour
         if (battleManager.SelectingEnemy)
         { 
             SelectedByPlayer();
+        }
+        if (itemEventHandler.ItemSelectingEnemy)
+        {
+            switch (itemEventHandler.ItemUsing)
+            {
+                case "PaperCutter":
+                    Fragiling = true;
+                    Debug.Log("Paper Cutter used!");
+                    break;
+                default:
+                    Debug.Log("Unable to identify the item.");
+                    break;
+            }
+            itemEventHandler.ItemSelectingEnemy = false;
         }
     }
 

@@ -6,6 +6,16 @@ public class ConsumablesManager : MonoBehaviour
 {
 
     public static Dictionary<string, int> ConsumablesInventory = new Dictionary<string, int>();
+    public static Dictionary<string, int> TestConsumablesInventory = new Dictionary<string, int>()
+    {
+        { "SculptureClay", 2 },
+        { "SprayCan", 2 },
+        { "ArtRubber", 2 },
+        { "PaperCutter", 2 },
+        { "FracturedPocketWatch", 2 }
+    };//temperay inventory for testing
+
+
 
     // Start is called before the first frame update
     void Start()
