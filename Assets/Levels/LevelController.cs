@@ -26,10 +26,25 @@ public abstract class LevelController : MonoBehaviour
         SceneManager.LoadScene("BattleLevel");
     }
 
+    public void LoadData()
+    {
+        Vector3 location = player.transform.position;
+        string currentScene = SceneManager.GetActiveScene().name;
+        ES3.Load("location", location);
+        ES3.Load("Weapons", WeaponManager.WeaponInventory);
+        ES3.Load("CurrentWeapon", WeaponManager.CurrentWeapon);
+        ES3.Load("Consumables", ConsumablesManager.ConsumablesInventory);
+        ES3.Load("CurrentScene", currentScene);
+    }
+
     public void SaveData()
     {
         Vector3 location = player.transform.position;
+        string currentScene = SceneManager.GetActiveScene().name;
         ES3.Save("location", location);
-
+        ES3.Save("Weapons", WeaponManager.WeaponInventory);
+        ES3.Save("CurrentWeapon", WeaponManager.CurrentWeapon);
+        ES3.Save("Consumables", ConsumablesManager.ConsumablesInventory);
+        ES3.Save("CurrentScene", currentScene);
     }
 }
