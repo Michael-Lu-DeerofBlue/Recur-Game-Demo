@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.49351424, g: 0.53072476, b: 0.443411, a: 1}
+  m_IndirectSpecularColor: {r: 0.49392292, g: 0.5309033, b: 0.44334173, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -294,6 +294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 39892039}
   - component: {fileID: 39892038}
+  - component: {fileID: 39892040}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -378,6 +379,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &39892040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39892037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &53616422 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7284302652457461065, guid: 29ecdffd9ccb94d5f951aae4adc2d3db, type: 3}
@@ -2142,6 +2166,7 @@ GameObject:
   - component: {fileID: 328201492}
   - component: {fileID: 328201493}
   - component: {fileID: 328201494}
+  - component: {fileID: 328201495}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2294,8 +2319,9 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   playerToUI: {fileID: 1399169488}
   cam: {fileID: 126744526}
-  xSensitivity: 50
-  ySensitivity: 50
+  xSensitivity: 5000
+  ySensitivity: 1000
+  rotationSmoothTime: 0.1
   isMageticBootsOn: 0
 --- !u!114 &328201494
 MonoBehaviour:
@@ -2322,6 +2348,20 @@ MonoBehaviour:
   grapplingCd: 1
   grappleKey: 324
   grappling: 0
+--- !u!114 &328201495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328201487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ca6c9da9162c154d8e1dd1062cc6d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MagneticBoots: 0
+  Camera: 0
 --- !u!1 &329971183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4783713570328844907, guid: 29ecdffd9ccb94d5f951aae4adc2d3db, type: 3}
@@ -3552,6 +3592,51 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7.51, y: 18.14, z: 127.35}
   m_LocalScale: {x: 4.046844, y: 0.1011711, z: 26.926592}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &625932808
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 625932810}
+  - component: {fileID: 625932809}
+  m_Layer: 0
+  m_Name: _FungusState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &625932809
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625932808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedFlowchart: {fileID: 0}
+--- !u!4 &625932810
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625932808}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6277,6 +6362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MagneticBoots: {fileID: 950933209}
   FPS: {fileID: 9914389}
+  Camera: {fileID: 0}
 --- !u!1 &1411978392 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6200157246659774055, guid: 29ecdffd9ccb94d5f951aae4adc2d3db, type: 3}
@@ -9213,3 +9299,4 @@ SceneRoots:
   - {fileID: 651312078}
   - {fileID: 1289391026}
   - {fileID: 3451510726226907165}
+  - {fileID: 625932810}

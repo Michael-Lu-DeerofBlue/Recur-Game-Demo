@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
+
 /// <summary>
 /// Controls the character by magnetizing to nearby objects that he can walk on.
 /// </summary>
@@ -57,6 +58,7 @@ public class PlayerController : MonoBehaviour
     [Header("Magnetic Boots")]
     public bool isMageticBootsOn = false;
 
+
     /// <summary>
     /// Is called when the script instance is being loaded.
     /// </summary>
@@ -100,8 +102,9 @@ public class PlayerController : MonoBehaviour
         Jump();
         JudgeSprint();
         if (cam.fieldOfView != fov) { DoFieldofView();}
-        if (Input.GetKeyDown(KeyCode.Q)) { isMageticBootsOn = !isMageticBootsOn;UpdateUI(); }
+        if (Input.GetKeyDown(KeyCode.Q) && GetComponent<GadgetsTool>().MagneticBoots) { isMageticBootsOn = !isMageticBootsOn;UpdateUI(); }
     }
+
 
     public void UpdateUI()
     {
@@ -229,6 +232,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void MagneticRotate()
     {
+        
         var stickedRotation = GetMagneticRotation();
         transform.rotation = Quaternion.Slerp(transform.rotation, stickedRotation, Time.fixedDeltaTime * currentMagneticRotationSpeed);
     }

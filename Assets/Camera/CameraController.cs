@@ -14,12 +14,13 @@ public class CameraController : MonoBehaviour
     public LayerMask targetLayer;
     public LayerMask wallLayer;
     public GameObject UIIndicator;
+    public GameObject LevelController;
     public int gridResolution = 10;
     private Dictionary<string, bool> detectedEnemies = new Dictionary<string, bool>();
     void Update()
     {
         // Toggle camera mode
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && GetComponentInParent<GadgetsTool>().Camera)
         {
             if (isCameraMode) { playerCamera.fieldOfView = 60; }
             isCameraMode = !isCameraMode;
@@ -76,14 +77,20 @@ public class CameraController : MonoBehaviour
             bool isFacingAway = IsFacingAwayFromPlayer(target.transform);
             detectedEnemies[targetName] = isFacingAway;
         }
-
+        ThreeDTo2DData.dataDictionary.Clear();
         ThreeDTo2DData.dataDictionary = detectedEnemies;
-
+        if (count > 0)
+        {
+            LevelController.GetComponent<LevelController>().GoToBattle();
+        }
+        /*
         Debug.Log("Number of target objects in frame: " + count + " Time: " + Time.time);
+        Debug.Log(detectedEnemies.Count);
         foreach (var enemy in detectedEnemies)
         {
             Debug.Log($"Enemy: {enemy.Key}, Detected: {enemy.Value}" + " Time: " + Time.time);
         }
+        */
     }
 
     bool IsFacingAwayFromPlayer(Transform enemyTransform)
