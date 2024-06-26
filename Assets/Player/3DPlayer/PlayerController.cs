@@ -9,8 +9,8 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider), typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    public const float DEFAULT_MOVEMENT_SPEED = 5f;
-    public const float DEFAULT_SPRINT_SPEED = 8f;
+    public const float DEFAULT_MOVEMENT_SPEED = 2f;
+    public const float DEFAULT_SPRINT_SPEED = 4f;
     public const float DEFAULT_IN_AIR_SPEED = 15f;
     public const float DEFAULT_ROTATION_SPEED = 100f;
     public const float DEFAULT_FOV= 60f;
@@ -184,8 +184,9 @@ public class PlayerController : MonoBehaviour
 
     public void ProcessLook()
     {
-        float mouseX = Input.GetAxis("Mouse X") * xSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * ySensitivity * Time.deltaTime;
+
+        float mouseX = Input.GetAxis("Mouse X") * xSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * ySensitivity ;
 
         // Calculate camera rotation for looking up and down
         xRotation -= mouseY;
@@ -196,12 +197,14 @@ public class PlayerController : MonoBehaviour
         currentCamRotation = Vector3.SmoothDamp(currentCamRotation, targetCamRotation, ref camRotationVelocity, rotationSmoothTime);
 
         cam.transform.localRotation = Quaternion.Euler(currentCamRotation);
-
+        transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
+        /*
         // Smoothly interpolate the player rotation
         float targetPlayerRotation = transform.eulerAngles.y + mouseX;
         currentPlayerRotation = Mathf.SmoothDampAngle(currentPlayerRotation, targetPlayerRotation, ref playerRotationVelocity, rotationSmoothTime);
 
         transform.rotation = Quaternion.Euler(0f, currentPlayerRotation, 0f);
+        */
     }
 
     public void DoFieldofView()
