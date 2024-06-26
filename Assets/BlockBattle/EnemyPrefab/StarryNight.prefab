@@ -349,9 +349,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7868329382648246484}
   - component: {fileID: 3197008888474548069}
-  - component: {fileID: 3409838057338128444}
+  - component: {fileID: 6334088207125278634}
   m_Layer: 0
-  m_Name: WeakMinion
+  m_Name: StarryNight
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,7 +400,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.3069878, y: 10.098838, z: 1}
   m_Center: {x: 0, y: 0.41607141, z: 0}
---- !u!114 &3409838057338128444
+--- !u!114 &6334088207125278634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -409,14 +409,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4892679668077574771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92bb7a79044867f4da334087d5b680d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 3375fd1179616864f9d9f79018068813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 5
-  MaxHp: 5
+  HP: 100
+  MaxHp: 100
   SkillCastingTime: 0
   enemyInfoText: {fileID: 2320016935802981217}
-  timer: 0
+  timer: 8
   hero: {fileID: 0}
   battleManager: {fileID: 0}
   PauseCasting: 0
@@ -424,11 +424,15 @@ MonoBehaviour:
   Fragiling: 0
   isdead: 0
   PauseTime: 0
-  attackDamage: 2
-  CompanionsMinDamage: 1
-  CompanionsMaxDamage: 8
-  attackWeight: 1
-  CompanionsWeight: 99
+  ChargingCorruption: 0
+  attackDamage: 5
+  RealityCorruptionDamage: 42
+  attackWeight: 2
+  paintingSplashWeight: 2
+  GazeStarsWeight: 1
+  CorruptionWeight: 0
   attackCastingTime: 8
-  CompanionsCastingTime: 12
-  waiting: 0
+  splashCastingTime: 10
+  GazeStarsCastingtime: 5
+  corruptionCastingTime: 15
+  firstCorruption: 0

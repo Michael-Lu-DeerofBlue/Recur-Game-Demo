@@ -21,13 +21,17 @@ public abstract class Enemy : MonoBehaviour
     public bool Fragiling = false;
     public bool isdead=false;
     public float PauseTime = 0;
+    private ItemEventHandler itemEventHandler;
+    private TargetSelector targetSelector;
 
     public void Start()
-    {       
+    {
+        targetSelector = FindObjectOfType<TargetSelector>();
         hero = GameObject.Find("Hero");
         battleManager = FindObjectOfType<BattleManager>();
         GetNextMove();//get casting time for the first turn.
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
+        itemEventHandler = FindObjectOfType<ItemEventHandler>();
     }
     public virtual void Update()
     {
@@ -154,35 +158,28 @@ public abstract class Enemy : MonoBehaviour
     public virtual void deadhandle()
     {
         isdead = true;// to prevent the enemy from added into the existing enemy array or executing the turn after it is dead.
-        HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
-        heroInfo.CheckAndSelectEnemy();
+        targetSelector.SwitchTargetWhileIsDead();
         Destroy(gameObject);
     }
     public void RefreshChoiceSectionBlock()
     {
-        battleManager.refreshSelectionBlocks();
+        battleManager.ReShapeSelectionBlock();
     }
     public virtual void OnMouseEnter()
     {
-        if (battleManager.SelectingEnemy)
-        {
-            Debug.Log("hovering");
-        }
+
     }
 
     public virtual void OnMouseExit()
     {
-        if (battleManager.SelectingEnemy)
-        {
-            Debug.Log("hovering");
-        }
+
     }
 
     public virtual void OnMouseDown()
     {
-        if (battleManager.SelectingEnemy)
-        { 
-            SelectedByPlayer();
+        if (!isdead)
+        {
+            targetSelector.SwitchTargetByClick(this);
         }
     }
 

@@ -74,7 +74,7 @@ public class SelectionTool : MonoBehaviour
         
         return result;
     }
-    public void refreshSelectionBlocks()
+    public void ReShapeSelectionBlocks()
     {
         List<int> allBlockList = new List<int> {0, 1, 2, 3, 4, 5, 6};
         threeBlockList = DrawRandomIntegers(allBlockList, 3);
