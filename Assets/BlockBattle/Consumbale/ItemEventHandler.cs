@@ -55,13 +55,12 @@ public class ItemEventHandler : MonoBehaviour
     {
         battleManager.RemoveAllPlayerDebug();
         battleManager.PlayerImmueDebuffDuring(10);
-        Debug.Log("Art Rubber used!");
+        Debug.Log("remove all player debug!");
     }
 
     void UsePaperCutter()
     {
-        ItemSelectingEnemy = true;
-        ItemUsing = "PaperCutter";
+        battleManager.FragileEnemy(0, heroInfo.selectedEnemy);
     }
 
     void UseFracturedPocketWatch()
