@@ -74,6 +74,7 @@ public class ItemManager : MonoBehaviour
 
             if (inventory[itemName] <= 0)
             {
+
                 inventoryButton.image.sprite = emptySprite;
                 inventoryButton.quantityText.text = "";
             }
@@ -84,6 +85,8 @@ public class ItemManager : MonoBehaviour
 
             itemEventHandler.HandleItemEvent(itemName);
         }
+
+
     }
 }
 

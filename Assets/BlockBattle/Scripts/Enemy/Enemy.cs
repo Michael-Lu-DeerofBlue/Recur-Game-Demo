@@ -157,7 +157,7 @@ public abstract class Enemy : MonoBehaviour
     {
         isdead = true;// to prevent the enemy from added into the existing enemy array or executing the turn after it is dead.
         HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
-        heroInfo.CheckAndSelectEnemy();
+       // heroInfo.CheckAndSelectEnemy();
         Destroy(gameObject);
     }
     public void RefreshChoiceSectionBlock()

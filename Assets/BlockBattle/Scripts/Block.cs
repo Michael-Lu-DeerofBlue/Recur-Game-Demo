@@ -172,6 +172,7 @@ public class BlockManager : MonoBehaviour
                 grid[(int)newPosition.x, (int)newPosition.y] = block;
             }
         }
+        StartClearBlock();
     }
 
 

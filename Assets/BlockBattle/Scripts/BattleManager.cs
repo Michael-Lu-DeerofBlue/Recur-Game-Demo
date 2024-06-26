@@ -19,7 +19,9 @@ public class BattleManager : MonoBehaviour
     //Player status:
     public bool PlayerLandOn = false;
     public bool SelectingEnemy = false;
+
     //Player debuff type:
+    //when add new debuff type, remember to add a bool to "RemoveAllPlayerDebuff" method.
     public bool RotationLocked = false;
     public bool LockNextBlockRotation = false;
     public bool DropCountDown = false;
@@ -93,7 +95,6 @@ public class BattleManager : MonoBehaviour
         if (Target.HP <= damage)
         {
             Target.HitHandle(damage);
-            IntrruptBlockGame();
         }
         
     }
@@ -142,7 +143,7 @@ public class BattleManager : MonoBehaviour
     public void IntrruptBlockGame()//called when start to select enemy.
     {
         PauseBlockGame = true;
-        heroInfo.CheckAndSelectEnemy();
+        //  heroInfo.CheckAndSelectEnemy();
     }
     public void ContinueBlockGame()//called when start to select enemy.
     {
