@@ -18,7 +18,6 @@ public class BattleManager : MonoBehaviour
 
     //Player status:
     public bool PlayerLandOn = false;
-    public bool SelectingEnemy = false;
 
     //Player debuff type:
     //when add new debuff type, remember to add a bool to "RemoveAllPlayerDebuff" method.
@@ -148,7 +147,6 @@ public class BattleManager : MonoBehaviour
     public void ContinueBlockGame()//called when start to select enemy.
     {
         PauseBlockGame = false;
-        SelectingEnemy = false;
         BlockManager blockManager = FindObjectOfType<BlockManager>();
         blockManager.StopClearBlock();
     }

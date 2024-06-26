@@ -14,12 +14,14 @@ public class HeroInfo : MonoBehaviour
     public BattleManager battleManager;
     public int parryCount=0;
     public Enemy selectedEnemy;
+    private TargetSelector targetSelector;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
         Hp.text = "HP: " + HitPoint.ToString();
         battleManager = FindObjectOfType<BattleManager>();
+        targetSelector = FindObjectOfType<TargetSelector>();
     }
 
     // Update is called once per frame
@@ -28,6 +30,10 @@ public class HeroInfo : MonoBehaviour
 
     }
 
+    public virtual void SetSelectedEnemy(Enemy Target)
+    {
+        selectedEnemy = Target;
+    }
     public virtual void ExecuteBehavior(int index, int clearNumber)
     //whatever the player character do, it will be executed here. 
     {

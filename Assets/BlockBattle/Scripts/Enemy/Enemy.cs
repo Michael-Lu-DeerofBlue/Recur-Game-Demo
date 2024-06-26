@@ -22,9 +22,11 @@ public abstract class Enemy : MonoBehaviour
     public bool isdead=false;
     public float PauseTime = 0;
     private ItemEventHandler itemEventHandler;
+    private TargetSelector targetSelector;
 
     public void Start()
-    {       
+    {
+        targetSelector = FindObjectOfType<TargetSelector>();
         hero = GameObject.Find("Hero");
         battleManager = FindObjectOfType<BattleManager>();
         GetNextMove();//get casting time for the first turn.
@@ -156,8 +158,7 @@ public abstract class Enemy : MonoBehaviour
     public virtual void deadhandle()
     {
         isdead = true;// to prevent the enemy from added into the existing enemy array or executing the turn after it is dead.
-        HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
-       // heroInfo.CheckAndSelectEnemy();
+        targetSelector.SwitchTargetWhileIsDead();
         Destroy(gameObject);
     }
     public void RefreshChoiceSectionBlock()
@@ -166,39 +167,19 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void OnMouseEnter()
     {
-        if (battleManager.SelectingEnemy)
-        {
-            Debug.Log("hovering");
-        }
+
     }
 
     public virtual void OnMouseExit()
     {
-        if (battleManager.SelectingEnemy)
-        {
-            Debug.Log("hovering");
-        }
+
     }
 
     public virtual void OnMouseDown()
     {
-        if (battleManager.SelectingEnemy)
-        { 
-            SelectedByPlayer();
-        }
-        if (itemEventHandler.ItemSelectingEnemy)
+        if (!isdead)
         {
-            switch (itemEventHandler.ItemUsing)
-            {
-                case "PaperCutter":
-                    Fragiling = true;
-                    Debug.Log("Paper Cutter used!");
-                    break;
-                default:
-                    Debug.Log("Unable to identify the item.");
-                    break;
-            }
-            itemEventHandler.ItemSelectingEnemy = false;
+            targetSelector.SwitchTargetByClick(this);
         }
     }
 

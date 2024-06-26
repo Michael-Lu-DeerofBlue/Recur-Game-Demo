@@ -6,7 +6,7 @@ public class EnemyLayOutManager : MonoBehaviour
 {
     public GameObject[] enemyLayouts; // Array of enemy layout prefabs
     public Enemy[] TestenemyPrefabs; // Array of enemy prefabs
-
+    public TargetSelector targetSelector; // Reference to the target selector script
     public static Dictionary<string, bool> EnemiesList = new Dictionary<string, bool>(); // Dictionary to store enemy states
 
     private int enemyNum;
@@ -15,7 +15,7 @@ public class EnemyLayOutManager : MonoBehaviour
     {
         // Set enemyNum to the length of the TestenemyPrefabs array
         enemyNum = TestenemyPrefabs.Length;
-
+        targetSelector = FindObjectOfType<TargetSelector>();
         if (enemyNum > 0 && enemyNum <= enemyLayouts.Length)
         {
             GameObject selectedLayout = enemyLayouts[enemyNum - 1];
@@ -29,9 +29,10 @@ public class EnemyLayOutManager : MonoBehaviour
                 Transform child = childTransforms[i + 1]; // Skip the root transform
                 Vector3 spawnPosition = child.localPosition; // Get the local position of the child
 
-                Instantiate(TestenemyPrefabs[i], spawnPosition, Quaternion.identity, transform);
-                Debug.Log($"Name: {TestenemyPrefabs[i]}, Position: {TestenemyPrefabs[i].transform.position}");
+                Enemy instantiatedEnemy = Instantiate(TestenemyPrefabs[i], spawnPosition, Quaternion.identity, transform);
+                Debug.Log($"Name: {TestenemyPrefabs[i].name}, Position: {instantiatedEnemy.transform.position}");
             }
+            targetSelector.SelectLeftTopTarget();
         }
         else
         {
