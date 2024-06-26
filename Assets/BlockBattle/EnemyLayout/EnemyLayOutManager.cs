@@ -4,39 +4,44 @@ using UnityEngine;
 
 public class EnemyLayOutManager : MonoBehaviour
 {
+    public GameObject[] enemyLayouts; // Array of enemy layout prefabs
+    public Enemy[] TestenemyPrefabs; // Array of enemy prefabs
 
-    public GameObject[] enemyLayouts;
-    public int enemyNum = 7;
-    public Enemy TestenemyPrefab;
-    public static Dictionary<string, bool> EnemiesList = new Dictionary<string, bool>();
+    public static Dictionary<string, bool> EnemiesList = new Dictionary<string, bool>(); // Dictionary to store enemy states
+
+    private int enemyNum;
+
     void Start()
     {
+        // Set enemyNum to the length of the TestenemyPrefabs array
+        enemyNum = TestenemyPrefabs.Length;
+
         if (enemyNum > 0 && enemyNum <= enemyLayouts.Length)
         {
             GameObject selectedLayout = enemyLayouts[enemyNum - 1];
-
             GameObject instantiatedLayout = Instantiate(selectedLayout, Vector3.zero, Quaternion.identity);
 
             Transform[] childTransforms = instantiatedLayout.GetComponentsInChildren<Transform>();
 
-            foreach (Transform child in childTransforms)
+            // Iterate over each child transform
+            for (int i = 0; i < childTransforms.Length - 1 && i < TestenemyPrefabs.Length; i++)
             {
-                if (child != instantiatedLayout.transform) 
-                {
-                    Vector3 spawnPosition = child.localPosition; 
-                    Instantiate(TestenemyPrefab, spawnPosition, Quaternion.identity, transform);
-                    Debug.Log($"Name: {child.name}, Position: {child.position}");
-                }
+                Transform child = childTransforms[i + 1]; // Skip the root transform
+                Vector3 spawnPosition = child.localPosition; // Get the local position of the child
+
+                Instantiate(TestenemyPrefabs[i], spawnPosition, Quaternion.identity, transform);
+                Debug.Log($"Name: {TestenemyPrefabs[i]}, Position: {TestenemyPrefabs[i].transform.position}");
             }
         }
         else
         {
-            Debug.LogError("enemyNum >8, not work");
+            Debug.LogError("enemyNum is not within the valid range.");
         }
     }
 
     void Update()
     {
-
+        // Update logic (if needed)
     }
 }
+
