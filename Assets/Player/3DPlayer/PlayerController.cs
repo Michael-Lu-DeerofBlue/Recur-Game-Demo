@@ -1,5 +1,4 @@
 using Unity.VisualScripting;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 
@@ -9,8 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider), typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    public const float DEFAULT_MOVEMENT_SPEED = 2f;
-    public const float DEFAULT_SPRINT_SPEED = 4f;
+    public const float DEFAULT_MOVEMENT_SPEED = 5f;
+    public const float DEFAULT_SPRINT_SPEED = 8f;
     public const float DEFAULT_IN_AIR_SPEED = 15f;
     public const float DEFAULT_ROTATION_SPEED = 100f;
     public const float DEFAULT_FOV= 60f;

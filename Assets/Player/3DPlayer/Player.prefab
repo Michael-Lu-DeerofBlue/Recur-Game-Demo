@@ -257,6 +257,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   UIIndicator: {fileID: 0}
+  LevelController: {fileID: 0}
   gridResolution: 100
 --- !u!114 &5626038089879900453
 MonoBehaviour:
@@ -665,7 +666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee5aa80f3050a4844a4aada97e79cbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
+  movementSpeed: 5
   rotationSpeed: 100
   magneticRotationSpeedGrounded: 10
   magneticRotationSpeedFly: 0.5
@@ -682,8 +683,8 @@ MonoBehaviour:
   rigidbody: {fileID: 0}
   playerToUI: {fileID: 0}
   cam: {fileID: 6871722702525468286}
-  xSensitivity: 2000
-  ySensitivity: 500
+  xSensitivity: 30
+  ySensitivity: 30
   rotationSmoothTime: 0.1
   isMageticBootsOn: 0
 --- !u!114 &526049803991173599
