@@ -19,7 +19,7 @@ public class ItemManager : MonoBehaviour
     private ItemEventHandler itemEventHandler;
 
     private Dictionary<string, Sprite> itemSprites = new Dictionary<string, Sprite>();
-    private Dictionary<string, int> inventory = new Dictionary<string, int>();
+    public Dictionary<string, int> inventory = new Dictionary<string, int>();
 
     void Start()
     {

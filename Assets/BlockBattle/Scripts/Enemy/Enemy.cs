@@ -23,6 +23,7 @@ public abstract class Enemy : MonoBehaviour
     public float PauseTime = 0;
     private ItemEventHandler itemEventHandler;
     private TargetSelector targetSelector;
+    private TwoDto3D twoDto3D;
 
     public void Start()
     {
@@ -32,6 +33,7 @@ public abstract class Enemy : MonoBehaviour
         GetNextMove();//get casting time for the first turn.
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
         itemEventHandler = FindObjectOfType<ItemEventHandler>();
+        twoDto3D = FindObjectOfType<TwoDto3D>();
     }
     public virtual void Update()
     {
@@ -160,6 +162,11 @@ public abstract class Enemy : MonoBehaviour
         isdead = true;// to prevent the enemy from added into the existing enemy array or executing the turn after it is dead.
         targetSelector.SwitchTargetWhileIsDead();
         Destroy(gameObject);
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        if (enemies.Length == 0)
+        {
+            twoDto3D.TwoDGameOver();
+        }
     }
     public void RefreshChoiceSectionBlock()
     {

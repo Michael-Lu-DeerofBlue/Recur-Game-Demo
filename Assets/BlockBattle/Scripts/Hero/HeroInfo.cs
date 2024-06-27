@@ -16,10 +16,12 @@ public class HeroInfo : MonoBehaviour
     public int parryCount=0;
     public Enemy selectedEnemy;
     private TargetSelector targetSelector;
+    private TwoDto3D twoDto3D;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
+        twoDto3D = FindObjectOfType<TwoDto3D>();
         Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
         battleManager = FindObjectOfType<BattleManager>();
         targetSelector = FindObjectOfType<TargetSelector>();
@@ -82,6 +84,7 @@ public class HeroInfo : MonoBehaviour
         if (HitPoint <= 0)
         {
             HitPoint = 0;
+            twoDto3D.TwoDGameOver();
             Debug.Log("Player is dead.");
         }
     }
