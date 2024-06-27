@@ -23,9 +23,10 @@ public class BlockManager : MonoBehaviour
     public string color;
     public bool pauseClearBlock = false;
     bool isClearingBlocks = false;
+    public TwoDto3D twoDto3D;
     void Start()
     {
-        
+        twoDto3D= FindObjectOfType<TwoDto3D>();
         selectionToolProcessor = FindObjectOfType<SelectionTool>();
         spawnblock = FindObjectOfType<SpawnBlock>();
         battleManager = FindObjectOfType<BattleManager>();
@@ -291,6 +292,12 @@ public class BlockManager : MonoBehaviour
             if (IsInsideGrid(new Vector3(roundedX, roundedY, 0)))
             {
                 grid[roundedX, roundedY] = children;
+                if (roundedY >= height - 1)
+                {
+                    battleManager.PauseBlockGame = true;
+                    twoDto3D.TwoDGameOver();
+                    return;
+                }
             }
         }
         CheckOnLand();
