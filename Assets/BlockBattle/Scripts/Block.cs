@@ -22,6 +22,7 @@ public class BlockManager : MonoBehaviour
     public bool lockedRotation;
     public string color;
     public bool pauseClearBlock = false;
+    bool isClearingBlocks = false;
     void Start()
     {
         
@@ -179,11 +180,22 @@ public class BlockManager : MonoBehaviour
     // Coroutine to clear connected blocks on the right side with the same color
     IEnumerator ClearRightSideBlocks()
     {
-        while (pauseClearBlock==false) {
+        if (isClearingBlocks)
+        {
+            yield break;
+        }
+        isClearingBlocks = true;
+        while (pauseClearBlock == false)
+        {
             yield return new WaitForSeconds(1);
 
             Transform upleftBlock = FindUpleftBlock();
-            if (upleftBlock == null) yield break;
+            if (upleftBlock == null)
+            {
+                isClearingBlocks = false;
+                yield break;
+            }
+
             string UpLeftColor = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
             int colorCode = upleftBlock.parent.GetComponent<BlockManager>().colorId;
             int passedInId = upleftBlock.parent.GetComponent<BlockManager>().id;
@@ -197,18 +209,19 @@ public class BlockManager : MonoBehaviour
             }
             battleManager.ReceColorMessage(UpLeftColor, blocksToClear.Count);
         }
+
+
+        isClearingBlocks = false;
     }
-    public void StartClearBlock()//Please dont ask me why i have to set the bool while I run the coroutine. you could try to delete either one and you will see a lot of bug
+    public void StartClearBlock()
     {
         pauseClearBlock = false;
         StartCoroutine(ClearRightSideBlocks());
-        Debug.Log("StartClearBlock");
     }
-    public void StopClearBlock()//Please dont ask me why i have to set the bool while I stop the coroutine. you could try to delete either one and you will see a lot of bug
+    public void StopClearBlock()
     {
         pauseClearBlock = true;
         StopCoroutine(ClearRightSideBlocks());
-        Debug.Log("StopClearBlock");
     }
 
 
