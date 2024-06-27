@@ -4,101 +4,83 @@ using UnityEngine;
 
 public class SpotLightMove : MonoBehaviour
 {
-    public List<Transform> polygonVertices; // List of four vertices forming the polygon
+    public List<Transform> targets; // List of potential targets
     public float rotationSpeed = 1.0f; // Speed at which the spotlight rotates
-    public float pointChangeInterval = 2.0f; // Time interval to change target point
-    public float minDistance = 1.0f; // Minimum distance between two points
+    public float waitTime = 2.0f; // Time to wait before selecting a new target
+    public float intensityChangeSpeed = 1.0f; // Speed at which the intensity changes
+    public float maxIntensity = 1.0f; // Maximum intensity of the spotlight
 
-    private Vector3 currentTargetPoint;
-    private Vector3 previousTargetPoint;
-    private float timeSinceLastChange;
+    private Light spotlight;
+    private Transform currentTarget;
 
     void Start()
     {
-        if (polygonVertices.Count != 4)
+        spotlight = GetComponent<Light>();
+        if (spotlight == null)
         {
-            Debug.LogError("Polygon must have exactly 4 vertices.");
+            Debug.LogError("No Light component found on this GameObject.");
             return;
         }
 
-        SetRandomTargetPoint(true);
-    }
-
-    void Update()
-    {
-        // Rotate towards the current target point
-        Vector3 direction = currentTargetPoint - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-        // Change target point after the interval
-        timeSinceLastChange += Time.deltaTime;
-        if (timeSinceLastChange >= pointChangeInterval)
+        if (targets.Count > 0)
         {
-            SetRandomTargetPoint(false);
-            timeSinceLastChange = 0f;
+            StartCoroutine(RotateToTargets());
         }
     }
 
-    void SetRandomTargetPoint(bool firstPoint)
+    IEnumerator RotateToTargets()
     {
-        if (firstPoint)
+        while (true)
         {
-            currentTargetPoint = GetRandomPointInPolygon(polygonVertices);
-            previousTargetPoint = currentTargetPoint;
+            // Select a random target from the list
+            currentTarget = targets[Random.Range(0, targets.Count)];
+
+            // Open the spotlight (increase intensity)
+            yield return StartCoroutine(ChangeIntensity(maxIntensity, intensityChangeSpeed));
+
+            // Rotate towards the selected target
+            yield return StartCoroutine(RotateTowardsTarget(currentTarget));
+
+            // Close the spotlight (decrease intensity)
+            yield return StartCoroutine(ChangeIntensity(0, intensityChangeSpeed));
+
+            // Wait for the specified time
+            yield return new WaitForSeconds(waitTime);
         }
-        else
+    }
+
+    IEnumerator ChangeIntensity(float targetIntensity, float speed)
+    {
+        while (!Mathf.Approximately(spotlight.intensity, targetIntensity))
         {
-            Vector3 newTargetPoint;
-            do
+            spotlight.intensity = Mathf.MoveTowards(spotlight.intensity, targetIntensity, speed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    IEnumerator RotateTowardsTarget(Transform target)
+    {
+        if (target == null) yield break;
+
+        while (true)
+        {
+            // Determine the direction to the target
+            Vector3 direction = target.position - transform.position;
+
+            // Calculate the desired rotation towards the target
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            // Smoothly rotate towards the target at a constant speed
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            // Check if the rotation is complete
+            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
             {
-                newTargetPoint = GetRandomPointInPolygon(polygonVertices);
-            } while (Vector3.Distance(newTargetPoint, previousTargetPoint) < minDistance);
+                yield break;
+            }
 
-            previousTargetPoint = currentTargetPoint;
-            currentTargetPoint = newTargetPoint;
+            yield return null;
         }
-    }
-
-    Vector3 GetRandomPointInPolygon(List<Transform> vertices)
-    {
-        // Convert Transform list to Vector3 list for easier handling
-        List<Vector3> points = new List<Vector3>();
-        foreach (Transform vertex in vertices)
-        {
-            points.Add(vertex.position);
-        }
-
-        // Generate a random point within the polygon using Barycentric coordinates
-        Vector3 a = points[0];
-        Vector3 b = points[1];
-        Vector3 c = points[2];
-        Vector3 d = points[3];
-
-        // Randomly select a triangle within the quad
-        if (Random.value < 0.5f)
-        {
-            return RandomPointInTriangle(a, b, c);
-        }
-        else
-        {
-            return RandomPointInTriangle(a, c, d);
-        }
-    }
-
-    Vector3 RandomPointInTriangle(Vector3 a, Vector3 b, Vector3 c)
-    {
-        float r1 = Random.value;
-        float r2 = Random.value;
-
-        if (r1 + r2 > 1)
-        {
-            r1 = 1 - r1;
-            r2 = 1 - r2;
-        }
-
-        Vector3 randomPoint = (1 - r1 - r2) * a + r1 * b + r2 * c;
-        return randomPoint;
     }
 
 }
