@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Threading.Tasks;
 using System.Linq;
 
 public class HeroInfo : MonoBehaviour
@@ -27,7 +28,11 @@ public class HeroInfo : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-
+       // some time it need the follow code to get the selected enemy.
+        if(targetSelector.CurrentTarget != null)
+        {
+            selectedEnemy = targetSelector.CurrentTarget;
+        }
     }
 
     public virtual void SetSelectedEnemy(Enemy Target)
@@ -97,9 +102,18 @@ public class HeroInfo : MonoBehaviour
         battleManager.AttackEnemy(Damage,selectedEnemy);
     }
 
-    public virtual void Zornhauy(float damagevalue)
+    public virtual async Task Zornhauy(float damagevalue)
     {
-        //CheckAndSelectZornhauy(damagevalue);
+        if (selectedEnemy.HP <= damagevalue)
+        {
+            AttackEnemy(damagevalue);
+            await Task.Delay(1000); // wait for 1 second
+            await Zornhauy(damagevalue);
+        }
+        else
+        {
+            AttackEnemy(damagevalue);
+        }
     }
 
     public virtual void Heal(float number)
@@ -158,6 +172,11 @@ public class HeroInfo : MonoBehaviour
     {
 
     }
+
+
+
+
+
 
 
     //the old target select method. 
