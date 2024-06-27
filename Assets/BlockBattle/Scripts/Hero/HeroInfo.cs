@@ -20,7 +20,7 @@ public class HeroInfo : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start()
     {
-        Hp.text = "HP: " + HitPoint.ToString();
+        Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
         battleManager = FindObjectOfType<BattleManager>();
         targetSelector = FindObjectOfType<TargetSelector>();
     }
@@ -77,7 +77,7 @@ public class HeroInfo : MonoBehaviour
             return;
         }
         HitPoint -= damage;
-        Hp.text = "HP: " + HitPoint.ToString();
+        Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
         Debug.Log("Player is hit. HP: " + HitPoint);
         if (HitPoint <= 0)
         {
