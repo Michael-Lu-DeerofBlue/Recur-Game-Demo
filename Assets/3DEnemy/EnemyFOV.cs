@@ -1,3 +1,4 @@
+using Pathfinding;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,7 +31,13 @@ public class EnemyFOV : MonoBehaviour
         {
             yield return wait;
             FieldOfViewCheck();
+
+            if (canSeePlayer)
+            {
+                gameObject.GetComponent<ThreeEnemyBase>().inPursuit(playerRef.transform);
+            }
         }
+
     }
 
     private void FieldOfViewCheck()

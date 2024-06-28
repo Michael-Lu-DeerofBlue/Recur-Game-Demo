@@ -8,9 +8,13 @@ public class WaypointManager : MonoBehaviour
     public List<EdgeData> edges;
     private Graph graph;
 
-    void Start()
+    void Awake()
     {
         InitializeGraph();
+    }
+
+    public void Shortest()
+    {
         var startWaypoint = graph.Waypoints[0];
         var targetWaypoint = graph.Waypoints[graph.Waypoints.Count - 1];
         var shortestPath = Dijkstra.FindShortestPath(graph, startWaypoint, targetWaypoint);
@@ -45,7 +49,24 @@ public class WaypointManager : MonoBehaviour
             var from = waypoints[edgeData.From];
             var to = waypoints[edgeData.To];
             graph.AddEdge(from, to, edgeData.Cost);
+            graph.AddEdge(to, from, edgeData.Cost); // Add reverse edge to make it undirected
         }
+    }
+
+    public List<Transform> GetConnectedTargets(Transform currentTransform)
+    {
+        var currentWaypoint = graph.GetWaypoint(currentTransform);
+        var connectedTargets = new List<Transform>();
+
+        if (currentWaypoint != null)
+        {
+            foreach (var edge in currentWaypoint.Edges)
+            {
+                connectedTargets.Add(edge.To.Transform);
+            }
+        }
+
+        return connectedTargets;
     }
 }
 

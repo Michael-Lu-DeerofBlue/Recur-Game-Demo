@@ -48,4 +48,16 @@ public class Graph
         var edge = new Edge(from, to, cost);
         from.Edges.Add(edge);
     }
+
+    public Waypoint GetWaypoint(Transform transform)
+    {
+        foreach (var waypoint in Waypoints)
+        {
+            if (waypoint.Transform == transform)
+            {
+                return waypoint;
+            }
+        }
+        return null;
+    }
 }
