@@ -152,7 +152,6 @@ public class BattleManager : MonoBehaviour
     {
         TimeStop = false;
         BlockManager blockManager = FindObjectOfType<BlockManager>();
-        blockManager.StopClearBlock();
     }
 
 

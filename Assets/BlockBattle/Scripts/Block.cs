@@ -203,17 +203,11 @@ public class BlockManager : MonoBehaviour
             }
             battleManager.ReceColorMessage(UpLeftColor, blocksToClear.Count);
         }
-        battleManager.TimeStop = false;
     }
     public void StartClearBlock()
     {
         battleManager.TimeStop = true;
         StartCoroutine(ClearRightSideBlocks());
-    }
-    public void StopClearBlock()
-    {
-        battleManager.TimeStop = false;
-        StopCoroutine(ClearRightSideBlocks());
     }
 
 
@@ -229,7 +223,6 @@ public class BlockManager : MonoBehaviour
                 }
             }
         }
-        battleManager.ContinueBlockGame();
         return null;
     }
 
