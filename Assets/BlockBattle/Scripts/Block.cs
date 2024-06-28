@@ -21,8 +21,6 @@ public class BlockManager : MonoBehaviour
     public int colorId;
     public bool lockedRotation;
     public string color;
-    public bool pauseClearBlock = false;
-    bool isClearingBlocks = false;
     public TwoDto3D twoDto3D;
     void Start()
     {
@@ -36,7 +34,7 @@ public class BlockManager : MonoBehaviour
 
     void Update()
     {
-        if (battleManager.PauseBlockGame == false) {
+        if (battleManager.TimeStop == false) {
             if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
         {
             while (true)
@@ -181,19 +179,14 @@ public class BlockManager : MonoBehaviour
     // Coroutine to clear connected blocks on the right side with the same color
     IEnumerator ClearRightSideBlocks()
     {
-        if (isClearingBlocks)
+        while (battleManager.TimeStop == true)
         {
-            yield break;
-        }
-        isClearingBlocks = true;
-        while (pauseClearBlock == false)
-        {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.3f);
 
             Transform upleftBlock = FindUpleftBlock();
             if (upleftBlock == null)
             {
-                isClearingBlocks = false;
+                battleManager.ExecuteIconSkill();
                 yield break;
             }
 
@@ -210,18 +203,16 @@ public class BlockManager : MonoBehaviour
             }
             battleManager.ReceColorMessage(UpLeftColor, blocksToClear.Count);
         }
-
-
-        isClearingBlocks = false;
+        battleManager.TimeStop = false;
     }
     public void StartClearBlock()
     {
-        pauseClearBlock = false;
+        battleManager.TimeStop = true;
         StartCoroutine(ClearRightSideBlocks());
     }
     public void StopClearBlock()
     {
-        pauseClearBlock = true;
+        battleManager.TimeStop = false;
         StopCoroutine(ClearRightSideBlocks());
     }
 
@@ -294,7 +285,7 @@ public class BlockManager : MonoBehaviour
                 grid[roundedX, roundedY] = children;
                 if (roundedY >= height - 1)
                 {
-                    battleManager.PauseBlockGame = true;
+                    battleManager.TimeStop = true;
                     twoDto3D.TwoDGameOver();
                     return;
                 }

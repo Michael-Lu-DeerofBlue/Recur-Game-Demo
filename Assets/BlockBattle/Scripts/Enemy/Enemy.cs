@@ -40,7 +40,7 @@ public abstract class Enemy : MonoBehaviour
         {
             return;
         }
-        if(battleManager.PauseBlockGame==false)
+        if(battleManager.TimeStop==false)
         {
             timer -= Time.deltaTime;
         }

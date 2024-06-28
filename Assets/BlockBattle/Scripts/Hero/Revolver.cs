@@ -19,7 +19,7 @@ public class Revolover: HeroInfo
     public override void Update()
     {
         base.Update();
-        if (CounterReady&& !battleManager.PauseBlockGame)
+        if (CounterReady&& !battleManager.TimeStop)
         {
             CounterTimer -= Time.deltaTime;
             UpdateUI();

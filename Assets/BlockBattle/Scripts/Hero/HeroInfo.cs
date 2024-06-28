@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
+using UnityEngine.UIElements;
 
 public class HeroInfo : MonoBehaviour
 {
@@ -17,6 +19,15 @@ public class HeroInfo : MonoBehaviour
     public Enemy selectedEnemy;
     private TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
+    public GameObject[] SkillIcon;
+    private Vector3 initialPosition = new Vector3(50, 5, 0);
+    public float horizontalSpacing =7.0f;
+    private List<GameObject> generatedIcons = new List<GameObject>();
+
+    // List to store pairs of index and clearNumber
+    private List<(int index, int clearNumber)> iconQueue = new List<(int, int)>();
+
+
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -41,6 +52,46 @@ public class HeroInfo : MonoBehaviour
     {
         selectedEnemy = Target;
     }
+    public virtual void GenerateIcon(int index, int clearNumber)
+    {
+        if (index >= 0 && index < SkillIcon.Length)
+        {
+            // Generate the icon
+            GameObject icon = Instantiate(SkillIcon[index], transform);
+            Vector3 position = initialPosition - new Vector3(iconQueue.Count * horizontalSpacing, 0, 0);
+            icon.transform.position = position;
+            iconQueue.Add((index, clearNumber));
+            generatedIcons.Add(icon);
+            Debug.Log($"Icon generated at position: {position}");
+        }
+    }
+
+    public virtual void ExecuteIconSkill()
+    {
+        StartCoroutine(ExecuteIconSkillCoroutine());
+    }
+
+    private IEnumerator ExecuteIconSkillCoroutine()
+    {
+        while (iconQueue.Count > 0)
+        {
+            yield return new WaitForSeconds(1f);
+
+            (int index, int clearNumber) = iconQueue[0];
+            ExecuteBehavior(index, clearNumber);
+            iconQueue.RemoveAt(0);
+
+            // Destroy the first generated icon
+            if (generatedIcons.Count > 0)
+            {
+                Destroy(generatedIcons[0]);
+                generatedIcons.RemoveAt(0);
+            }
+        }
+        battleManager.ContinueBlockGame();
+    }
+
+
     public virtual void ExecuteBehavior(int index, int clearNumber)
     //whatever the player character do, it will be executed here. 
     {

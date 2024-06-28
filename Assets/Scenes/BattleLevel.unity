@@ -2234,6 +2234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1392204794}
   - component: {fileID: 1392204790}
+  - component: {fileID: 1392204795}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -2254,7 +2255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: -3, y: -2}
+  scrollPos: {x: -4, y: -2.5}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
@@ -2265,7 +2266,8 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks: []
+  selectedBlocks:
+  - {fileID: 1392204795}
   selectedCommands: []
   variables: []
   description: 
@@ -2293,6 +2295,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1392204795
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392204789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 245.5
+    y: 87
+    width: 111
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 0
+  blockName: New Block
+  description: 
+  eventHandler: {fileID: 0}
+  commandList: []
+  suppressAllAutoSelections: 0
 --- !u!1 &1413046380
 GameObject:
   m_ObjectHideFlags: 0
@@ -3302,6 +3330,15 @@ MonoBehaviour:
   battleManager: {fileID: 0}
   parryCount: 0
   selectedEnemy: {fileID: 0}
+  SkillIcon:
+  - {fileID: 335361454339318421, guid: 2f832e711a367854c8654603fb9f642b, type: 3}
+  - {fileID: 335361454339318421, guid: 2f832e711a367854c8654603fb9f642b, type: 3}
+  - {fileID: 335361454339318421, guid: 2f832e711a367854c8654603fb9f642b, type: 3}
+  - {fileID: 335361454339318421, guid: 2f832e711a367854c8654603fb9f642b, type: 3}
+  - {fileID: 335361454339318421, guid: 2f832e711a367854c8654603fb9f642b, type: 3}
+  - {fileID: 335361454339318421, guid: 2f832e711a367854c8654603fb9f642b, type: 3}
+  - {fileID: 335361454339318421, guid: 2f832e711a367854c8654603fb9f642b, type: 3}
+  horizontalSpacing: 5
 --- !u!1 &2011669567
 GameObject:
   m_ObjectHideFlags: 0
@@ -3631,8 +3668,7 @@ PrefabInstance:
       propertyPath: MaxHitPoint
       value: 20
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8789264491275045699, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1704203129995938973, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}

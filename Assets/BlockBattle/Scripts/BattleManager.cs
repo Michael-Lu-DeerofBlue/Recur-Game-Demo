@@ -14,7 +14,7 @@ public class BattleManager : MonoBehaviour
     public float Timer;
     public SelectionTool selectionTool;
     public IntTranslator inttranslator;
-    public bool PauseBlockGame = false;
+    public bool TimeStop = false;
 
     //Player status:
     public bool PlayerLandOn = false;
@@ -76,9 +76,13 @@ public class BattleManager : MonoBehaviour
         {
             Debug.LogError("SpawnBlock instance not found." + Colortofind);
         }
-        heroInfo.ExecuteBehavior(index, clearNumber);
+        heroInfo.GenerateIcon(index, clearNumber);
     }
 
+    public void ExecuteIconSkill()
+    {
+        heroInfo.ExecuteIconSkill();
+    }
 
 
     public void AttackEnemy(float damage, Enemy Target)
@@ -141,12 +145,12 @@ public class BattleManager : MonoBehaviour
     }
     public void IntrruptBlockGame()//called when start to select enemy.
     {
-        PauseBlockGame = true;
+        TimeStop = true;
         //  heroInfo.CheckAndSelectEnemy();
     }
     public void ContinueBlockGame()//called when start to select enemy.
     {
-        PauseBlockGame = false;
+        TimeStop = false;
         BlockManager blockManager = FindObjectOfType<BlockManager>();
         blockManager.StopClearBlock();
     }
