@@ -177,7 +177,7 @@ public class HeroInfo : MonoBehaviour
         {
             HitPoint = MaxHitPoint;
         }
-        Hp.text = "HP: " + HitPoint.ToString();
+        Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
         Debug.Log("Player is healed. HP: " + HitPoint);
     }
 

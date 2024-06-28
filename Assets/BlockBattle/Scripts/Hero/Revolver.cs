@@ -52,7 +52,7 @@ public class Revolover: HeroInfo
             return;
         }
         HitPoint -= damage;
-        Hp.text = "HP: " + HitPoint.ToString();
+        Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
         Debug.Log("Player is hit. HP: " + HitPoint);
         if (HitPoint <= 0)
         {
