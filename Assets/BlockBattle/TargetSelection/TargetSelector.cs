@@ -43,7 +43,6 @@ public class TargetSelector : MonoBehaviour
         }
         transform.position = leftTopPosition;
         CurrentTarget = leftTopEnemy;
-        heroInfo.SetSelectedEnemy(CurrentTarget);
     }
 
     public void SwitchTargetByClick(Enemy Target)
