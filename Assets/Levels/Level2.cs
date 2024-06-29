@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
+using Fungus;
 
 public class Level2 : LevelController
 {
@@ -74,6 +75,34 @@ public class Level2 : LevelController
             enemy.GetComponent<Patrol>().enabled = true;
         }
     }
+
+    public void ColdStart()
+    {
+        flowchart.ExecuteBlock("ColdStart");
+    }
+
+    public void StartTheLights()
+    {
+        spotlightManager.GetComponent<SpotlightManager>().enabled = true;
+    }
+
+    public void StartTheEnemy()
+    {
+        foreach (Transform enemy in enemies)
+        {
+            enemy.GetComponent<ThreeEnemyBase>().enabled = true;
+            enemy.GetComponent<Patrol>().enabled = true;
+        }
+    }
+
+    public void StartTheSight()
+    {
+        foreach (Transform enemy in enemies)
+        {
+            enemy.GetComponent<EnemyFOV>().enabled = true;
+        }
+    }
+
 
     // Update is called once per frame
     public override void GoToBattle()

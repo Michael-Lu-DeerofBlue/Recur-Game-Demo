@@ -16,6 +16,7 @@ public class SpotLightMove : MonoBehaviour
     public bool spotlightOn;
     public GameObject spotlightManager;
     private bool first = true;
+    public Light pointLight;
     void Start()
     {
         waypointManager = GetComponent<WaypointManager>();
@@ -43,6 +44,7 @@ public class SpotLightMove : MonoBehaviour
             
             // Open the spotlight (increase intensity)
             yield return StartCoroutine(ChangeIntensity(maxIntensity, intensityChangeSpeed));
+            StartCoroutine(ChangeChildrenIntensity(15f, 1));
 
             // Rotate towards the current target
             yield return StartCoroutine(RotateTowardsTarget(currentTarget));
@@ -52,6 +54,7 @@ public class SpotLightMove : MonoBehaviour
 
             // Close the spotlight (decrease intensity)
             yield return StartCoroutine(ChangeIntensity(0, intensityChangeSpeed));
+            StartCoroutine(ChangeChildrenIntensity(0f, 1));
             // Choose the next target from the connected waypoints
             var connectedTargets = waypointManager.GetConnectedTargets(currentTarget);
             if (connectedTargets.Count > 0)
@@ -73,6 +76,24 @@ public class SpotLightMove : MonoBehaviour
                 yield return null;
             }
         }
+    }
+
+    IEnumerator ChangeChildrenIntensity(float targetIntensity, float speed)
+    {
+            if (pointLight != null && pointLight.type == LightType.Point)
+            {
+                float initialIntensity = pointLight.intensity;
+                float elapsedTime = 0f;
+
+                while (elapsedTime < (targetIntensity - initialIntensity) / speed)
+                {
+                    pointLight.intensity = Mathf.MoveTowards(pointLight.intensity, targetIntensity, speed * Time.deltaTime);
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+                }
+                pointLight.intensity = targetIntensity;
+            }
+        
     }
 
     IEnumerator RotateTowardsTarget(Transform target)
