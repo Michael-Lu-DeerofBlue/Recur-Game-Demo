@@ -360,4 +360,10 @@ public class PlayerController : MonoBehaviour
         if (collided.gameObject.tag == "StickyPlatform")
             transform.SetParent(null);
     }
+
+    public void Save()
+    {
+        ES3.Save("InLevelPlayerPosition", transform.position);
+        ES3.Save("InLevelPlayerRotation", transform.rotation);
+    }
 }

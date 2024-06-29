@@ -1,7 +1,9 @@
+using IndieMarc.EnemyVision;
 using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class Level2 : LevelController
 {
@@ -10,13 +12,22 @@ public class Level2 : LevelController
     public List<Transform> enemies;
     public GameObject spotlightManager;
     public bool playerShined;
+    public int randomIndex;
 
     // Start is called before the first frame update
     void Awake()
     {
         Player.GetComponent<GadgetsTool>().MagneticBoots = false;
         Player.GetComponent<GadgetsTool>().Camera = true;
-        SetRandomEnemyHasKey();
+        if (ThreeDTo2DData.ThreeDScene != null)
+        {
+            ThreeDTo2DData.ThreeDScene = null;
+            Reload();
+        }
+        else
+        {
+            SetRandomEnemyHasKey();
+        }
     }
 
     private void Update()
@@ -67,7 +78,50 @@ public class Level2 : LevelController
     // Update is called once per frame
     public override void GoToBattle()
     {
+        Save();
         base.GoToBattle();
+    }
+
+    public void Reload() //Player, Enemy, SpotLights
+    {
+        //Player
+        if (ES3.KeyExists("InLevelPlayerPosition"))
+        {
+            Player.transform.position = ES3.Load<Vector3>("InLevelPlayerPosition");
+        }
+        if (ES3.KeyExists("InLevelPlayerRotation"))
+        {
+            Player.transform.rotation = ES3.Load<Quaternion>("InLevelPlayerRotation");
+        }
+
+        //Enemy
+        foreach (Transform enemy in enemies)
+        {
+            enemy.position = ES3.Load<Vector3>(enemy.name + " Position");
+            enemy.rotation = ES3.Load<Quaternion>(enemy.name + " Rotation");
+        }
+        ThreeEnemyBase enemyScript = enemies[randomIndex].GetComponent<ThreeEnemyBase>();
+        enemyScript.hasKey = true;
+
+        //Spotlights
+        spotlightManager.GetComponent<SpotlightManager>().Resume();
+    }
+
+    public void Save()
+    {
+        //Player
+        Player.GetComponent<PlayerController>().Save();
+
+        //Enemy
+        foreach (Transform enemy  in enemies)
+        {
+            ES3.Save(enemy.name + " Position", enemy.position);
+            ES3.Save(enemy.name + " Rotation", enemy.rotation);
+        }
+        ES3.Save("EnemyKeyIndex", randomIndex);
+
+        //Spotlights
+        spotlightManager.GetComponent<SpotlightManager>().Pause();
     }
 
     void SetRandomEnemyHasKey()
@@ -78,7 +132,7 @@ public class Level2 : LevelController
             return;
         }
 
-        int randomIndex = Random.Range(0, enemies.Count);
+        randomIndex = Random.Range(0, enemies.Count);
         ThreeEnemyBase enemyScript = enemies[randomIndex].GetComponent<ThreeEnemyBase>();
 
         if (enemyScript != null)

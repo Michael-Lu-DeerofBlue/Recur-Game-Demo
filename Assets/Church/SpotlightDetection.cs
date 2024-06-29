@@ -100,7 +100,7 @@ public class SpotlightDetection : MonoBehaviour
                             // Check if the raycast hit the player
                             if (hit.transform.parent == enemy)
                             {
-                                Debug.Log("Enemy is being shined on." + Time.time);
+                                //Debug.Log("Enemy is being shined on." + Time.time);
                                 return true;
                                 // Implement your logic for when the player is shined on
                             }

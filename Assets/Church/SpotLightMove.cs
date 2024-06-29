@@ -104,6 +104,45 @@ public class SpotLightMove : MonoBehaviour
         }
     }
 
+    public void Pause()
+    {
+        // Save the current rotation
+        ES3.Save(gameObject.name + "spotlightRotation", transform.rotation);
+
+        // Save the current target's position
+        if (currentTarget != null)
+        {
+            ES3.Save(gameObject.name + "currentTargetPosition", currentTarget.position);
+        }
+        Debug.Log("i'm saved");
+    }
+
+    public void Resume()
+    {
+        // Load the saved rotation
+        if (ES3.KeyExists(gameObject.name + "spotlightRotation"))
+        {
+            transform.rotation = ES3.Load<Quaternion>(gameObject.name + "spotlightRotation");
+        }
+
+        // Load the saved target position
+        if (ES3.KeyExists(gameObject.name + "currentTargetPosition"))
+        {
+            Vector3 targetPosition = ES3.Load<Vector3>(gameObject.name + "currentTargetPosition");
+            foreach (Transform waypoint in waypointManager.waypointTransforms)
+            {
+                if (waypoint.position == targetPosition)
+                {
+                    currentTarget = waypoint;
+                    break;
+                }
+            }
+        }
+
+        // Resume the rotation coroutine
+        TurnMeOn();
+    }
+
     public void TurnMeOn()
     {
         spotlightOn = true;

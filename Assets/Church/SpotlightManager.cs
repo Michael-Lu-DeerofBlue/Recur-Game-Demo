@@ -76,6 +76,51 @@ public class SpotlightManager : MonoBehaviour
         }
     }
 
+    public void Pause()
+    {
+        List<string> activeSpotlightNames = new List<string>();
+        foreach (GameObject spotlight in spotlights)
+        {
+            spotlight.GetComponent<SpotLightMove>().Pause();
+        }
+        foreach (GameObject spotlight in activeSpotlights)
+        {
+            activeSpotlightNames.Add(spotlight.name);
+        }
+        ES3.Save("activeSpotlights", activeSpotlightNames);
+    }
+
+    // Read the saved active spotlights and call the Resume method on them
+    public void Resume()
+    {
+        if (ES3.KeyExists("activeSpotlights"))
+        {
+            List<string> activeSpotlightNames = ES3.Load<List<string>>("activeSpotlights");
+
+            foreach (string spotlightName in activeSpotlightNames)
+            {
+                GameObject spotlight = spotlights.Find(s => s.name == spotlightName);
+                if (spotlight != null)
+                {
+                    SpotLightMove spotlightMove = spotlight.GetComponent<SpotLightMove>();
+                    if (spotlightMove != null)
+                    {
+                        spotlightMove.spotlightManager = gameObject;
+                        spotlightMove.Resume();
+                    }
+                    else
+                    {
+                        Debug.LogError("No SpotLightMove component found on the spotlight.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"Spotlight with name {spotlightName} not found.");
+                }
+            }
+        }
+    }
+
     public void TurnOffSpotlight(GameObject spotlight)
     {
         //Debug.Log("Here");

@@ -16,6 +16,7 @@ public abstract class LevelController : MonoBehaviour
     }
     public virtual void GoToBattle()
     {
+        ThreeDTo2DData.ThreeDScene = SceneManager.GetActiveScene().name; ;
         flowchart.ExecuteBlock("WhiteScreen");
         StartCoroutine(LoadBattle());
     }
