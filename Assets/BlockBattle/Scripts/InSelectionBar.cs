@@ -38,7 +38,7 @@ public class InSelectionBar : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0)) // 1 is the right mouse button
         {
-            if (battleManager.PauseBlockGame == true)
+            if (battleManager.TimeStop == true)
             {
                 return;
             }
