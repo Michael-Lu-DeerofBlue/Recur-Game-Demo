@@ -37,24 +37,24 @@ public class SelectionTool : MonoBehaviour
         storageBlock = index;
         SelectionUI.GetComponent<SelectionToolUI>().UpdateStorageBlocks();
     }
-    public void addToFall(int index)
+    public void addToFall(int index)//这个index是用来代表方块的形状的
     {
         stillFalling = true;
+        //这是用来找颜色的
         Color color = Translator.GetComponent<IntTranslator>().intToColor(actionBlockDictionary[index]);
-        if (BattleManager.refreshedBlocks)
+        if (BattleManager.refreshedBlocks) //这也是用来找颜色的，但是是在refreshed block，就是直接让颜色不变，形状变的时候用来找颜色的
         {
             color = Translator.GetComponent<IntTranslator>().intToColor(threeColorList[threeBlockList.FindIndex(x => x == index)]);
             BattleManager.refreshedBlocks = false;
         }
-        threeBlockList = DrawRandomIntegers(blockList, 3);
+        threeBlockList = DrawRandomIntegers(blockList, 3);//这个在确定下一行新的三个choice的形状
         for (int i = 0; i < threeBlockList.Count; i++)
         {
-            threeColorList[i] = actionBlockDictionary[threeBlockList[i]];
+            threeColorList[i] = actionBlockDictionary[threeBlockList[i]];//这个在找他们对应的颜色
         }
 
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
-        
-        Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color, actionBlockDictionary[index]);
+        Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color, actionBlockDictionary[index]);//这Spawn是Spawn在grid上，index代表方块形状，color代表我要在grid上生成的方块的颜色
     }
 
     List<int> DrawRandomIntegers(List<int> list, int count)
