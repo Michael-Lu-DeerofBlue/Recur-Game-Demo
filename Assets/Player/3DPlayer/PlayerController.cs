@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     private new CapsuleCollider collider;
     private Animator animator;
     private RaycastHit? closestSphereCastHit;
+    public float checkRadius = 0.5f; // Define the check radius
+    public LayerMask obstacleLayer;  // Define the layer of obstacles
 
     [Header("Camera Look")]
     public Camera cam;
@@ -129,11 +131,25 @@ public class PlayerController : MonoBehaviour
             inMovement = true;
         }
         animator?.SetFloat("WalkingSpeed", inputVertical);
+        // Calculate position offsets based on input
         var verticalPositionOffset = transform.forward * inputVertical * movementSpeed;
-        var hortizontalPositionOffset = transform.right * inputHorizontal * movementSpeed;
-        var positionOffset = verticalPositionOffset + hortizontalPositionOffset;
+        var horizontalPositionOffset = transform.right * inputHorizontal * movementSpeed;
+        var positionOffset = verticalPositionOffset + horizontalPositionOffset;
         var targetPosition = transform.position + positionOffset;
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime);
+
+        // Perform raycast to check for obstacles
+        RaycastHit hit;
+        bool isObstacleAhead = Physics.Raycast(transform.position, positionOffset.normalized, out hit, checkRadius, obstacleLayer);
+        if (!isObstacleAhead)
+        {
+            // No obstacle ahead, proceed with the movement
+            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.fixedDeltaTime);
+        }
+        else
+        {
+            // Obstacle detected, you can handle it here if needed
+            //Debug.Log("Obstacle detected ahead: " + hit.collider.name);
+        }
     }
 
     public void InAir(bool value)

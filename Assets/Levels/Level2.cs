@@ -16,7 +16,7 @@ public class Level2 : LevelController
     {
         Player.GetComponent<GadgetsTool>().MagneticBoots = false;
         Player.GetComponent<GadgetsTool>().Camera = true;
-        
+        SetRandomEnemyHasKey();
     }
 
     private void Update()
@@ -33,7 +33,18 @@ public class Level2 : LevelController
                 break;
             }
         }
-        
+        foreach (GameObject spotlight in activeSpotlights)
+        {
+            foreach (Transform enemy in enemies)
+            {
+                bool enemyShined = spotlight.GetComponent<SpotlightDetection>().EnemyInSpotLight(enemy);
+                if (enemyShined)
+                {
+                    enemy.GetComponent<ThreeEnemyBase>().ChangeMaterial();
+                }
+            }
+        }
+
     }
 
     void ResetEnemyTarget(Transform target)
@@ -57,5 +68,27 @@ public class Level2 : LevelController
     public override void GoToBattle()
     {
         base.GoToBattle();
+    }
+
+    void SetRandomEnemyHasKey()
+    {
+        if (enemies.Count == 0)
+        {
+            Debug.LogWarning("No enemies in the list.");
+            return;
+        }
+
+        int randomIndex = Random.Range(0, enemies.Count);
+        ThreeEnemyBase enemyScript = enemies[randomIndex].GetComponent<ThreeEnemyBase>();
+
+        if (enemyScript != null)
+        {
+            enemyScript.hasKey = true;
+            Debug.Log("Enemy at index " + randomIndex + " now has the key.");
+        }
+        else
+        {
+            Debug.LogError("Enemy at index " + randomIndex + " does not have an Enemy script.");
+        }
     }
 }

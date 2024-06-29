@@ -8,6 +8,7 @@ public class PlayerToUI : MonoBehaviour
     public TextMeshProUGUI MagneticBoots;
     public TextMeshProUGUI FPS;
     public TextMeshProUGUI Camera;
+    public TextMeshProUGUI HP;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,13 @@ public class PlayerToUI : MonoBehaviour
         string text = "Camera: ";
         Camera.text = text + value;
     }
+
+    public void UpdateHP(int value)
+    {
+        string text = "HP: ";
+        HP.text = text + value;
+    }
+
 
     // Update is called once per frame
     void Update()
