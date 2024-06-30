@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using Fungus;
+using UnityEngine.SceneManagement;
 
 public class Level2 : LevelController
 {
@@ -14,7 +15,10 @@ public class Level2 : LevelController
     public GameObject spotlightManager;
     public bool playerShined;
     public int randomIndex;
-
+    public Color ambientColor = Color.white;
+    public float duration = 5.0f; // Duration over which the light will decrease
+    public GameObject LevelController;
+    public GameObject triggerBox;
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,6 +31,7 @@ public class Level2 : LevelController
         }
         else
         {
+            triggerBox.SetActive(true);
             SetRandomEnemyHasKey();
         }
     }
@@ -59,11 +64,33 @@ public class Level2 : LevelController
 
     }
 
+    IEnumerator GraduallyReduceAmbientLight()
+    {
+        
+        float elapsedTime = 0.0f;
+        Color initialColor = UnityEngine.RenderSettings.ambientLight;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float lerpFactor = elapsedTime / duration;
+
+            UnityEngine.RenderSettings.ambientLight = Color.Lerp(initialColor, ambientColor, lerpFactor);
+            yield return null;
+        }
+
+        // Ensure the final color is set
+        UnityEngine.RenderSettings.ambientLight = ambientColor;
+    }
+
     void ResetEnemyTarget(Transform target)
     {
         foreach (Transform enemy in enemies)
         {
-            enemy.GetComponent<ThreeEnemyBase>().inPursuit(Player.transform);
+            if (enemy.gameObject.active)
+            {
+                enemy.GetComponent<ThreeEnemyBase>().inPursuit(Player.transform);
+            }
         }
     }
 
@@ -71,13 +98,17 @@ public class Level2 : LevelController
     {
         foreach (Transform enemy in enemies)
         {
-            enemy.GetComponent<AIDestinationSetter>().enabled = false;
-            enemy.GetComponent<Patrol>().enabled = true;
+            if (enemy.gameObject.active)
+            {
+                enemy.GetComponent<AIDestinationSetter>().enabled = false;
+                enemy.GetComponent<Patrol>().enabled = true;
+            }
         }
     }
 
     public void ColdStart()
     {
+        StartCoroutine(GraduallyReduceAmbientLight());
         flowchart.ExecuteBlock("ColdStart");
     }
 
@@ -113,6 +144,9 @@ public class Level2 : LevelController
 
     public void Reload() //Player, Enemy, SpotLights
     {
+        //Light
+        UnityEngine.RenderSettings.ambientLight = ambientColor;
+
         //Player
         if (ES3.KeyExists("InLevelPlayerPosition"))
         {
@@ -124,6 +158,8 @@ public class Level2 : LevelController
         }
 
         //Enemy
+        StartTheEnemy();
+        StartTheSight();
         foreach (Transform enemy in enemies)
         {
             enemy.position = ES3.Load<Vector3>(enemy.name + " Position");
@@ -133,7 +169,61 @@ public class Level2 : LevelController
         enemyScript.hasKey = true;
 
         //Spotlights
+        StartTheLights();
         spotlightManager.GetComponent<SpotlightManager>().Resume();
+
+        //PlayerStats & EnemyStats
+        if (TwoDto3D.ToThreeEnemies.Length == 0)
+        {
+            //Debug.Log("Here");
+            foreach (var key in ThreeDTo2DData.dataDictionary.Keys)
+            {
+                //Debug.Log(key);
+                GameObject obj = GameObject.Find(key);
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
+                else
+                {
+                    Debug.LogWarning($"GameObject with name '{key}' not found.");
+                }
+            }
+        }
+        else
+        {
+            Player.GetComponent<ThreeDPlayerBase>().gotHitByEnemy();
+        }
+    }
+
+    public void ResetLevel()
+    {
+        ClearInGameSaveData();
+        StartCoroutine(PauseAndReloadScene());
+    }
+    IEnumerator PauseAndReloadScene()
+    {
+        // Pause the game by setting the time scale to 0
+        Time.timeScale = 0f;
+
+        // Wait for 5 real-time seconds
+        yield return new WaitForSecondsRealtime(2f);
+        Time.timeScale = 1f;
+
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void ClearInGameSaveData()
+    {
+        foreach (Transform enemy in enemies)
+        {
+            ES3.DeleteKey(enemy.name + " Position");
+            ES3.DeleteKey(enemy.name + " Rotation");
+        }
+        ES3.DeleteKey("InLevelPlayerPosition");
+        ES3.DeleteKey("InLevelPlayerRotation");
+        ES3.DeleteKey("EnemyKeyIndex");
+
     }
 
     public void Save()

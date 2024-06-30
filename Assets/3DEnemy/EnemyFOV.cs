@@ -55,7 +55,7 @@ public class EnemyFOV : MonoBehaviour
 
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
                 {
-                    Debug.Log(gameObject.name +" see player");
+                    //Debug.Log(gameObject.name +" see player");
                     canSeePlayer = true;
                 }
                 else
