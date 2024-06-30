@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InSelectionBar : MonoBehaviour
 {
-    public int index;
+    public int Shapeindex;
     public bool inStorage;
     private SelectionTool selectionToolProcessor;
     public BattleManager battleManager;
@@ -12,7 +12,7 @@ public class InSelectionBar : MonoBehaviour
     void Start()
     {
         selectionToolProcessor = FindObjectOfType<SelectionTool>();
-        index = gameObject.GetComponent<BlockStageController>().index;
+        Shapeindex = gameObject.GetComponent<BlockStageController>().index;
         battleManager= FindObjectOfType<BattleManager>();
     }
 
@@ -31,7 +31,7 @@ public class InSelectionBar : MonoBehaviour
                 // Check if the raycast hit this GameObject
                 if (hit.transform == transform)
                 {
-                    selectionToolProcessor.GetComponent<SelectionTool>().addToStorage(index);
+                    selectionToolProcessor.GetComponent<SelectionTool>().addToStorage(Shapeindex);
                     Destroy(gameObject);
                 }
             }
@@ -53,7 +53,7 @@ public class InSelectionBar : MonoBehaviour
                 {
                     if (!selectionToolProcessor.GetComponent<SelectionTool>().stillFalling)
                     {
-                        selectionToolProcessor.GetComponent<SelectionTool>().addToFall(index);
+                        selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex);
                         if (inStorage)
                         {
                             Destroy(gameObject);

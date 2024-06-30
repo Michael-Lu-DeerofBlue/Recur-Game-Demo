@@ -12,26 +12,9 @@ public class EnterAndTurnTheLightsOff : MonoBehaviour
         
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(GraduallyReduceAmbientLight());
+            LevelController.GetComponent<Level2>().ColdStart(); 
         }
     }
 
-    IEnumerator GraduallyReduceAmbientLight()
-    {
-        LevelController.GetComponent<Level2>().ColdStart();
-        float elapsedTime = 0.0f;
-        Color initialColor = RenderSettings.ambientLight;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float lerpFactor = elapsedTime / duration;
-
-            RenderSettings.ambientLight = Color.Lerp(initialColor, ambientColor, lerpFactor);
-            yield return null;
-        }
-
-        // Ensure the final color is set
-        RenderSettings.ambientLight = ambientColor;
-    }
+    
 }

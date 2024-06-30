@@ -69,12 +69,12 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Color not found in RandomColors." + Colortofind);
+                Debug.Log("Color not found." + Colortofind);
             }
         }
-        else
+        if (index > 7)
         {
-            Debug.LogError("SpawnBlock instance not found." + Colortofind);
+            heroInfo.ExecuteBehavior(index, clearNumber);//debuff will not have icon.
         }
         heroInfo.GenerateIcon(index, clearNumber);
     }
@@ -84,7 +84,11 @@ public class BattleManager : MonoBehaviour
         heroInfo.ExecuteIconSkill();
     }
 
-
+    public void AddStunBlock(int index, int clearNumber)
+    {
+       selectionTool = FindObjectOfType<SelectionTool>();
+       selectionTool.AddDebuffBlock(index, clearNumber);
+    }
     public void AttackEnemy(float damage, Enemy Target)
     {
         Target.HitHandle(damage);

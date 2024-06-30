@@ -18,6 +18,7 @@ public class HeroActionBlockStorage : MonoBehaviour
             { 4, 4 },
             { 5, 5 },
             { 6, 6 },
+
         };
         
         SelectionTool.GetComponent<SelectionTool>().actionBlockDictionary = actionBlockDictionary;

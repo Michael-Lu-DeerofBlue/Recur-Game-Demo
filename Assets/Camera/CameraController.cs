@@ -73,24 +73,25 @@ public class CameraController : MonoBehaviour
         count = detectedTargets.Count;
         foreach (var target in detectedTargets)
         {
-            string targetName = target.gameObject.name;
-            bool isFacingAway = IsFacingAwayFromPlayer(target.transform);
+            string targetName = target.gameObject.transform.parent.name;
+            //Debug.Log(target.transform.parent.rotation);
+            bool isFacingAway = IsFacingAwayFromPlayer(target.parent.transform);
             detectedEnemies[targetName] = isFacingAway;
         }
         ThreeDTo2DData.dataDictionary.Clear();
         ThreeDTo2DData.dataDictionary = detectedEnemies;
+        /*
+       Debug.Log("Number of target objects in frame: " + count + " Time: " + Time.time);
+       foreach (var enemy in detectedEnemies)
+       {
+           Debug.Log($"Enemy: {enemy.Key}, Detected: {enemy.Value}" + " Time: " + Time.time);
+       }
+       */
         if (count > 0)
         {
             LevelController.GetComponent<LevelController>().GoToBattle();
         }
-        /*
-        Debug.Log("Number of target objects in frame: " + count + " Time: " + Time.time);
-        Debug.Log(detectedEnemies.Count);
-        foreach (var enemy in detectedEnemies)
-        {
-            Debug.Log($"Enemy: {enemy.Key}, Detected: {enemy.Value}" + " Time: " + Time.time);
-        }
-        */
+        
     }
 
     bool IsFacingAwayFromPlayer(Transform enemyTransform)

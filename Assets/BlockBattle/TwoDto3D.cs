@@ -11,22 +11,21 @@ public class TwoDto3D : MonoBehaviour
     public bool Victory;
     private Dictionary<string, int> inventory = new Dictionary<string, int>();
     public Flowchart flowchart;
-    public static bool ToThreeDVictory;
+    public static Enemy[] ToThreeEnemies;
     // Start is called before the first frame update
     public void TwoDGameOver()
     {
         enemies= FindObjectsOfType<Enemy>();
+        ToThreeEnemies = enemies;
         ItemManager itemManager = FindObjectOfType<ItemManager>();
         if (enemies.Length == 0)
         {
             Victory= true;
-            ToThreeDVictory = true;
             Debug.Log("Victory");
         }
         else
         {
             Victory= false;
-            ToThreeDVictory = false;
             Debug.Log("Defeat");
         }
         inventory = itemManager.inventory;
@@ -41,6 +40,7 @@ public class TwoDto3D : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            ToThreeEnemies =  new Enemy[0];
             BackToLevel();
         }
     }
@@ -54,6 +54,14 @@ public class TwoDto3D : MonoBehaviour
     public IEnumerator LoadBattle()
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene(ThreeDTo2DData.ThreeDScene);
+        if (ThreeDTo2DData.ThreeDScene == "CentralMeditationRoom")
+        {
+            ThreeDTo2DData.ThreeDScene = null;
+            SceneManager.LoadScene("Church_with_code");
+        }
+        else
+        {
+            SceneManager.LoadScene(ThreeDTo2DData.ThreeDScene);
+        }
     }
 }
