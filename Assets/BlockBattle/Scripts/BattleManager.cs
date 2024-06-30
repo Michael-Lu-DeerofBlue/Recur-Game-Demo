@@ -84,10 +84,10 @@ public class BattleManager : MonoBehaviour
         heroInfo.ExecuteIconSkill();
     }
 
-    public void AddStunBlock(int index, int clearNumber)
+    public void AddStunBlock(int Num, int ColorIndex)
     {
        selectionTool = FindObjectOfType<SelectionTool>();
-       selectionTool.AddDebuffBlock(index, clearNumber);
+       selectionTool.AddDebuffBlock(Num, ColorIndex);
     }
     public void AttackEnemy(float damage, Enemy Target)
     {

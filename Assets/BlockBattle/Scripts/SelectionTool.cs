@@ -31,33 +31,92 @@ public class SelectionTool : MonoBehaviour
             threeColorList.Add(actionBlockDictionary[threeBlockList[i]]);
         }
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
-
     }
 
     public void addToStorage(int index)
     {
+
+        // Proceed with the original logic
         storageBlock = index;
-        SelectionUI.GetComponent<SelectionToolUI>().UpdateStorageBlocks();
+
+        int position = threeBlockList.IndexOf(index);
+        int storedBlock = threeBlockList[position];
+        int storedColorIndex = threeColorList[position];
+
+        // Remove the block from the selection
+        threeBlockList.RemoveAt(position);
+        threeColorList.RemoveAt(position);
+
+        // Assign a random new block to the position if necessary
+        if (threeBlockList.Count < 3)
+        {
+            int randomBlock = UnityEngine.Random.Range(0, 6);
+            threeBlockList.Add(randomBlock);
+            threeColorList.Add(actionBlockDictionary[randomBlock]);
+        }
+
+        // Update the UI to reflect changes
+        SelectionUI.GetComponent<SelectionToolUI>().UpdateStorageBlocks(storedBlock, storedColorIndex);
+        SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
     }
-    public void addToFall(int index)//这个index是用来代表方块的形状的
+
+    public void addToFall(int index, bool Storage)
     {
         stillFalling = true;
-
-        int Position = threeBlockList.IndexOf(index);// position就是三个里面的第几个
+        if (!Storage) {
+        int Position = threeBlockList.IndexOf(index); 
         Color color = Translator.GetComponent<IntTranslator>().intToColor(threeColorList[Position]); // 三个里面的第“position”个的颜色
-        if (BattleManager.refreshedBlocks) 
+
+        if (BattleManager.refreshedBlocks)
         {
             color = Translator.GetComponent<IntTranslator>().intToColor(threeColorList[threeBlockList.FindIndex(x => x == index)]);
             BattleManager.refreshedBlocks = false;
         }
-        threeBlockList = DrawRandomIntegers(blockList, 3);//这个在确定下一行新的三个choice的形状
+
+        // 保存原始的形状和颜色列表
+        List<int> originalBlockList = new List<int>(threeBlockList);
+        List<int> originalColorList = new List<int>(threeColorList);
+
+        // 生成新的三个choice的形状
+        threeBlockList = DrawRandomIntegers(blockList, 3);
+
         for (int i = 0; i < threeBlockList.Count; i++)
         {
-            threeColorList[i] = actionBlockDictionary[threeBlockList[i]];//这个在找他们对应的颜色
+            if (originalColorList[i] >= 7 && originalBlockList[i] != index)
+            {
+                threeBlockList[i] = originalBlockList[i];
+                threeColorList[i] = originalColorList[i];
+
+            }
+            else
+            {
+
+                threeColorList[i] = actionBlockDictionary[threeBlockList[i]];
+            }
         }
 
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
-        Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color, actionBlockDictionary[index]);//这Spawn是Spawn在grid上，index代表方块形状，color代表我要在grid上生成的方块的颜色
+        Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color, actionBlockDictionary[index]); // 这Spawn是Spawn在grid上，index代表方块形状，color代表我要在grid上生成的方块的颜色
+        }
+        else
+        {
+            SelectionToolUI selectionToolUI = SelectionUI.GetComponent<SelectionToolUI>();
+
+        if (selectionToolUI.previousGeneratedStorageObject != null)
+        {
+                // Get the shape (index) of the previous generated storage object
+                int storedShapeIndex = selectionToolUI.previousGeneratedStorageObject.GetComponent<BlockStageController>().index;
+
+                // Find the Renderer component in the child objects
+                Renderer renderer = selectionToolUI.previousGeneratedStorageObject.GetComponentInChildren<Renderer>();
+                if (renderer != null)
+                {
+                    // Get the color of the previous generated storage object
+                    Color storedColor = renderer.material.color;
+                    Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(storedShapeIndex, storedColor, actionBlockDictionary[storedShapeIndex]);
+                }
+            }
+        }
     }
 
     List<int> DrawRandomIntegers(List<int> list, int count)
@@ -91,7 +150,7 @@ public class SelectionTool : MonoBehaviour
         if (Translator == null) return;
 
         IntTranslator translator = Translator.GetComponent<IntTranslator>();
-
+        bool foundInRange = false;
         // Iterate through threeColorList
         for (int i = 0; i < threeColorList.Count; i++)
         {
@@ -104,9 +163,16 @@ public class SelectionTool : MonoBehaviour
                 // Change the current color index to ColorIndex
                 threeColorList[i] = ColorIndex;
                 Num--;
+                foundInRange = true;
 
             }
         }
+           if (!foundInRange && Num > 0)
+    {
+        System.Random random = new System.Random();
+        int randomIndex = random.Next(threeColorList.Count);
+        threeColorList[randomIndex] = ColorIndex;
+    }
 
         // Update the choice blocks in the UI to reflect the color change
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();

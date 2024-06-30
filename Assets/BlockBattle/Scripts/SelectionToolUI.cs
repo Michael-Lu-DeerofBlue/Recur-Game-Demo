@@ -23,12 +23,31 @@ public class SelectionToolUI : MonoBehaviour
     }
 
     // Update is called once per frame
+    public void UpdateStorageBlocks(int storedBlock, int storedColor)
+    {
+        storageBlock = selectionToolProcessor.GetComponent<SelectionTool>().storageBlock;
+        Destroy(previousGeneratedStorageObject);
+
+        GameObject sblock = Translator.GetComponent<IntTranslator>().intToBlock(storedBlock);
+        GameObject storage = Instantiate(sblock, storagePlaceholder.transform.position, storagePlaceholder.transform.rotation);
+        storage.GetComponent<BlockStageController>().inSelection = true;
+        storage.GetComponent<InSelectionBar>().inStorage = true;
+        storage.GetComponent<BlockStageController>().index = storageBlock;
+
+        GiveColor(storedBlock, storage, storedColor);
+        previousGeneratedStorageObject = storage;
+    }
+
+
+
     public void UpdateChoiceBlocks()
     {
         foreach (GameObject gameObject in previousGeneratedObject)
         {
             Destroy(gameObject);
         }
+        previousGeneratedObject.Clear();
+
         threeBlockList = selectionToolProcessor.GetComponent<SelectionTool>().threeBlockList;
         threeColorList = selectionToolProcessor.GetComponent<SelectionTool>().threeColorList;
         if (threeBlockList != null)
@@ -45,39 +64,34 @@ public class SelectionToolUI : MonoBehaviour
         }
     }
 
-    public void UpdateStorageBlocks()
-    {
-        storageBlock = selectionToolProcessor.GetComponent<SelectionTool>().storageBlock;
-        Destroy(previousGeneratedStorageObject);
-        GameObject sblock = Translator.GetComponent<IntTranslator>().intToBlock(storageBlock);
-        GameObject storage = Instantiate(sblock, storagePlaceholder.transform.position, storagePlaceholder.transform.rotation);
-        storage.GetComponent<BlockStageController>().inSelection = true;
-        storage.GetComponent<InSelectionBar>().inStorage = true;
-        storage.GetComponent<BlockStageController>().index = storageBlock;
-        int colorCode = selectionToolProcessor.GetComponent<SelectionTool>().actionBlockDictionary[storageBlock];
-        GiveColor(storageBlock, storage, colorCode);
-        previousGeneratedStorageObject = storage;
-    }
 
     private void GiveColor(int index, GameObject block, int colorCode)
     {
+        Color color;
         if (index <= 6)
         {
-            Color color = Translator.GetComponent<IntTranslator>().intToColor(colorCode);
-            Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
-            foreach (Renderer renderer in renderers)
-            {
-                renderer.material.color = color;
-            }
+            color = Translator.GetComponent<IntTranslator>().intToColor(colorCode);
         }
         else
         {
-            Color color = Translator.GetComponent<IntTranslator>().intToColor(index);
-            Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
-            foreach (Renderer renderer in renderers)
-            {
-                renderer.material.color = color;
-            }
+            color = Translator.GetComponent<IntTranslator>().intToColor(index);
+        }
+
+        Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material.color = color;
+        }
+    }
+
+
+    // Method to remove a block at a given position
+    public void RemoveBlockAtPosition(int position)
+    {
+        if (previousGeneratedObject != null && previousGeneratedObject.Count > position)
+        {
+            Destroy(previousGeneratedObject[position]);
+            previousGeneratedObject.RemoveAt(position);
         }
     }
 
