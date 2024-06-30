@@ -118,6 +118,10 @@ public class HeroInfo : MonoBehaviour
                 case 6:
                     HandleIndex6(clearNumber);
                     break;
+                case 8:
+                    HandleIndex8(clearNumber);
+                    break;
+
         }
 
     }
@@ -227,7 +231,10 @@ public class HeroInfo : MonoBehaviour
 
     }
 
-
+    public virtual void HandleIndex8(int clearNumber)
+    {
+        Debug.Log("gray, stun, do nothing");
+    }
 
 
 

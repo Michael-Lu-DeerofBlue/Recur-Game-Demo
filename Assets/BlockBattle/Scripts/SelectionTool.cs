@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -30,6 +31,7 @@ public class SelectionTool : MonoBehaviour
             threeColorList.Add(actionBlockDictionary[threeBlockList[i]]);
         }
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
+
     }
 
     public void addToStorage(int index)
@@ -40,9 +42,10 @@ public class SelectionTool : MonoBehaviour
     public void addToFall(int index)//这个index是用来代表方块的形状的
     {
         stillFalling = true;
-        //这是用来找颜色的
-        Color color = Translator.GetComponent<IntTranslator>().intToColor(actionBlockDictionary[index]);
-        if (BattleManager.refreshedBlocks) //这也是用来找颜色的，但是是在refreshed block，就是直接让颜色不变，形状变的时候用来找颜色的
+
+        int Position = threeBlockList.IndexOf(index);// position就是三个里面的第几个
+        Color color = Translator.GetComponent<IntTranslator>().intToColor(threeColorList[Position]); // 三个里面的第“position”个的颜色
+        if (BattleManager.refreshedBlocks) 
         {
             color = Translator.GetComponent<IntTranslator>().intToColor(threeColorList[threeBlockList.FindIndex(x => x == index)]);
             BattleManager.refreshedBlocks = false;
@@ -80,4 +83,34 @@ public class SelectionTool : MonoBehaviour
         threeBlockList = DrawRandomIntegers(allBlockList, 3);
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
     }
+
+
+    public void AddDebuffBlock(int Num, int ColorIndex)
+    {
+        // Ensure the Translator reference is assigned
+        if (Translator == null) return;
+
+        IntTranslator translator = Translator.GetComponent<IntTranslator>();
+
+        // Iterate through threeColorList
+        for (int i = 0; i < threeColorList.Count; i++)
+        {
+            // Get the color index from threeColorList
+            int currentColorIndex = threeColorList[i];
+
+            // Check if the current color index is between 0 and 6 (inclusive)
+            if (currentColorIndex >= 0 && currentColorIndex <= 6&& Num>0 )
+            {
+                // Change the current color index to ColorIndex
+                threeColorList[i] = ColorIndex;
+                Num--;
+
+            }
+        }
+
+        // Update the choice blocks in the UI to reflect the color change
+        SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
+    }
+
+
 }

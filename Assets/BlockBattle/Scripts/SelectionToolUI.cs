@@ -61,7 +61,7 @@ public class SelectionToolUI : MonoBehaviour
 
     private void GiveColor(int index, GameObject block, int colorCode)
     {
-        if (index != 7)
+        if (index <= 6)
         {
             Color color = Translator.GetComponent<IntTranslator>().intToColor(colorCode);
             Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
@@ -72,7 +72,7 @@ public class SelectionToolUI : MonoBehaviour
         }
         else
         {
-            Color color = Translator.GetComponent<IntTranslator>().intToColor(7);
+            Color color = Translator.GetComponent<IntTranslator>().intToColor(index);
             Renderer[] renderers = block.GetComponentsInChildren<Renderer>();
             foreach (Renderer renderer in renderers)
             {
