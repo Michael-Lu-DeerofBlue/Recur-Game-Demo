@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dbbc84c70300ba489dc1fe1961516ec, type: 3}
+  m_Name: DialogueSystemLuaFunctionInfo
+  m_EditorClassIdentifier: 
+  conditionFunctions:
+  - functionName: Dialogue Entry/GetEntryText
+    parameters: 0100000002000000
+    returnValue: 3
+  - functionName: Dialogue Entry/GetEntryBool
+    parameters: 0100000002000000
+    returnValue: 1
+  - functionName: Dialogue Entry/GetEntryNumber
+    parameters: 0100000002000000
+    returnValue: 2
+  - functionName: Actor/ActorIDToName
+    parameters: 01000000
+    returnValue: 3
+  - functionName: Item/ItemIDToName
+    parameters: 01000000
+    returnValue: 3
+  - functionName: Quest/ItemIDToName
+    parameters: 01000000
+    returnValue: 3
+  - functionName: Text Table/GetTextTableValue
+    parameters: 02000000
+    returnValue: 3
+  scriptFunctions:
+  - functionName: Message System/SendMessageSystem
+    parameters: 0200000002000000
+    returnValue: 0
+  - functionName: Message System/SendMessageSystemString
+    parameters: 020000000200000002000000
+    returnValue: 0
+  - functionName: Message System/SendMessageSystemInt
+    parameters: 020000000200000001000000
+    returnValue: 0
+  - functionName: Alert/ShowAlert
+    parameters: 02000000
+    returnValue: 0
+  - functionName: Alert/HideAlert
+    parameters: 
+    returnValue: 0
+  - functionName: Randomize/RandomizeNextEntry
+    parameters: 
+    returnValue: 0
+  - functionName: Randomize/RandomizeNextEntryNoDuplicate
+    parameters: 
+    returnValue: 0
+  - functionName: Quest/UpdateTracker
+    parameters: 
+    returnValue: 0
+  - functionName: Quest/UpdateQuestIndicators
+    parameters: 
+    returnValue: 0
+  - functionName: Actor/ChangeActorName
+    parameters: 0200000002000000
+    returnValue: 0
+  - functionName: Conversation Position/PushConversationPosition
+    parameters: 
+    returnValue: 0
+  - functionName: Conversation Position/PopConversationPosition
+    parameters: 
+    returnValue: 0
+  - functionName: Conversation Position/ClearConversationPositionStack
+    parameters: 
+    returnValue: 0
