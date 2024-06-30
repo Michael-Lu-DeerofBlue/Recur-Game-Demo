@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class InSelectionBar : MonoBehaviour
 {
@@ -8,9 +9,13 @@ public class InSelectionBar : MonoBehaviour
     public bool inStorage;
     private SelectionTool selectionToolProcessor;
     public BattleManager battleManager;
+    public SelectionToolUI SelectionUI;
+    public IntTranslator Translator;
     // Start is called before the first frame update
     void Start()
     {
+        Translator = FindObjectOfType<IntTranslator>();
+        SelectionUI = FindObjectOfType<SelectionToolUI>();
         selectionToolProcessor = FindObjectOfType<SelectionTool>();
         Shapeindex = gameObject.GetComponent<BlockStageController>().index;
         battleManager= FindObjectOfType<BattleManager>();
@@ -31,6 +36,25 @@ public class InSelectionBar : MonoBehaviour
                 // Check if the raycast hit this GameObject
                 if (hit.transform == transform)
                 {
+                    if(SelectionUI.previousGeneratedStorageObject != null)
+                    {
+                        Renderer renderer = SelectionUI.previousGeneratedStorageObject.GetComponentInChildren<Renderer>();
+                        if (renderer != null)
+                        {
+                            // Get the color of the previous generated storage object
+                            Color storedColor = renderer.material.color;
+
+                            // Find the color index
+                            int colorIndex = System.Array.IndexOf(Translator.GetComponent<IntTranslator>().Colors, storedColor);
+
+                            // Check if the color index is greater than 7
+                            if (colorIndex > 7)
+                            {
+                                Debug.Log("Color index is greater than 7. Doing nothing.");
+                                return; // Do nothing
+                            }
+                        }
+                    }
                     selectionToolProcessor.GetComponent<SelectionTool>().addToStorage(Shapeindex);
                     Destroy(gameObject);
                 }
@@ -53,9 +77,13 @@ public class InSelectionBar : MonoBehaviour
                 {
                     if (!selectionToolProcessor.GetComponent<SelectionTool>().stillFalling)
                     {
-                        selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex);
-                        if (inStorage)
+                        if (!inStorage)
                         {
+                            selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex,false);
+                            Destroy(gameObject);
+                        }else if (inStorage)
+                        {
+                            selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex,true);
                             Destroy(gameObject);
                         }
                     }
