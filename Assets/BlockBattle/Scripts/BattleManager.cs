@@ -20,6 +20,7 @@ public class BattleManager : MonoBehaviour
     public bool PlayerLandOn = false;
 
     //Player debuff type:
+    public bool DisablePlayerInput = false;
     //when add new debuff type, remember to add a bool to "RemoveAllPlayerDebuff" method.
     public bool RotationLocked = false;
     public bool LockNextBlockRotation = false;
@@ -106,7 +107,18 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    public void disableInputForSeconds(float seconds)
+    {
+        StartCoroutine(CoroutineDisableInputForSeconds(seconds));
+    }
 
+    private IEnumerator CoroutineDisableInputForSeconds(float seconds)
+    {
+
+        DisablePlayerInput = true;
+        yield return new WaitForSeconds(seconds);
+        DisablePlayerInput = false;
+    }
     public void RemoveAllPlayerDebug()
     {
         RotationLocked = false;
@@ -118,6 +130,7 @@ public class BattleManager : MonoBehaviour
     public void PlayerImmueDebuffDuring(float second)
     {
         StartCoroutine(ImmueAllDebuffAfterDelay(second));
+                PlayerImmuingDebuff = true;
     }
 
     private IEnumerator ImmueAllDebuffAfterDelay(float seconds)

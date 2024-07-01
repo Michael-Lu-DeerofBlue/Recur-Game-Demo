@@ -349,7 +349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7868329382648246484}
   - component: {fileID: 3197008888474548069}
-  - component: {fileID: 648749719434240450}
+  - component: {fileID: 8200042195047804622}
   m_Layer: 0
   m_Name: MockingBird
   m_TagString: Enemy
@@ -400,7 +400,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.3069878, y: 10.098838, z: 1}
   m_Center: {x: 0, y: 0.41607141, z: 0}
---- !u!114 &648749719434240450
+--- !u!114 &8200042195047804622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -409,11 +409,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4892679668077574771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2c3bf55f4f0c7b408f5e50678b33d00, type: 3}
+  m_Script: {fileID: 11500000, guid: 166f2c019d4338943a153250a3337151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 15
-  MaxHp: 15
+  HP: 10
+  MaxHp: 10
   SkillCastingTime: 0
   enemyInfoText: {fileID: 2320016935802981217}
   timer: 0
@@ -424,12 +424,12 @@ MonoBehaviour:
   Fragiling: 0
   isdead: 0
   PauseTime: 0
-  attackDamage: 2
-  BleedBlockDamage: 4
+  attackDamage: 3
+  DisableInputDamage: 4
   FleeDamage: 0
   attackWeight: 1
-  BleedBlockWeight: 99
+  DisableInputWeight: 100
   FleeWeight: 0
   attackCastingTime: 8
-  BleedBlockCastingTime: 4
+  DisableInputCastingTime: 4
   FleeCastingTime: 10

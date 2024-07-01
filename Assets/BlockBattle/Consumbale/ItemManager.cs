@@ -17,12 +17,13 @@ public class ItemManager : MonoBehaviour
     public List<Sprite> itemSpritesList = new List<Sprite>();
     public Sprite emptySprite;
     private ItemEventHandler itemEventHandler;
-
+    private BattleManager battleManager;
     private Dictionary<string, Sprite> itemSprites = new Dictionary<string, Sprite>();
     public Dictionary<string, int> inventory = new Dictionary<string, int>();
 
     void Start()
     {
+       battleManager = FindObjectOfType<BattleManager>();
         itemEventHandler = GetComponent<ItemEventHandler>();
 
         foreach (var sprite in itemSpritesList)
@@ -66,6 +67,7 @@ public class ItemManager : MonoBehaviour
     }
     void OnButtonClick(InventoryButton inventoryButton)
     {
+        if (battleManager.DisablePlayerInput == true) return;
         string itemName = inventoryButton.image.sprite.name;
 
         if (inventory.ContainsKey(itemName))

@@ -24,7 +24,8 @@ public class InSelectionBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1)) // 1 is the right mouse button
+        if (Input.GetMouseButtonDown(1))
+        if (battleManager.DisablePlayerInput == true) return;// 1 is the right mouse button
         {
             // Create a ray from the mouse cursor position in the screen space
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -62,6 +63,7 @@ public class InSelectionBar : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0)) // 1 is the right mouse button
         {
+            if(battleManager.DisablePlayerInput == true)return;
             if (battleManager.TimeStop == true)
             {
                 return;

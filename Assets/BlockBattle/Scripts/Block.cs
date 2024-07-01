@@ -24,7 +24,7 @@ public class BlockManager : MonoBehaviour
     public TwoDto3D twoDto3D;
     void Start()
     {
-        twoDto3D= FindObjectOfType<TwoDto3D>();
+        twoDto3D = FindObjectOfType<TwoDto3D>();
         selectionToolProcessor = FindObjectOfType<SelectionTool>();
         spawnblock = FindObjectOfType<SpawnBlock>();
         battleManager = FindObjectOfType<BattleManager>();
@@ -37,7 +37,8 @@ public class BlockManager : MonoBehaviour
         if (battleManager.TimeStop == false) {
             if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
         {
-            while (true)
+                if (battleManager.DisablePlayerInput == true) return;
+                while (true)
             {
                 transform.position += new Vector3(0, -1, 0);
                 if (!ValidMove())
@@ -52,24 +53,24 @@ public class BlockManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.A))
         {
-            transform.position += new Vector3(-1, 0, 0);
+            if (battleManager.DisablePlayerInput == true) return;
+                transform.position += new Vector3(-1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(-1, 0, 0);
             FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            transform.position += new Vector3(1, 0, 0);
+                if (battleManager.DisablePlayerInput == true) return;
+                transform.position += new Vector3(1, 0, 0);
             if (!ValidMove())
                 transform.position -= new Vector3(1, 0, 0);
             FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            if (lockedRotation == true)
-            {
-                return;
-            }
+                if (battleManager.DisablePlayerInput == true) return;
+                if (lockedRotation == true) return;
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             if (!ValidMove())
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
@@ -81,6 +82,7 @@ public class BlockManager : MonoBehaviour
 
             if (Time.time - previousTime > (Input.GetKey(KeyCode.S) ? fallTime / 10 : fallTime))
             {
+                Debug.Log(battleManager.DisablePlayerInput);
                 transform.position += new Vector3(0, -1, 0);
                 if (!ValidMove())
                 {

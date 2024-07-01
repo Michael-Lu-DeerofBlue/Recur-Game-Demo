@@ -7,19 +7,19 @@ using UnityEngine;
 public class MockingBird: Enemy
 {
     public int attackDamage = 3; 
-    public int BleedBlockDamage = 4;
+    public int DisableInputDamage = 4;
     public int FleeDamage = 0;
 
 
     public int attackWeight = 1;
-    public int BleedBlockWeight = 7;
+    public int DisableInputWeight = 7;
     public int FleeWeight = 0;
     
     public float attackCastingTime = 8;
-    public float BleedBlockCastingTime = 4;
+    public float DisableInputCastingTime = 4;
     public float FleeCastingTime = 10;
 
-    private enum SkillType { Attack, BleedBlock, Flee }
+    private enum SkillType { Attack, DisableInput, Flee }
     private SkillType nextSkill;
 
     public override void ExecuteSkill()
@@ -29,9 +29,8 @@ public class MockingBird: Enemy
             case SkillType.Attack:
                 Attack(attackDamage);
                 break;
-            case SkillType.BleedBlock:
-                Attack(BleedBlockDamage);
-                battleManager.AddStunBlock(1,9);
+            case SkillType.DisableInput:
+                battleManager.disableInputForSeconds(2);
                 break;
             case SkillType.Flee:
                 deadhandle();
@@ -41,9 +40,9 @@ public class MockingBird: Enemy
 
     public override void GetNextMove()
     {
-        int sum = attackWeight + BleedBlockWeight;
+        int sum = attackWeight + DisableInputWeight;
         float attackProbability = (float)attackWeight / sum;
-        float BleedBlockProbability = (float)BleedBlockWeight / sum;
+        float disableInputProbability = (float)DisableInputWeight / sum;
         float randomValue = Random.value;
         
 
@@ -52,10 +51,10 @@ public class MockingBird: Enemy
             SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
         }
-        else if (randomValue < attackProbability + BleedBlockProbability)
+        else if (randomValue < attackProbability + disableInputProbability)
         {
-            SkillCastingTime = BleedBlockCastingTime;  
-            nextSkill = SkillType.BleedBlock;
+            SkillCastingTime = DisableInputCastingTime;  
+            nextSkill = SkillType.DisableInput;
         }
         else
         {

@@ -183,6 +183,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void OnMouseDown()
     {
+        if (battleManager.DisablePlayerInput == true) return;
         if (!isdead)
         {
             targetSelector.SwitchTargetByClick(this);
