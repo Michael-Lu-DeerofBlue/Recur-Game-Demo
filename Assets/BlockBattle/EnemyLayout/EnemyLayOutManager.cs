@@ -7,12 +7,20 @@ public class EnemyLayOutManager : MonoBehaviour
     public GameObject[] enemyLayouts; // Array of enemy layout prefabs
     public Enemy[] TestenemyPrefabs; // Array of enemy prefabs
     public TargetSelector targetSelector; // Reference to the target selector script
-    public static Dictionary<string, bool> EnemiesList = new Dictionary<string, bool>(); // Dictionary to store enemy states
+
+    public static Dictionary<string, bool> EnemiesList = new Dictionary<string, bool> {
+        { "Perseus", false },
+        { "Bride (1)", false },
+        { "Bride (2)", true },
+        { "Hound (2)", false },
+        { "Eagle (3)", false },
+    };
 
     private int enemyNum;
 
     void Start()
     {
+
         // Set enemyNum to the length of the TestenemyPrefabs array
         enemyNum = TestenemyPrefabs.Length;
         targetSelector = FindObjectOfType<TargetSelector>();

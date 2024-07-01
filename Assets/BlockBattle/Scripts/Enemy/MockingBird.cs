@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Hound : Enemy
+public class MockingBird: Enemy
 {
-    public int attackDamage = 2; 
+    public int attackDamage = 3; 
     public int BleedBlockDamage = 4;
     public int FleeDamage = 0;
 
 
     public int attackWeight = 1;
-    public int BleedBlockWeight = 1;
+    public int BleedBlockWeight = 7;
     public int FleeWeight = 0;
     
     public float attackCastingTime = 8;
