@@ -191,7 +191,6 @@ public class BlockManager : MonoBehaviour
                 battleManager.ExecuteIconSkill();
                 yield break;
             }
-
             string UpLeftColor = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
             int colorCode = upleftBlock.parent.GetComponent<BlockManager>().colorId;
             int passedInId = upleftBlock.parent.GetComponent<BlockManager>().id;
@@ -230,6 +229,7 @@ public class BlockManager : MonoBehaviour
 
 
     // Find all connected blocks with the same color and add them to the list
+    // Find all connected blocks with the same color and add them to the list
     void FindConnectedBlocks(Transform block, string color, int checkId, List<Transform> blocksToClear)
     {
         if (block == null || blocksToClear.Contains(block)) return;
@@ -239,16 +239,50 @@ public class BlockManager : MonoBehaviour
         int otherID = block.parent.GetComponent<BlockManager>().id;
         if (otherID != checkId) return;
 
+        // Check for "Sticker" sprite on block's children
+        foreach (Transform child in block)
+        {
+            if (child.GetComponent<SpriteRenderer>()?.sprite?.name == "RotationLockIcon")
+            {
+                Debug.Log("sticker!!!!!!!!!!!!!!");
+            }
+        }
+
         blocksToClear.Add(block);
 
         int x = (int)block.position.x;
         int y = (int)block.position.y;
 
-        if (IsInsideExtendedGrid(new Vector3(x + 1, y, 0))) FindConnectedBlocks(grid[x + 1, y], color, checkId, blocksToClear);
-        if (IsInsideExtendedGrid(new Vector3(x - 1, y, 0))) FindConnectedBlocks(grid[x - 1, y], color, checkId, blocksToClear);
-        if (IsInsideExtendedGrid(new Vector3(x, y + 1, 0))) FindConnectedBlocks(grid[x, y + 1], color, checkId, blocksToClear);
-        if (IsInsideExtendedGrid(new Vector3(x, y - 1, 0))) FindConnectedBlocks(grid[x, y - 1], color, checkId, blocksToClear);
+        if (IsInsideExtendedGrid(new Vector3(x + 1, y, 0)))
+        {
+            if (grid[x + 1, y] != null && !blocksToClear.Contains(grid[x + 1, y]))
+            {
+                FindConnectedBlocks(grid[x + 1, y], color, checkId, blocksToClear);
+            }
+        }
+        if (IsInsideExtendedGrid(new Vector3(x - 1, y, 0)))
+        {
+            if (grid[x - 1, y] != null && !blocksToClear.Contains(grid[x - 1, y]))
+            {
+                FindConnectedBlocks(grid[x - 1, y], color, checkId, blocksToClear);
+            }
+        }
+        if (IsInsideExtendedGrid(new Vector3(x, y + 1, 0)))
+        {
+            if (grid[x, y + 1] != null && !blocksToClear.Contains(grid[x, y + 1]))
+            {
+                FindConnectedBlocks(grid[x, y + 1], color, checkId, blocksToClear);
+            }
+        }
+        if (IsInsideExtendedGrid(new Vector3(x, y - 1, 0)))
+        {
+            if (grid[x, y - 1] != null && !blocksToClear.Contains(grid[x, y - 1]))
+            {
+                FindConnectedBlocks(grid[x, y - 1], color, checkId, blocksToClear);
+            }
+        }
     }
+
 
     // Move rows down after clearing a line
     void RowDown(int i)

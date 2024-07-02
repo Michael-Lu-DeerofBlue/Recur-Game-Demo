@@ -19,12 +19,12 @@ public class SelectionToolUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     public void UpdateStorageBlocks(int storedBlock, int storedColor)
     {
+
         storageBlock = selectionToolProcessor.GetComponent<SelectionTool>().storageBlock;
         Destroy(previousGeneratedStorageObject);
 
@@ -50,6 +50,16 @@ public class SelectionToolUI : MonoBehaviour
 
         threeBlockList = selectionToolProcessor.GetComponent<SelectionTool>().threeBlockList;
         threeColorList = selectionToolProcessor.GetComponent<SelectionTool>().threeColorList;
+        if(threeColorList.Count!=threeBlockList.Count)
+        {
+            for (int i = 0; i < threeBlockList.Count; i++)
+            {
+                if (i >= threeColorList.Count)
+                {
+                    threeColorList.Add(threeBlockList[i]);
+                }
+            }
+        }
         if (threeBlockList != null)
         {
             for (int i = 0; i < threeBlockList.Count; i++)
@@ -83,16 +93,4 @@ public class SelectionToolUI : MonoBehaviour
             renderer.material.color = color;
         }
     }
-
-
-    // Method to remove a block at a given position
-    public void RemoveBlockAtPosition(int position)
-    {
-        if (previousGeneratedObject != null && previousGeneratedObject.Count > position)
-        {
-            Destroy(previousGeneratedObject[position]);
-            previousGeneratedObject.RemoveAt(position);
-        }
-    }
-
 }

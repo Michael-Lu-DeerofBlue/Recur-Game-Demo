@@ -47,13 +47,6 @@ public class SelectionTool : MonoBehaviour
         threeBlockList.RemoveAt(position);
         threeColorList.RemoveAt(position);
 
-        // Assign a random new block to the position if necessary
-        if (threeBlockList.Count < 3)
-        {
-            int randomBlock = UnityEngine.Random.Range(0, 6);
-            threeBlockList.Add(randomBlock);
-            threeColorList.Add(actionBlockDictionary[randomBlock]);
-        }
 
         // Update the UI to reflect changes
         SelectionUI.GetComponent<SelectionToolUI>().UpdateStorageBlocks(storedBlock, storedColorIndex);
@@ -63,47 +56,42 @@ public class SelectionTool : MonoBehaviour
     public void addToFall(int index, bool Storage)
     {
         stillFalling = true;
-        if (!Storage) {
-        int Position = threeBlockList.IndexOf(index); 
-        Color color = Translator.GetComponent<IntTranslator>().intToColor(threeColorList[Position]); // 三个里面的第“position”个的颜色
-
-        if (BattleManager.refreshedBlocks)
+        if (!Storage)
         {
-            color = Translator.GetComponent<IntTranslator>().intToColor(threeColorList[threeBlockList.FindIndex(x => x == index)]);
-            BattleManager.refreshedBlocks = false;
-        }
+            int Position = threeBlockList.IndexOf(index);
+            Color color = Translator.GetComponent<IntTranslator>().intToColor(threeColorList[Position]); // 三个里面的第“position”个的颜色
 
-        // 保存原始的形状和颜色列表
-        List<int> originalBlockList = new List<int>(threeBlockList);
-        List<int> originalColorList = new List<int>(threeColorList);
 
-        // 生成新的三个choice的形状
-        threeBlockList = DrawRandomIntegers(blockList, 3);
+            // 保存原始的形状和颜色列表
+            List<int> originalBlockList = new List<int>(threeBlockList);
+            List<int> originalColorList = new List<int>(threeColorList);
 
-        for (int i = 0; i < threeBlockList.Count; i++)
-        {
-            if (originalColorList[i] >= 7 && originalBlockList[i] != index)
+            // 生成新的三个choice的形状
+            threeBlockList = DrawRandomIntegers(blockList, 3);
+
+            for (int i = 0; i < originalBlockList.Count; i++)  
             {
-                threeBlockList[i] = originalBlockList[i];
-                threeColorList[i] = originalColorList[i];
+                if (originalColorList[i] >= 7 && i!=Position) // 如果有两个debuff方块， i就是for loop里面搜到的那个， Position就是选择的那个，只有选择的会被替换。
+                {
+                    threeBlockList[i] = originalBlockList[i];
+                    threeColorList[i] = originalColorList[i];
 
+                }
+                else
+                {
+
+                    threeColorList[i] = actionBlockDictionary[threeBlockList[i]];
+                }
             }
-            else
-            {
-
-                threeColorList[i] = actionBlockDictionary[threeBlockList[i]];
-            }
-        }
-
-        SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
-        Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color, actionBlockDictionary[index]); // 这Spawn是Spawn在grid上，index代表方块形状，color代表我要在grid上生成的方块的颜色
+            SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
+            Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color, threeColorList[Position]); // 这Spawn是Spawn在grid上，index代表方块形状，color代表我要在grid上生成的方块的颜色
         }
         else
         {
             SelectionToolUI selectionToolUI = SelectionUI.GetComponent<SelectionToolUI>();
 
-        if (selectionToolUI.previousGeneratedStorageObject != null)
-        {
+            if (selectionToolUI.previousGeneratedStorageObject != null)
+            {
                 // Get the shape (index) of the previous generated storage object
                 int storedShapeIndex = selectionToolUI.previousGeneratedStorageObject.GetComponent<BlockStageController>().index;
 
@@ -118,7 +106,6 @@ public class SelectionTool : MonoBehaviour
             }
         }
     }
-
     List<int> DrawRandomIntegers(List<int> list, int count)
     {
         List<int> result = new List<int>();

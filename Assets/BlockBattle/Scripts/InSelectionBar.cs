@@ -18,52 +18,52 @@ public class InSelectionBar : MonoBehaviour
         SelectionUI = FindObjectOfType<SelectionToolUI>();
         selectionToolProcessor = FindObjectOfType<SelectionTool>();
         Shapeindex = gameObject.GetComponent<BlockStageController>().index;
-        battleManager= FindObjectOfType<BattleManager>();
+        battleManager = FindObjectOfType<BattleManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(1))
-        if (battleManager.DisablePlayerInput == true) return;// 1 is the right mouse button
         {
-            // Create a ray from the mouse cursor position in the screen space
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Perform the raycast
-            if (Physics.Raycast(ray, out hit))
+            if (battleManager.DisablePlayerInput == true) return; // 1 is the right mouse button
             {
-                // Check if the raycast hit this GameObject
-                if (hit.transform == transform)
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
                 {
-                    if(SelectionUI.previousGeneratedStorageObject != null)
+                    // Check if the raycast hit this GameObject
+                    if (hit.transform == transform)
                     {
-                        Renderer renderer = SelectionUI.previousGeneratedStorageObject.GetComponentInChildren<Renderer>();
-                        if (renderer != null)
+                        if (SelectionUI.previousGeneratedStorageObject != null)
                         {
-                            // Get the color of the previous generated storage object
-                            Color storedColor = renderer.material.color;
-
-                            // Find the color index
-                            int colorIndex = System.Array.IndexOf(Translator.GetComponent<IntTranslator>().Colors, storedColor);
-
-                            // Check if the color index is greater than 7
-                            if (colorIndex > 7)
+                            Renderer renderer = SelectionUI.previousGeneratedStorageObject.GetComponentInChildren<Renderer>();
+                            if (renderer != null)
                             {
-                                Debug.Log("Color index is greater than 7. Doing nothing.");
-                                return; // Do nothing
+                                // Get the color of the previous generated storage object
+                                Color storedColor = renderer.material.color;
+
+                                // Find the color index
+                                int colorIndex = System.Array.IndexOf(Translator.GetComponent<IntTranslator>().Colors, storedColor);
+
+                                // Check if the color index is greater than 7
+                                if (colorIndex > 7)
+                                {
+                                    Debug.Log("Color index is greater than 7. Doing nothing.");
+                                    return; // Do nothing
+                                }
                             }
                         }
+                        selectionToolProcessor.GetComponent<SelectionTool>().addToStorage(Shapeindex);
+                        Destroy(gameObject);
                     }
-                    selectionToolProcessor.GetComponent<SelectionTool>().addToStorage(Shapeindex);
-                    Destroy(gameObject);
                 }
             }
         }
         if (Input.GetMouseButtonDown(0)) // 1 is the right mouse button
         {
-            if(battleManager.DisablePlayerInput == true)return;
+            if (battleManager.DisablePlayerInput == true) return;
             if (battleManager.TimeStop == true)
             {
                 return;
@@ -81,17 +81,24 @@ public class InSelectionBar : MonoBehaviour
                     {
                         if (!inStorage)
                         {
-                            selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex,false);
+                            int position = selectionToolProcessor.GetComponent<SelectionTool>().threeBlockList.IndexOf(Shapeindex);
+                            if (position < 0 || position >= selectionToolProcessor.GetComponent<SelectionTool>().threeBlockList.Count)
+                            {
+                                Debug.Log("Index out of range in InSelectionBar: " + position);
+                                return;
+                            }
+
+                            selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex, false);
                             Destroy(gameObject);
-                        }else if (inStorage)
+                        }
+                        else if (inStorage)
                         {
-                            selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex,true);
+                            selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex, true);
                             Destroy(gameObject);
                         }
                     }
                 }
             }
-            
         }
     }
 }
