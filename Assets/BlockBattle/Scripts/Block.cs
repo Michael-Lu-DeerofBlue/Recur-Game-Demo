@@ -191,7 +191,6 @@ public class BlockManager : MonoBehaviour
                 battleManager.ExecuteIconSkill();
                 yield break;
             }
-
             string UpLeftColor = ColorUtility.ToHtmlStringRGBA(upleftBlock.GetComponent<Renderer>().material.color);
             int colorCode = upleftBlock.parent.GetComponent<BlockManager>().colorId;
             int passedInId = upleftBlock.parent.GetComponent<BlockManager>().id;
