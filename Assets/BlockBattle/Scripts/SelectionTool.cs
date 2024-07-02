@@ -69,9 +69,9 @@ public class SelectionTool : MonoBehaviour
             // 生成新的三个choice的形状
             threeBlockList = DrawRandomIntegers(blockList, 3);
 
-            for (int i = 0; i < originalBlockList.Count; i++)
+            for (int i = 0; i < originalBlockList.Count; i++)  
             {
-                if (originalColorList[i] >= 7 && i!=Position)
+                if (originalColorList[i] >= 7 && i!=Position) // 如果有两个debuff方块， i就是for loop里面搜到的那个， Position就是选择的那个，只有选择的会被替换。
                 {
                     threeBlockList[i] = originalBlockList[i];
                     threeColorList[i] = originalColorList[i];
