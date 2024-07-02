@@ -1,0 +1,444 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e2996bcb8d98b4686d19913a8d78f5, type: 3}
+  m_Name: Settings (FromAsset)
+  m_EditorClassIdentifier: 
+  _bools:
+  - _isActive: 1
+    ID: healthRegeneration
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: bossFights
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: invertMouseX
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: invertMouseY
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: fullscreen
+    ApplyImmediately: 0
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 11400000, guid: 57cfa21e332facf40a95e6c6d47dca57, type: 2}
+  - _isActive: 1
+    ID: vSync
+    ApplyImmediately: 0
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 11400000, guid: 119c44645c341c04d81d42bbc93be27a, type: 2}
+  - _isActive: 1
+    ID: shadows
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 11400000, guid: d047df088207d5345842aa631429ece1, type: 2}
+  - _isActive: 1
+    ID: audioEnabled
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 11400000, guid: 1fe73bc5c8500df47b191b292d667c0b, type: 2}
+  - _isActive: 1
+    ID: ambientOcclusionEnabled
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 11400000, guid: 36a0815a53f78504a9a0bdda5eed136e, type: 2}
+  - _isActive: 1
+    ID: bloomEnabled
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 11400000, guid: 1b742fb099758154fa9c409b229a19e0, type: 2}
+  - _isActive: 1
+    ID: motionBlurEnabled
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 11400000, guid: c464bbf4e8ab02840bed02f9383dc8e6, type: 2}
+  - _isActive: 1
+    ID: vignetteEnabled
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 11400000, guid: c6ccc2582f479e34ab2b720bc93a6772, type: 2}
+  - _isActive: 1
+    ID: depthOfFieldEnabled
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 1
+    ConnectionObject: {fileID: 11400000, guid: b2c5d0026c6e32645be431611f9cd6e6, type: 2}
+  _options:
+  - _isActive: 1
+    ID: difficulty
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: resolution
+    ApplyImmediately: 0
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: 0b5bbdc1a88667444aeea97d7b325030, type: 2}
+  - _isActive: 1
+    ID: windowMode
+    ApplyImmediately: 0
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: f29ce30bcf6a96c4381de61a0ef407a1, type: 2}
+  - _isActive: 1
+    ID: refreshRate
+    ApplyImmediately: 0
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: 12aae2cfe94bba543975059d47f4e6d8, type: 2}
+  - _isActive: 1
+    ID: frameRate
+    ApplyImmediately: 0
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: 6dbbb4ed4f7a2ea49976dfcfd50bc691, type: 2}
+  - _isActive: 1
+    ID: antiAliasing
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: 28d8c95fa02364942a6f9aada6121e4f, type: 2}
+  - _isActive: 1
+    ID: gfxQuality
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: fe228db790d29f648a557871ccc2037d, type: 2}
+  - _isActive: 1
+    ID: shadowDistance
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: c71b9f2999fd7b9479352132ad82c605, type: 2}
+  - _isActive: 1
+    ID: shadowResolution
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: 1745d2599a0c39947a7e45b46d804afb, type: 2}
+  - _isActive: 1
+    ID: textureResolution
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: 914ebf35a8566b34285cab98d9a620c1, type: 2}
+  - _isActive: 1
+    ID: enemyIntelligence
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: monitor
+    ApplyImmediately: 0
+    _groups: []
+    _defaultValue: 0
+    _optionLabels: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: e480217035af2154bb5e816d952cdff1, type: 2}
+  _integers:
+  - _isActive: 1
+    ID: numOfMinions
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 3
+    ConnectionObject: {fileID: 0}
+  _floats:
+  - _isActive: 1
+    ID: handicap
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 30
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: ambientLight
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 50
+    ConnectionObject: {fileID: 11400000, guid: 5c8d736531357b94391c3aba171efd22, type: 2}
+  - _isActive: 1
+    ID: audioMasterVolume
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 50
+    ConnectionObject: {fileID: 11400000, guid: 5988387f145940c4ea34688e37d77d2f, type: 2}
+  - _isActive: 1
+    ID: audioMusicVolume
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 50
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: audioEffectVolume
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 50
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: gamma
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    ConnectionObject: {fileID: 11400000, guid: 69a9e465280a7c94b8506cc7701cfc43, type: 2}
+  - _isActive: 1
+    ID: audioMixerMusicVolume
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    ConnectionObject: {fileID: 11400000, guid: b954ffdd2b143f845a850a491c8ba22c, type: 2}
+  - _isActive: 1
+    ID: fieldOfView
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    ConnectionObject: {fileID: 11400000, guid: 4c39f4ca36e21514783d955fb3a22046, type: 2}
+  _strings:
+  - _isActive: 1
+    ID: playerName
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: Guest123
+    ConnectionObject: {fileID: 0}
+  _colors:
+  - _isActive: 1
+    ID: randomColor
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: {r: 0, g: 0, b: 0, a: 0}
+    ConnectionObject: {fileID: 0}
+  _colorOptions:
+  - _isActive: 1
+    ID: flagColor
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _options:
+    - {r: 1, g: 0.9098039, b: 0, a: 1}
+    - {r: 1, g: 0.36862746, b: 0, a: 1}
+    - {r: 0.8862745, g: 0, b: 1, a: 1}
+    - {r: 0.5921569, g: 0, b: 1, a: 1}
+    - {r: 0.38431373, g: 0, b: 1, a: 1}
+    - {r: 0.5764706, g: 1, b: 0, a: 1}
+    - {r: 0.015686275, g: 1, b: 0, a: 1}
+    - {r: 0, g: 1, b: 0.92156863, a: 1}
+    - {r: 0, g: 0.6627451, b: 1, a: 1}
+    - {r: 0, g: 0.2901961, b: 1, a: 1}
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: teamColor
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _options:
+    - {r: 1, g: 0, b: 0, a: 1}
+    - {r: 0.09392464, g: 1, b: 0, a: 1}
+    - {r: 0, g: 0.059177876, b: 1, a: 1}
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: opponentColor
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _options: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: npcColor
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 0
+    _options: []
+    _overrideConnectionLabels: 0
+    ConnectionObject: {fileID: 11400000, guid: db241ff16619bbe4f977f6e431ad3ca6, type: 2}
+  _keyCombinations:
+  - _isActive: 1
+    ID: keyboard.jump
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 106
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.run
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 218
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.crouch
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 220
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.forward
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 167
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.backward
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 163
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.left
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 145
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.right
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 148
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.inventory
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 153
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.map
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 157
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.take
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 149
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.questlog
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 161
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.shoot
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 10
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.reload
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 162
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.ping
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 149
+      ModifierKey: 218
+    ConnectionObject: {fileID: 0}
+  - _isActive: 1
+    ID: keyboard.shout
+    ApplyImmediately: 1
+    _groups:
+    - controls
+    _defaultValue:
+      Key: 164
+      ModifierKey: 0
+    ConnectionObject: {fileID: 0}

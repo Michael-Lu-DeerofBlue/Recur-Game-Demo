@@ -1,3 +1,4 @@
+using Kamgam.SettingsGenerator;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         isGrounded = true;
         currentMagneticRotationSpeed = magneticRotationSpeedGrounded;
+        UpdateSettings();
     }
 
     /// <summary>
@@ -96,6 +98,15 @@ public class PlayerController : MonoBehaviour
         ProcessLook();
         if (isMageticBootsOn) { MagneticRotate(); }
         Gravitate();
+    }
+
+    public void UpdateSettings()
+    {
+        var settings = SettingsInitializer.Settings;
+        SettingFloat x = settings.GetFloat(id: "xsensitivity");
+        SettingFloat y = settings.GetFloat(id: "ysensitivity");
+        xSensitivity = x.GetFloatValue();
+        xSensitivity = y.GetFloatValue();
     }
 
     private void Update()

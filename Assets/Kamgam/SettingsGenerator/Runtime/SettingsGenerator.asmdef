@@ -1,0 +1,59 @@
+{
+    "name": "Kamgam.SettingsGenerator",
+    "rootNamespace": "",
+    "references": [
+        "Kamgam.UGUIComponentsForSettings",
+        "Unity.TextMeshPro",
+        "LocalizationsForSettings",
+        "Unity.InputSystem",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.HighDefinition.Runtime",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.Postprocessing.Runtime",
+        "UnityEngine.UIElementsModule",
+        "UnityEngine.UIElementsInputSystemModule",
+        "com.alteregogames.aeg-dlss.Runtime",
+        "com.alteregogames.aeg-dlss.Runtime.URP",
+        "com.alteregogames.aeg-dlss.Runtime.HDRP",
+        "com.alteregogames.aeg-fsr.Runtime",
+        "com.alteregogames.aeg-fsr.Runtime.BIRP",
+        "com.alteregogames.aeg-fsr.Runtime.URP",
+        "com.alteregogames.aeg-fsr.Runtime.HDRP",
+        "InControl"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.core",
+            "expression": "0.0.1",
+            "define": "KAMGAM_RENDER_PIPELINE_CORE"
+        },
+        {
+            "name": "com.unity.render-pipelines.high-definition",
+            "expression": "0.0.1",
+            "define": "KAMGAM_RENDER_PIPELINE_HDRP"
+        },
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "0.0.1",
+            "define": "KAMGAM_RENDER_PIPELINE_URP"
+        },
+        {
+            "name": "com.unity.postprocessing",
+            "expression": "0.0.1",
+            "define": "KAMGAM_POST_PRO_BUILTIN"
+        },
+        {
+            "name": "com.unity.ui",
+            "expression": "1.0.0-preview.18",
+            "define": "KAMGAM_UI_ELEMENTS"
+        }
+    ],
+    "noEngineReferences": false
+}

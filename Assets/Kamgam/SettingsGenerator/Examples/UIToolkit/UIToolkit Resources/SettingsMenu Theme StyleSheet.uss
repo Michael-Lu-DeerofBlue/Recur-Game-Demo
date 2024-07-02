@@ -1,0 +1,228 @@
+:root
+{
+    --sg-primary-grey: #8B909A;
+    --sg-primary-color: #4271C0;
+    --sg-text-color: #484B54;
+}
+
+.sg-container
+{
+    font-size: 22px;
+}
+
+.sg-container > *
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    -unity-background-image-tint-color: rgba(1,1,1,1); 
+}
+
+.sg-container .unity-button
+{
+    width: 200px;
+    height: 40px;
+
+    white-space: normal;
+
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+
+    background-image: url('/Assets/Kamgam/SettingsGenerator/Runtime/Textures/SGGradientSquare.psd');
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: var(--sg-primary-grey);
+
+    border-width: 1px;
+    border-color: #888888;
+    border-radius: 5px;
+}
+
+.sg-container .sg-button-primary
+{
+    -unity-background-image-tint-color: var(--sg-primary-color);
+}
+
+/* Toggle */
+.sg-container .unity-toggle
+{
+    width: 200px;
+    height: 40px;
+
+    margin-bottom: 7px;
+    
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+
+    align-items: center;
+}
+
+.sg-container .unity-toggle .unity-toggle__input
+{
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 24px;
+    height: 24px;
+
+    margin-right: 7px;
+
+    background-image: url('/Assets/Kamgam/SettingsGenerator/Runtime/Textures/SGGradientSquare.psd');
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: #dddddd;
+
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: #888888;
+}
+
+.sg-container .unity-toggle:focus .unity-toggle__input,
+.sg-container .unity-toggle:focus .unity-toggle__input
+{
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: var(--sg-primary-color);
+}
+
+.sg-container .unity-toggle .unity-toggle__label
+{
+    flex-grow: 1;
+
+    color: #484B54;
+}
+
+.sg-container .unity-toggle .unity-toggle__checkmark,
+{
+    width: 20px;
+    height: 20px;
+
+    background-color: rgba(0, 0, 0, 0);
+
+    border-width: 0px;
+}
+
+.sg-container .unity-toggle:focus .unity-toggle__checkmark
+{
+    margin: -1px;
+}
+
+
+.sg-container .unity-toggle:checked .unity-toggle__checkmark,
+.sg-container .unity-toggle:focus:checked .unity-toggle__checkmark,
+.sg-container .unity-toggle:checked:hover .unity-toggle__checkmark
+{
+    background-image: url('/Assets/Kamgam/SettingsGenerator/Runtime/Textures/SGCheckMark.psd');
+    background-color: rgba(0,0,0,0);
+    -unity-background-image-tint-color: var(--sg-primary-color);
+
+    border-width: 0px;
+}
+
+
+/* DropDown */
+.sg-container .unity-popup-field
+{
+    width: 200px;
+    height: 80px;
+
+    flex-direction: column;
+
+    margin: 0px 0px 7px 0px; 
+    
+    white-space: normal;
+    
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.sg-container .unity-popup-field.sg-no-label
+{
+    height: 40px;
+    flex-direction: row;
+}
+
+.sg-container .unity-popup-field .unity-popup-field__label
+{
+    color: var(--sg-text-color);
+    height: 40px;
+    -unity-font-style: normal;
+}
+
+.sg-container .unity-popup-field .unity-popup-field__input
+{
+    -unity-background-image-tint-color: rgb(176, 177, 180);
+    background-image: url('/Assets/Kamgam/SettingsGenerator/Runtime/Textures/SGGradientSquare.psd');
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(176, 177, 180);
+
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: #888888;
+
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.sg-container .unity-popup-field:focus .unity-popup-field__input
+{
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: var(--sg-primary-color);
+}
+
+.sg-container .unity-popup-field .unity-base-popup-field__text
+{
+    font-size: 18px;
+}
+
+/* hide label class */
+.sg-container .sg-no-label .unity-label
+{
+    display: none;
+}
+
+/* Textfield */
+.sg-container .unity-text-field
+{
+    width: 400px;
+    height: 40px;
+
+    margin-bottom: 7px;
+}
+
+.sg-container .unity-text-field .unity-text-field__label
+{
+    color: #484B54;
+}
+
+.sg-container .unity-text-field .unity-text-field__input
+{
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* Slider */
+.sg-container .unity-slider
+{
+    width: 400px;
+    height: 40px;
+
+    margin-bottom: 7px;
+}
+
+.sg-container .unity-slider .unity-slider__label
+{
+    color: var(--sg-text-color);
+}
+
+.sg-container .unity-slider .unity-text-field
+{
+    flex-grow: 0;
+    flex-basis: 80px;
+}
+
+.sg-container .unity-slider:focus .unity-base-slider__dragger
+{
+    border-width: 2px;
+    border-color: var(--sg-primary-color);
+}

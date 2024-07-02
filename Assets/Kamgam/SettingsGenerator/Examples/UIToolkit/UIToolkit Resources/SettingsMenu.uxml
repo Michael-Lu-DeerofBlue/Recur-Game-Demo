@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Kamgam/SettingsGenerator/Examples/UIToolkit/UIToolkit%20Resources/SettingsMenu%20Theme%20StyleSheet.uss?fileID=7433441132597879392&amp;guid=8686b8164881f3646a08a8230b9517d6&amp;type=3#SettingsMenu Theme StyleSheet" />
+    <ui:VisualElement name="SettingsContainer" class="sg-container" style="margin-left: 90px; margin-right: 90px; margin-top: 40px; margin-bottom: 40px; flex-basis: 840px; padding-left: 70px; padding-right: 70px; padding-top: 50px; padding-bottom: 50px; background-image: url(&apos;project://database/Assets/Kamgam/SettingsGenerator/Runtime/Textures/SGGradientSquare.psd?fileID=21300000&amp;guid=d54304080082eee4d9c3d3490d325d07&amp;type=3#SGGradientSquare&apos;); -unity-slice-left: 0; -unity-slice-top: 0; -unity-background-scale-mode: stretch-to-fill; -unity-slice-right: 0; -unity-slice-bottom: 0; background-color: rgba(0, 0, 0, 0); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
+        <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden" style="height: 636px;">
+            <ui:Label text="The settings in this demo are defined using the new UI Toolkit (aka UI Elements).&#10;Take a look at: &quot;&lt;b&gt;Examples/UIToolkit&lt;/b&gt;&quot;" display-tooltip-when-elided="false" name="IntroText" style="flex-wrap: wrap; color: rgb(81, 89, 108); margin-bottom: 20px;" />
+            <ui:Label text="Game" display-tooltip-when-elided="true" class="loc_game" style="-unity-font-style: bold;" />
+            <ui:DropdownField label="Difficulty" index="-1" choices="Test" name="DifficulyDropDown" class="loc_difficulty set_difficulty" />
+            <ui:Toggle label="Sound" name="SoundToggle" value="false" class="loc_sound set_audioEnabled" />
+            <ui:Slider picking-mode="Ignore" label="Music Volume" value="50" high-value="100" show-input-field="true" class="loc_volume set_audioMusicVolume" />
+            <ui:TextField picking-mode="Ignore" label="Name" class="loc_playerName set_playerName" />
+        </ui:ScrollView>
+        <ui:VisualElement name="ButtonBar" style="flex-direction: row; justify-content: flex-end;">
+            <ui:Button text="RESET" display-tooltip-when-elided="true" name="SettingsResetButton" style="opacity: 1; margin-right: auto;" />
+            <ui:Button text="APPLY" display-tooltip-when-elided="true" name="SettingsApplyButton" style="opacity: 1; margin-right: 14px;" />
+            <ui:Button text="SAVE" display-tooltip-when-elided="true" name="SettingsSaveButton" class="sg-button-primary" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

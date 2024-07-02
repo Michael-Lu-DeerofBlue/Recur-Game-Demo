@@ -9,7 +9,9 @@ public abstract class LevelController : MonoBehaviour
     public Flowchart flowchart;
     private GameObject player;
     // Start is called before the first frame update
-
+    private void Awake()
+    {
+    }
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
