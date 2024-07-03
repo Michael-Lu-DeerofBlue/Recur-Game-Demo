@@ -54,10 +54,12 @@ public class WeakMinion : Enemy
         {
             case SkillType.Attack:
                 Attack(attackDamage);
+                AttackScaleAnimation(0.2f,1.5f,0.5f,1.0f);
                 break;
             case SkillType.Companions:
                 waiting = true;
                 battleManager.CheckCompanions();
+                AttackScaleAnimation(0.2f, 1.5f, 0.5f, 1.0f);
                 break;
         }
     }

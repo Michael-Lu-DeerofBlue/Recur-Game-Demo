@@ -23,7 +23,7 @@ public abstract class Enemy : MonoBehaviour
     private ItemEventHandler itemEventHandler;
     private TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
-
+    private bool PlayingAnimation = false;
     public void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();
@@ -36,10 +36,11 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void Update()
     {
-        if (PauseCasting)//the casting time will not decrease sometime because of debug, or during interruption of block game.
+        if (PauseCasting||PlayingAnimation)//the casting time will not decrease sometime because of debug, or during interruption of block game.
         {
             return;
         }
+
         if(battleManager.TimeStop==false)
         {
             timer -= Time.deltaTime;
@@ -147,7 +148,7 @@ public abstract class Enemy : MonoBehaviour
         else
         {
             HP -= damage;
-            Debug.Log("Enemy is hit. HP: " + HP);
+            
         }
         if (HP <= 0)
         {
@@ -196,4 +197,77 @@ public abstract class Enemy : MonoBehaviour
         heroInfo.selectedEnemy = (this);
     }
 
+
+    public virtual void AttackScaleAnimation(float firstDuration, float firstScale, float secondDuration, float secondScale)
+    {
+        Transform mySpriteTransform = FindChildByName(transform, "MySprite");
+        if (mySpriteTransform != null)
+        {
+            PlayingAnimation = true;
+            StartCoroutine(ScaleSprite(mySpriteTransform, firstDuration, firstScale, secondDuration, secondScale));
+        }
+        else
+        {
+            Debug.LogWarning("MySprite not found!");
+        }
+    }
+
+    private Transform FindChildByName(Transform parent, string name)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.name == name)
+            {
+                return child;
+            }
+            Transform found = FindChildByName(child, name);
+            if (found != null)
+            {
+                return found;
+            }
+        }
+        return null;
+    }
+
+    private IEnumerator ScaleSprite(Transform spriteTransform, float firstDuration, float firstScale, float secondDuration, float secondScale)
+    {
+        Vector3 originalScale = spriteTransform.localScale;
+        Vector3 targetScale1 = originalScale * firstScale;
+        Vector3 targetScale2 = originalScale * secondScale;
+
+        float elapsedTime = 0f;
+
+
+        while (elapsedTime < firstDuration)
+        {
+            spriteTransform.localScale = Vector3.Lerp(originalScale, targetScale1, elapsedTime / firstDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        spriteTransform.localScale = targetScale1;
+
+        elapsedTime = 0f;
+
+
+        while (elapsedTime < secondDuration)
+        {
+            spriteTransform.localScale = Vector3.Lerp(targetScale1, targetScale2, elapsedTime / secondDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        spriteTransform.localScale = targetScale2;
+
+
+        elapsedTime = 0f;
+        while (elapsedTime < secondDuration)
+        {
+            spriteTransform.localScale = Vector3.Lerp(targetScale2, originalScale, elapsedTime / secondDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        spriteTransform.localScale = originalScale;
+
+        PlayingAnimation = false;
+    }
 }
+

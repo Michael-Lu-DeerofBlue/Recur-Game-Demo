@@ -25,7 +25,7 @@ public class StickerInfo : MonoBehaviour
         {
         dataList = new List<StickerData>();
         inSelectionBar = FindObjectOfType<InSelectionBar>();
-        // 使用 struct 创建实例
+
         dataList.Add(new StickerData(4, "StickerExample", new Vector3(0, 0, 0), new Vector3(-1, 0, 0)));
     }
 }

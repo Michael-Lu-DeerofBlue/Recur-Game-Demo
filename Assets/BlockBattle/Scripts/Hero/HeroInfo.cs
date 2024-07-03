@@ -23,6 +23,7 @@ public class HeroInfo : MonoBehaviour
     private Vector3 initialPosition = new Vector3(50, 5, 0);
     public float horizontalSpacing =7.0f;
     private List<GameObject> generatedIcons = new List<GameObject>();
+    private DamageNumber damageNumber;
 
     // List to store pairs of index and clearNumber
     private List<(int index, int clearNumber)> iconQueue = new List<(int, int)>();
@@ -36,6 +37,8 @@ public class HeroInfo : MonoBehaviour
         Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
         battleManager = FindObjectOfType<BattleManager>();
         targetSelector = FindObjectOfType<TargetSelector>();
+        damageNumber = FindObjectOfType<DamageNumber>();
+
     }
 
     // Update is called once per frame
@@ -138,7 +141,7 @@ public class HeroInfo : MonoBehaviour
         }
         HitPoint -= damage;
         Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
-        Debug.Log("Player is hit. HP: " + HitPoint);
+        damageNumber.ShowDamageNumber(damage);
         if (HitPoint <= 0)
         {
             HitPoint = 0;
