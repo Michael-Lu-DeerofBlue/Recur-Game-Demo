@@ -3,6 +3,7 @@ using UnityEngine;
 public class ToggleMenuOnEsc : MonoBehaviour
 {
     public GameObject targetObject; // Reference to the menu GameObject
+    public MonoBehaviour cursorScript;
     public MonoBehaviour PlayerController; // Reference to the player control script
     public MonoBehaviour CameraController; // Reference to the camera control script
 
@@ -37,7 +38,13 @@ public class ToggleMenuOnEsc : MonoBehaviour
                 isPaused = !isPaused;
                 targetObject.SetActive(isPaused);
 
-                // Enable/disable player and camera control
+                // Enable/disable scripts
+
+                if (cursorScript != null)
+                {
+                    cursorScript.enabled = !isPaused;
+                }
+
                 if (PlayerController != null)
                 {
                     PlayerController.enabled = !isPaused;
