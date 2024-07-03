@@ -34,11 +34,6 @@ public class ItemManager : MonoBehaviour
 
         inventory = ConsumablesManager.TestConsumablesInventory;
 
-        foreach (var item in inventory)
-        {
-            Debug.Log($"Inventory item: {item.Key}, quantity: {item.Value}");
-        }
-
         int index = 0;
         foreach (var item in inventory)
         {
@@ -58,7 +53,7 @@ public class ItemManager : MonoBehaviour
             inventoryButton.image.sprite = sprite;
             inventoryButton.quantityText.text = quantity.ToString();
             inventoryButton.button.onClick.AddListener(() => OnButtonClick(inventoryButton)); 
-            Debug.Log($"Set button for item: {itemName}, quantity: {quantity}, sprite: {sprite.name}");
+
         }
         else
         {

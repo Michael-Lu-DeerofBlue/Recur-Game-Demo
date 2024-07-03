@@ -22,6 +22,9 @@ public class BlockManager : MonoBehaviour
     public bool lockedRotation;
     public string color;
     public TwoDto3D twoDto3D;
+    public StickerInfo StickerInfo;
+    public Sprite[] sprites;
+    private int Shapeindex;
     void Start()
     {
         twoDto3D = FindObjectOfType<TwoDto3D>();
@@ -30,7 +33,14 @@ public class BlockManager : MonoBehaviour
         battleManager = FindObjectOfType<BattleManager>();
         id = spawnblock.blockIdCounter;
         color=GetBlockColor();
+        StickerInfo = FindObjectOfType<StickerInfo>();
+
+       Shapeindex=spawnblock.GetLastSpawnedIndex();
+       CheckandAttachSticker();
+
+
     }
+
 
     void Update()
     {
@@ -82,7 +92,6 @@ public class BlockManager : MonoBehaviour
 
             if (Time.time - previousTime > (Input.GetKey(KeyCode.S) ? fallTime / 10 : fallTime))
             {
-                Debug.Log(battleManager.DisablePlayerInput);
                 transform.position += new Vector3(0, -1, 0);
                 if (!ValidMove())
                 {
@@ -155,6 +164,7 @@ public class BlockManager : MonoBehaviour
                 grid[j, i] = null;
             }
         }
+
 
 
         for (int k = 0; k < blocks.Count; k++)
@@ -232,6 +242,7 @@ public class BlockManager : MonoBehaviour
     // Find all connected blocks with the same color and add them to the list
     void FindConnectedBlocks(Transform block, string color, int checkId, List<Transform> blocksToClear)
     {
+
         if (block == null || blocksToClear.Contains(block)) return;
 
         string blockColor = ColorUtility.ToHtmlStringRGBA(block.GetComponent<Renderer>().material.color);
@@ -240,15 +251,17 @@ public class BlockManager : MonoBehaviour
         if (otherID != checkId) return;
 
         // Check for "Sticker" sprite on block's children
+
+        blocksToClear.Add(block);
+
+
         foreach (Transform child in block)
         {
-            if (child.GetComponent<SpriteRenderer>()?.sprite?.name == "RotationLockIcon")
+            if (child.GetComponent<SpriteRenderer>().sprite.name == "StickerExample")
             {
                 Debug.Log("sticker!!!!!!!!!!!!!!");
             }
         }
-
-        blocksToClear.Add(block);
 
         int x = (int)block.position.x;
         int y = (int)block.position.y;
@@ -396,4 +409,58 @@ public class BlockManager : MonoBehaviour
         Debug.LogWarning("Renderer component not found on any of the block's children.");
         return "FFFFFF"; 
     }
+
+
+
+    public void CheckandAttachSticker()
+    {
+        foreach (var sticker in StickerInfo.dataList)
+        {
+
+            if (sticker.IndexShape == Shapeindex)
+            {
+                AttachSpriteToChild(sticker.position1, sticker.StickerName);
+                AttachSpriteToChild(sticker.position2, sticker.StickerName);
+                break;
+            }
+        }
+    }
+    void AttachSpriteToChild(Vector3 localPosition, string spriteName)
+    {
+        GameObject thebigblock = this.gameObject;
+        foreach (Transform child in thebigblock.transform)
+        {
+            if (child.localPosition == localPosition)
+            {
+                GameObject newSpriteObject = new GameObject(spriteName);
+                newSpriteObject.transform.parent = child;
+                newSpriteObject.transform.localPosition = Vector3.zero;
+                SpriteRenderer spriteRenderer = newSpriteObject.AddComponent<SpriteRenderer>();
+                spriteRenderer.sprite = GetSpriteByName(spriteName);
+                Debug.Log("Parent GameObject: " + newSpriteObject.transform.parent.name);
+                break;
+            }
+        }
+
+    }
+
+    Sprite GetSpriteByName(string spriteName)
+    {
+        if (sprites == null)
+        {
+            Debug.LogError("Sprites array is null.");
+            return null;
+        }
+
+        foreach (var sprite in sprites)
+        {
+            if (sprite.name == spriteName)
+            {
+                return sprite;
+            }
+        }
+        Debug.LogError($"Sprite with name {spriteName} not found in sprites array.");
+        return null;
+    }
+
 }
