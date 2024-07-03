@@ -11,6 +11,9 @@ public class InSelectionBar : MonoBehaviour
     public BattleManager battleManager;
     public SelectionToolUI SelectionUI;
     public IntTranslator Translator;
+    public StickerInfo StickerInfo;
+
+    public Sprite[] sprites;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +22,61 @@ public class InSelectionBar : MonoBehaviour
         selectionToolProcessor = FindObjectOfType<SelectionTool>();
         Shapeindex = gameObject.GetComponent<BlockStageController>().index;
         battleManager = FindObjectOfType<BattleManager>();
+        StickerInfo= FindObjectOfType<StickerInfo>();
+        CheckandAttachSticker();
     }
+
+    public void CheckandAttachSticker()
+    {
+        foreach (var sticker in StickerInfo.dataList)
+        {
+
+            if (sticker.IndexShape == Shapeindex)
+            {
+                AttachSpriteToChild(sticker.position1, sticker.StickerName);
+                AttachSpriteToChild(sticker.position2, sticker.StickerName);
+                break;
+            }
+        }
+    }
+    void AttachSpriteToChild(Vector3 localPosition, string spriteName)
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.localPosition == localPosition)
+            {
+                SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
+                if (spriteRenderer == null)
+                {
+                    spriteRenderer = child.gameObject.AddComponent<SpriteRenderer>();
+                }
+                spriteRenderer.sprite = GetSpriteByName(spriteName);
+
+                break;
+            }
+        }
+
+    }
+
+    Sprite GetSpriteByName(string spriteName)
+    {
+        if (sprites == null)
+        {
+            Debug.LogError("Sprites array is null.");
+            return null;
+        }
+
+        foreach (var sprite in sprites)
+        {
+            if (sprite.name == spriteName)
+            {
+                return sprite;
+            }
+        }
+        Debug.LogError($"Sprite with name {spriteName} not found in sprites array.");
+        return null; 
+    }
+
 
     // Update is called once per frame
     void Update()
