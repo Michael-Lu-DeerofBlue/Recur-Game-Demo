@@ -76,7 +76,7 @@ public abstract class Enemy : MonoBehaviour
         timer = SkillCastingTime;
     }
 
-    public void Attack(float Damage)
+    public virtual void Attack(float Damage)
     {
         if (hero != null)
         {

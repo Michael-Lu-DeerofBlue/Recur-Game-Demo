@@ -18,7 +18,11 @@ public class WeakMinion : Enemy
     private SkillType nextSkill;
     public bool waiting = false;
 
-
+    public override void Attack(float damage)
+    {
+        base.Attack(damage);
+        AttackScaleAnimation(0.2f,1.3f,0.6f,1.0f);
+    }
     public override void ExecuteTurn()//all enemy will get casting time before they spend skill.
     {
         ExecuteSkill();
@@ -39,6 +43,7 @@ public class WeakMinion : Enemy
         if (waiting)
         {
             RandomDamageAttack(CompanionsMinDamage, CompanionsMaxDamage);
+            AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f);
             GetNextMove();
             timer = SkillCastingTime;
             PauseCasting = false;
@@ -54,12 +59,10 @@ public class WeakMinion : Enemy
         {
             case SkillType.Attack:
                 Attack(attackDamage);
-                AttackScaleAnimation(0.2f,1.5f,0.5f,1.0f);
                 break;
             case SkillType.Companions:
                 waiting = true;
                 battleManager.CheckCompanions();
-                AttackScaleAnimation(0.2f, 1.5f, 0.5f, 1.0f);
                 break;
         }
     }
