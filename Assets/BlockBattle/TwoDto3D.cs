@@ -34,6 +34,7 @@ public class TwoDto3D : MonoBehaviour
         {
             Debug.Log($"Inventory item: {item.Key}, quantity: {item.Value}");
         }
+        BackToLevel();
         // when need to save data from2d to 3D, just give Victory and iventory parameters.
     }
 
@@ -54,7 +55,7 @@ public class TwoDto3D : MonoBehaviour
 
     public IEnumerator LoadBattle()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         if (ThreeDTo2DData.ThreeDScene == "CentralMeditationRoom")
         {
             ThreeDTo2DData.ThreeDScene = null;

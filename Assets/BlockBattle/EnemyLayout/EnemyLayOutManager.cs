@@ -22,14 +22,16 @@ public class EnemyLayOutManager : MonoBehaviour
     {
         EnemiesList = ThreeDTo2DData.dataDictionary;
         EnemiesList = ThreeDTo2DData.dataDictionary;
+        /*
         EnemiesList = new Dictionary<string, bool>(){
-            { "Mondrinion (1)", false }, };
+            { "Perseus", false }, };
         //{ "Lion (5)", false },
         //{ "Mondrinion (1)", false },
         //{ "Lion (1)", false },
         //{ "Bird (2)", false },
         //{ "Lion (4)", false },
         //{ "Lion (3)", false },};
+        */
         GenerateEnemyList();
         SpawnEnemies();
     }
