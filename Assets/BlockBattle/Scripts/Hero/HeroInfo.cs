@@ -10,8 +10,8 @@ using UnityEngine.UIElements;
 public class HeroInfo : MonoBehaviour
 {
     // Parent Class of player character
-    public float HitPoint;
-    public float MaxHitPoint;
+    public float HitPoint=100;
+    public float MaxHitPoint=100;
     private float MaxWeight;
     public TextMeshPro Hp;
     public BattleManager battleManager;
@@ -188,7 +188,9 @@ public class HeroInfo : MonoBehaviour
             AttackEnemy(damagevalue);
         }
     }
-
+    public virtual void RemoveDebuff()
+    {
+    }
     public virtual void Heal(float number)
     {
         HitPoint += number;

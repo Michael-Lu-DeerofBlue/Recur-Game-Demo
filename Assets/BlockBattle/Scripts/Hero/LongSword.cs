@@ -35,16 +35,16 @@ public class LongSword : HeroInfo
         switch (clearNumber)
         {
             case 1:
-                Heal(2);
+                Heal(5);
                 break;
             case 2:
-                Heal(3);
+                Heal(8);
                 break;
             case 3:
-                Heal(4);
+                Heal(12);
                 break;
             case 4:
-                Heal(5);
+                Heal(15);
                 break;
             default:
                 // Handle unexpected clearNumber here
@@ -57,16 +57,16 @@ public class LongSword : HeroInfo
         switch (clearNumber)
         {
             case 1:
-                AttackEnemy(3);
-                break;
-            case 2:
-                AttackEnemy(4);
-                break;
-            case 3:
                 AttackEnemy(5);
                 break;
-            case 4:
+            case 2:
                 AttackEnemy(8);
+                break;
+            case 3:
+                AttackEnemy(12);
+                break;
+            case 4:
+                AttackEnemy(15);
                 break;
             default:
                 break;
@@ -100,16 +100,17 @@ public class LongSword : HeroInfo
         switch (clearNumber)
         {
             case 1:
-                AttackEnemy(2);
-                break;
-            case 2:
                 AttackEnemy(3);
                 break;
+            case 2:
+                AttackEnemy(5);
+                break;
             case 3:
-                AttackEnemy(4);
+                AttackEnemy(6);
+                resetEnemyActionBar();
                 break;
             case 4:
-                AttackEnemy(7);
+                AttackEnemy(8);
                 resetEnemyActionBar();
                 break;
             default:
@@ -145,17 +146,17 @@ public class LongSword : HeroInfo
         switch (clearNumber)
         {
             case 1:
-                AttackEnemy(1);
+                AttackEnemy(12);
                 break;
             case 2:
-                AttackEnemy(1);
+                AttackEnemy(18);
                 break;
             case 3:
-                AttackEnemy(1);
+                AttackEnemy(22);
                 break;
             case 4:
 
-                _ = Zornhauy(10);
+                AttackEnemy(30);
                 break;
             default:
                 // Handle unexpected clearNumber here

@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 219889314, guid: e9a9f37672d1ae6488416b5802c7bff0, type: 3}
+  m_Sprite: {fileID: -1354034030, guid: e9a9f37672d1ae6488416b5802c7bff0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -266,8 +266,11 @@ GameObject:
   - component: {fileID: 7868329382648246484}
   - component: {fileID: 3197008888474548069}
   - component: {fileID: 3409838057338128444}
+  - component: {fileID: 6837206312769096424}
+  - component: {fileID: 8780874503636021199}
+  - component: {fileID: 910818942971497907}
   m_Layer: 0
-  m_Name: Mondrinion_4
+  m_Name: Mondrinion_1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,8 +330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92bb7a79044867f4da334087d5b680d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 5
-  MaxHp: 5
+  HP: 20
+  MaxHp: 20
   SkillCastingTime: 0
   enemyInfoText: {fileID: 2320016935802981217}
   timer: 0
@@ -339,11 +342,77 @@ MonoBehaviour:
   Fragiling: 0
   isdead: 0
   PauseTime: 0
-  attackDamage: 2
-  CompanionsMinDamage: 1
-  CompanionsMaxDamage: 8
-  attackWeight: 3
+  attackDamage: 8
+  CompanionsMinDamage: 4
+  CompanionsMaxDamage: 12
+  attackWeight: 1
   CompanionsWeight: 1
-  attackCastingTime: 8
-  CompanionsCastingTime: 12
+  attackCastingTime: 15
+  CompanionsCastingTime: 20
   waiting: 0
+--- !u!114 &6837206312769096424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4892679668077574771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f492eaa0cef64fe98fb2b58845bbbd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  type: 
+  method: 
+  easeType: 0
+  time: 0
+  delay: 0
+  loopType: 0
+  isRunning: 0
+  isPaused: 0
+  _name: 
+--- !u!114 &8780874503636021199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4892679668077574771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f492eaa0cef64fe98fb2b58845bbbd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  type: 
+  method: 
+  easeType: 0
+  time: 0
+  delay: 0
+  loopType: 0
+  isRunning: 0
+  isPaused: 0
+  _name: 
+--- !u!114 &910818942971497907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4892679668077574771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f492eaa0cef64fe98fb2b58845bbbd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  type: 
+  method: 
+  easeType: 0
+  time: 0
+  delay: 0
+  loopType: 0
+  isRunning: 0
+  isPaused: 0
+  _name: 
