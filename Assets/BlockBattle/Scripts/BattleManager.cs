@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour
     public SelectionTool selectionTool;
     public IntTranslator inttranslator;
     public bool TimeStop = false;
+    public bool GameOver = false;
 
     //Player status:
     public bool PlayerLandOn = false;

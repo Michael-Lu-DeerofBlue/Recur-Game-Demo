@@ -71,11 +71,16 @@ public class HeroInfo : MonoBehaviour
 
     public virtual void ExecuteIconSkill()
     {
+        if (battleManager.GameOver)
+        {
+            return;
+        }
         StartCoroutine(ExecuteIconSkillCoroutine());
     }
 
     private IEnumerator ExecuteIconSkillCoroutine()
     {
+
         while (iconQueue.Count > 0)
         {
             yield return new WaitForSeconds(1f);
@@ -98,6 +103,10 @@ public class HeroInfo : MonoBehaviour
     public virtual void ExecuteBehavior(int index, int clearNumber)
     //whatever the player character do, it will be executed here. 
     {
+        if(battleManager.GameOver)
+        {
+            return;
+        }
         switch (index)
             {
                 case 0:

@@ -166,6 +166,7 @@ public abstract class Enemy : MonoBehaviour
         if (enemies.Length == 0)
         {
             twoDto3D.TwoDGameOver();
+            battleManager.GameOver=true;
         }
     }
     public void RefreshChoiceSectionBlock()
