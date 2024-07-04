@@ -24,13 +24,13 @@ public class EnemyLayOutManager : MonoBehaviour
         EnemiesList = ThreeDTo2DData.dataDictionary;
         /*
         EnemiesList = new Dictionary<string, bool>(){
-            { "Perseus", false }, };
-        //{ "Lion (5)", false },
-        //{ "Mondrinion (1)", false },
-        //{ "Lion (1)", false },
-        //{ "Bird (2)", false },
-        //{ "Lion (4)", false },
-        //{ "Lion (3)", false },};
+        { "Mondrinion 1", false }, 
+        { "Mondrinion 2", false },
+        { "Mondrinion 3", false },
+        { "Mondrinion 4", false },
+        { "Mondrinion 5", false },
+        { "Mondrinion 6", false },
+        { "Mondrinion 7", false },};
         */
         GenerateEnemyList();
         SpawnEnemies();
@@ -55,7 +55,7 @@ public class EnemyLayOutManager : MonoBehaviour
                 case "Bird":
                     enemy = MockingBird;
                     break;
-                case "Mondinion":
+                case "Mondrinion":
                     int index = int.Parse(kvp.Key.Split(' ')[1]);
                     enemy = Mondrinion[index];
                     break;
