@@ -133,10 +133,6 @@ public abstract class Enemy : MonoBehaviour
             HP = MaxHp;
         }
     }
-
-
-
-
     public virtual void HitHandle(float damage)
     {
         if (Fragiling)
@@ -165,7 +161,9 @@ public abstract class Enemy : MonoBehaviour
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         if (enemies.Length == 0)
         {
-            twoDto3D.TwoDGameOver();
+            Debug.Log("Here");
+            GameObject gameInstance = GameObject.Find("GameInstance");
+            if (gameInstance != null) { gameInstance.GetComponent<TwoDto3D>().TwoDGameOver(); }
             battleManager.GameOver=true;
         }
     }

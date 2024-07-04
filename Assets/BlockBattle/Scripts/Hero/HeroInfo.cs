@@ -154,7 +154,8 @@ public class HeroInfo : MonoBehaviour
         if (HitPoint <= 0)
         {
             HitPoint = 0;
-            twoDto3D.TwoDGameOver();
+            GameObject gameInstance = GameObject.Find("GameInstance");
+            if (gameInstance != null) { gameInstance.GetComponent<TwoDto3D>().TwoDGameOver(); }
             Debug.Log("Player is dead.");
         }
     }

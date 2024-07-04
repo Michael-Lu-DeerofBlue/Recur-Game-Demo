@@ -328,7 +328,8 @@ public class BlockManager : MonoBehaviour
                 if (roundedY >= height - 1)
                 {
                     battleManager.TimeStop = true;
-                    twoDto3D.TwoDGameOver();
+                    GameObject gameInstance = GameObject.Find("GameInstance");
+                    if (gameInstance != null) { gameInstance.GetComponent<TwoDto3D>().TwoDGameOver(); }
                     return;
                 }
             }

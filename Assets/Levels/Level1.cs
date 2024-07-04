@@ -13,7 +13,7 @@ public class Level1 : LevelController
     // Start is called before the first frame update
     void Awake()
     {
-        if (ES3.KeyExists("First Time"))
+        if (!ES3.KeyExists("First Time"))
         {
             continueButton.interactable = false;
         }

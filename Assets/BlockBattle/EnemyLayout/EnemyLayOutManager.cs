@@ -1,3 +1,4 @@
+using Pathfinding.RVO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,24 +6,66 @@ using UnityEngine;
 public class EnemyLayOutManager : MonoBehaviour
 {
     public GameObject[] enemyLayouts; // Array of enemy layout prefabs
-    public Enemy[] TestenemyPrefabs; // Array of enemy prefabs
+    public List<Enemy> enemyPrefabs = new List<Enemy>(); // Array of enemy prefabs
     public TargetSelector targetSelector; // Reference to the target selector script
 
-    public static Dictionary<string, bool> EnemiesList = new Dictionary<string, bool> {
-        { "Perseus", false },
-        { "Bride (1)", false },
-        { "Bride (2)", true },
-        { "Hound (2)", false },
-        { "Eagle (3)", false },
-    };
-
+    public static Dictionary<string, bool> EnemiesList = new Dictionary<string, bool>();
+    public Enemy Perseus;
+    public Enemy HeadLessBack;
+    public Enemy HeadLessFront;
+    public Enemy Lion;
+    public Enemy MockingBird;
+    public Enemy[] Mondrinion;
     private int enemyNum;
 
     void Start()
     {
-
+        EnemiesList = ThreeDTo2DData.dataDictionary;
+        EnemiesList = ThreeDTo2DData.dataDictionary;
+        EnemiesList = new Dictionary<string, bool>(){
+        { "Perseus", false },
+        { "Mondrinion (1)", false },
+        { "Lion (1)", false },
+        { "Bird (2)", false },
+        { "Lion (4)", false },
+        { "Lion (3)", false },};
+        GenerateEnemyList();
+        SpawnEnemies();
+    }
+    private void GenerateEnemyList()
+    {
+        foreach (var kvp in EnemiesList)
+        {
+            string enemyName = kvp.Key.Split(' ')[0];
+            Enemy enemy = Mondrinion[0];
+            switch (enemyName)
+            {
+                case "Perseus":
+                    enemy = Perseus;
+                    break;
+                case "Bride":
+                    if (EnemiesList[kvp.Key]) { enemy = HeadLessBack; break; }
+                    else { enemy = HeadLessFront; break; }
+                case "Lion":
+                    enemy = Lion;
+                    break;
+                case "Bird":
+                    enemy = MockingBird;
+                    break;
+                case "Mondinion":
+                    int index = int.Parse(kvp.Key.Split(' ')[1]);
+                    enemy = Mondrinion[index];
+                    break;
+                default:
+                    break;
+            }
+            enemyPrefabs.Add(enemy);
+        }
+    }
+    private void SpawnEnemies()
+    {
         // Set enemyNum to the length of the TestenemyPrefabs array
-        enemyNum = TestenemyPrefabs.Length;
+        enemyNum = enemyPrefabs.Count;
         targetSelector = FindObjectOfType<TargetSelector>();
         if (enemyNum > 0 && enemyNum <= enemyLayouts.Length)
         {
@@ -32,13 +75,13 @@ public class EnemyLayOutManager : MonoBehaviour
             Transform[] childTransforms = instantiatedLayout.GetComponentsInChildren<Transform>();
 
             // Iterate over each child transform
-            for (int i = 0; i < childTransforms.Length - 1 && i < TestenemyPrefabs.Length; i++)
+            for (int i = 0; i < childTransforms.Length - 1 && i < enemyPrefabs.Count; i++)
             {
                 Transform child = childTransforms[i + 1]; // Skip the root transform
                 Vector3 spawnPosition = child.localPosition; // Get the local position of the child
 
-                Enemy instantiatedEnemy = Instantiate(TestenemyPrefabs[i], spawnPosition, Quaternion.identity, transform);
-                Debug.Log($"Name: {TestenemyPrefabs[i].name}, Position: {instantiatedEnemy.transform.position}");
+                Enemy instantiatedEnemy = Instantiate(enemyPrefabs[i], spawnPosition, Quaternion.identity, transform);
+                Debug.Log($"Name: {enemyPrefabs[i].name}, Position: {instantiatedEnemy.transform.position}");
             }
             targetSelector.SelectLeftTopTarget();
         }

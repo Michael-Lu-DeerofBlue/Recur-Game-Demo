@@ -107,6 +107,10 @@ public class PlayerController : MonoBehaviour
         SettingFloat y = settings.GetFloat(id: "ysensitivity");
         xSensitivity = x.GetFloatValue();
         xSensitivity = y.GetFloatValue();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        //SettingOption lang = settings.GetOption("Language");
+        //Debug.Log(lang.GetIntValue());
     }
 
     private void Update()

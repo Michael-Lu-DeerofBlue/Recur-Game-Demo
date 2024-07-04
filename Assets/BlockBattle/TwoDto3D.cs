@@ -15,7 +15,8 @@ public class TwoDto3D : MonoBehaviour
     // Start is called before the first frame update
     public void TwoDGameOver()
     {
-        enemies= FindObjectsOfType<Enemy>();
+        Debug.Log("Here");
+        enemies = FindObjectsOfType<Enemy>();
         ToThreeEnemies = enemies;
         ItemManager itemManager = FindObjectOfType<ItemManager>();
         if (enemies.Length == 0)

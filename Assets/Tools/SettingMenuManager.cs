@@ -5,10 +5,11 @@ using UnityEngine;
 public class SettingMenuManager : MonoBehaviour
 {
     public GameObject settingMenu;
-
+    public bool active;
     // Start is called before the first frame update
     void Start()
     {
+        active = false;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -25,11 +26,21 @@ public class SettingMenuManager : MonoBehaviour
     {
         if (settingMenu != null)
         {
-            settingMenu.SetActive(!settingMenu.activeSelf);
-            if (GameObject.Find("Player") != null)
-            {
-                GameObject.Find("Player").BroadcastMessage("UpdateSettings");
+            active = !active;
+            if (active){
+                Time.timeScale = 0; 
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
+            else { 
+                Time.timeScale = 1; 
+                if (GameObject.Find("Player") != null)
+                {
+                    GameObject.Find("Player").BroadcastMessage("UpdateSettings");
+                }
+            }
+            settingMenu.SetActive(active);
+            
         }
     }
 }
