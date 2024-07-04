@@ -994,7 +994,7 @@ MonoBehaviour:
   useConversationTitlePicker: 1
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
-  selectedDatabase: {fileID: 11400000, guid: fd703b00bf98843bf935d983ac97d3d7, type: 2}
+  selectedDatabase: {fileID: 11400000, guid: 4e2fd9b185466486cb04ba990d85c023, type: 2}
 --- !u!114 &195517164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   useConversationTitlePicker: 1
   useBarkTitlePicker: 1
   useQuestNamePicker: 1
-  selectedDatabase: {fileID: 11400000, guid: fd703b00bf98843bf935d983ac97d3d7, type: 2}
+  selectedDatabase: {fileID: 11400000, guid: 4e2fd9b185466486cb04ba990d85c023, type: 2}
 --- !u!114 &447726326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3174,6 +3174,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aebf16b57ef77f4e858b946c2deb0c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &517974068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 517974069}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &517974069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517974068}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -85.533646, y: -14.408482, z: 904.2989}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &550519444
 GameObject:
   m_ObjectHideFlags: 0
@@ -4213,6 +4244,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11500000, guid: bca1b8ab9f7411e41867f4344fb8ce47, type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
+        m_MethodName: set_name
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: zh-CN
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1015479655
@@ -6609,7 +6652,7 @@ PrefabInstance:
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: initialDatabase
       value: 
-      objectReference: {fileID: 11400000, guid: fd703b00bf98843bf935d983ac97d3d7, type: 2}
+      objectReference: {fileID: 11400000, guid: 4e2fd9b185466486cb04ba990d85c023, type: 2}
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: displaySettings.localizationSettings.language
       value: 
@@ -6636,6 +6679,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 125852, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1974000206}
+    - targetCorrespondingSourceObject: {fileID: 125852, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1974000207}
   m_SourcePrefab: {fileID: 100100000, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
 --- !u!4 &1974000201 stripped
 Transform:
@@ -6676,6 +6722,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   languageToSet: 1
+--- !u!114 &1974000207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462598081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bca1b8ab9f7411e41867f4344fb8ce47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  languagePlayerPrefsKey: zh-CN
 --- !u!1 &2045194979
 GameObject:
   m_ObjectHideFlags: 0
@@ -7313,3 +7372,4 @@ SceneRoots:
   - {fileID: 1564675328}
   - {fileID: 266274765}
   - {fileID: 72104031}
+  - {fileID: 517974069}

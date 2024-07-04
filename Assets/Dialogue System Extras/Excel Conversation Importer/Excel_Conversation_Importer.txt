@@ -1,0 +1,41 @@
+This editor window imports linear conversations from an Excel file into a dialogue database.
+
+
+SETUP:
+------
+1. Download Unity-QuickSheet: https://github.com/kimsama/Unity-QuickSheet
+To download, open that URL. Click the green Code button and click the Download button.
+After downloading, unzip the ZIP file.
+
+2. Then put the "Quick Sheet" folder and "Quick Sheet.meta" files somewhere in your 
+project's Assets folder, such as in Assets / Dialogue System Extras / Excel Conversation Importer.
+You can ignore the other files and folders found in the ZIP file if you like.
+
+3. Unity 2020+ includes a built-in package that conflicts with UnityQuickSheet's GDataPlugin. 
+To get UnityQuickSheet and the Excel Conversation Importer to work with Unity 2020+, after 
+adding the Quick Sheet folder to your project, delete the subfolder named "GDataPlugin".
+In Unity 2019 and older, you can skip this step.
+
+4. Then select menu item Tools → Pixel Crushers → Dialogue System → Import → Excel.
+
+
+FORMATTING YOUR FILES:
+----------------------
+The Excel file should have one conversation per worksheet, where the first column is the Actor
+and the second column is the Text.
+
+The first row is ignored. You can use it for notes describing the conversation, or for headers
+"Actor" and "Dialogue Text".
+
+By default, each conversation's title will be the same as its worksheet name.
+If you want to specify a different title (for example, to include forward slashes, which
+Excel doesn't support in worksheet names), tick the importer's Second Row Is Title checkbox.
+Then, in the second row, set column A2 to "Conversation" and column B2 to the title.
+
+
+EXAMPLE FILES:
+--------------
+The Examples folder contains two Excel files:
+
+- Hello1.xlsx: Importable when Second Row Is Title is UNticked.
+- Hello2.xlsx: Importable when Second Row Is Title is ticked.
