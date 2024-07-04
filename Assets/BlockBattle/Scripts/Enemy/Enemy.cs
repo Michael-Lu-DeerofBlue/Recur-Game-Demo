@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -157,8 +158,7 @@ public abstract class Enemy : MonoBehaviour
     {
         isdead = true;// to prevent the enemy from added into the existing enemy array or executing the turn after it is dead.
         targetSelector.SwitchTargetWhileIsDead();
-        Destroy(gameObject);
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Enemy[] enemies = FindObjectsOfType<Enemy>().Where(enemy => !enemy.isdead).ToArray();
         if (enemies.Length == 0)
         {
             Debug.Log("Here");
@@ -166,6 +166,7 @@ public abstract class Enemy : MonoBehaviour
             if (gameInstance != null) { gameInstance.GetComponent<TwoDto3D>().TwoDGameOver(); }
             battleManager.GameOver=true;
         }
+        Destroy(gameObject);
     }
     public void RefreshChoiceSectionBlock()
     {
