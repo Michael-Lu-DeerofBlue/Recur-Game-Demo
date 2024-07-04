@@ -2480,7 +2480,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 912265061}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1466030366}
+        m_TargetAssemblyTypeName: Level1, Assembly-CSharp
+        m_MethodName: NewGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &912265061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4051,9 +4063,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flowchart: {fileID: 1682009641}
   Player: {fileID: 239519910}
-  continueButton: {fileID: 0}
-  openingMenu: {fileID: 0}
-  fallingCamera: {fileID: 0}
+  continueButton: {fileID: 1501495421}
+  openingMenu: {fileID: 1523952546}
+  fallingCamera: {fileID: 961739749}
 --- !u!1 &1473493290
 GameObject:
   m_ObjectHideFlags: 0
@@ -5077,7 +5089,7 @@ MonoBehaviour:
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
-  itemId: 8
+  itemId: 14
   blockName: ContinueWhiteScreen
   description: 
   eventHandler: {fileID: 0}
