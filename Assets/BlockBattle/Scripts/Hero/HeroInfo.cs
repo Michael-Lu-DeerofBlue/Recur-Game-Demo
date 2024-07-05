@@ -7,6 +7,7 @@ using System.Linq;
 using System;
 using UnityEngine.UIElements;
 using Unity.VisualScripting;
+using UnityEngine.SocialPlatforms;
 
 public class HeroInfo : MonoBehaviour
 {
@@ -294,9 +295,18 @@ public class HeroInfo : MonoBehaviour
     {
         while (true)
         {
+            while (battleManager.TimeStop)
+            {
+                yield return null; 
+            }
+
             yield return new WaitForSeconds(5f);
-            HitHandle(1);
-            Debug.Log("HP: " + HitPoint);
+
+            if (!battleManager.TimeStop)
+            {
+                HitHandle(1);
+                Debug.Log("HP: " + HitPoint);
+            }
         }
     }
 
