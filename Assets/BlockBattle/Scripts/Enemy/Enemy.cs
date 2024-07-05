@@ -14,7 +14,7 @@ public abstract class Enemy : MonoBehaviour
     public float SkillCastingTime;
     public TextMeshPro enemyInfoText;
     public float timer;
-    public GameObject hero;
+    public HeroInfo heroInfo;
     public BattleManager battleManager;
     public bool PauseCasting = false; 
     public string nextMove;//name of the skill that will be executed next.
@@ -28,7 +28,7 @@ public abstract class Enemy : MonoBehaviour
     public void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();
-        hero = GameObject.Find("Hero");
+        heroInfo = FindObjectOfType<HeroInfo>();
         battleManager = FindObjectOfType<BattleManager>();
         GetNextMove();//get casting time for the first turn.
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
@@ -79,26 +79,12 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Attack(float Damage)
     {
-        if (hero != null)
-        {
-            HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
-            if (heroInfo != null)
-            {
                 heroInfo.HitHandle(Damage);
-            }
-            else
-            {
-                Debug.LogError("Hero object does not have a HeroInfo component.");
-            }
-        }
     }
 
     public void RandomDamageAttack(float DamageMin, float DamageMax)
     {
         float Damage= Random.Range(DamageMin, DamageMax);
-        if (hero != null)
-        {
-            HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
             if (heroInfo != null)
             {
                 heroInfo.HitHandle(Damage);
@@ -107,11 +93,11 @@ public abstract class Enemy : MonoBehaviour
             {
                 Debug.LogError("Hero object does not have a HeroInfo component.");
             }
-        }
+        
     }
-    public void DoBleed(float Damage, float period)
+    public void AddBleeding()
     {
-        battleManager.Bleeding = true;
+        heroInfo.AddBleeding();
     }
 
 
@@ -198,7 +184,6 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void SelectedByPlayer()
     {
-        HeroInfo heroInfo = hero.GetComponent<HeroInfo>();
         heroInfo.selectedEnemy = (this);
     }
 

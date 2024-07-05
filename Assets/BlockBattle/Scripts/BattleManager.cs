@@ -23,7 +23,7 @@ public class BattleManager : MonoBehaviour
 
     //when add new debuff type, remember to add a bool to "RemoveAllPlayerDebuff" method.
     //Player debuff type:
-    public bool Bleeding = false;
+    public int BleedingCount = 0;  
     public bool DisablePlayerInput = false;
     public bool RotationLocked = false;
     public bool LockNextBlockRotation = false;
@@ -34,7 +34,7 @@ public class BattleManager : MonoBehaviour
     public bool PlayerImmuingDebuff = false;
 
     // enemey debuff type:
-
+   // PauseCasting in enemy.cs
     //enemy status:
     public bool WeakMinionCompanionsOnHold = false;
     void Start()
@@ -124,13 +124,14 @@ public class BattleManager : MonoBehaviour
     }
     public void RemoveAllPlayerDebug()
     {
-        Bleeding = false;
         DisablePlayerInput = false;
         RotationLocked = false;
         LockNextBlockRotation = false;
         DropCountDown = false;
         refreshedBlocks = false;
-    }
+        heroInfo.StopAllBleeding();
+        BleedingCount = 0;
+}
 
     public void RemovePlayerDebug(int num)
     {
@@ -141,7 +142,15 @@ public class BattleManager : MonoBehaviour
         if (LockNextBlockRotation) trueFlags.Add(() => LockNextBlockRotation = false);
         if (DropCountDown) trueFlags.Add(() => DropCountDown = false);
         if (refreshedBlocks) trueFlags.Add(() => refreshedBlocks = false);
-        if (Bleeding) trueFlags.Add(() => Bleeding = false);
+        for (int i = 0; i < BleedingCount; i++)    //每一层bleeding 算作一个debuff。 
+        {
+            trueFlags.Add(() =>
+            {
+                heroInfo.StopOneBleeding();
+                BleedingCount--;
+            });
+        }
+
 
         System.Random rand = new System.Random();
 
@@ -299,5 +308,6 @@ public class BattleManager : MonoBehaviour
 
         }
     }
+
 
 }

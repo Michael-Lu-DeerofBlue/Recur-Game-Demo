@@ -31,7 +31,7 @@ public class Lion : Enemy
                 break;
             case SkillType.Bleed:
                 Attack(BleedBlockDamage);
-                battleManager.Bleeding= true;
+                AddBleeding();
                 break;
             case SkillType.Flee:
                 deadhandle();

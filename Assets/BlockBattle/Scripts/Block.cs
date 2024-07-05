@@ -25,6 +25,7 @@ public class BlockManager : MonoBehaviour
     public StickerInfo StickerInfo;
     public Sprite[] sprites;
     private int Shapeindex;
+    private bool isClearingRightSideBlocks = false;
     void Start()
     {
         twoDto3D = FindObjectOfType<TwoDto3D>();
@@ -191,6 +192,7 @@ public class BlockManager : MonoBehaviour
     // Coroutine to clear connected blocks on the right side with the same color
     IEnumerator ClearRightSideBlocks()
     {
+        isClearingRightSideBlocks = true;
         while (battleManager.TimeStop == true)
         {
             yield return new WaitForSeconds(0.3f);
@@ -214,11 +216,15 @@ public class BlockManager : MonoBehaviour
             }
             battleManager.ReceColorMessage(UpLeftColor, blocksToClear.Count);
         }
+        isClearingRightSideBlocks = false;
     }
     public void StartClearBlock()
     {
         battleManager.TimeStop = true;
-        StartCoroutine(ClearRightSideBlocks());
+        if (!isClearingRightSideBlocks)
+        {
+            StartCoroutine(ClearRightSideBlocks());
+        }
     }
 
 

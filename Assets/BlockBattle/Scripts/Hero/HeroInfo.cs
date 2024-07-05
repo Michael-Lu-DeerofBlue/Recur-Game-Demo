@@ -25,7 +25,7 @@ public class HeroInfo : MonoBehaviour
     public float horizontalSpacing =7.0f;
     private List<GameObject> generatedIcons = new List<GameObject>();
     private DamageNumber damageNumber;
-
+    private List<IEnumerator> bleedingCoroutines = new List<IEnumerator>();
     // List to store pairs of index and clearNumber
     private List<(int index, int clearNumber)> iconQueue = new List<(int, int)>();
 
@@ -276,8 +276,50 @@ public class HeroInfo : MonoBehaviour
                 // Handle unexpected clearNumber here
                 break;
         }
+
+
     }
 
+    // Function to call when the bleeding effect should start
+    public void AddBleeding()
+    {
+        IEnumerator bleedingCoroutine = BleedingEffect();
+        bleedingCoroutines.Add(bleedingCoroutine);
+        StartCoroutine(bleedingCoroutine);
+        battleManager.BleedingCount++;
+    }
+
+    // Coroutine for bleeding effect
+    private IEnumerator BleedingEffect()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(5f);
+            HitHandle(1);
+            Debug.Log("HP: " + HitPoint);
+        }
+    }
+
+    // Function to stop one bleeding effect
+    public void StopOneBleeding()
+    {
+        if (bleedingCoroutines.Count > 0)
+        {
+            StopCoroutine(bleedingCoroutines[0]);
+            bleedingCoroutines.RemoveAt(0);
+        }
+    }
+
+    // Optional: Stop all bleeding effects (for example when the character dies)
+    public void StopAllBleeding()
+    {
+        foreach (var coroutine in bleedingCoroutines)
+        {
+            StopCoroutine(coroutine);
+        }
+        bleedingCoroutines.Clear();
+    }
+}
 
 
     //the old target select method. 
@@ -362,4 +404,3 @@ public class HeroInfo : MonoBehaviour
     //        }
     //    }
     //}
-}
