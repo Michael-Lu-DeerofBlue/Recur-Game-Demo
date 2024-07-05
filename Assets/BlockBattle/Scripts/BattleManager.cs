@@ -20,9 +20,10 @@ public class BattleManager : MonoBehaviour
     //Player status:
     public bool PlayerLandOn = false;
 
+
+    //when add new debuff type, remember to add a bool to "RemoveAllPlayerDebuff" method.
     //Player debuff type:
     public bool DisablePlayerInput = false;
-    //when add new debuff type, remember to add a bool to "RemoveAllPlayerDebuff" method.
     public bool RotationLocked = false;
     public bool LockNextBlockRotation = false;
     public bool DropCountDown = false;
@@ -122,12 +123,33 @@ public class BattleManager : MonoBehaviour
     }
     public void RemoveAllPlayerDebug()
     {
+        DisablePlayerInput = false;
         RotationLocked = false;
         LockNextBlockRotation = false;
         DropCountDown = false;
         refreshedBlocks = false;
     }
 
+    public void RemovePlayerDebug(int num)
+    {
+        List<System.Action> trueFlags = new List<System.Action>();
+
+        if (DisablePlayerInput) trueFlags.Add(() => DisablePlayerInput = false);
+        if (RotationLocked) trueFlags.Add(() => RotationLocked = false);
+        if (LockNextBlockRotation) trueFlags.Add(() => LockNextBlockRotation = false);
+        if (DropCountDown) trueFlags.Add(() => DropCountDown = false);
+        if (refreshedBlocks) trueFlags.Add(() => refreshedBlocks = false);
+
+        System.Random rand = new System.Random();
+
+        while (num > 0 && trueFlags.Count > 0)
+        {
+            int index = rand.Next(trueFlags.Count);
+            trueFlags[index]();
+            trueFlags.RemoveAt(index);
+            num--;
+        }
+    }
     public void PlayerImmueDebuffDuring(float second)
     {
         StartCoroutine(ImmueAllDebuffAfterDelay(second));

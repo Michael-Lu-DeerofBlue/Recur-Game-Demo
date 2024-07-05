@@ -78,16 +78,16 @@ public class LongSword : HeroInfo
         switch (clearNumber)
         {
             case 1:
-                Debug.Log("remove debuff will add in future");
+                RemoveDebuff(1);
                 break;
             case 2:
-                Debug.Log("remove debuff will add in future");
+                RemoveDebuff(1);
                 break;
             case 3:
-                Debug.Log("remove debuff will add in future");
+                RemoveDebuff(1);
                 break;
             case 4:
-                Debug.Log("remove debuff will add in future");
+                RemoveDebuff(2);
                 break;
             default:
                 // Handle unexpected clearNumber here

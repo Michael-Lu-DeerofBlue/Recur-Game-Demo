@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System;
 using UnityEngine.UIElements;
+using Unity.VisualScripting;
 
 public class HeroInfo : MonoBehaviour
 {
@@ -189,8 +190,9 @@ public class HeroInfo : MonoBehaviour
             AttackEnemy(damagevalue);
         }
     }
-    public virtual void RemoveDebuff()
+    public virtual void RemoveDebuff(int num)
     {
+        battleManager.RemovePlayerDebug(num);
     }
     public virtual void Heal(float number)
     {
