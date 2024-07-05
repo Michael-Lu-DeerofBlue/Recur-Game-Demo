@@ -109,6 +109,11 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
+    public void DoBleed(float Damage, float period)
+    {
+        battleManager.Bleeding = true;
+    }
+
 
     public void DropDownblock(float second)
     {

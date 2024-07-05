@@ -20,20 +20,20 @@ public class EnemyLayOutManager : MonoBehaviour
 
     void Start()
     {
-        EnemiesList = ThreeDTo2DData.dataDictionary;
-        EnemiesList = ThreeDTo2DData.dataDictionary;
-        /*
-        EnemiesList = new Dictionary<string, bool>(){
-        { "Mondrinion 1", false }, 
-        { "Mondrinion 2", false },
-        { "Mondrinion 3", false },
-        { "Mondrinion 4", false },
-        { "Mondrinion 5", false },
-        { "Mondrinion 6", false },
-        { "Mondrinion 7", false },};
-        */
-        GenerateEnemyList();
         SpawnEnemies();
+        EnemiesList = ThreeDTo2DData.dataDictionary;  
+        EnemiesList = ThreeDTo2DData.dataDictionary;
+        //EnemiesList = new Dictionary<string, bool>(){
+        //    { "Lion (1)", false },
+        //    { "Mondrinion 2", false },
+        //    { "Mondrinion 3", false },
+        //    { "Mondrinion 4", false },
+        //    { "Mondrinion 5", false },
+        //    { "Mondrinion 6", false },
+        //    { "Mondrinion 7", false },};
+
+        GenerateEnemyList();
+
     }
     private void GenerateEnemyList()
     {

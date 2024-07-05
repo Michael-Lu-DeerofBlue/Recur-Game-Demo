@@ -7,7 +7,7 @@ using UnityEngine;
 public class Lion : Enemy
 {
     public int attackDamage = 2; 
-    public int BleedBlockDamage = 4;
+    public int BleedBlockDamage = 7;
     public int FleeDamage = 0;
 
 
@@ -19,7 +19,7 @@ public class Lion : Enemy
     public float BleedBlockCastingTime = 4;
     public float FleeCastingTime = 10;
 
-    private enum SkillType { Attack, BleedBlock, Flee }
+    private enum SkillType { Attack, Bleed, Flee }
     private SkillType nextSkill;
 
     public override void ExecuteSkill()
@@ -29,9 +29,9 @@ public class Lion : Enemy
             case SkillType.Attack:
                 Attack(attackDamage);
                 break;
-            case SkillType.BleedBlock:
+            case SkillType.Bleed:
                 Attack(BleedBlockDamage);
-                battleManager.AddStunBlock(1,9);
+                battleManager.Bleeding= true;
                 break;
             case SkillType.Flee:
                 deadhandle();
@@ -55,7 +55,7 @@ public class Lion : Enemy
         else if (randomValue < attackProbability + BleedBlockProbability)
         {
             SkillCastingTime = BleedBlockCastingTime;  
-            nextSkill = SkillType.BleedBlock;
+            nextSkill = SkillType.Bleed;
         }
         else
         {

@@ -23,6 +23,7 @@ public class BattleManager : MonoBehaviour
 
     //when add new debuff type, remember to add a bool to "RemoveAllPlayerDebuff" method.
     //Player debuff type:
+    public bool Bleeding = false;
     public bool DisablePlayerInput = false;
     public bool RotationLocked = false;
     public bool LockNextBlockRotation = false;
@@ -123,6 +124,7 @@ public class BattleManager : MonoBehaviour
     }
     public void RemoveAllPlayerDebug()
     {
+        Bleeding = false;
         DisablePlayerInput = false;
         RotationLocked = false;
         LockNextBlockRotation = false;
@@ -139,6 +141,7 @@ public class BattleManager : MonoBehaviour
         if (LockNextBlockRotation) trueFlags.Add(() => LockNextBlockRotation = false);
         if (DropCountDown) trueFlags.Add(() => DropCountDown = false);
         if (refreshedBlocks) trueFlags.Add(() => refreshedBlocks = false);
+        if (Bleeding) trueFlags.Add(() => Bleeding = false);
 
         System.Random rand = new System.Random();
 
