@@ -39,7 +39,6 @@ public class HeroInfo : MonoBehaviour
         battleManager = FindObjectOfType<BattleManager>();
         targetSelector = FindObjectOfType<TargetSelector>();
         damageNumber = FindObjectOfType<DamageNumber>();
-        InvokeRepeating("Bleeding", 0f, 5f);
     }
 
     // Update is called once per frame
@@ -49,13 +48,6 @@ public class HeroInfo : MonoBehaviour
         if(targetSelector.CurrentTarget != null)
         {
             selectedEnemy = targetSelector.CurrentTarget;
-        }
-    }
-    public virtual void Bleeding(float damage)
-    {
-        if (battleManager.Bleeding==true)
-        {
-            HitHandle(damage);
         }
     }
 
