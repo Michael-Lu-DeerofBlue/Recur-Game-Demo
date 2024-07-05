@@ -198,12 +198,10 @@ public class BattleManager : MonoBehaviour
     public void IntrruptBlockGame()//called when start to select enemy.
     {
         TimeStop = true;
-        //  heroInfo.CheckAndSelectEnemy();
     }
     public void ContinueBlockGame()//called when start to select enemy.
     {
         TimeStop = false;
-        BlockManager blockManager = FindObjectOfType<BlockManager>();
     }
 
 
