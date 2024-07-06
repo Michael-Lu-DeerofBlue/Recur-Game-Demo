@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class InSelectionBar : MonoBehaviour
@@ -12,6 +13,8 @@ public class InSelectionBar : MonoBehaviour
     public SelectionToolUI SelectionUI;
     public IntTranslator Translator;
     public StickerInfo StickerInfo;
+    public GameObject BlockTips;
+    private TipsInfo tipsInfo;
 
     public Sprite[] sprites;
     // Start is called before the first frame update
@@ -24,6 +27,8 @@ public class InSelectionBar : MonoBehaviour
         battleManager = FindObjectOfType<BattleManager>();
         StickerInfo= FindObjectOfType<StickerInfo>();
         CheckandAttachSticker();
+        tipsInfo = FindObjectOfType<TipsInfo>();
+
     }
 
     public void CheckandAttachSticker()
@@ -157,5 +162,26 @@ public class InSelectionBar : MonoBehaviour
                 }
             }
         }
+    }
+    void OnMouseEnter()
+    {
+
+        if (selectionToolProcessor != null && tipsInfo != null)
+        {
+            int position = selectionToolProcessor.GetComponent<SelectionTool>().threeBlockList.IndexOf(Shapeindex);
+            if (position >= 0 && position < selectionToolProcessor.GetComponent<SelectionTool>().threeColorList.Count)
+            {
+                int colorIndex = selectionToolProcessor.GetComponent<SelectionTool>().threeColorList[position];
+                tipsInfo.FindToolTipsContext(colorIndex);
+            }
+            else
+            {
+                Debug.LogWarning("Index out of range in threeBlockList or threeColorList.");
+            }
+        }
+    }
+    private void OnMouseExit()
+    {
+        TooltipSystem.Hide();
     }
 }
