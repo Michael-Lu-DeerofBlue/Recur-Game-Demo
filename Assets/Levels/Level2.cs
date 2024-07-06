@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using Fungus;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering;
 
 public class Level2 : LevelController
 {
@@ -15,10 +17,14 @@ public class Level2 : LevelController
     public GameObject spotlightManager;
     public bool playerShined;
     public int randomIndex;
-    public Color ambientColor = Color.white;
     public float duration = 5.0f; // Duration over which the light will decrease
     public GameObject LevelController;
     public GameObject triggerBox;
+    public float targetExposure = -2.0f;
+
+    public Volume volume;
+    private ColorAdjustments colorAdjustments;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,6 +40,7 @@ public class Level2 : LevelController
             triggerBox.SetActive(true);
             SetRandomEnemyHasKey();
         }
+        colorAdjustments = (ColorAdjustments)volume.profile.components.Find(x => x is ColorAdjustments);
     }
 
     private void Update()
@@ -64,23 +71,27 @@ public class Level2 : LevelController
 
     }
 
-    IEnumerator GraduallyReduceAmbientLight()
+    IEnumerator GraduallyChangeExposure()
     {
-        
+
         float elapsedTime = 0.0f;
-        Color initialColor = UnityEngine.RenderSettings.ambientLight;
+        float initialExposure = colorAdjustments.postExposure.value;
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             float lerpFactor = elapsedTime / duration;
 
-            UnityEngine.RenderSettings.ambientLight = Color.Lerp(initialColor, ambientColor, lerpFactor);
+            // Gradually change the post exposure
+            colorAdjustments.postExposure.value = Mathf.Lerp(initialExposure, targetExposure, lerpFactor);
+
             yield return null;
         }
 
-        // Ensure the final color is set
-        UnityEngine.RenderSettings.ambientLight = ambientColor;
+        // Ensure the final exposure is set
+        colorAdjustments.postExposure.value = targetExposure;
+
+
     }
 
     void ResetEnemyTarget(Transform target)
@@ -105,10 +116,9 @@ public class Level2 : LevelController
             }
         }
     }
-
     public void ColdStart()
     {
-        StartCoroutine(GraduallyReduceAmbientLight());
+        StartCoroutine(GraduallyChangeExposure());
         flowchart.ExecuteBlock("ColdStart");
     }
 
@@ -144,8 +154,8 @@ public class Level2 : LevelController
 
     public void Reload() //Player, Enemy, SpotLights
     {
-        //Light
-        UnityEngine.RenderSettings.ambientLight = ambientColor;
+        //Exposure
+        colorAdjustments.postExposure.value = targetExposure;
 
         //Player
         if (ES3.KeyExists("InLevelPlayerPosition"))
