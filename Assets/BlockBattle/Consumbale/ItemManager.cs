@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
@@ -20,10 +22,16 @@ public class ItemManager : MonoBehaviour
     private BattleManager battleManager;
     private Dictionary<string, Sprite> itemSprites = new Dictionary<string, Sprite>();
     public Dictionary<string, int> inventory = new Dictionary<string, int>();
+    public GameObject InventoryPiviot;
+    private bool enable = false;
+    private Coroutine rotationCoroutine;
+
+
 
     void Start()
     {
-       battleManager = FindObjectOfType<BattleManager>();
+       
+        battleManager = FindObjectOfType<BattleManager>();
         itemEventHandler = GetComponent<ItemEventHandler>();
 
         foreach (var sprite in itemSpritesList)
@@ -45,6 +53,13 @@ public class ItemManager : MonoBehaviour
             index++;
         }
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SwitchInventory();
+        }
+    }
 
     void SetButton(InventoryButton inventoryButton, string itemName, int quantity)
     {
@@ -52,7 +67,7 @@ public class ItemManager : MonoBehaviour
         {
             inventoryButton.image.sprite = sprite;
             inventoryButton.quantityText.text = quantity.ToString();
-            inventoryButton.button.onClick.AddListener(() => OnButtonClick(inventoryButton)); 
+            inventoryButton.button.onClick.AddListener(() => OnButtonClick(inventoryButton));
 
         }
         else
@@ -62,7 +77,8 @@ public class ItemManager : MonoBehaviour
     }
     void OnButtonClick(InventoryButton inventoryButton)
     {
-        if (battleManager.DisablePlayerInput == true) return;
+        
+        if (battleManager.DisablePlayerInput == true || enable==false) return;
         string itemName = inventoryButton.image.sprite.name;
 
         if (inventory.ContainsKey(itemName))
@@ -82,8 +98,51 @@ public class ItemManager : MonoBehaviour
 
             itemEventHandler.HandleItemEvent(itemName);
         }
+    }
+    void SwitchInventory()
+    {
+        enable = !enable; // ÇÐ»» enable µÄÖµ
+        if (enable)
+        {
+            Debug.Log("enable is true");
+            StartRotation(19.5f);
+        }
+        else
+        {
+            Debug.Log("enable is false");
+            StartRotation(0f);
+        }
+    }
 
 
+    void StartRotation(float targetRotationZ)
+    {
+
+        if (rotationCoroutine != null)
+        {
+            StopCoroutine(rotationCoroutine);
+        }
+
+        rotationCoroutine = StartCoroutine(RotateInventoryPiviot(targetRotationZ));
+    }
+
+    IEnumerator RotateInventoryPiviot(float targetRotationZ)
+    {
+        RectTransform rectTransform = InventoryPiviot.GetComponent<RectTransform>();
+        float startRotationZ = rectTransform.localEulerAngles.z;
+        float elapsedTime = 0f;
+        float duration = 0.2f; 
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float newRotationZ = Mathf.Lerp(startRotationZ, targetRotationZ, elapsedTime / duration);
+            rectTransform.localEulerAngles = new Vector3(rectTransform.localEulerAngles.x, rectTransform.localEulerAngles.y, newRotationZ);
+            yield return null;
+        }
+
+
+        rectTransform.localEulerAngles = new Vector3(rectTransform.localEulerAngles.x, rectTransform.localEulerAngles.y, targetRotationZ);
     }
 }
 
