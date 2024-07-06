@@ -1,3 +1,4 @@
+using PixelCrushers.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,10 @@ public class SettingMenuManager : MonoBehaviour
         {
             active = !active;
             if (active){
+                if (DialogueManager.isConversationActive)
+                {
+                    DialogueManager.Pause();
+                }
                 Time.timeScale = 0; 
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -37,6 +42,10 @@ public class SettingMenuManager : MonoBehaviour
                 if (GameObject.Find("Player") != null)
                 {
                     GameObject.Find("Player").BroadcastMessage("UpdateSettings");
+                }
+                if (DialogueManager.isConversationActive)
+                {
+                    DialogueManager.Unpause();
                 }
             }
             settingMenu.SetActive(active);

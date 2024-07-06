@@ -58,8 +58,21 @@ public class TwoDto3D : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         if (ThreeDTo2DData.ThreeDScene == "CentralMeditationRoom")
         {
-            ThreeDTo2DData.ThreeDScene = null;
-            SceneManager.LoadScene("Church_with_code");
+            if (ES3.KeyExists("First Combat"))
+            {
+                if (ES3.Load<bool>("First Combat"))
+                {
+                    ThreeDTo2DData.ThreeDScene = null;
+                    SceneManager.LoadScene("CentralMeditationRoom");
+                }
+                
+            }
+            else
+            {
+                ThreeDTo2DData.ThreeDScene = null;
+                SceneManager.LoadScene("Church_with_code");
+            }
+          
         }
         else
         {

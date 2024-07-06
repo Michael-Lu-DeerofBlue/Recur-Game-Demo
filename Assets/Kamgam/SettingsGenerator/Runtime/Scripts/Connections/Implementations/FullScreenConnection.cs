@@ -43,7 +43,7 @@ namespace Kamgam.SettingsGenerator
 #if UNITY_EDITOR
             if (SettingsGeneratorSettings.GetOrCreateSettings().ShowEditorInfoLogs)
             {
-                Logger.LogMessage("Setting FullScreen has no effect in the Editor. Please try in a build. - " + SettingsGeneratorSettings._showEditorInfoLogsHint);
+                //Logger.LogMessage("Setting FullScreen has no effect in the Editor. Please try in a build. - " + SettingsGeneratorSettings._showEditorInfoLogsHint);
             }
 #endif
         }

@@ -5,8 +5,8 @@ using Fungus;
 
 public class TeleportPlayerScript : MonoBehaviour
 {
-    public Flowchart flowchart;
-    public string BlockName;
+    public GameObject target;
+    public string message;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +18,7 @@ public class TeleportPlayerScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            
+            target.SendMessage(message);
         }
-        
     }
 }
