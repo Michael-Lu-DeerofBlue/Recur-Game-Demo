@@ -37,6 +37,11 @@ public class BattleManager : MonoBehaviour
    // PauseCasting in enemy.cs
     //enemy status:
     public bool WeakMinionCompanionsOnHold = false;
+
+
+
+    //Ui stuff
+    public int ToolTipsLevel=0;
     void Start()
     {
         heroInfo = FindObjectOfType<HeroInfo>();
