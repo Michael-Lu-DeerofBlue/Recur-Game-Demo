@@ -37,7 +37,7 @@ public class BattleManager : MonoBehaviour
    // PauseCasting in enemy.cs
     //enemy status:
     public bool WeakMinionCompanionsOnHold = false;
-    public static bool firstCombat = true;
+    public static bool firstCombat = false;
 
 
     //Ui stuff
