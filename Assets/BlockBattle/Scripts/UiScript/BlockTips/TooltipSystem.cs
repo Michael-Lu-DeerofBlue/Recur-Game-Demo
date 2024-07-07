@@ -5,28 +5,38 @@ using UnityEngine;
 public class TooltipSystem : MonoBehaviour
 {
     private static TooltipSystem instance;
-    public ToolTip tooltip;
-    private BattleManager battleManager;
+    public ToolTipUI ToolTipUI;
+
     // Start is called before the first frame update
     public void Awake()
     {
         instance = this; 
-        battleManager =FindAnyObjectByType<BattleManager>();
     }
-    public static void Show(string header= "123", string content = "123132123")
+    public static void Show(string header = "123", string content = "123132123")
     {
         BattleManager battleManager = FindAnyObjectByType<BattleManager>();
-        if (battleManager.ToolTipsLevel != 2)
+        if (battleManager == null)
         {
-            instance.tooltip.SetText(header, content);
-            instance.tooltip.gameObject.SetActive(true);
+            Debug.LogError("BattleManager not found.");
+            return;
         }
 
+        if (battleManager.ToolTipsLevel != 2)
+        {
+            instance.ToolTipUI.SetText(header, content);
+            instance.ToolTipUI.gameObject.SetActive(true);
+        }
     }
 
-    // Update is called once per frame
     public static void Hide()
     {
-        instance.tooltip.gameObject.SetActive(false);
+        if (instance != null && instance.ToolTipUI != null)
+        {
+            instance.ToolTipUI.gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("TooltipSystem instance or ToolTipUI is null in Hide.");
+        }
     }
 }

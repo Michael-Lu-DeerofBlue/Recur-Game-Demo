@@ -163,25 +163,17 @@ public class InSelectionBar : MonoBehaviour
             }
         }
     }
-    void OnMouseEnter()
+    private void OnMouseEnter()
     {
-
-        if (selectionToolProcessor != null && tipsInfo != null)
-        {
-            int position = selectionToolProcessor.GetComponent<SelectionTool>().threeBlockList.IndexOf(Shapeindex);
-            if (position >= 0 && position < selectionToolProcessor.GetComponent<SelectionTool>().threeColorList.Count)
-            {
-                int colorIndex = selectionToolProcessor.GetComponent<SelectionTool>().threeColorList[position];
-                tipsInfo.FindToolTipsContext(colorIndex);
-            }
-            else
-            {
-                Debug.LogWarning("Index out of range in threeBlockList or threeColorList.");
-            }
-        }
+        int position = selectionToolProcessor.GetComponent<SelectionTool>().threeBlockList.IndexOf(Shapeindex);
+        int ColorIndex= selectionToolProcessor.GetComponent<SelectionTool>().threeColorList[position];
+        tipsInfo.FindToolTipsContext(ColorIndex);
     }
+
+
     private void OnMouseExit()
     {
-        TooltipSystem.Hide();
+
+        TTooltipSystem.Hide();
     }
 }
