@@ -37,13 +37,14 @@ public class BattleManager : MonoBehaviour
    // PauseCasting in enemy.cs
     //enemy status:
     public bool WeakMinionCompanionsOnHold = false;
-
+    public static bool firstCombat = true;
 
 
     //Ui stuff
     public int ToolTipsLevel=0;
     void Start()
     {
+        FirstCombat();
         heroInfo = FindObjectOfType<HeroInfo>();
         inttranslator = FindObjectOfType<IntTranslator>();
         spawnBlock = FindObjectOfType<SpawnBlock>();
@@ -53,6 +54,18 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    void FirstCombat()
+    {
+        if (ES3.KeyExists("First Combat"))
+        {
+            if (ES3.Load<bool>("First Combat"))
+            {
+                firstCombat = true;
+                Debug.Log("Change Layout for First Combat");
+            }
+        }
     }
 
 
@@ -100,7 +113,10 @@ public class BattleManager : MonoBehaviour
     }
     public void AttackEnemy(float damage, Enemy Target)
     {
-        Target.HitHandle(damage);
+        if (!firstCombat)
+        {
+            Target.HitHandle(damage);
+        }
     }
     public void FragileEnemy(float damage, Enemy Target)
     {
