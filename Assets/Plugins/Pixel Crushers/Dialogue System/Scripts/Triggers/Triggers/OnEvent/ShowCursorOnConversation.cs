@@ -45,6 +45,7 @@ namespace PixelCrushers.DialogueSystem
 
         public void OnConversationStart(Transform actor)
         {
+            Debug.Log("cheat");
             wasCursorVisible = Cursor.visible;
             savedLockState = Cursor.lockState;
             StartCoroutine(ShowCursorAfterOneFrame());
@@ -52,6 +53,7 @@ namespace PixelCrushers.DialogueSystem
 
         private IEnumerator ShowCursorAfterOneFrame()
         {
+            Debug.Log("cheat");
             yield return null;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
@@ -59,6 +61,7 @@ namespace PixelCrushers.DialogueSystem
 
         public void OnConversationEnd(Transform actor)
         {
+            Debug.Log("cheat");
             Cursor.visible = wasCursorVisible;
             Cursor.lockState = savedLockState;
         }

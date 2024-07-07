@@ -514,6 +514,7 @@ namespace PixelCrushers.DialogueSystem
             DialogueManager.instance.conversationStarted -= OnConversationStartAnywhere;
             if (showCursorDuringConversation)
             {
+                Debug.Log("cheat");
                 wasCursorVisible = Cursor.visible;
                 savedLockState = Cursor.lockState;
                 StartCoroutine(ShowCursorAfterOneFrame());
@@ -528,6 +529,7 @@ namespace PixelCrushers.DialogueSystem
 
         protected IEnumerator ShowCursorAfterOneFrame()
         {
+            Debug.Log("cheat");
             yield return null;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
@@ -543,6 +545,7 @@ namespace PixelCrushers.DialogueSystem
                 StopMonitoringConversationDistance();
                 if (showCursorDuringConversation)
                 {
+                    Debug.Log("cheat");
                     Cursor.visible = wasCursorVisible;
                     Cursor.lockState = savedLockState;
                 }

@@ -80,12 +80,14 @@ namespace PixelCrushers
             {
                 if (open)
                 {
+                    Debug.Log("cheat");
                     m_prevCursorState = Cursor.visible;
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
                 }
                 else
                 {
+                    Debug.Log("cheat");
                     Cursor.visible = m_prevCursorState;
                     Cursor.lockState = m_prevCursorState ? CursorLockMode.None : CursorLockMode.Locked;
                 }

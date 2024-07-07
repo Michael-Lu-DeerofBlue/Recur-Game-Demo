@@ -60,6 +60,7 @@ namespace PixelCrushers
 		
 		public static void ShowCursor(bool value) 
 		{
+            Debug.Log("cheat" + value);
 			Cursor.visible = value;
 		}
 		

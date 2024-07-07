@@ -58,8 +58,8 @@ public class ToggleMenuOnEsc : MonoBehaviour
                 // Optionally, lock/unlock the cursor
                 if (isPaused)
                 {
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
+                    //Cursor.lockState = CursorLockMode.None;
+                    //Cursor.visible = true;
                 }
                 else
                 {

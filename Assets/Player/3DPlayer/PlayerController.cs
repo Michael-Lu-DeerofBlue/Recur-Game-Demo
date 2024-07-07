@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        Debug.Log("Setted false for cursor");
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         isGrounded = true;

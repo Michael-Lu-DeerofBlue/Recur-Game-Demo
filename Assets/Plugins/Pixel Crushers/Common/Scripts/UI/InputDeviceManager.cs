@@ -450,11 +450,12 @@ namespace PixelCrushers
         public void SetCursor(bool visible)
         {
             if (!controlCursorState) return;
-            ForceCursor(visible);
+            //ForceCursor(visible);
         }
 
         public void ForceCursor(bool visible)
         {
+            Debug.Log("cheat" + visible);
             Cursor.visible = visible;
             Cursor.lockState = visible ? CursorLockMode.None : cursorLockMode;
             m_lastMousePosition = GetMousePosition();
@@ -463,6 +464,7 @@ namespace PixelCrushers
 
         private IEnumerator ForceCursorAfterOneFrameCoroutine(bool visible)
         {
+            Debug.Log("cheat" + visible);
             yield return CoroutineUtility.endOfFrame;
             Cursor.visible = visible;
             Cursor.lockState = visible ? CursorLockMode.None : cursorLockMode;
