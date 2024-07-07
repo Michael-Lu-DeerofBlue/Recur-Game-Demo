@@ -25,6 +25,7 @@ public class ItemManager : MonoBehaviour
     public GameObject InventoryPiviot;
     private bool enable = false;
     private Coroutine rotationCoroutine;
+    private TipsInfo tipInfo;
 
 
 
@@ -33,6 +34,7 @@ public class ItemManager : MonoBehaviour
        
         battleManager = FindObjectOfType<BattleManager>();
         itemEventHandler = GetComponent<ItemEventHandler>();
+        tipInfo=FindObjectOfType<TipsInfo>();
 
         foreach (var sprite in itemSpritesList)
         {
@@ -69,6 +71,17 @@ public class ItemManager : MonoBehaviour
             inventoryButton.quantityText.text = quantity.ToString();
             inventoryButton.button.onClick.AddListener(() => OnButtonClick(inventoryButton));
 
+
+            EventTrigger eventTrigger = inventoryButton.button.gameObject.AddComponent<EventTrigger>();
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerEnter;
+            entry.callback.AddListener((eventData) => OnButtonHover(inventoryButton));
+            eventTrigger.triggers.Add(entry);
+
+            EventTrigger.Entry entryExit = new EventTrigger.Entry();
+            entryExit.eventID = EventTriggerType.PointerExit;
+            entryExit.callback.AddListener((eventData) => OnButtonExit(inventoryButton));
+            eventTrigger.triggers.Add(entryExit);
         }
         else
         {
@@ -143,6 +156,18 @@ public class ItemManager : MonoBehaviour
 
 
         rectTransform.localEulerAngles = new Vector3(rectTransform.localEulerAngles.x, rectTransform.localEulerAngles.y, targetRotationZ);
+    }
+
+
+    void OnButtonHover(InventoryButton inventoryButton)
+    {
+        string itemName = inventoryButton.image.sprite.name;
+        tipInfo.FindInventoryTipsContext(itemName);
+    }
+
+    void OnButtonExit(InventoryButton inventoryButton)
+    {
+        TTooltipSystem.Hide();
     }
 }
 

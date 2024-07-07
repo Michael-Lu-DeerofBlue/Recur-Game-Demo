@@ -38,6 +38,11 @@ public class TTooltip : MonoBehaviour
         }
         Vector2 position = Input.mousePosition;
         position.x += 30;
+        if (position.x > 2000)
+        {
+            RectTransform rectTransform = transform as RectTransform;
+            position.x -= rectTransform.rect.width;
+        }
         transform.position = position;
     }
 

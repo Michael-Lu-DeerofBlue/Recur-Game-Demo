@@ -171,7 +171,7 @@ public class InSelectionBar : MonoBehaviour
             if (position >= 0 && position < selectionToolProcessor.GetComponent<SelectionTool>().threeColorList.Count)
             {
                 int colorIndex = selectionToolProcessor.GetComponent<SelectionTool>().threeColorList[position];
-                tipsInfo.FindToolTipsContext(colorIndex);
+                tipsInfo.FindBlockTipsContext(colorIndex);
             }
             else
             {

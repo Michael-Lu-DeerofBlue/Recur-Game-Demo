@@ -13,7 +13,7 @@ public class TipsInfo : MonoBehaviour
         
     }
 
-    public void FindToolTipsContext(int colorindex)
+    public void FindBlockTipsContext(int colorindex)
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -76,6 +76,44 @@ public class TipsInfo : MonoBehaviour
             Debug.Log("Player object not found.");
         }
     }
+
+    public void FindInventoryTipsContext(string Name)
+    {
+
+
+                switch (Name)
+                {
+                    case "MedKit":
+                        header = "Med Kit";
+                        content = "+10HP";
+                        TTooltipSystem.show(header, content);
+                        break;
+                    case "SprayCan":
+                        header = "Spray Can";
+                        content = "Refresh all Action Blocks in Choice Section";
+                        TTooltipSystem.show(header, content);
+                        break;
+                    case "Mint":
+                        header = "Mint";
+                        content = "Remove all debuffs and immune to all debuffs for 10 seconds";
+                        TTooltipSystem.show(header, content);
+                        break;
+                    case "PaperCutter":
+                        header = "Paper Cutter";
+                        content = "Inflict [Fragile]";
+                        TTooltipSystem.show(header, content);
+                        break;
+                    case "FracturedPocketWatch":
+                        header = "Fractured Pocket Watch";
+                        content = "Pause Action Bar for 3 seconds ";
+                        TTooltipSystem.show(header, content);
+                        break;
+
+                }
+            }
+
+
+
 
 
     // Update is called once per frame

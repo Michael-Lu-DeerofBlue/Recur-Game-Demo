@@ -18,14 +18,14 @@ public class ItemEventHandler : MonoBehaviour
     {
         switch (itemName)
         {
-            case "SculptureClay":
-                UseSculptureClay();
+            case "MedKit":
+                UseMedKit();
                 break;
             case "SprayCan":
                 UseSprayCan();
                 break;
-            case "ArtRubber":
-                UseArtRubber();
+            case "Mint":
+                UseMint();
                 break;
             case "PaperCutter":
                 UsePaperCutter();
@@ -39,7 +39,7 @@ public class ItemEventHandler : MonoBehaviour
         }
     }
 
-    void UseSculptureClay()
+    void UseMedKit()
     {
         heroInfo.Heal(10);
         Debug.Log("Sculpture Clay used!");
@@ -51,7 +51,7 @@ public class ItemEventHandler : MonoBehaviour
         Debug.Log("Spray Can used!");
     }
 
-    void UseArtRubber()
+    void UseMint()
     {
         battleManager.RemoveAllPlayerDebug();
         battleManager.PlayerImmueDebuffDuring(10);
