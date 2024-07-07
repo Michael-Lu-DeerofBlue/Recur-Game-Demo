@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Loading;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 [ExecuteInEditMode]
 public class TTooltip : MonoBehaviour
 {
@@ -43,7 +44,13 @@ public class TTooltip : MonoBehaviour
             RectTransform rectTransform = transform as RectTransform;
             position.x -= rectTransform.rect.width;
         }
+        if (position.y < 180)
+        {
+            RectTransform rectTransform = transform as RectTransform;
+            position.y += rectTransform.rect.height;
+        }
         transform.position = position;
     }
+
 
 }

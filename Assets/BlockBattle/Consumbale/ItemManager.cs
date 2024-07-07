@@ -26,6 +26,7 @@ public class ItemManager : MonoBehaviour
     private bool enable = false;
     private Coroutine rotationCoroutine;
     private TipsInfo tipInfo;
+    public Animator Animator;
 
 
 
@@ -35,7 +36,6 @@ public class ItemManager : MonoBehaviour
         battleManager = FindObjectOfType<BattleManager>();
         itemEventHandler = GetComponent<ItemEventHandler>();
         tipInfo=FindObjectOfType<TipsInfo>();
-
         foreach (var sprite in itemSpritesList)
         {
             itemSprites[sprite.name] = sprite;
@@ -114,49 +114,27 @@ public class ItemManager : MonoBehaviour
     }
     void SwitchInventory()
     {
-        enable = !enable; // ÇÐ»» enable µÄÖµ
+        AnimatorStateInfo currentState  =Animator.GetCurrentAnimatorStateInfo(0);
+        if (currentState.IsName("ShowInventory") && currentState.normalizedTime < 1.0f ||
+           currentState.IsName("HideInventory") && currentState.normalizedTime < 1.0f)
+        {
+            return;
+        }
+        enable =!enable;
         if (enable)
         {
-            Debug.Log("enable is true");
-            StartRotation(19.5f);
+            Debug.Log(enable);
+            Animator.Play("ShowInventory");
         }
         else
         {
-            Debug.Log("enable is false");
-            StartRotation(0f);
+            Debug.Log(enable);
+            Animator.Play("HideInventory");
         }
     }
 
 
-    void StartRotation(float targetRotationZ)
-    {
 
-        if (rotationCoroutine != null)
-        {
-            StopCoroutine(rotationCoroutine);
-        }
-
-        rotationCoroutine = StartCoroutine(RotateInventoryPiviot(targetRotationZ));
-    }
-
-    IEnumerator RotateInventoryPiviot(float targetRotationZ)
-    {
-        RectTransform rectTransform = InventoryPiviot.GetComponent<RectTransform>();
-        float startRotationZ = rectTransform.localEulerAngles.z;
-        float elapsedTime = 0f;
-        float duration = 0.2f; 
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float newRotationZ = Mathf.Lerp(startRotationZ, targetRotationZ, elapsedTime / duration);
-            rectTransform.localEulerAngles = new Vector3(rectTransform.localEulerAngles.x, rectTransform.localEulerAngles.y, newRotationZ);
-            yield return null;
-        }
-
-
-        rectTransform.localEulerAngles = new Vector3(rectTransform.localEulerAngles.x, rectTransform.localEulerAngles.y, targetRotationZ);
-    }
 
 
     void OnButtonHover(InventoryButton inventoryButton)
