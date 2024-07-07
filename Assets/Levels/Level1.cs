@@ -23,6 +23,8 @@ public class Level1 : LevelController
     public GameObject fourthTrigger;
     public List<bool> conversationTracker;
     public GameObject whiteScreen;
+    public GameObject openingSettingMenu;
+    public GameObject gameplaySettingMenu;
 
     // Start is called before the first frame update
     void Awake()
