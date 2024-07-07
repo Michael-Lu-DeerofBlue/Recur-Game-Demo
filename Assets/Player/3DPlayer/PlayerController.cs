@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
         var targetPosition = transform.position + positionOffset;
 
         // Perform raycast to check for obstacles
+
         RaycastHit hit;
         bool isObstacleAhead = Physics.Raycast(transform.position, positionOffset.normalized, out hit, checkRadius, obstacleLayer);
         if (!isObstacleAhead)
@@ -164,7 +165,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             // Obstacle detected, you can handle it here if needed
-            //Debug.Log("Obstacle detected ahead: " + hit.collider.name);
+            Debug.Log("Obstacle detected ahead: " + hit.collider.name);
         }
     }
 
