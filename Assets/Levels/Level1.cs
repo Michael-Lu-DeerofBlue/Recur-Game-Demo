@@ -149,7 +149,11 @@ public class Level1 : LevelController
     void OnDisable()
     {
         // Unsubscribe from the conversation end event
-        DialogueManager.Instance.conversationEnded -= OnConversationEnd;
+        if (DialogueManager.Instance != null)
+        {
+            DialogueManager.Instance.conversationEnded -= OnConversationEnd;
+        }
+        
     }
 
     void OnConversationEnd(Transform actor)
