@@ -188,12 +188,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint)
         {
             inSprint = true;
+            Debug.Log("Sprinting");
             movementSpeed = DEFAULT_SPRINT_SPEED;
             fov = DEFAULT_SPRINT_FOV;
         }
         else if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && inSprint)
         {
             inSprint = false;
+            Debug.Log("Stopped sprinting");
             ResetMovement();
         }
     }
