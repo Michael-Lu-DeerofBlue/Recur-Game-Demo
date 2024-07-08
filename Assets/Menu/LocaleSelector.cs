@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
-public class NewBehaviourScript : MonoBehaviour
+public class LocaleSelector : MonoBehaviour
 {
     private bool active = false;
 
