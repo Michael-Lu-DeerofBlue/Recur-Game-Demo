@@ -27291,6 +27291,52 @@ Transform:
   - {fileID: 1388890882}
   m_Father: {fileID: 98386554}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &780534509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 780534511}
+  - component: {fileID: 780534510}
+  m_Layer: 0
+  m_Name: PlayerSFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &780534510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780534509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f666e7ed2aa6f4f7da8c106fe0b41e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2104803499}
+  flowchart: {fileID: 1698937751}
+--- !u!4 &780534511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780534509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &783559043
 GameObject:
   m_ObjectHideFlags: 0
@@ -62122,6 +62168,8 @@ GameObject:
   - component: {fileID: 1698937764}
   - component: {fileID: 1698937762}
   - component: {fileID: 1698937765}
+  - component: {fileID: 1698937767}
+  - component: {fileID: 1698937766}
   m_Layer: 0
   m_Name: SFX Flowchart
   m_TagString: Untagged
@@ -62156,7 +62204,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 1698937764}
   selectedCommands:
-  - {fileID: 1698937765}
+  - {fileID: 1698937762}
   variables: []
   description: 
   stepPause: 0
@@ -62361,7 +62409,7 @@ MonoBehaviour:
     audioSourceRef: {fileID: 0}
     audioSourceVal: {fileID: 491606715}
   startVolume: 1
-  endVolume: 1
+  endVolume: 0.5
   fadeDuration: 0
   waitUntilFinished: 0
   audioSourceOLD: {fileID: 0}
@@ -62379,8 +62427,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 147.08798
-    y: 71.34204
+    x: 167.96716
+    y: 64.74864
     width: 114.285706
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -62411,6 +62459,56 @@ MonoBehaviour:
   logMessage:
     stringRef: {fileID: 0}
     stringVal: Playing walk loop
+--- !u!114 &1698937766
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698937750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 12
+  indentLevel: 0
+  control: 3
+  _audioSource:
+    audioSourceRef: {fileID: 0}
+    audioSourceVal: {fileID: 491606715}
+  startVolume: 1
+  endVolume: 1
+  fadeDuration: 0
+  waitUntilFinished: 0
+  audioSourceOLD: {fileID: 0}
+--- !u!114 &1698937767
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698937750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeRect:
+    serializedVersion: 2
+    x: 308.62643
+    y: 93.86951
+    width: 140.65933
+    height: 40
+  tint: {r: 1, g: 1, b: 1, a: 1}
+  useCustomTint: 0
+  itemId: 11
+  blockName: StopPlayerWalk
+  description: 
+  eventHandler: {fileID: 0}
+  commandList:
+  - {fileID: 1698937766}
+  suppressAllAutoSelections: 0
 --- !u!1 &1720741781
 GameObject:
   m_ObjectHideFlags: 0
@@ -69563,37 +69661,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982023564}
   m_Mesh: {fileID: 7202550929758277174, guid: 806f7539e8962f543803d8877af98cb5, type: 3}
---- !u!1 &1985458251
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1985458252}
-  m_Layer: 0
-  m_Name: PlayerSFX
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1985458252
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1985458251}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1993314797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75853,9 +75920,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7574356886743310673, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2104803509}
-    - targetCorrespondingSourceObject: {fileID: 7574356886743310673, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2104803521}
   m_SourcePrefab: {fileID: 100100000, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
 --- !u!1 &2104803499 stripped
 GameObject:
@@ -75901,20 +75965,6 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 8451899307563677240, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
   m_PrefabInstance: {fileID: 2104803498}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2104803521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2104803499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f666e7ed2aa6f4f7da8c106fe0b41e8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 5
-  flowchart: {fileID: 1698937751}
 --- !u!1 &2127238603
 GameObject:
   m_ObjectHideFlags: 0
@@ -78733,4 +78783,4 @@ SceneRoots:
   - {fileID: 805850812}
   - {fileID: 1966571768}
   - {fileID: 1698937755}
-  - {fileID: 1985458252}
+  - {fileID: 780534511}
