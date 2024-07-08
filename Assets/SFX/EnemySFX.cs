@@ -1,63 +1,3 @@
-// using UnityEngine;
-// using Fungus;
-// using Pathfinding;
-
-// public class EnemySFX : MonoBehaviour
-// {
-//     public AIPath aiPath; // Reference to the AIPath script
-//     public Flowchart flowchart; // Reference to the Fungus Flowchart
-
-//     private bool wasWalking = false; // Track the previous walking state
-//     private bool wasSprinting = false; // Track the previous sprinting state
-
-//     void Awake()
-//     {
-//         if (aiPath == null)
-//         {
-//             Debug.LogError("AIPath reference is missing.");
-//             return;
-//         }
-//         aiPath = GetComponent<AIPath>();
-//     }
-
-//     void Update()
-//     {
-
-//         // Determine if the enemy is walking or sprinting
-//         bool isWalking = aiPath.velocity2D.magnitude > 0 && !aiPath.isStopped && !aiPath.reachedEndOfPath;
-
-//         if (isWalking && !wasWalking)
-//         {
-//             // Enemy has started walking
-//             PlayEffectWalk();
-//         }
-//         else if (!isWalking && wasWalking)
-//         {
-//             // Enemy has stopped walking
-//             StopEffectWalk();
-//         }
-
-//         // Update the previous movement state
-//         wasWalking = isWalking;
-//     }
-
-//     void PlayEffectWalk()
-//     {
-//         // Check if the flowchart is not already executing
-//         if (!flowchart.HasExecutingBlocks())
-//         {
-//             // Start the Fungus flowchart for walking
-//             flowchart.ExecuteBlock("EnemyWalk");
-//         }
-//     }
-
-//     void StopEffectWalk()
-//     {
-//         // Stop the Fungus flowchart for walking
-//         flowchart.ExecuteBlock("StopEnemyWalk");
-//     }
-// }
-
 using UnityEngine;
 using Fungus;
 using Pathfinding;
@@ -92,9 +32,13 @@ public class EnemySFX : MonoBehaviour
         // Calculate the velocity based on position change
         Vector3 currentPosition = transform.position;
         Vector3 velocity = (currentPosition - lastPosition) / Time.deltaTime;
+
+        // Ignore vertical (y-axis) movement
+        velocity.y = 0;
+
         lastPosition = currentPosition;
 
-        // Determine if the enemy is walking or sprinting
+        // Determine if the enemy is walking
         bool isWalking = velocity.magnitude > 0 && !aiPath.isStopped && !aiPath.reachedEndOfPath;
 
         if (isWalking && !wasWalking)
