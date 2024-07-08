@@ -5,15 +5,44 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 298896247369713092, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
       propertyPath: _value
-      value: 50
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 298896247369713092, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      propertyPath: StepSize
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 621424702551470239, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
       propertyPath: m_Value
-      value: 50
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 621424702551470239, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      propertyPath: m_MaxValue
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204928750859388128, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204928750859388128, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204928750859388128, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.0000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204928750859388128, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332704574616327586, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      propertyPath: MarginTRBL.w
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6247565577041890903, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -23,9 +52,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6247565577672523890, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6247565577875032134, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      propertyPath: m_text
+      value: Master Volume
+      objectReference: {fileID: 0}
     - target: {fileID: 6247565577913825397, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
       propertyPath: m_text
-      value: 50 %
+      value: 0 %
       objectReference: {fileID: 0}
     - target: {fileID: 6247565577949264844, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
       propertyPath: m_Name
@@ -33,11 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6247565577949264847, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6247565577949264847, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6247565577949264847, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
       propertyPath: m_RootOrder
@@ -128,17 +165,38 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6247565577949264844, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 418212766222507306}
+    - targetCorrespondingSourceObject: {fileID: 6247565577875032132, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7320299812988830729}
   m_SourcePrefab: {fileID: 100100000, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
---- !u!1 &4232590584974212673 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6247565577949264844, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
-  m_PrefabInstance: {fileID: 7786408732515321229}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4232590584916757961 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6247565577875032132, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
   m_PrefabInstance: {fileID: 7786408732515321229}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7320299812988830729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4232590584916757961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ab98226ccd6544995d0da41050492c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationProvider: {fileID: 11400000, guid: 57a2a075a8cd7ec48b1e47982645d486, type: 2}
+  Term: Master Volume
+  Format: 
+  UpdateTermFromText: 1
+  Textfield: {fileID: 4232590584916757963}
 --- !u!114 &4232590584916757963 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6247565577875032134, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
@@ -150,6 +208,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4232590584974212673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6247565577949264844, guid: 1914409e926c47c47a3a761fa93e1be1, type: 3}
+  m_PrefabInstance: {fileID: 7786408732515321229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &418212766222507306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,21 +227,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SettingsProvider: {fileID: 11400000, guid: 2aa641fad43b9154a8c9634b7481bf03, type: 2}
   LocalizationProvider: {fileID: 11400000, guid: 57a2a075a8cd7ec48b1e47982645d486, type: 2}
-  ID: 
---- !u!114 &7320299812988830729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4232590584916757961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7ab98226ccd6544995d0da41050492c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LocalizationProvider: {fileID: 11400000, guid: 57a2a075a8cd7ec48b1e47982645d486, type: 2}
-  Term: 
-  Format: 
-  UpdateTermFromText: 1
-  Textfield: {fileID: 4232590584916757963}
+  ID: audioMasterVolume
