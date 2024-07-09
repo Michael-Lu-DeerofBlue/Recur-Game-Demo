@@ -4,41 +4,66 @@ using UnityEngine.UI;
 public class BackPackManager : MonoBehaviour
 {
     public Animator animator; // Reference to the Animator component
-    public Button stickerButton; // Reference to the Sticker button
-    public Button consumableButton; // Reference to the Consumable button
-    public Button importantItemButton; // Reference to the Important Item button
+    public Button ConsumableButton; // Reference to the Consumable button
+    public Button StickerButton; // Reference to the Sticker button
+    public Button ImportantButton; // Reference to the Important Item button
 
+
+    private Button[] buttons;
+    private int currentIndex = 0;
     void Start()
     {
         // Add listeners to the buttons
-        stickerButton.onClick.AddListener(OnStickerButtonClick);
-        consumableButton.onClick.AddListener(OnConsumableButtonClick);
-        importantItemButton.onClick.AddListener(OnImportantItemButtonClick);
+        buttons = new Button[] { ConsumableButton, StickerButton, ImportantButton };
+
+
+        StickerButton.onClick.AddListener(OnStickerButtonClick);
+        ConsumableButton.onClick.AddListener(OnConsumableButtonClick);
+        ImportantButton.onClick.AddListener(OnImportantItemButtonClick);
+
+
+        currentIndex = 0; 
     }
 
     void OnStickerButtonClick()
     {
-        // Change the Animator state to ToSticker
-        animator.SetTrigger("ToSticker");
+
     }
 
     void OnConsumableButtonClick()
     {
-        // Handle Consumable button click
-        // animator.SetTrigger("ToConsumable"); // Example if you have another state
+
     }
 
     void OnImportantItemButtonClick()
     {
-        // Handle Important Item button click
-        // animator.SetTrigger("ToImportantItem"); // Example if you have another state
+
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            animator.SetTrigger("ToSticker");
+            int previousIndex = currentIndex;
+            currentIndex = (currentIndex + 1) % buttons.Length;
+            if (currentIndex != previousIndex)
+            {
+                animator.SetTrigger("Exit" + buttons[previousIndex].name);
+                animator.SetTrigger("To" + buttons[currentIndex].name);
+                Debug.Log(currentIndex);
+
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            int previousIndex = currentIndex;
+            currentIndex = (currentIndex - 1 + buttons.Length) % buttons.Length;
+            if (currentIndex != previousIndex)
+            {
+                animator.SetTrigger("Exit" + buttons[previousIndex].name);
+                animator.SetTrigger("To" + buttons[currentIndex].name);
+                Debug.Log(currentIndex);
+            }
         }
     }
 }
