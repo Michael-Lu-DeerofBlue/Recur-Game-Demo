@@ -68,13 +68,15 @@ public class Grappling : MonoBehaviour
     }
 
     private void ExecuteGrapple()
-    {
+    { 
+        //Hook Launch SFX
         Vector3 forceDirection = grapplePoint - pm.transform.position;
         pm.InAir(true);
         pm.isMageticBootsOn = false;
         pm.UpdateUI();
         pm.GetComponent<Rigidbody>().AddForce(forceDirection*80);
         Invoke(nameof(StopGrapple), 1f);
+        //Hook Attach & Drag SFX
     }
 
     public void StopGrapple()
@@ -82,6 +84,7 @@ public class Grappling : MonoBehaviour
         grapplingCdTimer = grapplingCd;
         hitPoint = false;
         lr.enabled = false;
+        //Hook Loosen  SFX
     }
 
     public bool IsGrappling()

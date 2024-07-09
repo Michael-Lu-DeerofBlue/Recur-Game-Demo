@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         JudgeSprint();
         if (cam.fieldOfView != fov) { DoFieldofView();}
-        if (Input.GetKeyDown(KeyCode.Q) && GetComponent<GadgetsTool>().MagneticBoots) { isMageticBootsOn = !isMageticBootsOn;UpdateUI(); }
+        if (Input.GetKeyDown(KeyCode.Q) && GetComponent<GadgetsTool>().MagneticBoots) { isMageticBootsOn = !isMageticBootsOn;UpdateUI(); } //Boot SFX
     }
 
 
@@ -362,6 +362,7 @@ public class PlayerController : MonoBehaviour
         animator?.SetBool("IsJumping", false);
         isGrounded = true;
         if (inAir){InAir(false); }
+        //Landing SFX
         currentMagneticRotationSpeed = magneticRotationSpeedGrounded;
 
         // Stick to animated platform.

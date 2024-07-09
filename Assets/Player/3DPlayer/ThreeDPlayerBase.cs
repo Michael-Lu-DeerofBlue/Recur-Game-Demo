@@ -22,12 +22,14 @@ public class ThreeDPlayerBase : MonoBehaviour
 
     public void gotHitByEnemy()
     {
+        //Hit by enemy SFX
         HP--;
         UIHandler.GetComponent<PlayerToUI>().UpdateHP(HP);
         if (HP <= 0)
         {
             ThreeDTo2DData.ThreeDScene = null;
             levelController.GetComponent<Level2>().ResetLevel();
+            //Player Die SFX
         }
     }
 }

@@ -41,8 +41,9 @@ public class SpotLightMove : MonoBehaviour
         while (spotlightOn)
         {
             //Debug.Log("Here");
-            
+
             // Open the spotlight (increase intensity)
+            //Spotlight on SFX
             yield return StartCoroutine(ChangeIntensity(maxIntensity, intensityChangeSpeed));
             StartCoroutine(ChangeChildrenIntensity(15f, 1));
 
@@ -53,6 +54,7 @@ public class SpotLightMove : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
 
             // Close the spotlight (decrease intensity)
+            //Spotlight off SFX
             yield return StartCoroutine(ChangeIntensity(0, intensityChangeSpeed));
             StartCoroutine(ChangeChildrenIntensity(0f, 1));
             // Choose the next target from the connected waypoints

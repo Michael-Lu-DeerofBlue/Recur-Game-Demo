@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fungus;
+using Unity.VisualScripting;
 
 public class ThreeEnemyBase : MonoBehaviour
 {
@@ -38,6 +39,14 @@ public class ThreeEnemyBase : MonoBehaviour
                 Player.GetComponent<ThreeDPlayerBase>().gotHitByEnemy();
                 Stool();
             }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (inStool)
+        {
+            //Enemy Walking SFX
         }
     }
 
