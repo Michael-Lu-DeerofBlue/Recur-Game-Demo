@@ -8,7 +8,6 @@ public class EnemySFX : MonoBehaviour
     public Flowchart flowchart; // Reference to the Fungus Flowchart
 
     private bool wasWalking = false; // Track the previous walking state
-    private bool wasSprinting = false; // Track the previous sprinting state
     private Vector3 lastPosition; // Track the last position to calculate velocity
 
    void Awake()

@@ -44,10 +44,7 @@ public class ThreeEnemyBase : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (inStool)
-        {
-            //Enemy Walking SFX
-        }
+
     }
 
     IEnumerator TimerStart(float delay)

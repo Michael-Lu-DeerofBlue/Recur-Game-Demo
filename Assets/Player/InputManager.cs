@@ -5,43 +5,42 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-
     private PlayerInput playerInput;
-    private PlayerInput.OnFootActions onFoot;
+    // private PlayerInput.OnFootActions onFoot;
 
-    private PlayerMotor motor;
-    private PlayerLook look;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        playerInput = new PlayerInput();
-        onFoot = playerInput.OnFoot;
-        motor = GetComponent<PlayerMotor>();
-        look = GetComponent<PlayerLook>();
-        onFoot.Jump.performed += ctx => motor.Jump();
-        onFoot.Crouch.performed += ctx => motor.Crouch();
-        onFoot.Sprint.performed += ctx => motor.Sprint();
-    }
+    // private PlayerController playerController;
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        //tell the playermotor to move using the value from our movement action.
-        motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
-    }
+    // void Awake()
+    // {
+    //     playerInput = new PlayerInput();
+    //     onFoot = playerInput.OnFoot;
+    //     playerController = GetComponent<PlayerController>();
 
-    private void LateUpdate()
-    {
-        look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
-    }
+    //     onFoot.Jump.performed += ctx => playerController.Jump();
+    //     //onFoot.Crouch.performed += ctx => playerController.Crouch(); // Update your PlayerController script to handle Crouch if needed
+    //     onFoot.Sprint.performed += ctx => playerController.StartSprint();
+    //     onFoot.Sprint.canceled += ctx => playerController.StopSprint();
+    // }
 
-    private void OnEnable()
-    {
-        onFoot.Enable();
-    }
+    // void FixedUpdate()
+    // {
+    //     playerController.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+    // }
 
-    private void OnDisable()
-    {
-        onFoot.Disable();
-    }
+    // void LateUpdate()
+    // {
+    //     playerController.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+    // }
+
+    // private void OnEnable()
+    // {
+    //     onFoot.Enable();
+    // }
+
+    // private void OnDisable()
+    // {
+    //     onFoot.Disable();
+    // }
+
+    // public PlayerInput.OnFootActions OnFoot => onFoot; // Expose OnFoot actions
 }

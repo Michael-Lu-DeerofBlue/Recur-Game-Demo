@@ -72,7 +72,7 @@ public class Grappling : MonoBehaviour
         //Hook Launch SFX
         Vector3 forceDirection = grapplePoint - pm.transform.position;
         pm.InAir(true);
-        pm.isMageticBootsOn = false;
+        pm.isMagneticBootsOn = false;
         pm.UpdateUI();
         pm.GetComponent<Rigidbody>().AddForce(forceDirection*80);
         Invoke(nameof(StopGrapple), 1f);
