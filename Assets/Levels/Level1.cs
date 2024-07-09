@@ -196,11 +196,13 @@ public class Level1 : LevelController
         {
             case "English":
                 language = "en";
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 200;
+                //set subtitle speed
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 20;
                 break;
             case "Chinese (Simplified)":
                 language = "cn";
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 100;
+                //set subtitle speed
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 10;
                 break;
             // Add more cases for other languages if needed
             default:
