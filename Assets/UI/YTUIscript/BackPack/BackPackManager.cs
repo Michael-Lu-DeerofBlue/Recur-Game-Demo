@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class BackPackManager : MonoBehaviour
 
     private Button[] buttons;
     private int currentIndex = 0;
+    private bool canAcceptInput = true;
     void Start()
     {
         // Add listeners to the buttons
@@ -42,28 +44,38 @@ public class BackPackManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (canAcceptInput)
         {
-            int previousIndex = currentIndex;
-            currentIndex = (currentIndex + 1) % buttons.Length;
-            if (currentIndex != previousIndex)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                animator.SetTrigger("Exit" + buttons[previousIndex].name);
-                animator.SetTrigger("To" + buttons[currentIndex].name);
-                Debug.Log(currentIndex);
+                int previousIndex = currentIndex;
+                currentIndex = (currentIndex + 1) % buttons.Length;
+                if (currentIndex != previousIndex)
+                {
+                    animator.SetTrigger("Exit" + buttons[previousIndex].name);
+                    animator.SetTrigger("To" + buttons[currentIndex].name);
+                    canAcceptInput = false;
+                     StartCoroutine(EnableInputAfterDelay(1.0f));
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                int previousIndex = currentIndex;
+                currentIndex = (currentIndex - 1 + buttons.Length) % buttons.Length;
+                if (currentIndex != previousIndex)
+                {
+                    animator.SetTrigger("Exit" + buttons[previousIndex].name);
+                    animator.SetTrigger("To" + buttons[currentIndex].name);
+                    canAcceptInput = false;
+                    StartCoroutine(EnableInputAfterDelay(1.0f));
+                }
+            }
+        }
+    }
 
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.Q))
-        {
-            int previousIndex = currentIndex;
-            currentIndex = (currentIndex - 1 + buttons.Length) % buttons.Length;
-            if (currentIndex != previousIndex)
-            {
-                animator.SetTrigger("Exit" + buttons[previousIndex].name);
-                animator.SetTrigger("To" + buttons[currentIndex].name);
-                Debug.Log(currentIndex);
-            }
-        }
+    IEnumerator EnableInputAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        canAcceptInput = true; 
     }
 }
