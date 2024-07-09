@@ -71,7 +71,6 @@ public class ItemManager : MonoBehaviour
             inventoryButton.quantityText.text = quantity.ToString();
             inventoryButton.button.onClick.AddListener(() => OnButtonClick(inventoryButton));
 
-
             EventTrigger eventTrigger = inventoryButton.button.gameObject.AddComponent<EventTrigger>();
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerEnter;
@@ -86,6 +85,10 @@ public class ItemManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Item sprite not found for: " + itemName);
+        }
+        if (inventoryButton != null)
+        {
+            inventoryButton.image.alphaHitTestMinimumThreshold = 0.1f;
         }
     }
     void OnButtonClick(InventoryButton inventoryButton)
