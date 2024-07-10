@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    private Camera cam;
+    [SerializeField] private GameObject playerUI;
     [SerializeField] private float distance = 3f;
     [SerializeField] private LayerMask mask;
+    private Camera cam;
+    private PlayerToUI playerToUI;
     private InputManager inputManager;
 
     void Start()
@@ -18,11 +20,18 @@ public class PlayerInteract : MonoBehaviour
             Debug.LogError("Camera component is missing on PlayerController.");
         }
 
+        playerToUI = playerUI.GetComponent<PlayerToUI>();
+        if (playerToUI == null)
+        {
+            Debug.LogError("PlayerToUI component is missing on PlayerUI.");
+        }
+
         inputManager = GetComponent<InputManager>();
         if (inputManager == null)
         {
             Debug.LogError("InputManager component is missing.");
         }
+
     }
 
     void Update()
@@ -32,6 +41,7 @@ public class PlayerInteract : MonoBehaviour
             return; // Exit if required components are not assigned
         }
 
+        playerToUI.UpdateText(string.Empty);
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         //Debug.DrawRay(ray.origin, ray.direction * distance);
         RaycastHit hitInfo;
@@ -40,7 +50,7 @@ public class PlayerInteract : MonoBehaviour
             Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
             if (interactable != null)
             {
-                Debug.Log(interactable.promptMessage);
+                playerToUI.UpdateText(interactable.promptMessage);
                 if (inputManager.OnFoot.Interact.triggered)
                 {
                     interactable.BaseInteract();

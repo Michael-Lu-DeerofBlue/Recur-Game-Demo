@@ -3,9 +3,9 @@ using Fungus;
 
 public class PlayerSFX : MonoBehaviour
 {
-    PlayerController playerController;
-    [SerializeField] GameObject player;
+    [SerializeField] private GameObject player;
     public Flowchart flowchart; // Reference to the Fungus Flowchart
+    private PlayerController playerController;
     private bool wasWalking = false; // Track the previous walking state
     private bool wasSprinting = false; // Track the previous sprinting state
 
