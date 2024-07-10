@@ -7,7 +7,7 @@ using UnityEngine;
 /// Controls the character by magnetizing to nearby objects that he can walk on.
 /// </summary>
 [RequireComponent(typeof(CapsuleCollider), typeof(Rigidbody))]
-public class TempPlayerController : MonoBehaviour
+public class OldPlayerController : MonoBehaviour
 {
     public const float DEFAULT_MOVEMENT_SPEED = 5f;
     public const float DEFAULT_SPRINT_SPEED = 8f;
@@ -95,6 +95,8 @@ public class TempPlayerController : MonoBehaviour
     /// 
     private void FixedUpdate()
     {
+        Move();
+        ProcessLook();
         if (isMagneticBootsOn) { MagneticRotate(); }
         Gravitate();
     }
@@ -115,6 +117,7 @@ public class TempPlayerController : MonoBehaviour
     private void Update()
     {
         Jump();
+        JudgeSprint();
         if (cam.fieldOfView != fov) { DoFieldofView();}
         if (Input.GetKeyDown(KeyCode.Q) && GetComponent<GadgetsTool>().MagneticBoots) { isMagneticBootsOn = !isMagneticBootsOn;UpdateUI(); } //Boot SFX
     }
@@ -128,11 +131,11 @@ public class TempPlayerController : MonoBehaviour
     /// <summary>
     /// Moves the character using user's input.
     /// </summary>
-    public void ProcessMove(Vector2 moveInput)
+    private void Move()
     {
         // Forward and backward movement.
-        var inputVertical = moveInput.y;
-        var inputHorizontal = moveInput.x;
+        var inputVertical = Input.GetAxis("Vertical");
+        var inputHorizontal = Input.GetAxis("Horizontal");
         if (inputHorizontal == 0 && inputVertical == 0 && inAir == false && isGrounded == true)
         {
             inMovement = false;
@@ -180,20 +183,21 @@ public class TempPlayerController : MonoBehaviour
             rigidbody.velocity = Vector3.zero;
         }
     }
-    public void StartSprint()
+    private void JudgeSprint()
     {
-        if (inMovement && !inSprint)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint)
         {
             inSprint = true;
+            Debug.Log("Sprinting");
             movementSpeed = DEFAULT_SPRINT_SPEED;
             fov = DEFAULT_SPRINT_FOV;
         }
-    }
-
-    public void StopSprint()
-    {
-        inSprint = false;
-        ResetMovement();
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && inSprint)
+        {
+            inSprint = false;
+            Debug.Log("Stopped sprinting");
+            ResetMovement();
+        }
     }
 
     private void ResetMovement()
@@ -202,7 +206,7 @@ public class TempPlayerController : MonoBehaviour
         fov = DEFAULT_FOV;
     }
 
-    public void Jump()
+    private void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -212,11 +216,11 @@ public class TempPlayerController : MonoBehaviour
         }
     }
 
-    public void ProcessLook(Vector2 lookInput)
+    public void ProcessLook()
     {
-        float mouseX = lookInput.x * xSensitivity;
-        float mouseY = lookInput.y * ySensitivity;
 
+        float mouseX = Input.GetAxis("Mouse X") * xSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * ySensitivity ;
 
         // Calculate camera rotation for looking up and down
         xRotation -= mouseY;

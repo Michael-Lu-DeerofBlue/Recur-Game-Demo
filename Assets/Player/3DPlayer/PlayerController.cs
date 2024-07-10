@@ -34,7 +34,9 @@ public class PlayerController : MonoBehaviour
     [Header("Layers on which the character can walk.")]
     [SerializeField] private LayerMask RayCastLayerMask = ~LAYER_EVERYTHING;
 
-    private float currentMagneticRotationSpeed;
+    [SerializeField] bool InvertY = false;
+    [SerializeField] float LookSensitivity = 1f;
+    [SerializeField] private float currentMagneticRotationSpeed;
     public bool isGrounded;
     public bool inMovement;
     public bool inSprint;
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 camRotationVelocity;
     private float currentPlayerRotation;
     private float playerRotationVelocity;
+    private float pitch = 0;
+
 
     [Header("Magnetic Boots")]
     public bool isMagneticBootsOn = false;
@@ -95,8 +99,8 @@ public class PlayerController : MonoBehaviour
     /// 
     private void FixedUpdate()
     {
-        Move();
-        ProcessLook();
+        //Move(); moved to inputmanager
+        //ProcessLook(); moved to inputmanager
         if (isMagneticBootsOn) { MagneticRotate(); }
         Gravitate();
     }
@@ -116,8 +120,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Jump();
-        JudgeSprint();
+        //Jump(); moved to inputmanager
+        //JudgeSprint(); moved to inputmanager
         if (cam.fieldOfView != fov) { DoFieldofView();}
         if (Input.GetKeyDown(KeyCode.Q) && GetComponent<GadgetsTool>().MagneticBoots) { isMagneticBootsOn = !isMagneticBootsOn;UpdateUI(); } //Boot SFX
     }
@@ -131,7 +135,12 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Moves the character using user's input.
     /// </summary>
-    private void Move()
+    // public void ProcessMove(Vector2 moveInput)
+    // {
+    //     // Forward and backward movement.
+    //     var inputVertical = moveInput.y;
+    //     var inputHorizontal = moveInput.x;
+    public void Move()
     {
         // Forward and backward movement.
         var inputVertical = Input.GetAxis("Vertical");
@@ -183,7 +192,25 @@ public class PlayerController : MonoBehaviour
             rigidbody.velocity = Vector3.zero;
         }
     }
-    private void JudgeSprint()
+    // public void StartSprint()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint)
+    //     {
+    //         inSprint = true;
+    //         movementSpeed = DEFAULT_SPRINT_SPEED;
+    //         fov = DEFAULT_SPRINT_FOV;
+    //     }
+    // }
+
+    // public void StopSprint()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && inSprint)
+    //     {
+    //         inSprint = false;
+    //         ResetMovement();
+    //     }
+    // }
+public void JudgeSprint()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint)
         {
@@ -206,7 +233,7 @@ public class PlayerController : MonoBehaviour
         fov = DEFAULT_FOV;
     }
 
-    private void Jump()
+    public void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -216,30 +243,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void ProcessLook()
-    {
+public void ProcessLook(Vector2 lookInput)
+{ 
+    pitch -= lookInput.y * LookSensitivity * (InvertY ? -1 : 1);  // Invert the Y-axis movement
+    pitch = Mathf.Clamp(pitch, -89f, 89f);
+ 
+    cam.transform.localRotation = Quaternion.Euler(pitch, 0, 0);
+    transform.Rotate(0, lookInput.x * LookSensitivity, 0);  // multiply lookInput.x by -1 to invert X-axis movement
+}
 
-        float mouseX = Input.GetAxis("Mouse X") * xSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * ySensitivity ;
-
-        // Calculate camera rotation for looking up and down
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
-
-        // Smoothly interpolate the camera rotation
-        Vector3 targetCamRotation = new Vector3(xRotation, 0f, 0f);
-        currentCamRotation = Vector3.SmoothDamp(currentCamRotation, targetCamRotation, ref camRotationVelocity, rotationSmoothTime);
-
-        cam.transform.localRotation = Quaternion.Euler(currentCamRotation);
-        transform.Rotate(Vector3.up * (mouseX * Time.deltaTime) * xSensitivity);
-        /*
-        // Smoothly interpolate the player rotation
-        float targetPlayerRotation = transform.eulerAngles.y + mouseX;
-        currentPlayerRotation = Mathf.SmoothDampAngle(currentPlayerRotation, targetPlayerRotation, ref playerRotationVelocity, rotationSmoothTime);
-
-        transform.rotation = Quaternion.Euler(0f, currentPlayerRotation, 0f);
-        */
-    }
 
     public void DoFieldofView()
     {
