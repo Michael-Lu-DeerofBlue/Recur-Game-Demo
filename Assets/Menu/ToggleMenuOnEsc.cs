@@ -36,11 +36,13 @@ public class ToggleMenuOnEsc : MonoBehaviour
             if (targetObject != null)
             {
                 isPaused = !isPaused;
-                targetObject.SetActive(isPaused);
+                targetObject.gameObject.SetActive(true);
 
-                // Enable/disable scripts
+            }
 
-                if (cursorScript != null)
+            // Enable/disable scripts
+
+            if (cursorScript != null)
                 {
                     cursorScript.enabled = !isPaused;
                 }
@@ -69,4 +71,4 @@ public class ToggleMenuOnEsc : MonoBehaviour
             }
         }
     }
-}
+

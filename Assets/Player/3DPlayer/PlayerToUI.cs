@@ -9,6 +9,8 @@ public class PlayerToUI : MonoBehaviour
     public TextMeshProUGUI FPS;
     public TextMeshProUGUI Camera;
     public TextMeshProUGUI HP;
+
+    [SerializeField] private TextMeshProUGUI promptText;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,10 @@ public class PlayerToUI : MonoBehaviour
         HP.text = text + value;
     }
 
+    public void UpdateText(string promptMessage)
+    {
+        promptText.text = promptMessage;
+    }
 
     // Update is called once per frame
     void Update()
