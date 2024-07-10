@@ -18,8 +18,6 @@ public class InputManager : MonoBehaviour
 
         onFoot.Jump.performed += ctx => playerController.Jump();
         //onFoot.Crouch.performed += ctx => playerController.Crouch(); // Update your PlayerController script to handle Crouch if needed
-        //onFoot.Sprint.performed += ctx => playerController.StartSprint();
-        //onFoot.Sprint.canceled += ctx => playerController.StopSprint();
     }
 
     void Update()
@@ -29,12 +27,12 @@ public class InputManager : MonoBehaviour
     }
     void FixedUpdate()
     {
-        playerController.Move();//ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+        playerController.ProcessMove(onFoot.Movement.ReadValue<Vector2>());//Move();
     }
 
     void LateUpdate()
     {
-        //playerController.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+
     }
 
     private void OnEnable()

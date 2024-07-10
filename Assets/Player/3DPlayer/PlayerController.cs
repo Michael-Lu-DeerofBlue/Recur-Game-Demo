@@ -53,11 +53,6 @@ public class PlayerController : MonoBehaviour
     public Camera cam;
     private float xRotation = 0f;
     public float xSensitivity = 30f; public float ySensitivity = 30f;
-    public float rotationSmoothTime = 0.1f;
-    private Vector3 currentCamRotation;
-    private Vector3 camRotationVelocity;
-    private float currentPlayerRotation;
-    private float playerRotationVelocity;
     private float pitch = 0;
 
 
@@ -135,16 +130,11 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Moves the character using user's input.
     /// </summary>
-    // public void ProcessMove(Vector2 moveInput)
-    // {
-    //     // Forward and backward movement.
-    //     var inputVertical = moveInput.y;
-    //     var inputHorizontal = moveInput.x;
-    public void Move()
+    public void ProcessMove(Vector2 moveInput)
     {
         // Forward and backward movement.
-        var inputVertical = Input.GetAxis("Vertical");
-        var inputHorizontal = Input.GetAxis("Horizontal");
+        var inputVertical = moveInput.y;
+        var inputHorizontal = moveInput.x;
         if (inputHorizontal == 0 && inputVertical == 0 && inAir == false && isGrounded == true)
         {
             inMovement = false;
@@ -192,37 +182,18 @@ public class PlayerController : MonoBehaviour
             rigidbody.velocity = Vector3.zero;
         }
     }
-    // public void StartSprint()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint)
-    //     {
-    //         inSprint = true;
-    //         movementSpeed = DEFAULT_SPRINT_SPEED;
-    //         fov = DEFAULT_SPRINT_FOV;
-    //     }
-    // }
 
-    // public void StopSprint()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && inSprint)
-    //     {
-    //         inSprint = false;
-    //         ResetMovement();
-    //     }
-    // }
 public void JudgeSprint()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint)
         {
             inSprint = true;
-            Debug.Log("Sprinting");
             movementSpeed = DEFAULT_SPRINT_SPEED;
             fov = DEFAULT_SPRINT_FOV;
         }
         else if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && inSprint)
         {
             inSprint = false;
-            Debug.Log("Stopped sprinting");
             ResetMovement();
         }
     }
