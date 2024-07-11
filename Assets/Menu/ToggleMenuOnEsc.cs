@@ -6,11 +6,13 @@ public class ToggleMenuOnEsc : MonoBehaviour
     public MonoBehaviour cursorScript;
     public MonoBehaviour PlayerController; // Reference to the player control script
     public MonoBehaviour CameraController; // Reference to the camera control script
+    public MainUIManager mainUIManager;
 
     private bool isPaused = false; // To track the paused state
 
     void Start()
     {
+        mainUIManager = FindAnyObjectByType<MainUIManager>();
         // Ensure all references are set
         if (targetObject == null)
         {
@@ -28,19 +30,16 @@ public class ToggleMenuOnEsc : MonoBehaviour
         }
     }
 
+    public void sendEscMessage()
+    {
+        mainUIManager.OnEsc();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // Toggle the active state of the menu object
-            if (targetObject != null)
-            {
-                isPaused = !isPaused;
-                targetObject.gameObject.SetActive(true);
-
-            }
-
-            // Enable/disable scripts
+               sendEscMessage();
 
             if (cursorScript != null)
                 {
