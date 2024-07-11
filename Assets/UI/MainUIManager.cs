@@ -10,6 +10,7 @@ public class MainUIManager : MonoBehaviour
     public Canvas PuaseMenuCanvas;
     public Canvas EquipCanvas;
     public Canvas CollectionCanvas;
+    public Animator CurrentAnimator;
     public enum GameState
     {
         Gaming,
@@ -29,16 +30,18 @@ public class MainUIManager : MonoBehaviour
     {
         switch (currentState)
         {
+
             case GameState.Gaming:
                PuaseMenuCanvas.gameObject.SetActive(true);
-                currentState= GameState.PauseMenu;
-                Debug.Log("esc escesc");
+                CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
+                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                CurrentAnimator.Play("EnterPuaseMenu");
+                Debug.Log("enter pause menu enter pause menuenter pause menuenter pause menu");
+                currentState = GameState.PauseMenu;
                 return;
             case GameState.PauseMenu:
-                Animator currentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
-                currentAnimator.SetTrigger("ExitPauseMenu");
-                PuaseMenuCanvas.gameObject.SetActive(false);
 
+                CurrentAnimator.SetTrigger("ExitPauseMenu");
                 currentState = GameState.Gaming;
                 return;
 
