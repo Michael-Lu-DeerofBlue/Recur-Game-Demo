@@ -112,15 +112,19 @@ public class SelectionTool : MonoBehaviour
         List<int> tempList = new List<int>(list);
         System.Random random = new System.Random();
 
-        for (int i = 0; i < count; i++)
+        while (result.Count < count && tempList.Count > 0)
         {
-            if (tempList.Count == 0) break;
-
             int randomIndex = random.Next(tempList.Count);
-            result.Add(tempList[randomIndex]);
-            tempList.RemoveAt(randomIndex);
+            int randomValue = tempList[randomIndex];
+
+            // Ensure no duplicates
+            if (!result.Contains(randomValue) && !threeBlockList.Contains(randomValue))
+            {
+                result.Add(randomValue);
+                tempList.RemoveAt(randomIndex);
+            }
         }
-        
+
         return result;
     }
     public void ReShapeSelectionBlocks()

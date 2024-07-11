@@ -19,6 +19,7 @@ public class BattleManager : MonoBehaviour
 
     //Player status:
     public bool PlayerLandOn = false;
+    public int clearedline = 0;
 
 
     //when add new debuff type, remember to add a bool to "RemoveAllPlayerDebuff" method.
@@ -223,6 +224,11 @@ public class BattleManager : MonoBehaviour
     public void ContinueBlockGame()//called when start to select enemy.
     {
         TimeStop = false;
+        clearedline = 0;
+    }
+    public void addclearedlineNumber()
+    {
+        clearedline++;
     }
 
 
