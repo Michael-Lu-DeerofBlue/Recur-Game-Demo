@@ -11,17 +11,17 @@ public class LongSword : HeroInfo
         {
             case 1:
                 
-                AttackEnemy(1);
-                break;
-            case 2:
                 AttackEnemy(2);
                 break;
+            case 2:
+                AttackEnemy(4);
+                break;
             case 3:
-                AttackEnemy(3);
+                AttackEnemy(7);
                 PauseSingleEnemyActionBar(2);
                 break;
             case 4:
-                AttackEnemy(4);
+                AttackEnemy(10);
                 PauseSingleEnemyActionBar(3);
                 break;
             default:
@@ -143,20 +143,25 @@ public class LongSword : HeroInfo
 
     public override void HandleIndex6(int clearNumber) // 6: Lblue
     {
+
         switch (clearNumber)
         {
             case 1:
-                AttackEnemy(12);
+                AttackEnemy(1);
                 break;
             case 2:
-                AttackEnemy(18);
+                AttackEnemy(1);
                 break;
             case 3:
-                AttackEnemy(22);
+                AttackEnemy(1);
                 break;
             case 4:
+                if (battleManager.clearedline == 4)
+                {
+                    AttackEnemy(30);
+                }
+                else AttackEnemy(1);
 
-                AttackEnemy(30);
                 break;
             default:
                 // Handle unexpected clearNumber here

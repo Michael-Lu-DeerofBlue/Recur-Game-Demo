@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Fungus;
 
 public class SpotLightMove : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class SpotLightMove : MonoBehaviour
     public bool inFreeze;
     public bool inOff;
     public bool arrived;
+    public Flowchart flowchart;
     void Start()
     {
         waypointManager = GetComponent<WaypointManager>();
@@ -46,7 +48,7 @@ public class SpotLightMove : MonoBehaviour
             //Debug.Log("Here");
 
             // Open the spotlight (increase intensity)
-            //Spotlight on SFX
+            PlayEffectOn();
             yield return StartCoroutine(ChangeIntensity(maxIntensity, intensityChangeSpeed));
             StartCoroutine(ChangeChildrenIntensity(15f, 1));
 
@@ -57,7 +59,7 @@ public class SpotLightMove : MonoBehaviour
             yield return new WaitUntil(() => arrived);
 
             // Close the spotlight (decrease intensity)
-            //Spotlight off SFX
+            PlayEffectOff();
             yield return StartCoroutine(ChangeIntensity(0, intensityChangeSpeed));
             StartCoroutine(ChangeChildrenIntensity(0f, 1));
             // Choose the next target from the connected waypoints
@@ -184,6 +186,26 @@ public class SpotLightMove : MonoBehaviour
     {
         spotlightOn = true;
         StartCoroutine(RotateToTargets());
+    }
+
+    void PlayEffectOn()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("SpotlightOn");
+        }
+    }
+
+    void PlayEffectOff()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("SpotlightOff");
+        }
     }
 
 }

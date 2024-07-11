@@ -26,6 +26,7 @@ public class BlockManager : MonoBehaviour
     public Sprite[] sprites;
     private int Shapeindex;
     private bool isClearingRightSideBlocks = false;
+    private int movedLines = 0;
     void Start()
     {
         twoDto3D = FindObjectOfType<TwoDto3D>();
@@ -125,6 +126,7 @@ public class BlockManager : MonoBehaviour
     // Check for complete lines and move them to the right side
     void CheckForLines()
     {
+
         for (int i = height - 1; i >= 0; i--)
         {
             if (HasLine(i))
@@ -132,6 +134,7 @@ public class BlockManager : MonoBehaviour
                 MoveLineToRightSide(i);
                 RowDown(i);
                 battleManager.IntrruptBlockGame();
+                battleManager.addclearedlineNumber();
             }
         }
     }
@@ -144,7 +147,9 @@ public class BlockManager : MonoBehaviour
             if (grid[j, i] == null)
                 return false;
         }
+        movedLines++;
         return true;
+
     }
 
 
@@ -154,7 +159,7 @@ public class BlockManager : MonoBehaviour
         int startX = extendedWidth - 1; // Display on the right side
         int startY = height - 1;
 
-
+        
         List<Transform> blocks = new List<Transform>();
         for (int j = 0; j < width; j++)
         {
