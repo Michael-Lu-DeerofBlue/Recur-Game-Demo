@@ -17,6 +17,7 @@ public class SpotlightDetection : MonoBehaviour
     private LayerMask layerMask;
     void Start()
     {
+        spotlight = GetComponent<Light>();
         // Get the layer indices from the layer names
         playerLayer = LayerMask.NameToLayer(playerLayerName);
         wallLayer = LayerMask.NameToLayer(wallLayerName);

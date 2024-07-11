@@ -16,18 +16,18 @@ public class InputManager : MonoBehaviour
         onFoot = playerInput.OnFoot;
         playerController = GetComponent<PlayerController>();
 
-        onFoot.Jump.performed += ctx => playerController.Jump();
+        //onFoot.Jump.performed += ctx => playerController.Jump();
         //onFoot.Crouch.performed += ctx => playerController.Crouch(); // Update your PlayerController script to handle Crouch if needed
     }
 
     void Update()
     {
-        playerController.ProcessLook(onFoot.Look.ReadValue<Vector2>());
-        playerController.JudgeSprint();
+        //playerController.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+        //playerController.JudgeSprint();
     }
     void FixedUpdate()
     {
-        playerController.ProcessMove(onFoot.Movement.ReadValue<Vector2>());//Move();
+        //playerController.ProcessMove(onFoot.Movement.ReadValue<Vector2>());//Move();
     }
 
     void LateUpdate()

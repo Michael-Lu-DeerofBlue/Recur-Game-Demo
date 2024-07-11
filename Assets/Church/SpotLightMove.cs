@@ -17,6 +17,9 @@ public class SpotLightMove : MonoBehaviour
     public GameObject spotlightManager;
     private bool first = true;
     public Light pointLight;
+    public bool inFreeze;
+    public bool inOff;
+    public bool arrived;
     void Start()
     {
         waypointManager = GetComponent<WaypointManager>();
@@ -38,7 +41,7 @@ public class SpotLightMove : MonoBehaviour
     {
         if (first) { currentTarget = waypointManager.waypointTransforms[0]; first = false; }
 
-        while (spotlightOn)
+        while (spotlightOn )
         {
             //Debug.Log("Here");
 
@@ -51,7 +54,7 @@ public class SpotLightMove : MonoBehaviour
             yield return StartCoroutine(RotateTowardsTarget(currentTarget));
 
             // Wait for the specified time
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitUntil(() => arrived);
 
             // Close the spotlight (decrease intensity)
             //Spotlight off SFX
@@ -74,8 +77,16 @@ public class SpotLightMove : MonoBehaviour
         {
             while (!Mathf.Approximately(spotlight.intensity, targetIntensity))
             {
-                spotlight.intensity = Mathf.MoveTowards(spotlight.intensity, targetIntensity, speed * Time.deltaTime);
-                yield return null;
+                if (!inOff)
+                {
+                    spotlight.intensity = Mathf.MoveTowards(spotlight.intensity, targetIntensity, speed * Time.deltaTime);
+                    yield return null;
+                }
+                else
+                {
+                    spotlight.intensity = 0;
+                    yield return null;
+                }
             }
         }
     }
@@ -101,29 +112,32 @@ public class SpotLightMove : MonoBehaviour
     IEnumerator RotateTowardsTarget(Transform target)
     {
         if (target == null) yield break;
-
+        arrived = false;
         while (true)
         {
-            // Determine the direction to the target
-            Vector3 direction = target.position - transform.position;
-            //direction.x = 0; // Lock the rotation on the z-axis
-
-            // Calculate the desired rotation towards the target
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-            // Lock the z-axis rotation
-            targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, 0);
-
-            // Smoothly rotate towards the target at a constant speed
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-            // Check if the rotation is complete
-            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
+            if (!inFreeze)
             {
-                yield break;
-            }
+                // Determine the direction to the target
+                Vector3 direction = target.position - transform.position;
+                //direction.x = 0; // Lock the rotation on the z-axis
 
-            yield return null;
+                // Calculate the desired rotation towards the target
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+                // Lock the z-axis rotation
+                targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, 0);
+
+                // Smoothly rotate towards the target at a constant speed
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+                // Check if the rotation is complete
+                if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
+                {
+                    arrived = true;
+                    yield break;
+                }
+            }
+            yield return null; // Yield control back to the coroutine loop
         }
     }
 

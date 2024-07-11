@@ -28,6 +28,7 @@ public class Level2 : LevelController
     // Start is called before the first frame update
     void Awake()
     {
+        colorAdjustments = (ColorAdjustments)volume.profile.components.Find(x => x is ColorAdjustments);
         Player.GetComponent<GadgetsTool>().MagneticBoots = false;
         Player.GetComponent<GadgetsTool>().Camera = true;
         if (ThreeDTo2DData.ThreeDScene != null)
@@ -40,7 +41,6 @@ public class Level2 : LevelController
             triggerBox.SetActive(true);
             SetRandomEnemyHasKey();
         }
-        colorAdjustments = (ColorAdjustments)volume.profile.components.Find(x => x is ColorAdjustments);
     }
 
     private void Update()

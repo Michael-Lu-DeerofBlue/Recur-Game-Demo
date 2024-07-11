@@ -7,10 +7,11 @@ public class SpotlightManager : MonoBehaviour
     public List<GameObject> spotlights; // List of all spotlight GameObjects
     public List<GameObject> activeSpotlights; // List of currently active spotlights
     public List<GameObject> inactiveSpotlights; // List of inactive spotlights
-
+    public GameObject centralSpotlight;
     public int initialActiveSpotlights = 3; // Number of spotlights to activate at game start
     public float checkInterval = 1.0f; // Interval in seconds to check the number of active spotlights
-
+    public float freezLightInterval = 5.0f;
+    public float turnoffLightInterval = 5.0f;
 
     private void Update()
     {
@@ -74,6 +75,61 @@ public class SpotlightManager : MonoBehaviour
         {
             Debug.LogError("No SpotLightMove component found on the spotlight.");
         }
+    }
+
+    public void FreezeSpotlight()
+    {
+        StartCoroutine(FreezeMoveSpotlight());
+    }
+
+
+    IEnumerator FreezeMoveSpotlight()
+    {
+        foreach (GameObject spotlight in spotlights)
+        {
+            spotlight.GetComponent<SpotLightMove>().inFreeze = true;
+        }
+        yield return new WaitForSeconds(freezLightInterval);
+        foreach (GameObject spotlight in spotlights)
+        {
+            spotlight.GetComponent<SpotLightMove>().inFreeze = false;
+        }
+    }
+
+    public void TurnOffSpotlight()
+    {
+        StartCoroutine(TurnOffAllSpotlight(turnoffLightInterval));
+    }
+
+    public void CentralSpotlight()
+    {
+        StartCoroutine(TurnOffAllSpotlight(2));
+        StartCoroutine(CentralSpotlightOn());
+    }
+
+
+    IEnumerator TurnOffAllSpotlight(float delay)
+    {
+        foreach (GameObject spotlight in spotlights)
+        {
+            spotlight.GetComponent<SpotLightMove>().inOff = true;
+            spotlight.GetComponent<Light>().intensity = 0;
+        }
+        yield return new WaitForSeconds(delay);
+        foreach (GameObject spotlight in spotlights)
+        {
+            spotlight.GetComponent<SpotLightMove>().inOff = false;
+        }
+    }
+
+    IEnumerator CentralSpotlightOn()
+    {
+        centralSpotlight.GetComponent<Light>().intensity = 5000;
+        activeSpotlights.Add(centralSpotlight);
+        yield return new WaitForSeconds(2);
+        activeSpotlights.Remove(centralSpotlight);
+        centralSpotlight.GetComponent<Light>().intensity = 0;
+
     }
 
     public void Pause()
