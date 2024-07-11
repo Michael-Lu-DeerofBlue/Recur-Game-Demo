@@ -36,11 +36,9 @@ public class MainUIManager : MonoBehaviour
                 CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
                 CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 CurrentAnimator.Play("EnterPuaseMenu");
-                Debug.Log("enter pause menu enter pause menuenter pause menuenter pause menu");
                 currentState = GameState.PauseMenu;
                 return;
             case GameState.PauseMenu:
-
                 CurrentAnimator.SetTrigger("ExitPauseMenu");
                 currentState = GameState.Gaming;
                 return;
