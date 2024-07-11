@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 7
+  version: 9
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -31,7 +31,8 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -45,8 +46,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: 9edd1412929a1434fbe106f08cde94e0, type: 3}
-        m_Scale: {x: 4, y: 4}
+        m_Texture: {fileID: 2800000, guid: b65223b4fd1d37041b9ee7bf898e9332, type: 3}
+        m_Scale: {x: 8, y: 8}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
@@ -89,8 +90,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicRoughness:
-        m_Texture: {fileID: 2800000, guid: 29ea5da2c0930f3488834fdb869deb4d, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 3a7a5343df83c064f8779e3d7dfc4336, type: 3}
+        m_Scale: {x: 8, y: 8}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -157,7 +158,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _METALNESS: 0
-    - _Metallic: 1
+    - _Metallic: 0.039
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -167,7 +168,8 @@ Material:
     - _REFLECTIONS_ROUGHNESS: 0.77447414
     - _REFLECTIONS_WEIGHT: 0.5
     - _ReceiveShadows: 1
-    - _Roughness: 0.303
+    - _Rotate: 0
+    - _Roughness: 0.086
     - _Smoothness: 0.08800421
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -186,5 +188,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TintColor: {r: 1, g: 0.98973525, b: 0.89056605, a: 0}
+    - _TintColor: {r: 0.990566, g: 0.9880629, b: 0.9672036, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
