@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fungus;
 
 public class Grappling : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class Grappling : MonoBehaviour
     public KeyCode grappleKey = KeyCode.Mouse1;
 
     public bool grappling;
+    public Flowchart flowchart;
 
     private void Start()
     {
@@ -69,14 +71,14 @@ public class Grappling : MonoBehaviour
 
     private void ExecuteGrapple()
     { 
-        //Hook Launch SFX
+        PlayEffectLaunch();
         Vector3 forceDirection = grapplePoint - pm.transform.position;
         pm.InAir(true);
         pm.isMagneticBootsOn = false;
         pm.UpdateUI();
         pm.GetComponent<Rigidbody>().AddForce(forceDirection*80);
         Invoke(nameof(StopGrapple), 1f);
-        //Hook Attach & Drag SFX
+        PlayEffectAttach();
     }
 
     public void StopGrapple()
@@ -84,7 +86,7 @@ public class Grappling : MonoBehaviour
         grapplingCdTimer = grapplingCd;
         hitPoint = false;
         lr.enabled = false;
-        //Hook Loosen  SFX
+        PlayEffectDettach();
     }
 
     public bool IsGrappling()
@@ -95,5 +97,35 @@ public class Grappling : MonoBehaviour
     public Vector3 GetGrapplePoint()
     {
         return grapplePoint;
+    }
+
+    void PlayEffectLaunch()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("HookLaunch");
+        }
+    }
+
+    void PlayEffectAttach()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("HookAttachDrag");
+        }
+    }
+
+    void PlayEffectDettach()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("HookDettach");
+        }
     }
 }

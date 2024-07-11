@@ -1,7 +1,7 @@
 using Kamgam.SettingsGenerator;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using Fungus;
 
 /// <summary>
 /// Controls the character by magnetizing to nearby objects that he can walk on.
@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
     private RaycastHit? closestSphereCastHit;
     public float checkRadius = 0.5f; // Define the check radius
     public LayerMask obstacleLayer;  // Define the layer of obstacles
+    private float previousYPosition;
+    private bool isJumping = false;
 
     [Header("Camera Look")]
     public Camera cam;
@@ -56,10 +58,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 camRotationVelocity;
     private float currentPlayerRotation;
     private float playerRotationVelocity;
-
+    
     [Header("Magnetic Boots")]
     public bool isMagneticBootsOn = false;
 
+    public Flowchart flowchart;
 
     /// <summary>
     /// Is called when the script instance is being loaded.
@@ -86,6 +89,8 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         isGrounded = true;
         currentMagneticRotationSpeed = magneticRotationSpeedGrounded;
+        previousYPosition = transform.position.y;
+        //Debug.Log("Start/awake: Y position is " + previousYPosition);
         UpdateSettings();
     }
 
@@ -118,9 +123,15 @@ public class PlayerController : MonoBehaviour
     {
        
         Jump();
+        TrackJumpPeak();
         JudgeSprint();
         if (cam.fieldOfView != fov) { DoFieldofView(); }
-        if (Input.GetKeyDown(KeyCode.Q) && GetComponent<GadgetsTool>().MagneticBoots) { isMagneticBootsOn = !isMagneticBootsOn; UpdateUI(); } //Boot SFX
+        if (Input.GetKeyDown(KeyCode.Q) && GetComponent<GadgetsTool>().MagneticBoots)
+            {
+                isMagneticBootsOn = !isMagneticBootsOn; UpdateUI();
+                if (isMagneticBootsOn) { PlayEffectBootsOn(); }
+                else if (!isMagneticBootsOn) { PlayEffectBootsOff(); }
+            }
     }
 
 
@@ -214,7 +225,26 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody.AddForce(transform.up * jumpForce);
             isGrounded = false;
+            isJumping = true;
+            //Debug.Log("now jumping. (possible to track the jump peak)");
             currentMagneticRotationSpeed = magneticRotationSpeedFly;
+            previousYPosition = transform.position.y; // Update previousYPosition when jump starts
+            InAir(true);
+        }
+    }
+
+    private void TrackJumpPeak()
+    {
+        if (isJumping)
+        {
+            //("tracking jump.");
+            // Check if the player is falling down
+            if (rigidbody.velocity.y <= 0 && inAir)
+            {
+                previousYPosition = transform.position.y; // Update previousYPosition at the peak of the jump
+                InAir(false);
+                isJumping = false;
+            }
         }
     }
 
@@ -355,7 +385,7 @@ public class PlayerController : MonoBehaviour
     /// Is called when this collider/rigidbody has begun touching another rigidbody/collider.
     /// </summary>
     /// <param name="collided">The another collided object.</param>
-    private void OnCollisionEnter(Collision collided)
+    private void OnCollisionEnter(UnityEngine.Collision collided)
     {
         // Checks if the character is collide with objects on which he can walk.
         if (((1 << collided.gameObject.layer) & RayCastLayerMask) == 0)
@@ -363,8 +393,17 @@ public class PlayerController : MonoBehaviour
 
         animator?.SetBool("IsJumping", false);
         isGrounded = true;
-        if (inAir) { InAir(false); }
-        //Landing SFX
+
+        // Check if the player has traveled at least 0.1 units vertically before landing
+        float currentYPosition = transform.position.y;
+        if (Mathf.Abs(previousYPosition - currentYPosition) > 0.1f)
+        {
+            PlayEffectLand();
+        }
+
+        // Update the previous Y position
+        previousYPosition = currentYPosition;
+
         currentMagneticRotationSpeed = magneticRotationSpeedGrounded;
 
         // Stick to animated platform.
@@ -376,11 +415,41 @@ public class PlayerController : MonoBehaviour
     /// Is called when this collider/rigidbody has stopped touching another rigidbody/collider.
     /// </summary>
     /// <param name="collided">The another collided object.</param>
-    private void OnCollisionExit(Collision collided)
+    private void OnCollisionExit(UnityEngine.Collision collided)
     {
         // Unstick to animated platform.
         if (collided.gameObject.tag == "StickyPlatform")
             transform.SetParent(null);
+    }
+
+    void PlayEffectLand()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("PlayerLand");
+        }
+    }
+
+    void PlayEffectBootsOn()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("MagnetOn");
+        }
+    }
+
+    void PlayEffectBootsOff()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("MagnetOff");
+        }
     }
 
     public void Save()
