@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainUIManager : MonoBehaviour
 {
@@ -41,6 +42,22 @@ public class MainUIManager : MonoBehaviour
             case GameState.PauseMenu:
                 CurrentAnimator.SetTrigger("ExitPauseMenu");
                 currentState = GameState.Gaming;
+                return;
+
+        }
+
+    }
+
+    public void ButtonClicked(string button)
+    {
+        switch (button)
+        {
+            case "Backpack":
+                CurrentAnimator.SetTrigger("ExitPauseMenu");
+                currentState = GameState.Backpack;
+                BackPackCanvas.gameObject.SetActive(true);
+                CurrentAnimator= BackPackCanvas.GetComponent<Animator>();
+                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 return;
 
         }
