@@ -33,7 +33,7 @@ public class MainUIManager : MonoBehaviour
         {
 
             case GameState.Gaming:
-               PuaseMenuCanvas.gameObject.SetActive(true);
+                PuaseMenuCanvas.gameObject.SetActive(true);
                 CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
                 CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 CurrentAnimator.Play("EnterPuaseMenu");
@@ -43,7 +43,38 @@ public class MainUIManager : MonoBehaviour
                 CurrentAnimator.SetTrigger("ExitPauseMenu");
                 currentState = GameState.Gaming;
                 return;
-
+            case GameState.Backpack:
+                CurrentAnimator.Play("ExitBackPack");
+                PuaseMenuCanvas.gameObject.SetActive(true);
+                CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
+                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                CurrentAnimator.Play("EnterPuaseMenu");
+                currentState = GameState.PauseMenu;
+                return;
+            case GameState.Equip:
+                CurrentAnimator.Play("ExitEquip");
+                PuaseMenuCanvas.gameObject.SetActive(true);
+                CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
+                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                CurrentAnimator.Play("EnterPuaseMenu");
+                currentState = GameState.PauseMenu;
+                return;
+            case GameState.Collection:
+                CurrentAnimator.Play("ExitCollection");
+                PuaseMenuCanvas.gameObject.SetActive(true);
+                CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
+                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                CurrentAnimator.Play("EnterPuaseMenu");
+                currentState = GameState.PauseMenu;
+                return;
+            case GameState.Setting:
+                CurrentAnimator.Play("ExitSystem");
+                PuaseMenuCanvas.gameObject.SetActive(true);
+                CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
+                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                CurrentAnimator.Play("EnterPuaseMenu");
+                currentState = GameState.PauseMenu;
+                return;
         }
 
     }
@@ -58,6 +89,28 @@ public class MainUIManager : MonoBehaviour
                 BackPackCanvas.gameObject.SetActive(true);
                 CurrentAnimator= BackPackCanvas.GetComponent<Animator>();
                 CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                return;
+            case "Equip":
+                CurrentAnimator.SetTrigger("ExitPauseMenu");
+                currentState = GameState.Equip;
+                EquipCanvas.gameObject.SetActive(true);
+                CurrentAnimator = EquipCanvas.GetComponent<Animator>();
+                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                return;
+            case "Collection":
+                CurrentAnimator.SetTrigger("ExitPauseMenu");
+                currentState = GameState.Collection;
+                CollectionCanvas.gameObject.SetActive(true);
+                CurrentAnimator = CollectionCanvas.GetComponent<Animator>();
+                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                return;
+            case "System":
+                CurrentAnimator.SetTrigger("ExitPauseMenu");
+                currentState = GameState.Setting;
+                CurrentAnimator = SystemMenuAnimator.GetComponent<Animator>();
+                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                CurrentAnimator.Play("EnterSystem");
+                SettingMenu.SetActive(true);
                 return;
 
         }

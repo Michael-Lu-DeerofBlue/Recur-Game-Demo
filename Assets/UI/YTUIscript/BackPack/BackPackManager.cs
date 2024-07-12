@@ -75,7 +75,8 @@ public class BackPackManager : MonoBehaviour
 
     IEnumerator EnableInputAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        
+        yield return new WaitForSecondsRealtime(delay);
         canAcceptInput = true; 
     }
 }
