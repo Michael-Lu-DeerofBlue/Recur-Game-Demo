@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public abstract class Enemy : MonoBehaviour
 {
     // Parent Class of enemy character
+    public float moveFrequency = 4;
+    public float moveAmplitude = 0.5f;
     public float HP;
     public float MaxHp;
     public float SkillCastingTime;
@@ -24,7 +26,7 @@ public abstract class Enemy : MonoBehaviour
     private ItemEventHandler itemEventHandler;
     private TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
-    private bool PlayingAnimation = false;
+    private bool SpendingSkillAnim = false;
     public void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();
@@ -34,10 +36,17 @@ public abstract class Enemy : MonoBehaviour
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
         itemEventHandler = FindObjectOfType<ItemEventHandler>();
         twoDto3D = FindObjectOfType<TwoDto3D>();
+
+
+        Transform mySpriteTransform = FindChildByName(transform, "MySprite");
+        if (mySpriteTransform != null)
+        {
+            StartCoroutine(AnimateSprite(mySpriteTransform,moveFrequency, moveAmplitude));
+        }
     }
     public virtual void Update()
     {
-        if (PauseCasting||PlayingAnimation)//the casting time will not decrease sometime because of debug, or during interruption of block game.
+        if (PauseCasting||SpendingSkillAnim)//the casting time will not decrease sometime because of debug, or during interruption of block game.
         {
             return;
         }
@@ -193,7 +202,7 @@ public abstract class Enemy : MonoBehaviour
         Transform mySpriteTransform = FindChildByName(transform, "MySprite");
         if (mySpriteTransform != null)
         {
-            PlayingAnimation = true;
+            SpendingSkillAnim = true;
             StartCoroutine(ScaleSprite(mySpriteTransform, firstDuration, firstScale, secondDuration, secondScale));
         }
         else
@@ -257,7 +266,18 @@ public abstract class Enemy : MonoBehaviour
         }
         spriteTransform.localScale = originalScale;
 
-        PlayingAnimation = false;
+        SpendingSkillAnim = false;
+    }
+
+    private IEnumerator AnimateSprite(Transform spriteTransform, float frequency, float amplitude)
+    {
+        Vector3 startPosition = spriteTransform.localPosition;
+        while (true)
+        {
+            float newY = startPosition.y + Mathf.Sin(Time.time * frequency) * amplitude;
+            spriteTransform.localPosition = new Vector3(startPosition.x, newY, startPosition.z);
+            yield return null;
+        }
     }
 }
 
