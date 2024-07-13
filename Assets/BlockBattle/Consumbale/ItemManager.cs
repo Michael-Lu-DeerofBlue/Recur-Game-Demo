@@ -27,6 +27,7 @@ public class ItemManager : MonoBehaviour
     private Coroutine rotationCoroutine;
     private TipsInfo tipInfo;
     public Animator Animator;
+    public Button showHideButton;
 
 
 
@@ -54,6 +55,7 @@ public class ItemManager : MonoBehaviour
             SetButton(inventoryButtons[index], item.Key, item.Value);
             index++;
         }
+        showHideButton.onClick.AddListener(SwitchInventory);
     }
     private void Update()
     {
