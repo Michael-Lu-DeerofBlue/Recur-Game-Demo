@@ -93,7 +93,6 @@ public class ItemManager : MonoBehaviour
     }
     void OnButtonClick(InventoryButton inventoryButton)
     {
-        
         if (battleManager.DisablePlayerInput == true || enable==false) return;
         string itemName = inventoryButton.image.sprite.name;
 
