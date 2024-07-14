@@ -14,6 +14,7 @@ public abstract class Enemy : MonoBehaviour
     public float HP;
     public float MaxHp;
     public float SkillCastingTime;
+    public string DisplayName;
     public TextMeshPro enemyInfoText;
     public float timer;
     public HeroInfo heroInfo;
@@ -30,12 +31,14 @@ public abstract class Enemy : MonoBehaviour
     private GameObject enemyUIInstance;
 
     public string[] CurrentSkillIcons;
+    private TextMeshProUGUI EnemyName;
     private Image hpBar;
     private Image castingBar;
     private Image nextSkillIcon;
     private Image UIBG;
     private Sprite originalUISprite;
     public Image CurrentIcon;
+
     public void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();
@@ -97,8 +100,12 @@ public abstract class Enemy : MonoBehaviour
                 hpBar = FindChildByName(enemyUIInstance.transform, "HPBar").GetComponent<Image>();
                 castingBar = FindChildByName(enemyUIInstance.transform, "CastingBar").GetComponent<Image>();
                 UIBG= FindChildByName(enemyUIInstance.transform, "UntargetBG").GetComponent<Image>();
+                EnemyName=FindChildByName(enemyUIInstance.transform, "EnemyName").GetComponent<TextMeshProUGUI>();
                 originalUISprite =UIBG.sprite;
-               
+                if(DisplayName!=null)
+                {
+                    EnemyName.text = DisplayName;
+                }
 
             }
             else
