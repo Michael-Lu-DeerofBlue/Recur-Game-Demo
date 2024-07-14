@@ -39,7 +39,6 @@ public class EnemyFOV : MonoBehaviour
         }
 
     }
-
     private void FieldOfViewCheck()
     {
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);

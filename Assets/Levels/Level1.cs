@@ -52,14 +52,35 @@ public class Level1 : LevelController
         base.GoToBattle();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameplaySettingMenu.SetActive(false);
+        }
+    }
+
     public void NewGame()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         ES3.Save("First Time", false);
+        ES3.Save("MoveHP", 2);
+        float number = 100;
+        ES3.Save("Gadgets", false);
+        ES3.Save("CombatHP", number);
+        ES3.Save("Longsword", false);
+        ES3.Save("Sprint", false);
+        ES3.Save("Flashlight", false);
         openingMenu.SetActive(false);
         flowchart.ExecuteBlock("CameraRotate");
         flowchart.ExecuteBlock("CameraDrop");
+        
+    }
+
+    public void OpenSetting()
+    {
+        gameplaySettingMenu.SetActive(true);
     }
 
     public void switchCamera()
@@ -115,6 +136,7 @@ public class Level1 : LevelController
     {
         JudgeLanguage();
         DialogueManager.StartConversation(conversationName[4] + "_" + language);
+        
     }
 
     public void Reload() //Player, Enemy, SpotLights
@@ -162,6 +184,7 @@ public class Level1 : LevelController
         {
             conversationTracker[0] = true;
             airWall.SetActive(false);
+            flowchart.ExecuteBlock("FenceDown");
         }
         else if (!conversationTracker[1])
         {
@@ -180,6 +203,7 @@ public class Level1 : LevelController
             conversationTracker[3] = true;
             fourthTrigger.SetActive(true);
             whiteScreen.SetActive(true);
+            ES3.Save("Gadgets", true);
         }
         else if (!conversationTracker[4])
         {

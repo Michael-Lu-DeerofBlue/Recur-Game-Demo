@@ -1,3 +1,5 @@
+using Pathfinding.RVO;
+using PixelCrushers.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +14,7 @@ public class MainUIManager : MonoBehaviour
     public Canvas EquipCanvas;
     public Canvas CollectionCanvas;
     public Animator CurrentAnimator;
+    public static string gameStateString = "gaming";
     public enum GameState
     {
         Gaming,
@@ -33,15 +36,21 @@ public class MainUIManager : MonoBehaviour
         {
 
             case GameState.Gaming:
+                UnlockCursor();
+                PauseGame();
                 PuaseMenuCanvas.gameObject.SetActive(true);
                 CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
                 CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 CurrentAnimator.Play("EnterPuaseMenu");
                 currentState = GameState.PauseMenu;
+                gameStateString = "pauseMenu";
                 return;
             case GameState.PauseMenu:
+                LockCursor();
+                ResumeGame();
                 CurrentAnimator.SetTrigger("ExitPauseMenu");
                 currentState = GameState.Gaming;
+                gameStateString = "gaming";
                 return;
             case GameState.Backpack:
                 CurrentAnimator.Play("ExitBackPack");
@@ -50,6 +59,7 @@ public class MainUIManager : MonoBehaviour
                 CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 CurrentAnimator.Play("EnterPuaseMenu");
                 currentState = GameState.PauseMenu;
+                gameStateString = "pauseMenu";
                 return;
             case GameState.Equip:
                 CurrentAnimator.Play("ExitEquip");
@@ -58,6 +68,7 @@ public class MainUIManager : MonoBehaviour
                 CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 CurrentAnimator.Play("EnterPuaseMenu");
                 currentState = GameState.PauseMenu;
+                gameStateString = "pauseMenu";
                 return;
             case GameState.Collection:
                 CurrentAnimator.Play("ExitCollection");
@@ -66,17 +77,50 @@ public class MainUIManager : MonoBehaviour
                 CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 CurrentAnimator.Play("EnterPuaseMenu");
                 currentState = GameState.PauseMenu;
+                gameStateString = "pauseMenu";
                 return;
             case GameState.Setting:
                 CurrentAnimator.Play("ExitSystem");
+                SettingMenu.gameObject.SetActive(false);
                 PuaseMenuCanvas.gameObject.SetActive(true);
                 CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
                 CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 CurrentAnimator.Play("EnterPuaseMenu");
                 currentState = GameState.PauseMenu;
+                gameStateString = "pauseMenu";
                 return;
         }
 
+    }
+
+    public void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void PauseGame()
+    {
+        if (DialogueManager.isConversationActive)
+        {
+            DialogueManager.Pause();
+        }
+        Time.timeScale = 0;
+    }
+
+    public void UnlockCursor()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void ResumeGame()
+    {
+        if (DialogueManager.isConversationActive)
+        {
+            DialogueManager.Unpause();
+        }
+        Time.timeScale = 1;
     }
 
     public void ButtonClicked(string button)
@@ -106,15 +150,20 @@ public class MainUIManager : MonoBehaviour
                 return;
             case "System":
                 CurrentAnimator.SetTrigger("ExitPauseMenu");
-                currentState = GameState.Setting;
+                currentState = GameState.Setting; 
                 CurrentAnimator = SystemMenuAnimator.GetComponent<Animator>();
                 CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
                 CurrentAnimator.Play("EnterSystem");
-                SettingMenu.SetActive(true);
+                SettingMenu.gameObject.SetActive(true);
                 return;
 
         }
 
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
     // Update is called once per frame
     void Update()

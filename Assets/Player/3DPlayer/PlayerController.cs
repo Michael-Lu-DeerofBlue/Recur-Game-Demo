@@ -425,11 +425,13 @@ public class PlayerController : MonoBehaviour
     void PlayEffectLand()
     {
         // Check if the flowchart is not already executing
+        /*
         if (!flowchart.HasExecutingBlocks())
         {
             // Start the Fungus flowchart
             flowchart.ExecuteBlock("PlayerLand");
         }
+        */
     }
 
     void PlayEffectBootsOn()

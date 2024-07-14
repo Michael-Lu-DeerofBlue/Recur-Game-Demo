@@ -18,25 +18,25 @@ public class PlayerToUI : MonoBehaviour
 
     public void MagneticBootsUI(string value)
     {
-        string text = "Magnetic Boots: ";
-        MagneticBoots.text = text + value;
+        //string text = "Magnetic Boots: ";
+        //MagneticBoots.text = text + value;
     }
 
     public void CameraUI(string value)
     {
-        string text = "Camera: ";
-        Camera.text = text + value;
+        //string text = "Camera: ";
+        //Camera.text = text + value;
     }
 
     public void UpdateHP(int value)
     {
-        string text = "HP: ";
-        HP.text = text + value;
+        //string text = "HP: ";
+        //HP.text = text + value;
     }
 
     public void UpdateText(string promptMessage)
     {
-        promptText.text = promptMessage;
+       // promptText.text = promptMessage;
     }
 
     // Update is called once per frame

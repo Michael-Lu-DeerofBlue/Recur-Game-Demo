@@ -21426,6 +21426,7 @@ GameObject:
   - component: {fileID: 507542065}
   - component: {fileID: 507542064}
   - component: {fileID: 507542072}
+  - component: {fileID: 507542073}
   m_Layer: 11
   m_Name: Bride Enemy (2)
   m_TagString: Untagged
@@ -21649,6 +21650,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiPath: {fileID: 507542069}
   flowchart: {fileID: 830114162}
+--- !u!114 &507542073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507542063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5623a3b5cf0d35f44ae68da6ce9b59bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0
+  angle: 0
+  playerRef: {fileID: 0}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  canSeePlayer: 0
 --- !u!1 &519963033
 GameObject:
   m_ObjectHideFlags: 0
@@ -76958,6 +76981,10 @@ PrefabInstance:
     - target: {fileID: 3492401526637678250, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
       propertyPath: m_CollisionDetection
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3759652728878987193, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
+      propertyPath: abc
+      value: 281
       objectReference: {fileID: 0}
     - target: {fileID: 3759652728878987193, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
       propertyPath: UIIndicator
