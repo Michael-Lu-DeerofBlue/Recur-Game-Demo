@@ -50,6 +50,7 @@ public class TargetSelector : MonoBehaviour
         transform.position = Target.transform.position;
         CurrentTarget = Target;
         heroInfo.SetSelectedEnemy(CurrentTarget);
+        Target.SelectedByPlayer();
     }
 
     public void SwitchTargetByArrow()

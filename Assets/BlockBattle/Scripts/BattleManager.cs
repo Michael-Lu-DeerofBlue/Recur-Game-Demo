@@ -9,6 +9,8 @@ using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 public class BattleManager : MonoBehaviour
 {
     //Manage various situations in various battles, such as buffs, debuffs, etc.
+    public GameObject EnemyUI;
+    public Sprite TargetSprite;
     public SpawnBlock spawnBlock;
     private HeroInfo heroInfo;
     public float Timer;
@@ -49,6 +51,7 @@ public class BattleManager : MonoBehaviour
         heroInfo = FindObjectOfType<HeroInfo>();
         inttranslator = FindObjectOfType<IntTranslator>();
         spawnBlock = FindObjectOfType<SpawnBlock>();
+
     }
 
     // Update is called once per frame

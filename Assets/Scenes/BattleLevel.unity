@@ -612,6 +612,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ab4931b0a06554eb027f2373c684f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyUI: {fileID: 6234743388125632612, guid: ae743c6576eace048ab1e20186260438, type: 3}
+  TargetSprite: {fileID: 21300000, guid: 60368b3b0394f954aafc7d4532efe767, type: 3}
   spawnBlock: {fileID: 0}
   Timer: 0
   selectionTool: {fileID: 0}
@@ -1061,7 +1063,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 22
+  orthographic size: 24.13123
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1086,7 +1088,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26.2, y: 15.3, z: -10}
+  m_LocalPosition: {x: 31.3, y: 16, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1196,13 +1198,8 @@ MonoBehaviour:
   - {fileID: 1308384383677156122, guid: be262d8724c9dc749a0487eb019b7462, type: 3}
   enemyPrefabs:
   - {fileID: 648749719434240450, guid: 3710278cc8af019448984fb4c4995cf8, type: 3}
-  - {fileID: 6731811825672590378, guid: 11ae0891cd880844794e94fd043e31b9, type: 3}
-  - {fileID: 6731811825672590378, guid: 11ae0891cd880844794e94fd043e31b9, type: 3}
-  - {fileID: 6731811825672590378, guid: 11ae0891cd880844794e94fd043e31b9, type: 3}
-  - {fileID: 6731811825672590378, guid: 11ae0891cd880844794e94fd043e31b9, type: 3}
-  - {fileID: 6731811825672590378, guid: 11ae0891cd880844794e94fd043e31b9, type: 3}
-  - {fileID: 6731811825672590378, guid: 11ae0891cd880844794e94fd043e31b9, type: 3}
-  - {fileID: 6731811825672590378, guid: 11ae0891cd880844794e94fd043e31b9, type: 3}
+  - {fileID: 648749719434240450, guid: 3710278cc8af019448984fb4c4995cf8, type: 3}
+  - {fileID: 648749719434240450, guid: 3710278cc8af019448984fb4c4995cf8, type: 3}
   targetSelector: {fileID: 0}
   Perseus: {fileID: 8521687895905690748, guid: 9346f2f107391c74e9a9704d3cd6e9c7, type: 3}
   HeadLessBack: {fileID: -413625451543686586, guid: 1fd9f3d9c1c987e478fd741459322f60, type: 3}
@@ -3418,7 +3415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 26.5, y: 13.3}
+  m_AnchoredPosition: {x: 31.4, y: 15.7}
   m_SizeDelta: {x: 85, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!850595691 &1656206424
@@ -4325,7 +4322,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1704203129995938973, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.8
+      value: 25.4
       objectReference: {fileID: 0}
     - target: {fileID: 1704203129995938973, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4381,11 +4378,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2771841317843498016, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.09
+      value: -3.1
       objectReference: {fileID: 0}
     - target: {fileID: 2771841317843498016, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.08
+      value: -7.5
       objectReference: {fileID: 0}
     - target: {fileID: 2771841317843498016, guid: af64c90760cb41e499a124c0fb1962b3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4566,7 +4563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3737952787290450205, guid: 3541905b7bb9cfb4e918656b5537dd63, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 46.36
+      value: 41.5
       objectReference: {fileID: 0}
     - target: {fileID: 3737952787290450205, guid: 3541905b7bb9cfb4e918656b5537dd63, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4886,7 +4883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1188411220912986653, guid: c4111750ba06c4f42abb993b059ebe4e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -13.35
+      value: -13.350098
       objectReference: {fileID: 0}
     - target: {fileID: 1188411220912986653, guid: c4111750ba06c4f42abb993b059ebe4e, type: 3}
       propertyPath: m_AnchoredPosition.y

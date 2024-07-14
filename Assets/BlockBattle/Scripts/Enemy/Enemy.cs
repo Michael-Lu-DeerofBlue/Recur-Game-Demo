@@ -27,6 +27,13 @@ public abstract class Enemy : MonoBehaviour
     private TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
     private bool SpendingSkillAnim = false;
+    private GameObject enemyUIInstance;
+
+    private Image hpBar;
+    private Image castingBar;
+    private Image nextSkillIcon;
+    private Image UIBG;
+    private Sprite originalUISprite;
     public void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();
@@ -37,13 +44,18 @@ public abstract class Enemy : MonoBehaviour
         itemEventHandler = FindObjectOfType<ItemEventHandler>();
         twoDto3D = FindObjectOfType<TwoDto3D>();
 
+        CreateEnemyUI();
 
         Transform mySpriteTransform = FindChildByName(transform, "MySprite");
         if (mySpriteTransform != null)
         {
             StartCoroutine(AnimateSprite(mySpriteTransform,moveFrequency, moveAmplitude));
         }
+
+
     }
+
+
     public virtual void Update()
     {
         if (PauseCasting||SpendingSkillAnim)//the casting time will not decrease sometime because of debug, or during interruption of block game.
@@ -61,7 +73,50 @@ public abstract class Enemy : MonoBehaviour
         }
 
         enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
+        UpdateEnemyUI();
+    }
 
+
+
+    private void CreateEnemyUI()
+    {
+        if (battleManager != null && battleManager.EnemyUI != null)
+        {
+            GameObject canvas = GameObject.Find("Canvas");
+            if (canvas != null)
+            {
+
+                Vector3 screenPosition = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y - 6, transform.position.z));
+                enemyUIInstance = Instantiate(battleManager.EnemyUI, screenPosition, Quaternion.identity);
+                enemyUIInstance.transform.SetParent(canvas.transform, false);
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), screenPosition, Camera.main, out Vector2 canvasPosition);
+                enemyUIInstance.GetComponent<RectTransform>().anchoredPosition = canvasPosition;
+                hpBar = FindChildByName(enemyUIInstance.transform, "HPBar").GetComponent<Image>();
+                castingBar = FindChildByName(enemyUIInstance.transform, "CastingBar").GetComponent<Image>();
+                nextSkillIcon = FindChildByName(enemyUIInstance.transform, "NextSkillIcon").GetComponent<Image>();
+                UIBG= FindChildByName(enemyUIInstance.transform, "UntargetBG").GetComponent<Image>();
+                originalUISprite =UIBG.sprite;
+
+            }
+            else
+            {
+                Debug.LogError("Canvas not found in the scene.");
+            }
+        }
+        else
+        {
+            Debug.LogError("BattleManager or EnemyUI prefab not assigned.");
+        }
+    }
+    private void UpdateEnemyUI()
+    {
+        if (enemyUIInstance != null)
+        {
+            hpBar.fillAmount = HP / MaxHp;
+            castingBar.fillAmount = (timer - SkillCastingTime) / (-SkillCastingTime);
+           
+
+        }
     }
 
     public virtual void ExecuteTurn()//all enemy will get casting time before they spend skill.
@@ -191,9 +246,37 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+
     public virtual void SelectedByPlayer()
     {
-        heroInfo.selectedEnemy = (this);
+        UIBG = FindChildByName(enemyUIInstance.transform, "UntargetBG").GetComponent<Image>();
+        UIBG.sprite = battleManager.TargetSprite;
+
+
+        RectTransform uiRectTransform = enemyUIInstance.GetComponent<RectTransform>();
+        if (uiRectTransform != null)
+        {
+            uiRectTransform.localScale = new Vector3(1.6f, 1.5f, 1.5f);
+        }
+        Enemy[] foundEnemies = FindObjectsOfType<Enemy>();
+        foreach(Enemy enemy in foundEnemies)
+        {
+            if (enemy != this.GetComponent<Enemy>())
+            {
+                enemy.UnselectedByPlayer();
+            }
+        }
+    }
+
+    public virtual void UnselectedByPlayer()
+    {
+        UIBG.sprite = originalUISprite;
+        RectTransform uiRectTransform = enemyUIInstance.GetComponent<RectTransform>();
+        if (uiRectTransform != null)
+        {
+            uiRectTransform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        }
+
     }
 
 
