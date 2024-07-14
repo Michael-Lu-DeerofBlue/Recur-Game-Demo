@@ -35,7 +35,7 @@ public abstract class Enemy : MonoBehaviour
     private Image nextSkillIcon;
     private Image UIBG;
     private Sprite originalUISprite;
-    public Sprite CurrentIcon;
+    public Image CurrentIcon;
     public void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();
@@ -93,10 +93,12 @@ public abstract class Enemy : MonoBehaviour
                 enemyUIInstance.transform.SetParent(canvas.transform, false);
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), screenPosition, Camera.main, out Vector2 canvasPosition);
                 enemyUIInstance.GetComponent<RectTransform>().anchoredPosition = canvasPosition;
+                CurrentIcon= FindChildByName(enemyUIInstance.transform,"NextSkillIcon").GetComponent<Image>();
                 hpBar = FindChildByName(enemyUIInstance.transform, "HPBar").GetComponent<Image>();
                 castingBar = FindChildByName(enemyUIInstance.transform, "CastingBar").GetComponent<Image>();
                 UIBG= FindChildByName(enemyUIInstance.transform, "UntargetBG").GetComponent<Image>();
                 originalUISprite =UIBG.sprite;
+               
 
             }
             else
@@ -108,6 +110,7 @@ public abstract class Enemy : MonoBehaviour
         {
             Debug.LogError("BattleManager or EnemyUI prefab not assigned.");
         }
+        DisplaySkillIcon();
     }
     private void UpdateEnemyUI()
     {
@@ -130,7 +133,6 @@ public abstract class Enemy : MonoBehaviour
         {
             nextSkillIcon.sprite = null;
         }
-
         timer = SkillCastingTime;
         //after that, look at the update method. 
     }
@@ -138,29 +140,46 @@ public abstract class Enemy : MonoBehaviour
     {
         if (CurrentSkillIcons != null && CurrentSkillIcons.Length > 0)
         {
-            if (CurrentSkillIcons.Length == 1)
-            {
-                foreach (string iconName in CurrentSkillIcons)
-                {
-                    Sprite foundSprite = battleManager.EnemySkillIconsList.Find(sprite => sprite.name == iconName);
-                    if (foundSprite != null)
-                    {
-                        CurrentIcon = foundSprite;
-                        // 如果需要，可以在这里执行其他操作
-                    }
-                    else
-                    {
-                        Debug.Log($"No matching sprite found for: {iconName}");
-                    }
-                }
+            List<Sprite> foundSprites = new List<Sprite>();
 
+            foreach (string iconName in CurrentSkillIcons)
+            {
+                Sprite foundSprite = battleManager.EnemySkillIconsList.Find(sprite => sprite.name == iconName);
+                if (foundSprite != null)
+                {
+                    foundSprites.Add(foundSprite);
+                }
+                else
+                {
+                    Debug.Log($"No matching sprite found for: {iconName}");
+                }
             }
 
+            if (foundSprites.Count > 0)
+            {
+                if (foundSprites.Count == 1)
+                {
+                    CurrentIcon.sprite = foundSprites[0];
+                }
+                else
+                {
+                    StartCoroutine(DisplayMultipleIcons(foundSprites));
+                }
+            }
         }
-
     }
 
-    public virtual void ExecuteSkill()
+    private IEnumerator DisplayMultipleIcons(List<Sprite> sprites)
+    {
+        int index = 0;
+        while (true)
+        {
+            CurrentIcon.sprite = sprites[index];
+            yield return new WaitForSeconds(1.5f);
+            index = (index + 1) % sprites.Count;
+        }
+    }
+public virtual void ExecuteSkill()
     {
 
     }
