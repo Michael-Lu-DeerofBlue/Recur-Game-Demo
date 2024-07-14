@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class HeadlessFront : Enemy
 {
+    public Sprite[] SculptureGlaneAnim;
+    public Sprite[] SculptureGazeAnim;
     public int attackDamage = 3; 
     public int SculptureGlaneDamage = 2;
     public int SculptureGazeDamage = 2;

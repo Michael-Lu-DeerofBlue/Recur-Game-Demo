@@ -74,8 +74,10 @@ public class EnemyLayOutManager : MonoBehaviour
             {
                 Transform child = childTransforms[i + 1]; // Skip the root transform
                 Vector3 spawnPosition = child.localPosition; // Get the local position of the child
+                Vector3 spawnScale = child.localScale;
 
                 Enemy instantiatedEnemy = Instantiate(enemyPrefabs[i], spawnPosition, Quaternion.identity, transform);
+                instantiatedEnemy.transform.localScale = spawnScale;
                 Debug.Log($"Name: {enemyPrefabs[i].name}, Position: {instantiatedEnemy.transform.position}");   
             }
             targetSelector.SelectLeftTopTarget();
