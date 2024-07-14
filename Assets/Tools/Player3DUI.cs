@@ -30,6 +30,7 @@ public class Player3DUI : MonoBehaviour
         sprint.SetActive(sprintB);
         longsword.SetActive(longswordB);
         flashlight.SetActive(flashlightB);
+        gadgets.SetActive(gadgetsB);
         CombatHPbar.fillAmount = CombatHP/100f;
         for (int i = 0; i < MoveHP; i++)
         {
@@ -44,30 +45,12 @@ public class Player3DUI : MonoBehaviour
 
     private void LoadB()
     {
-        if (ES3.KeyExists("Sprint"))
-        {
-            sprintB = ES3.Load<bool>("Sprint");
-        }
-        if (ES3.KeyExists("Flashlight"))
-        {
-            flashlightB = ES3.Load<bool>("Flashlight");
-        }
-        if (ES3.KeyExists("Longsword"))
-        {
-            longswordB = ES3.Load<bool>("Longsword");
-        }
-        if (ES3.KeyExists("MoveHP"))
-        {
-            MoveHP =  ES3.Load<int>("MoveHP");
-        }
-        if (ES3.KeyExists("CombatHP"))
-        {
-            CombatHP = ES3.Load<float>("CombatHP");
-        }
-        if (ES3.KeyExists("Gadgets"))
-        {
-            gadgetsB = ES3.Load<bool>("Gadgets");
-        }
+        sprintB = InventoryManager.sprintB;
+        flashlightB = InventoryManager.flashlightB;
+        longswordB = InventoryManager.longswordB;
+        gadgetsB = InventoryManager.gadgetsB;
+        CombatHP = InventoryManager.CombatHP;
+        MoveHP = InventoryManager.MoveHP;
     }
 
 

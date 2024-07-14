@@ -25,7 +25,24 @@ public class Level1 : LevelController
     public GameObject whiteScreen;
     public GameObject openingSettingMenu;
     public GameObject gameplaySettingMenu;
+    public bool convoThreeDone;
+    public Dictionary<string, int> ConsumablesInventory = new Dictionary<string, int>()
+    {
+        { "MedKit", 2 },
+        { "SprayCan", 2 },
+        { "Mint", 2 },
+        { "PaperCutter", 2 },
+        { "FracturedPocketWatch", 2 }
+    };
 
+    public Dictionary<string, int> StickersInventory = new Dictionary<string, int>()
+    {
+        { "Critical", 0 },
+        { "Pierce", 0 },
+        { "Sober", 0 },
+        { "Swordmaster", 0 },
+        { "Gunslinger", 0 }
+    };
     // Start is called before the first frame update
     void Awake()
     {
@@ -58,6 +75,14 @@ public class Level1 : LevelController
         {
             gameplaySettingMenu.SetActive(false);
         }
+        if (convoThreeDone)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
+            {
+                fourthTrigger.SetActive(true);
+            }
+        }
+       
     }
 
     public void NewGame()
@@ -72,6 +97,8 @@ public class Level1 : LevelController
         ES3.Save("Longsword", false);
         ES3.Save("Sprint", false);
         ES3.Save("Flashlight", false);
+        ES3.Save("Consumables", ConsumablesInventory);
+        ES3.Save("Stickers", StickersInventory);
         openingMenu.SetActive(false);
         flowchart.ExecuteBlock("CameraRotate");
         flowchart.ExecuteBlock("CameraDrop");
@@ -201,9 +228,9 @@ public class Level1 : LevelController
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             conversationTracker[3] = true;
-            fourthTrigger.SetActive(true);
             whiteScreen.SetActive(true);
             ES3.Save("Gadgets", true);
+            convoThreeDone = true;
         }
         else if (!conversationTracker[4])
         {

@@ -39,7 +39,6 @@ public class InSelectionBar : MonoBehaviour
             if (sticker.IndexShape == Shapeindex)
             {
                 AttachSpriteToChild(sticker.position1, sticker.StickerName);
-                AttachSpriteToChild(sticker.position2, sticker.StickerName);
                 break;
             }
         }
