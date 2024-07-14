@@ -1,8 +1,10 @@
+using PixelCrushers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
@@ -34,8 +36,9 @@ public class BattleManager : MonoBehaviour
     public bool DropCountDown = false;
     public static bool refreshedBlocks = false;
 
-    //Player buffer Type:
+    //Player buff Type:
     public bool PlayerImmuingDebuff = false;
+    public int CriticalNum = 0;
 
     // enemey debuff type:
    // PauseCasting in enemy.cs
@@ -120,7 +123,15 @@ public class BattleManager : MonoBehaviour
     {
         if (!firstCombat)
         {
-            Target.HitHandle(damage);
+            if(CriticalNum >= 1)
+            {
+                damage = damage * 1.5f;
+                Target.HitHandle(damage);
+                CriticalNum--;
+            }else if(CriticalNum == 0) { 
+                Target.HitHandle(damage);
+            }
+
         }
     }
     public void FragileEnemy(float damage, Enemy Target)
@@ -193,7 +204,16 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(ImmueAllDebuffAfterDelay(second));
                 PlayerImmuingDebuff = true;
     }
+    public void HandleStickerEffect(String stickerName)
+    {
+        switch (stickerName)
+        {
+            case "Critical":
+                CriticalNum++;
+                return;
 
+        }
+    }
     private IEnumerator ImmueAllDebuffAfterDelay(float seconds)
     {
         PlayerImmuingDebuff = true;  

@@ -5,7 +5,7 @@ using TMPro;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.SocialPlatforms;
 
@@ -14,6 +14,8 @@ public class HeroInfo : MonoBehaviour
     // Parent Class of player character
     public float HitPoint=100;
     public float MaxHitPoint=100;
+    public GameObject PlayerHpBar;
+    private Image hpBarImage;
     private float MaxWeight;
     public TextMeshPro Hp;
     public BattleManager battleManager;
@@ -40,6 +42,7 @@ public class HeroInfo : MonoBehaviour
         battleManager = FindObjectOfType<BattleManager>();
         targetSelector = FindObjectOfType<TargetSelector>();
         damageNumber = FindObjectOfType<DamageNumber>();
+        hpBarImage = PlayerHpBar.GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -50,6 +53,7 @@ public class HeroInfo : MonoBehaviour
         {
             selectedEnemy = targetSelector.CurrentTarget;
         }
+        hpBarImage.fillAmount = HitPoint / MaxHitPoint;
     }
 
     public virtual void SetSelectedEnemy(Enemy Target)

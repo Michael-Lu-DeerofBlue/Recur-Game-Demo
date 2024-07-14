@@ -268,9 +268,9 @@ public class BlockManager : MonoBehaviour
 
         foreach (Transform child in block)
         {
-            if (child.GetComponent<SpriteRenderer>().sprite.name == "StickerExample")
+            if (child.GetComponent<SpriteRenderer>().sprite.name == "Critical")
             {
-                Debug.Log("sticker!!!!!!!!!!!!!!");
+                battleManager.HandleStickerEffect("Critical");
             }
         }
 
