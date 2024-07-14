@@ -271,6 +271,7 @@ public virtual void ExecuteSkill()
     public virtual void deadhandle()
     {
         isdead = true;// to prevent the enemy from added into the existing enemy array or executing the turn after it is dead.
+        Destroy(enemyUIInstance);
         targetSelector.SwitchTargetWhileIsDead();
         Enemy[] enemies = FindObjectsOfType<Enemy>().Where(enemy => !enemy.isdead).ToArray();
         if (enemies.Length == 0)
