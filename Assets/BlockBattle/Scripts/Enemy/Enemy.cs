@@ -29,11 +29,13 @@ public abstract class Enemy : MonoBehaviour
     private bool SpendingSkillAnim = false;
     private GameObject enemyUIInstance;
 
+    public string[] CurrentSkillIcons;
     private Image hpBar;
     private Image castingBar;
     private Image nextSkillIcon;
     private Image UIBG;
     private Sprite originalUISprite;
+    public Sprite CurrentIcon;
     public void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();
@@ -93,7 +95,6 @@ public abstract class Enemy : MonoBehaviour
                 enemyUIInstance.GetComponent<RectTransform>().anchoredPosition = canvasPosition;
                 hpBar = FindChildByName(enemyUIInstance.transform, "HPBar").GetComponent<Image>();
                 castingBar = FindChildByName(enemyUIInstance.transform, "CastingBar").GetComponent<Image>();
-                nextSkillIcon = FindChildByName(enemyUIInstance.transform, "NextSkillIcon").GetComponent<Image>();
                 UIBG= FindChildByName(enemyUIInstance.transform, "UntargetBG").GetComponent<Image>();
                 originalUISprite =UIBG.sprite;
 
@@ -114,8 +115,6 @@ public abstract class Enemy : MonoBehaviour
         {
             hpBar.fillAmount = HP / MaxHp;
             castingBar.fillAmount = (timer - SkillCastingTime) / (-SkillCastingTime);
-           
-
         }
     }
 
@@ -123,8 +122,42 @@ public abstract class Enemy : MonoBehaviour
     {
         ExecuteSkill();
         GetNextMove();
+        if (CurrentSkillIcons.Length != 0)
+        {
+            DisplaySkillIcon();
+        }
+        else
+        {
+            nextSkillIcon.sprite = null;
+        }
+
         timer = SkillCastingTime;
         //after that, look at the update method. 
+    }
+    public virtual void DisplaySkillIcon()
+    {
+        if (CurrentSkillIcons != null && CurrentSkillIcons.Length > 0)
+        {
+            if (CurrentSkillIcons.Length == 1)
+            {
+                foreach (string iconName in CurrentSkillIcons)
+                {
+                    Sprite foundSprite = battleManager.EnemySkillIconsList.Find(sprite => sprite.name == iconName);
+                    if (foundSprite != null)
+                    {
+                        CurrentIcon = foundSprite;
+                        // 如果需要，可以在这里执行其他操作
+                    }
+                    else
+                    {
+                        Debug.Log($"No matching sprite found for: {iconName}");
+                    }
+                }
+
+            }
+
+        }
+
     }
 
     public virtual void ExecuteSkill()
@@ -250,13 +283,13 @@ public abstract class Enemy : MonoBehaviour
     public virtual void SelectedByPlayer()
     {
         UIBG = FindChildByName(enemyUIInstance.transform, "UntargetBG").GetComponent<Image>();
-        UIBG.sprite = battleManager.TargetSprite;
+        UIBG.sprite = battleManager.TargetUIBGSprite;
 
 
         RectTransform uiRectTransform = enemyUIInstance.GetComponent<RectTransform>();
         if (uiRectTransform != null)
         {
-            uiRectTransform.localScale = new Vector3(1.6f, 1.5f, 1.5f);
+            uiRectTransform.localScale = new Vector3(1.6f, 1.6f, 1);
         }
         Enemy[] foundEnemies = FindObjectsOfType<Enemy>();
         foreach(Enemy enemy in foundEnemies)

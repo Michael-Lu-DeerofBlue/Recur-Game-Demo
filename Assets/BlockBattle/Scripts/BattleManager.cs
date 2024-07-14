@@ -10,7 +10,8 @@ public class BattleManager : MonoBehaviour
 {
     //Manage various situations in various battles, such as buffs, debuffs, etc.
     public GameObject EnemyUI;
-    public Sprite TargetSprite;
+    public Sprite TargetUIBGSprite;
+    public List<Sprite> EnemySkillIconsList = new List<Sprite>();
     public SpawnBlock spawnBlock;
     private HeroInfo heroInfo;
     public float Timer;
