@@ -8,6 +8,7 @@ public class IntTranslator : MonoBehaviour
     public GameObject[] BlockShapes;
     public GameObject[] GBlockShapes;
     public Color[] Colors;
+    public Sprite[] LongSwordSkillIcon;
     // Start is called before the first frame update
     public GameObject intToBlock(int index)
     {

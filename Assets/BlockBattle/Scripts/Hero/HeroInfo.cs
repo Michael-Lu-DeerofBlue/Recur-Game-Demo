@@ -5,7 +5,7 @@ using TMPro;
 using System.Threading.Tasks;
 using System.Linq;
 using System;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.SocialPlatforms;
 
@@ -14,6 +14,11 @@ public class HeroInfo : MonoBehaviour
     // Parent Class of player character
     public float HitPoint=100;
     public float MaxHitPoint=100;
+    public GameObject PlayerHpBar;
+    public GameObject[] SkillICoinsHolder;
+    private List<(int index, int clearNumber, int holderIndex)> iconQueue = new List<(int, int, int)>();
+    private Queue<(int index, int clearNumber)> extraIconsQueue = new Queue<(int, int)>();
+    private Image hpBarImage;
     private float MaxWeight;
     public TextMeshPro Hp;
     public BattleManager battleManager;
@@ -21,14 +26,11 @@ public class HeroInfo : MonoBehaviour
     public Enemy selectedEnemy;
     private TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
-    public GameObject[] SkillIcon;
-    private Vector3 initialPosition = new Vector3(50, 5, 0);
+    public Sprite[] SkillIcon;
     public float horizontalSpacing =7.0f;
-    private List<GameObject> generatedIcons = new List<GameObject>();
     private DamageNumber damageNumber;
     private List<IEnumerator> bleedingCoroutines = new List<IEnumerator>();
     // List to store pairs of index and clearNumber
-    private List<(int index, int clearNumber)> iconQueue = new List<(int, int)>();
 
 
 
@@ -40,6 +42,8 @@ public class HeroInfo : MonoBehaviour
         battleManager = FindObjectOfType<BattleManager>();
         targetSelector = FindObjectOfType<TargetSelector>();
         damageNumber = FindObjectOfType<DamageNumber>();
+        hpBarImage = PlayerHpBar.GetComponent<Image>();
+
     }
 
     // Update is called once per frame
@@ -50,6 +54,7 @@ public class HeroInfo : MonoBehaviour
         {
             selectedEnemy = targetSelector.CurrentTarget;
         }
+        hpBarImage.fillAmount = HitPoint / MaxHitPoint;
     }
 
     public virtual void SetSelectedEnemy(Enemy Target)
@@ -58,16 +63,42 @@ public class HeroInfo : MonoBehaviour
     }
     public virtual void GenerateIcon(int index, int clearNumber)
     {
-        if (index >= 0 && index < SkillIcon.Length)
+        if (index < 0 || index >= SkillIcon.Length)
         {
-            // Generate the icon
-            GameObject icon = Instantiate(SkillIcon[index], transform);
-            Vector3 position = initialPosition - new Vector3(iconQueue.Count * horizontalSpacing, 0, 0);
-            icon.transform.position = position;
-            iconQueue.Add((index, clearNumber));
-            generatedIcons.Add(icon);
-            Debug.Log($"Icon generated at position: {position}");
+            Debug.LogError("Index out of range of SkillIcon array.");
+            return;
         }
+
+        Sprite targetSprite = SkillIcon[index];
+
+        if (iconQueue.Count < SkillICoinsHolder.Length)
+        {
+            for (int i = 0; i < SkillICoinsHolder.Length; i++)
+            {
+                SpriteRenderer sr = SkillICoinsHolder[i].GetComponent<SpriteRenderer>();
+
+                if (sr == null)
+                {
+                    Debug.LogWarning("SkillICoinsHolder element does not have a SpriteRenderer component.");
+                    continue;
+                }
+
+                if (sr.sprite == null)
+                {
+                    sr.sprite = targetSprite;
+                    iconQueue.Add((index, clearNumber, i));
+                    Debug.Log("add actionqueue. " + index + " clearnumber: " + clearNumber);
+                    return;
+                }
+            }
+        }
+        else
+        {
+            extraIconsQueue.Enqueue((index, clearNumber));
+            Debug.Log("add extra queue. " + index + " clearnumber: " + clearNumber);
+        }
+
+        Debug.LogWarning("No empty SpriteRenderer found in SkillICoinsHolder.");
     }
 
     public virtual void ExecuteIconSkill()
@@ -81,24 +112,45 @@ public class HeroInfo : MonoBehaviour
 
     private IEnumerator ExecuteIconSkillCoroutine()
     {
-
         while (iconQueue.Count > 0)
         {
             yield return new WaitForSeconds(1f);
 
-            (int index, int clearNumber) = iconQueue[0];
+            (int index, int clearNumber, int holderIndex) = iconQueue[0];
             ExecuteBehavior(index, clearNumber);
             iconQueue.RemoveAt(0);
 
-            // Destroy the first generated icon
-            if (generatedIcons.Count > 0)
+
+            SpriteRenderer sr = SkillICoinsHolder[holderIndex].GetComponent<SpriteRenderer>();
+            if (sr != null)
             {
-                Destroy(generatedIcons[0]);
-                generatedIcons.RemoveAt(0);
+                sr.sprite = null;
             }
         }
-        battleManager.ContinueBlockGame();
+
+
+        if (iconQueue.Count == 0 && extraIconsQueue.Count > 0)
+        {
+            AddExtraIconsToQueue();
+            ExecuteIconSkill();
+        }
+        if(iconQueue.Count==0 && extraIconsQueue.Count == 0)
+        {
+            battleManager.ContinueBlockGame();
+        }
+
     }
+
+    private void AddExtraIconsToQueue()
+    {
+        int count = Mathf.Min(SkillICoinsHolder.Length, extraIconsQueue.Count);
+        for (int i = 0; i < count; i++)
+        {
+            var (extraIndex, extraClearNumber) = extraIconsQueue.Dequeue();
+            GenerateIcon(extraIndex, extraClearNumber);
+        }
+    }
+
 
 
     public virtual void ExecuteBehavior(int index, int clearNumber)
@@ -164,9 +216,9 @@ public class HeroInfo : MonoBehaviour
     public virtual void Fragile(float damage)
     {
         battleManager.AttackEnemy(damage, selectedEnemy);
-        battleManager.FragileEnemy(damage, selectedEnemy);
+        battleManager.FragileEnemy(selectedEnemy);
     }
-
+   
     public virtual void parry(int turnnumber)
     {
         parryCount+= turnnumber;

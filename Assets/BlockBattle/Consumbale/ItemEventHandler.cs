@@ -60,7 +60,7 @@ public class ItemEventHandler : MonoBehaviour
 
     void UsePaperCutter()
     {
-        battleManager.FragileEnemy(0, heroInfo.selectedEnemy);
+        battleManager.FragileEnemy(heroInfo.selectedEnemy);
     }
 
     void UseFracturedPocketWatch()

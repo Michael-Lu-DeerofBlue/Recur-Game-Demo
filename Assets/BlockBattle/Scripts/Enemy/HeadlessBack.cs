@@ -44,11 +44,15 @@ public class HeadlessBack : Enemy
         {
             SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
+            CurrentSkillIcons = new string[] { "Damage" };
+
         }
         else
         {
             SkillCastingTime = SculptureGlanceCastingTime;  // CorruptingWind action
             nextSkill = SkillType.SculptureGlance;
+            CurrentSkillIcons = new string[] { "Damage" ,"Interrupt"};
+
         }
         nextMove = nextSkill.ToString();
     }

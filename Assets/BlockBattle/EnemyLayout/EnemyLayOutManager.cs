@@ -22,7 +22,7 @@ public class EnemyLayOutManager : MonoBehaviour
     {
         //除了改底下的那个GenerateEnemyList，其他不要再改了！！！因为我在做整体的系统的串联，所以不要再改了
         EnemiesList = ThreeDTo2DData.dataDictionary;
-        GenerateEnemyList();//如果你先要测试你新做的Enemy，就把这行comment掉，然后它应该就直接根据你在Editor里面定义的enemyPrefabs来生成
+        GenerateEnemyList();
         SpawnEnemies();
     }
 

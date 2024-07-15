@@ -327,9 +327,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53017b02b0fe0514e8af63219f09e4c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveFrequency: 4
+  moveAmplitude: 0.5
   HP: 40
   MaxHp: 40
   SkillCastingTime: 0
+  DisplayName: headless bride
   enemyInfoText: {fileID: 2320016935802981217}
   timer: 0
   heroInfo: {fileID: 0}
@@ -339,6 +342,8 @@ MonoBehaviour:
   Fragiling: 0
   isdead: 0
   PauseTime: 0
+  CurrentSkillIcons: []
+  CurrentIcon: {fileID: 0}
   attackDamage: 10
   SculptureGlanceDamage: 7
   attackWeight: 3

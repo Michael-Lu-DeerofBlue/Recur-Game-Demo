@@ -1,14 +1,19 @@
+using PixelCrushers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class BattleManager : MonoBehaviour
 {
     //Manage various situations in various battles, such as buffs, debuffs, etc.
+    public GameObject EnemyUI;
+    public Sprite TargetUIBGSprite;
+    public List<Sprite> EnemySkillIconsList = new List<Sprite>();
     public SpawnBlock spawnBlock;
     private HeroInfo heroInfo;
     public float Timer;
@@ -31,10 +36,12 @@ public class BattleManager : MonoBehaviour
     public bool DropCountDown = false;
     public static bool refreshedBlocks = false;
 
-    //Player buffer Type:
+    //Player buff Type:
     public bool PlayerImmuingDebuff = false;
+    public int CriticalNum = 0;
 
-    // enemey debuff type:
+    // enemey debuff type: Fragiling 写在 Enemy上， 可以直接set Enemy.FragilingNum
+    
    // PauseCasting in enemy.cs
     //enemy status:
     public bool WeakMinionCompanionsOnHold = false;
@@ -49,6 +56,7 @@ public class BattleManager : MonoBehaviour
         heroInfo = FindObjectOfType<HeroInfo>();
         inttranslator = FindObjectOfType<IntTranslator>();
         spawnBlock = FindObjectOfType<SpawnBlock>();
+
     }
 
     // Update is called once per frame
@@ -116,12 +124,20 @@ public class BattleManager : MonoBehaviour
     {
         if (!firstCombat)
         {
-            Target.HitHandle(damage);
+            if(CriticalNum >= 1)
+            {
+                damage = damage * 1.5f* CriticalNum;
+                Target.HitHandle(damage);
+                CriticalNum=0;
+            }else if(CriticalNum == 0) { 
+                Target.HitHandle(damage);
+            }
+
         }
     }
-    public void FragileEnemy(float damage, Enemy Target)
+    public void FragileEnemy(Enemy Target)
     {
-        Target.Fragiling = true;
+            Target.FragilingNum++;
     }
     public void ZornhauyEnmey(float damage, Enemy Target)
     {
@@ -189,13 +205,27 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(ImmueAllDebuffAfterDelay(second));
                 PlayerImmuingDebuff = true;
     }
+    public void HandleStickerEffect(String stickerName)
+    {
+        switch (stickerName)
+        {
+            case "Critical":
+                CriticalNum++;
+                return;
+            case "Piercing":
+                FragileEnemy(heroInfo.selectedEnemy);
+                return;
 
+
+        }
+    }
     private IEnumerator ImmueAllDebuffAfterDelay(float seconds)
     {
         PlayerImmuingDebuff = true;  
         yield return new WaitForSeconds(seconds);  
         PlayerImmuingDebuff = false;  
     }
+ 
 
     public void DropDownBlock(float second)
     //we can just set the bool when doing remove rebug instead of using coroutine.
