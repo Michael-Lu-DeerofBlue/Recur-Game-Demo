@@ -28,6 +28,11 @@ public class BackPackManager : MonoBehaviour
     public List<int> stickersNumber;
 
     public GameObject importantItem;
+    public GameObject Sprint;
+    public GameObject Key;
+    public GameObject Flashlight;
+    public GameObject Grappling;
+    public GameObject Mag;
 
     void Start()
     {
@@ -44,6 +49,7 @@ public class BackPackManager : MonoBehaviour
             currentIndex = 0;
             canAcceptInput = false;
             StartCoroutine(EnableInputAfterDelay(1.0f));
+            RefreshTable();
         }
     }
     public void OnStickerButtonClick()
@@ -55,8 +61,9 @@ public class BackPackManager : MonoBehaviour
             currentIndex = 1;
             canAcceptInput = false;
             StartCoroutine(EnableInputAfterDelay(1.0f));
+            RefreshTable();
         }
-       
+
     }
     public void OnImportantItemButtonClick()
     {
@@ -67,6 +74,7 @@ public class BackPackManager : MonoBehaviour
             currentIndex = 2;
             canAcceptInput = false;
             StartCoroutine(EnableInputAfterDelay(1.0f));
+            RefreshTable();
         }
     }
 
@@ -113,32 +121,27 @@ public class BackPackManager : MonoBehaviour
 
     void StickersRefresh()
     {
-        ConsumablesInventory = InventoryManager.ConsumablesInventory;
-        consuamblesNumber[0] = ConsumablesInventory["MedKit"];
-        consuamblesNumber[1] = ConsumablesInventory["SprayCan"];
-        consuamblesNumber[2] = ConsumablesInventory["Mint"];
-        consuamblesNumber[3] = ConsumablesInventory["PaperCutter"];
-        consuamblesNumber[4] = ConsumablesInventory["FracturedPocketWatch"];
-        for (int i = 0; i < consuamblesNumber.Count; i++)
+        StickersInventory = InventoryManager.StickersInventory;
+        stickersNumber[0] = StickersInventory["Critical"];
+        stickersNumber[1] = StickersInventory["Pierce"];
+        stickersNumber[2] = StickersInventory["Sober"];
+        stickersNumber[3] = StickersInventory["Swordmaster"];
+        stickersNumber[4] = StickersInventory["Gunslinger"];
+        for (int i = 0; i < stickersNumber.Count; i++)
         {
-            consuamblesTexts[i].text = consuamblesNumber[i].ToString();
+            stickersTexts[i].text = stickersNumber[i].ToString();
         }
-        consumablesItem.SetActive(true);
+        stickerItem.SetActive(true);
     }
 
     void ImportantsRefresh()
     {
-        ConsumablesInventory = InventoryManager.ConsumablesInventory;
-        consuamblesNumber[0] = ConsumablesInventory["MedKit"];
-        consuamblesNumber[1] = ConsumablesInventory["SprayCan"];
-        consuamblesNumber[2] = ConsumablesInventory["Mint"];
-        consuamblesNumber[3] = ConsumablesInventory["PaperCutter"];
-        consuamblesNumber[4] = ConsumablesInventory["FracturedPocketWatch"];
-        for (int i = 0; i < consuamblesNumber.Count; i++)
-        {
-            consuamblesTexts[i].text = consuamblesNumber[i].ToString();
-        }
-        consumablesItem.SetActive(true);
+        Sprint.SetActive(InventoryManager.sprintB);
+        Key.SetActive(InventoryManager.keyB);
+        Flashlight.SetActive(InventoryManager.flashlightB);
+        Grappling.SetActive(InventoryManager.grappleB);
+        Mag.SetActive(InventoryManager.bootsB);
+        importantItem.SetActive(true);
     }
 
     void Update()
@@ -155,6 +158,7 @@ public class BackPackManager : MonoBehaviour
                     animator.SetTrigger("To" + buttons[currentIndex].name);
                     canAcceptInput = false;
                      StartCoroutine(EnableInputAfterDelay(1.0f));
+                    RefreshTable();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.Q))
@@ -167,6 +171,7 @@ public class BackPackManager : MonoBehaviour
                     animator.SetTrigger("To" + buttons[currentIndex].name);
                     canAcceptInput = false;
                     StartCoroutine(EnableInputAfterDelay(1.0f));
+                    RefreshTable();
                 }
             }
         }

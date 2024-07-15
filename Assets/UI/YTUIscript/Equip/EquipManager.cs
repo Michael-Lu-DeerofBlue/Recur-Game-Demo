@@ -9,25 +9,57 @@ public class EquipManager : MonoBehaviour
     public Button WeaponButton; // Reference to the Sticker button
     public Button ToolsButton; // Reference to the Important Item button
     public Button ConsumableButton; // Reference to the Important Item button
+    public GameObject actionBank;
+    public GameObject weapon;
+    public GameObject tools;
+    public GameObject consumable;
 
-    private Button[] buttons;
+    public Button[] buttons;
     private int currentIndex = 0;
     private bool canAcceptInput = true;
     void Start()
     {
+        
+
+    }
+
+    private void OnEnable()
+    {
         // Add listeners to the buttons
         buttons = new Button[] { ActionBankButton, WeaponButton, ToolsButton, ConsumableButton };
-
-
         ActionBankButton.onClick.AddListener(OnStickerButtonClick);
         WeaponButton.onClick.AddListener(OnConsumableButtonClick);
         ToolsButton.onClick.AddListener(OnImportantItemButtonClick);
         ConsumableButton.onClick.AddListener(OnImportantItemButtonClick);
-
-
         currentIndex = 0;
         animator.SetTrigger("To" + buttons[currentIndex].name);
+    }
 
+    void Clear() { 
+        actionBank.SetActive(false);
+        weapon.SetActive(false);
+        tools.SetActive(false);
+        consumable.SetActive(false);
+    }
+
+    void SetToShow()
+    {
+        if (currentIndex == 0)
+        {
+            actionBank.SetActive(true);
+        }
+        else if(currentIndex == 1)
+        {
+            weapon.SetActive(true);
+        }
+        else if (currentIndex == 2)
+        {
+            tools.SetActive(true);
+        }
+        else if (currentIndex == 3)
+        {
+            consumable.SetActive(true);
+        }
     }
 
     void OnStickerButtonClick()
@@ -55,6 +87,7 @@ public class EquipManager : MonoBehaviour
                 currentIndex = (currentIndex + 1) % buttons.Length;
                 if (currentIndex != previousIndex)
                 {
+                    Clear();
                     animator.SetTrigger("Exit" + buttons[previousIndex].name);
                     animator.SetTrigger("To" + buttons[currentIndex].name);
                     canAcceptInput = false;
@@ -67,6 +100,7 @@ public class EquipManager : MonoBehaviour
                 currentIndex = (currentIndex - 1 + buttons.Length) % buttons.Length;
                 if (currentIndex != previousIndex)
                 {
+                    Clear();
                     animator.SetTrigger("Exit" + buttons[previousIndex].name);
                     animator.SetTrigger("To" + buttons[currentIndex].name);
                     canAcceptInput = false;
@@ -79,6 +113,7 @@ public class EquipManager : MonoBehaviour
     IEnumerator EnableInputAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        canAcceptInput = true; 
+        canAcceptInput = true;
+        SetToShow();
     }
 }

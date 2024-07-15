@@ -48,6 +48,7 @@ public class ToggleMenuOnEsc : MonoBehaviour
         {
             sendEscMessage();
         }
+
     } 
 }
     

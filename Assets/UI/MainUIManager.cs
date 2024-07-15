@@ -14,6 +14,7 @@ public class MainUIManager : MonoBehaviour
     public Canvas EquipCanvas;
     public Canvas CollectionCanvas;
     public Animator CurrentAnimator;
+    public GameObject stickerManager;
     public static string gameStateString = "gaming";
     public enum GameState
     {
@@ -34,7 +35,6 @@ public class MainUIManager : MonoBehaviour
     {
         switch (currentState)
         {
-
             case GameState.Gaming:
                 UnlockCursor();
                 PauseGame();
@@ -62,14 +62,22 @@ public class MainUIManager : MonoBehaviour
                 gameStateString = "pauseMenu";
                 return;
             case GameState.Equip:
-                CurrentAnimator.Play("ExitEquip");
-                PuaseMenuCanvas.gameObject.SetActive(true);
-                CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
-                CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
-                CurrentAnimator.Play("EnterPuaseMenu");
-                currentState = GameState.PauseMenu;
-                gameStateString = "pauseMenu";
-                return;
+                if (AddStickerManager.inStickerSelection)
+                {
+                    stickerManager.GetComponent<AddStickerManager>().ExitSecletion();
+                    return;
+                }
+                else
+                {
+                    CurrentAnimator.Play("ExitEquip");
+                    PuaseMenuCanvas.gameObject.SetActive(true);
+                    CurrentAnimator = PuaseMenuCanvas.GetComponent<Animator>();
+                    CurrentAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
+                    CurrentAnimator.Play("EnterPuaseMenu");
+                    currentState = GameState.PauseMenu;
+                    gameStateString = "pauseMenu";
+                    return;
+                }
             case GameState.Collection:
                 CurrentAnimator.Play("ExitCollection");
                 PuaseMenuCanvas.gameObject.SetActive(true);

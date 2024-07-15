@@ -1,6 +1,8 @@
+using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
@@ -10,13 +12,17 @@ public class CameraController : MonoBehaviour
     public float minZoom = 20f;
     public float maxZoom = 60f;
     public float maxDistance = 100f;
-    private bool isCameraMode = false;
+    public bool isCameraMode = false;
     public LayerMask targetLayer;
     public LayerMask wallLayer;
     public GameObject UIIndicator;
     public GameObject LevelController;
     public int gridResolution = 10;
     private Dictionary<string, bool> detectedEnemies = new Dictionary<string, bool>();
+    public Image googleFrame; // Reference to the UI Image component
+    public float duration = 0.2f; // Duration of the fade
+    public Color whiteColor = new Color(1, 1, 1, 1); // Default to white with alpha 0
+    public Color transColor = new Color(1, 1, 1, 0); // Default to white with alpha 1
     void Update()
     {
         // Toggle camera mode
@@ -24,7 +30,14 @@ public class CameraController : MonoBehaviour
         {
             if (isCameraMode) { playerCamera.fieldOfView = 60; }
             isCameraMode = !isCameraMode;
-            UIIndicator.GetComponent<PlayerToUI>().CameraUI(isCameraMode.ToString());
+            if (isCameraMode)
+            {
+                StartCoroutine(Fade(transColor, whiteColor));
+            }
+            else
+            {
+                StartCoroutine(Fade(whiteColor, transColor));
+            }
         }
 
         // Zoom functionality
@@ -40,6 +53,22 @@ public class CameraController : MonoBehaviour
         {
             DetectTargetsInFrame();
         }
+    }
+
+    public IEnumerator Fade(Color fromColor, Color toColor)
+    {
+        float elapsedTime = 0f;
+        googleFrame.color = fromColor; // Set the initial color
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            googleFrame.color = Color.Lerp(fromColor, toColor, elapsedTime / duration); // Interpolate color
+            yield return null; // Wait for the next frame
+        }
+
+        // Ensure the final color is set
+        googleFrame.color = toColor;
     }
 
     void DetectTargetsInFrame()

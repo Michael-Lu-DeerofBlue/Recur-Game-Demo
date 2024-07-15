@@ -84,7 +84,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        Debug.Log("Setted false for cursor");
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         isGrounded = true;
@@ -198,17 +197,15 @@ public class PlayerController : MonoBehaviour
     }
     private void JudgeSprint()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint && InventoryManager.sprintB)
         {
             inSprint = true;
-            Debug.Log("Sprinting");
             movementSpeed = DEFAULT_SPRINT_SPEED;
             fov = DEFAULT_SPRINT_FOV;
         }
         else if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && inSprint)
         {
             inSprint = false;
-            Debug.Log("Stopped sprinting");
             ResetMovement();
         }
     }
