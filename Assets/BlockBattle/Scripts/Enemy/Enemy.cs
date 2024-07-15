@@ -79,6 +79,13 @@ public abstract class Enemy : MonoBehaviour
 
         enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
         UpdateEnemyUI();
+        if(targetSelector.CurrentTarget != null)
+        {
+            if (targetSelector.CurrentTarget == this)
+            {
+                SelectedByPlayer();
+            }
+        }
     }
 
 
