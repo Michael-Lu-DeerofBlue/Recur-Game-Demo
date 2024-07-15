@@ -54,16 +54,22 @@ public class HeadlessFront : Enemy
         {
             SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
+            CurrentSkillIcons = new string[] { "Damage" };
+
         }
         else if (randomValue < attackProbability + SculptureGlaneProbability)
         {
             SkillCastingTime = SculptureGlaneCastingTime;  
             nextSkill = SkillType.SculptureGlane;
+            CurrentSkillIcons = new string[] { "Damage" , "Interrupt"};
+
         }
         else
         {
             SkillCastingTime = SculptureGazeCastingTime;
             nextSkill = SkillType.SculptureGaze;
+            CurrentSkillIcons = new string[] { "Damage", "Interrupt" };
+
         }
         nextMove = nextSkill.ToString();
     }

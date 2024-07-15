@@ -151,6 +151,25 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    public void ExcitAllEnemies(float duration)
+    {
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.CastingSpeedRate = 1.5f;
+        }
+        StartCoroutine(ResetCastingSpeed(enemies, duration));
+    }
+    private IEnumerator ResetCastingSpeed(Enemy[] enemies, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.CastingSpeedRate = 1.0f;
+        }
+    }
+
     public void disableInputForSeconds(float seconds)
     {
         StartCoroutine(CoroutineDisableInputForSeconds(seconds));

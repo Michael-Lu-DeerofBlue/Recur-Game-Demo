@@ -50,7 +50,7 @@ public class Perseus_1 : Enemy
         {
             SkillCastingTime = CurseOfGorgonCastingTime;  // CorruptingWind action
             nextSkill = SkillType.CurseOfGorgon;
-            CurrentSkillIcons = new string[] { "Damage", "Interrupt" };
+            CurrentSkillIcons = new string[] { "Damage" };
 
         }
         nextMove = nextSkill.ToString();

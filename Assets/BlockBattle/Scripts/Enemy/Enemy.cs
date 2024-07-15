@@ -17,13 +17,14 @@ public abstract class Enemy : MonoBehaviour
     public string DisplayName;
     public TextMeshPro enemyInfoText;
     public float timer;
+    public float CastingSpeedRate=1;
     public HeroInfo heroInfo;
     public BattleManager battleManager;
     public string nextMove;//name of the skill that will be executed next.
     public bool isdead=false;
     private TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
-    private bool SpendingSkillAnim = false;
+    public bool SpendingSkillAnim = false;
     private GameObject enemyUIInstance;
     private GameObject DamageNumUI;
     
@@ -40,6 +41,7 @@ public abstract class Enemy : MonoBehaviour
     private Image UIBG;
     private Sprite originalUISprite;
     public Image CurrentIcon;
+    public Animator animator;
 
     public void Start()
     {
@@ -50,6 +52,7 @@ public abstract class Enemy : MonoBehaviour
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
         twoDto3D = FindObjectOfType<TwoDto3D>();
         CreateEnemyUI();
+        animator = GetComponent<Animator>();
 
         Transform mySpriteTransform = FindChildByName(transform, "MySprite");
         if (mySpriteTransform != null)
@@ -70,11 +73,12 @@ public abstract class Enemy : MonoBehaviour
 
         if(battleManager.TimeStop==false)
         {
-            timer -= Time.deltaTime;
+            CastingTimerReduce(CastingSpeedRate);
         }
         if (timer <= 0)
         {
             ExecuteTurn();
+
         }
 
         enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
@@ -87,7 +91,10 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
-
+    public void CastingTimerReduce(float SpeedRate)
+    {
+        timer-= (Time.deltaTime*SpeedRate);
+    }
 
 
     private void CreateEnemyUI()
