@@ -27,7 +27,8 @@ public abstract class Enemy : MonoBehaviour
     public bool SpendingSkillAnim = false;
     private GameObject enemyUIInstance;
     private GameObject DamageNumUI;
-    
+    private Coroutine currentSkillIconsCoroutine;
+
     //Enemy debuff type:
     public int FragilingNum = 0;
     public float PauseTime = 0;
@@ -159,6 +160,10 @@ public abstract class Enemy : MonoBehaviour
     }
     public virtual void DisplaySkillIcon()
     {
+        if(currentSkillIconsCoroutine != null)
+        {
+            StopCoroutine(currentSkillIconsCoroutine);
+        }
         if (CurrentSkillIcons != null && CurrentSkillIcons.Length > 0)
         {
             List<Sprite> foundSprites = new List<Sprite>();
@@ -184,7 +189,7 @@ public abstract class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(DisplayMultipleIcons(foundSprites));
+                    currentSkillIconsCoroutine= StartCoroutine(DisplayMultipleIcons(foundSprites));
                 }
             }
         }
@@ -269,7 +274,10 @@ public virtual void ExecuteSkill()
             HP -= damage * 1.2f;
             UpdateEnemyUI();
             enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
-            SpawnDamageUI(damage);
+            if (damage > 0)
+            {
+                SpawnDamageUI(damage);
+            }
 
         }
         else if(FragilingNum == 0)
@@ -277,7 +285,10 @@ public virtual void ExecuteSkill()
             HP -= damage;
             UpdateEnemyUI();
             enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
-            SpawnDamageUI(damage);
+            if(damage>0)
+            {
+                SpawnDamageUI(damage);
+            }
         }
         if (HP <= 0)
         {
