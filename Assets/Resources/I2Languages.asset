@@ -17,468 +17,268 @@ MonoBehaviour:
     UserAgreesToHaveItInsideThePluginsFolder: 0
     GoogleLiveSyncIsUptoDate: 1
     mTerms:
-    - Term: Dialogue System/Actor/1/Name
-      TermType: 0
-      Description: 
-      Languages:
-      - Player
-      - "\u73A9\u5BB6"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Actor/2/Name
-      TermType: 0
-      Description: 
-      Languages:
-      - The Other
-      - "\u53E6\u4E00\u4E2A"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/1/Description
-      TermType: 0
-      Description: 
-      Languages:
-      - demo for message display when interacting with an object
-      - "\u4E0E\u5BF9\u8C61\u4EA4\u4E92\u65F6\u663E\u793A\u6D88\u606F\u7684\u6F14\u793A"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/1/Entry/0/Sequence
-      TermType: 0
-      Description: 
-      Languages:
-      - None()
-      - "\u6CA1\u6709\u4EFB\u4F55\uFF08\uFF09"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/1/Entry/0/Title
-      TermType: 0
-      Description: 
-      Languages:
-      - START
-      - "\u5F00\u59CB"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/1/Entry/1/Dialogue Text
-      TermType: 0
-      Description: 
-      Languages:
-      - I've been expecting you.
-      - "\u6211\u4E00\u76F4\u90FD\u671F\u5F85\u7740\u4F60\u3002"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/1/Entry/2/Dialogue Text
-      TermType: 0
-      Description: 
-      Languages:
-      - Return to the circular platform at the start to trigger another message.
-      - "\u8FD4\u56DE\u5F00\u59CB\u65F6\u7684\u5FAA\u73AF\u5E73\u53F0\uFF0C\u89E6\u53D1\u53E6\u4E00\u6761\u6D88\u606F\u3002"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/1/Title
-      TermType: 0
-      Description: 
-      Languages:
-      - Interactable message
-      - "\u4E92\u52A8\u6D88\u606F"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/2/Description
-      TermType: 0
-      Description: 
-      Languages:
-      - Demo for message that appears every x seconds
-      - "\u6BCF x \u79D2\u51FA\u73B0\u4E00\u6B21\u7684\u6D88\u606F\u6F14\u793A"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/2/Entry/0/Sequence
-      TermType: 0
-      Description: 
-      Languages:
-      - None()
-      - "\u6CA1\u6709\u4EFB\u4F55\uFF08\uFF09"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/2/Entry/0/Title
-      TermType: 0
-      Description: 
-      Languages:
-      - START
-      - "\u5F00\u59CB"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/2/Entry/1/Dialogue Text
-      TermType: 0
-      Description: 
-      Languages:
-      - Come closer, child...
-      - "\u9760\u8FD1\u4E00\u70B9\uFF0C\u5B69\u5B50\u2026\u2026"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/2/Entry/2/Dialogue Text
-      TermType: 0
-      Description: 
-      Languages:
-      - This way...
-      - "\u8FD9\u8FB9\u8D70..."
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/2/Title
-      TermType: 0
-      Description: 
-      Languages:
-      - Intermittent message
-      - "\u6D88\u606F\u65AD\u65AD\u7EED\u7EED"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/3/Description
-      TermType: 0
-      Description: 
-      Languages:
-      - Demo for message that appears after x seconds
-      - "x \u79D2\u540E\u51FA\u73B0\u7684\u6D88\u606F\u6F14\u793A"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/3/Entry/0/Sequence
-      TermType: 0
-      Description: 
-      Languages:
-      - None()
-      - "\u6CA1\u6709\u4EFB\u4F55\uFF08\uFF09"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/3/Entry/0/Title
-      TermType: 0
-      Description: 
-      Languages:
-      - START
-      - "\u5F00\u59CB"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/3/Entry/1/Dialogue Text
-      TermType: 0
-      Description: 
-      Languages:
-      - 5 seconds have passed.
-      - "5\u79D2\u8FC7\u53BB\u4E86\u3002"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/3/Title
-      TermType: 0
-      Description: 
-      Languages:
-      - Timed message
-      - "\u5B9A\u65F6\u6D88\u606F"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/4/Description
-      TermType: 0
-      Description: 
-      Languages:
-      - Demo for message that triggers when you enter a specific location.
-      - "\u5F53\u60A8\u8F93\u5165\u7279\u5B9A\u4F4D\u7F6E\u65F6\u89E6\u53D1\u7684\u6D88\u606F\u7684\u6F14\u793A\u3002"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/4/Entry/0/Sequence
-      TermType: 0
-      Description: 
-      Languages:
-      - None()
-      - "\u6CA1\u6709\u4EFB\u4F55\uFF08\uFF09"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/4/Entry/0/Title
-      TermType: 0
-      Description: 
-      Languages:
-      - START
-      - "\u5F00\u59CB"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/4/Entry/1/Dialogue Text
-      TermType: 0
-      Description: 
-      Languages:
-      - Congratulations. You can follow directions.
-      - "\u606D\u559C\u3002\u60A8\u53EF\u4EE5\u6309\u7167\u6307\u793A\u8FDB\u884C\u64CD\u4F5C\u3002"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Conversation/4/Title
-      TermType: 0
-      Description: 
-      Languages:
-      - Location trigger message
-      - "\u5B9A\u4F4D\u89E6\u53D1\u6D88\u606F"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Item-Quest/1/Description
-      TermType: 0
-      Description: 
-      Languages:
-      - Walk up to the perseus statue and press f to interact
-      - "\u8D70\u5230\u73C0\u5C14\u4FEE\u65AF\u96D5\u50CF\u524D\u6309f\u8FDB\u884C\u4E92\u52A8"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Item-Quest/1/Name
-      TermType: 0
-      Description: 
-      Languages:
-      - Interact with perseus statue
-      - "\u4E0E\u73C0\u5C14\u4FEE\u65AF\u96D5\u50CF\u4E92\u52A8"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Item-Quest/1/State
-      TermType: 0
-      Description: 
-      Languages:
-      - unassigned
-      - "\u672A\u5206\u914D\u7684"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Dialogue System/Variable/1/Name
-      TermType: 0
-      Description: 
-      Languages:
-      - Alert
-      - "\u8B66\u62A5"
-      Flags: 0000
-      Languages_Touch: []
     - Term: CHINESE
       TermType: 0
       Description: 
       Languages:
-      - Chinese
       - "\u4E2D\u6587"
+      - Chinese
       Flags: 0000
       Languages_Touch: []
     - Term: 'Camera:'
       TermType: 0
       Description: 
       Languages:
-      - 'Camera: '
       - "\u76F8\u673A\uFF1A "
-      Flags: 0000
-      Languages_Touch: []
-    - Term: ENGLISH
-      TermType: 0
-      Description: 
-      Languages:
-      - English
-      - "\u82F1\u8BED"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: 'FPS: 1'
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Fps: 1'
-      - "\u5E27\u7387\uFF1A1"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: LANGUAGE
-      TermType: 0
-      Description: 
-      Languages:
-      - Language
-      - "\u8BED\u8A00"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: 'Magnetic Boots: False'
-      TermType: 0
-      Description: 
-      Languages:
-      - 'Magnetic Boots: False'
-      - "\u78C1\u529B\u9774: False"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Sample text
-      TermType: 0
-      Description: 
-      Languages:
-      - Sample text
-      - "\u793A\u4F8B\u6587\u672C"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Master Volume
-      TermType: 0
-      Description: 
-      Languages:
-      - Master Volume
-      - "\u4E3B\u97F3\u91CF"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Sound
-      TermType: 0
-      Description: 
-      Languages:
-      - Sound
-      - "\u58F0\u97F3"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Quality
-      TermType: 0
-      Description: 
-      Languages:
-      - Quality
-      - "\u8D28\u91CF"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Full Screen
-      TermType: 0
-      Description: 
-      Languages:
-      - Full Screen
-      - "\u5168\u5C4F"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Y Sensitivity
-      TermType: 0
-      Description: 
-      Languages:
-      - Y Sensitivity
-      - "Y\u7075\u654F\u5EA6"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: X Sensitivity
-      TermType: 0
-      Description: 
-      Languages:
-      - X Sensitivity
-      - "X \u7075\u654F\u5EA6"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Effect Volume
-      TermType: 0
-      Description: 
-      Languages:
-      - Sound Effect Volume
-      - "\u97F3\u6548\u97F3\u91CF"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Music Volume
-      TermType: 0
-      Description: 
-      Languages:
-      - Music Volume
-      - "\u97F3\u4E50\u97F3\u91CF"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: New Game
-      TermType: 0
-      Description: 
-      Languages:
-      - ' '
-      - "\u65B0\u6E38\u620F"
+      - 'Camera: '
       Flags: 0000
       Languages_Touch: []
     - Term: Continue
       TermType: 0
       Description: 
       Languages:
-      - ' '
       - "\u7EE7\u7EED"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: Settings
-      TermType: 0
-      Description: 
-      Languages:
       - ' '
-      - "\u8BBE\u7F6E"
       Flags: 0000
       Languages_Touch: []
-    - Term: exit game
+    - Term: Dialogue System/Actor/1/Name
       TermType: 0
       Description: 
       Languages:
-      - exit game
-      - "\u9000\u51FA\n\u6E38\u620F"
+      - "\u73A9\u5BB6"
+      - Player
       Flags: 0000
       Languages_Touch: []
-    - Term: master volume
+    - Term: Dialogue System/Actor/2/Name
       TermType: 0
       Description: 
       Languages:
-      - master volume
-      - "\u4E3B\u97F3\u91CF"
+      - "\u53E6\u4E00\u4E2A"
+      - The Other
       Flags: 0000
       Languages_Touch: []
-    - Term: music volume
+    - Term: Dialogue System/Conversation/1/Description
       TermType: 0
       Description: 
       Languages:
-      - music volume
-      - "\u97F3\u4E50\u97F3\u91CF"
+      - "\u4E0E\u5BF9\u8C61\u4EA4\u4E92\u65F6\u663E\u793A\u6D88\u606F\u7684\u6F14\u793A"
+      - demo for message display when interacting with an object
       Flags: 0000
       Languages_Touch: []
-    - Term: effect volume
+    - Term: Dialogue System/Conversation/1/Entry/0/Sequence
       TermType: 0
       Description: 
       Languages:
-      - effect volume
-      - "\u97F3\u6548\u5E94\u91CF"
+      - "\u6CA1\u6709\u4EFB\u4F55\uFF08\uFF09"
+      - None()
       Flags: 0000
       Languages_Touch: []
-    - Term: fractured pocket watch
+    - Term: Dialogue System/Conversation/1/Entry/0/Title
       TermType: 0
       Description: 
       Languages:
-      - fractured pocket watch
-      - "\u7834\u788E\u6000\u8868"
+      - "\u5F00\u59CB"
+      - START
       Flags: 0000
       Languages_Touch: []
-    - Term: med kit
+    - Term: Dialogue System/Conversation/1/Entry/1/Dialogue Text
       TermType: 0
       Description: 
       Languages:
-      - med kit
-      - "\u533B\u7597\u5305"
+      - "\u6211\u4E00\u76F4\u90FD\u671F\u5F85\u7740\u4F60\u3002"
+      - I've been expecting you.
       Flags: 0000
       Languages_Touch: []
-    - Term: spray can
+    - Term: Dialogue System/Conversation/1/Entry/2/Dialogue Text
       TermType: 0
       Description: 
       Languages:
-      - spray can
-      - "\u6D82\u9E26\u7F50"
+      - "\u8FD4\u56DE\u5F00\u59CB\u65F6\u7684\u5FAA\u73AF\u5E73\u53F0\uFF0C\u89E6\u53D1\u53E6\u4E00\u6761\u6D88\u606F\u3002"
+      - Return to the circular platform at the start to trigger another message.
       Flags: 0000
       Languages_Touch: []
-    - Term: mint
+    - Term: Dialogue System/Conversation/1/Title
       TermType: 0
       Description: 
       Languages:
-      - mint
-      - "\u8584\u8377\u7CD6"
+      - "\u4E92\u52A8\u6D88\u606F"
+      - Interactable message
       Flags: 0000
       Languages_Touch: []
-    - Term: paper cutter
+    - Term: Dialogue System/Conversation/2/Description
       TermType: 0
       Description: 
       Languages:
-      - paper cutter
-      - "\u7F8E\u5DE5\u5200"
+      - "\u6BCF x \u79D2\u51FA\u73B0\u4E00\u6B21\u7684\u6D88\u606F\u6F14\u793A"
+      - Demo for message that appears every x seconds
       Flags: 0000
       Languages_Touch: []
-    - Term: consumable
+    - Term: Dialogue System/Conversation/2/Entry/0/Sequence
       TermType: 0
       Description: 
       Languages:
-      - consumable
-      - "\u6D88\u8017\u54C1"
+      - "\u6CA1\u6709\u4EFB\u4F55\uFF08\uFF09"
+      - None()
       Flags: 0000
       Languages_Touch: []
-    - Term: IMPORTANT ITEM
+    - Term: Dialogue System/Conversation/2/Entry/0/Title
       TermType: 0
       Description: 
       Languages:
-      - important item
-      - "\u91CD\u8981\u7269\u54C1"
+      - "\u5F00\u59CB"
+      - START
       Flags: 0000
       Languages_Touch: []
-    - Term: sticker
+    - Term: Dialogue System/Conversation/2/Entry/1/Dialogue Text
       TermType: 0
       Description: 
       Languages:
-      - sticker
-      - "\u8D34\u7EB8"
+      - "\u9760\u8FD1\u4E00\u70B9\uFF0C\u5B69\u5B50\u2026\u2026"
+      - Come closer, child...
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/2/Entry/2/Dialogue Text
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u8FD9\u8FB9\u8D70..."
+      - This way...
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/2/Title
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u6D88\u606F\u65AD\u65AD\u7EED\u7EED"
+      - Intermittent message
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/3/Description
+      TermType: 0
+      Description: 
+      Languages:
+      - "x \u79D2\u540E\u51FA\u73B0\u7684\u6D88\u606F\u6F14\u793A"
+      - Demo for message that appears after x seconds
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/3/Entry/0/Sequence
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u6CA1\u6709\u4EFB\u4F55\uFF08\uFF09"
+      - None()
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/3/Entry/0/Title
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u5F00\u59CB"
+      - START
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/3/Entry/1/Dialogue Text
+      TermType: 0
+      Description: 
+      Languages:
+      - "5\u79D2\u8FC7\u53BB\u4E86\u3002"
+      - 5 seconds have passed.
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/3/Title
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u5B9A\u65F6\u6D88\u606F"
+      - Timed message
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/4/Description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u5F53\u60A8\u8F93\u5165\u7279\u5B9A\u4F4D\u7F6E\u65F6\u89E6\u53D1\u7684\u6D88\u606F\u7684\u6F14\u793A\u3002"
+      - Demo for message that triggers when you enter a specific location.
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/4/Entry/0/Sequence
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u6CA1\u6709\u4EFB\u4F55\uFF08\uFF09"
+      - None()
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/4/Entry/0/Title
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u5F00\u59CB"
+      - START
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/4/Entry/1/Dialogue Text
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u606D\u559C\u3002\u60A8\u53EF\u4EE5\u6309\u7167\u6307\u793A\u8FDB\u884C\u64CD\u4F5C\u3002"
+      - Congratulations. You can follow directions.
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Conversation/4/Title
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u5B9A\u4F4D\u89E6\u53D1\u6D88\u606F"
+      - Location trigger message
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Item-Quest/1/Description
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u8D70\u5230\u73C0\u5C14\u4FEE\u65AF\u96D5\u50CF\u524D\u6309f\u8FDB\u884C\u4E92\u52A8"
+      - Walk up to the perseus statue and press f to interact
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Item-Quest/1/Name
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u4E0E\u73C0\u5C14\u4FEE\u65AF\u96D5\u50CF\u4E92\u52A8"
+      - Interact with perseus statue
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Item-Quest/1/State
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u672A\u5206\u914D\u7684"
+      - unassigned
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Dialogue System/Variable/1/Name
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u8B66\u62A5"
+      - Alert
+      Flags: 0000
+      Languages_Touch: []
+    - Term: ENGLISH
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u82F1\u8BED"
+      - English
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Effect Volume
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u97F3\u6548\u97F3\u91CF"
+      - Sound Effect Volume
       Flags: 0000
       Languages_Touch: []
     - Term: English_UI
@@ -489,177 +289,401 @@ MonoBehaviour:
       - 
       Flags: 0000
       Languages_Touch: []
-    - Term: gunslinger
+    - Term: 'FPS: 1'
       TermType: 0
       Description: 
       Languages:
-      - gunslinger
-      - "\u67AA\u624B"
+      - "\u5E27\u7387\uFF1A1"
+      - 'Fps: 1'
       Flags: 0000
       Languages_Touch: []
-    - Term: swordmaster
+    - Term: Full Screen
       TermType: 0
       Description: 
       Languages:
-      - swordmaster
-      - "\u5251\u5723"
+      - "\u5168\u5C4F"
+      - Full Screen
       Flags: 0000
       Languages_Touch: []
-    - Term: sober
+    - Term: IMPORTANT ITEM
       TermType: 0
       Description: 
       Languages:
-      - sober
-      - "\u6E05\u9192"
+      - "\u91CD\u8981\u7269\u54C1"
+      - important item
       Flags: 0000
       Languages_Touch: []
-    - Term: pierce
+    - Term: LANGUAGE
       TermType: 0
       Description: 
       Languages:
-      - pierce
-      - "\u7A7F\u900F"
+      - "\u8BED\u8A00"
+      - Language
       Flags: 0000
       Languages_Touch: []
-    - Term: critical
+    - Term: 'Magnetic Boots: False'
       TermType: 0
       Description: 
       Languages:
-      - critical
-      - "\u66B4\u51FB"
+      - "\u78C1\u529B\u9774: False"
+      - 'Magnetic Boots: False'
       Flags: 0000
       Languages_Touch: []
-    - Term: magnetic boots
+    - Term: Master Volume
       TermType: 0
       Description: 
       Languages:
-      - magnetic boots
-      - "\u78C1\u529B\u9774"
+      - "\u4E3B\u97F3\u91CF"
+      - Master Volume
       Flags: 0000
       Languages_Touch: []
-    - Term: grappling gun
+    - Term: Music Volume
       TermType: 0
       Description: 
       Languages:
-      - grappling gun
-      - "\u94A9\u722A\u67AA"
+      - "\u97F3\u4E50\u97F3\u91CF"
+      - Music Volume
       Flags: 0000
       Languages_Touch: []
-    - Term: flashlight
+    - Term: New Game
       TermType: 0
       Description: 
       Languages:
-      - flashlight
-      - "\u95EA\u5149\u706F"
+      - "\u65B0\u6E38\u620F"
+      - ' '
       Flags: 0000
       Languages_Touch: []
-    - Term: key
+    - Term: Quality
       TermType: 0
       Description: 
       Languages:
-      - key
-      - "\u94A5\u5319"
+      - "\u8D28\u91CF"
+      - Quality
       Flags: 0000
       Languages_Touch: []
-    - Term: talaria
+    - Term: Sample text
       TermType: 0
       Description: 
       Languages:
-      - talaria
-      - "\u53E4\u795E\u8DD1\u978B"
+      - "\u793A\u4F8B\u6587\u672C"
+      - Sample text
       Flags: 0000
       Languages_Touch: []
-    - Term: mondrinion
+    - Term: Settings
       TermType: 0
       Description: 
       Languages:
-      - mondrinion
-      - "\u8499\u5927\u5934"
+      - "\u8BBE\u7F6E"
+      - ' '
       Flags: 0000
       Languages_Touch: []
-    - Term: perseus
+    - Term: Sound
       TermType: 0
       Description: 
       Languages:
-      - perseus
-      - "\u73C0\u5C14\u4FEE\u65AF"
+      - "\u58F0\u97F3"
+      - Sound
       Flags: 0000
       Languages_Touch: []
-    - Term: headless bride
+    - Term: X Sensitivity
       TermType: 0
       Description: 
       Languages:
-      - headless bride
-      - "\u65E0\u5934\u65B0\u5A18"
+      - "X \u7075\u654F\u5EA6"
+      - X Sensitivity
       Flags: 0000
       Languages_Touch: []
-    - Term: lion
+    - Term: Y Sensitivity
       TermType: 0
       Description: 
       Languages:
-      - lion
-      - "\u72EE\u5B50"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: mocking bird
-      TermType: 0
-      Description: 
-      Languages:
-      - mocking bird
-      - "\u77E5\u66F4\u9E1F"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: deer
-      TermType: 0
-      Description: 
-      Languages:
-      - deer
-      - "\u9E7F"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: imposter
-      TermType: 0
-      Description: 
-      Languages:
-      - imposter
-      - "\u4F2A\u88C5\u602A"
-      Flags: 0000
-      Languages_Touch: []
-    - Term: shadow
-      TermType: 0
-      Description: 
-      Languages:
-      - shadow
-      - "\u9634\u5F71\u602A"
+      - "Y\u7075\u654F\u5EA6"
+      - Y Sensitivity
       Flags: 0000
       Languages_Touch: []
     - Term: artemis
       TermType: 0
       Description: 
       Languages:
-      - artemis
       - "\u963F\u5C14\u5FD2\u5F25\u65AF"
+      - artemis
+      Flags: 0000
+      Languages_Touch: []
+    - Term: consumable
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u6D88\u8017\u54C1"
+      - consumable
+      Flags: 0000
+      Languages_Touch: []
+    - Term: critical
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u66B4\u51FB"
+      - critical
       Flags: 0000
       Languages_Touch: []
     - Term: daedalus
       TermType: 0
       Description: 
       Languages:
-      - daedalus
       - "\u4EE3\u8FBE\u7F57\u65AF"
+      - daedalus
+      Flags: 0000
+      Languages_Touch: []
+    - Term: deer
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u9E7F"
+      - deer
+      Flags: 0000
+      Languages_Touch: []
+    - Term: effect volume
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u97F3\u6548\u5E94\u91CF"
+      - effect volume
+      Flags: 0000
+      Languages_Touch: []
+    - Term: exit game
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u9000\u51FA\n\u6E38\u620F"
+      - exit game
+      Flags: 0000
+      Languages_Touch: []
+    - Term: flashlight
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u95EA\u5149\u706F"
+      - flashlight
+      Flags: 0000
+      Languages_Touch: []
+    - Term: fractured pocket watch
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u7834\u788E\u6000\u8868"
+      - fractured pocket watch
+      Flags: 0000
+      Languages_Touch: []
+    - Term: grappling gun
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u94A9\u722A\u67AA"
+      - grappling gun
+      Flags: 0000
+      Languages_Touch: []
+    - Term: gunslinger
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u67AA\u624B"
+      - gunslinger
+      Flags: 0000
+      Languages_Touch: []
+    - Term: headless bride
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u65E0\u5934\u65B0\u5A18"
+      - headless bride
+      Flags: 0000
+      Languages_Touch: []
+    - Term: imposter
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u4F2A\u88C5\u602A"
+      - imposter
+      Flags: 0000
+      Languages_Touch: []
+    - Term: key
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u94A5\u5319"
+      - key
+      Flags: 0000
+      Languages_Touch: []
+    - Term: lion
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u72EE\u5B50"
+      - lion
+      Flags: 0000
+      Languages_Touch: []
+    - Term: magnetic boots
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u78C1\u529B\u9774"
+      - magnetic boots
+      Flags: 0000
+      Languages_Touch: []
+    - Term: master volume
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u4E3B\u97F3\u91CF"
+      - master volume
+      Flags: 0000
+      Languages_Touch: []
+    - Term: med kit
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u533B\u7597\u5305"
+      - med kit
+      Flags: 0000
+      Languages_Touch: []
+    - Term: mint
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u8584\u8377\u7CD6"
+      - mint
+      Flags: 0000
+      Languages_Touch: []
+    - Term: mocking bird
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u77E5\u66F4\u9E1F"
+      - mocking bird
+      Flags: 0000
+      Languages_Touch: []
+    - Term: mondrinion
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u8499\u5927\u5934"
+      - mondrinion
+      Flags: 0000
+      Languages_Touch: []
+    - Term: music volume
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u97F3\u4E50\u97F3\u91CF"
+      - music volume
+      Flags: 0000
+      Languages_Touch: []
+    - Term: paper cutter
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u7F8E\u5DE5\u5200"
+      - paper cutter
+      Flags: 0000
+      Languages_Touch: []
+    - Term: perseus
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u73C0\u5C14\u4FEE\u65AF"
+      - perseus
+      Flags: 0000
+      Languages_Touch: []
+    - Term: pierce
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u7A7F\u900F"
+      - pierce
+      Flags: 0000
+      Languages_Touch: []
+    - Term: shadow
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u9634\u5F71\u602A"
+      - shadow
+      Flags: 0000
+      Languages_Touch: []
+    - Term: sober
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u6E05\u9192"
+      - sober
+      Flags: 0000
+      Languages_Touch: []
+    - Term: spray can
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u6D82\u9E26\u7F50"
+      - spray can
+      Flags: 0000
+      Languages_Touch: []
+    - Term: sticker
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u8D34\u7EB8"
+      - sticker
+      Flags: 0000
+      Languages_Touch: []
+    - Term: swordmaster
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u5251\u5723"
+      - swordmaster
+      Flags: 0000
+      Languages_Touch: []
+    - Term: talaria
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u53E4\u795E\u8DD1\u978B"
+      - talaria
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Freeze lights for 5 seconds
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u51BB\u7ED3\u706F\u5149 5 \u79D2"
+      - Freeze lights for 5 seconds
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Turn off spotlight for 5 seconds
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u5173\u95ED\u805A\u5149\u706F 5 \u79D2"
+      - Turn off spotlight for 5 seconds
+      Flags: 0000
+      Languages_Touch: []
+    - Term: Turn the light in the center on for 2 seconds (one time)
+      TermType: 0
+      Description: 
+      Languages:
+      - "\u6253\u5F00\u4E2D\u592E\u7684\u706F\u51492\u79D2(\u4E00\u6B21\u6027)"
+      - Turn the light in the center on for 2 seconds (one time)
       Flags: 0000
       Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 
     mLanguages:
-    - Name: English
-      Code: en
-      Flags: 0
     - Name: Chinese (Simplified)
       Code: zh-CN
       Flags: 0
-    IgnoreDeviceLanguage: 0
+    - Name: English
+      Code: en
+      Flags: 0
+    IgnoreDeviceLanguage: 1
     _AllowUnloadingLanguages: 0
     Google_WebServiceURL: https://script.google.com/macros/s/AKfycbwbBBzxT6rHyH_u-cgv4FEMeRgsPgVSO_ZckEhUTHa-3maqyAUcJg-pF9-EDuEO8HMq7A/exec
     Google_SpreadsheetKey: 14049tHO6VaEqBmjkzO1nCKMSuMtEjfdyf9b0AiGhvJQ

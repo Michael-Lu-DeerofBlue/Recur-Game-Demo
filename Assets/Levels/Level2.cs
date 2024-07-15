@@ -28,6 +28,7 @@ public class Level2 : LevelController
     // Start is called before the first frame update
     void Awake()
     {
+        ES3.Save("Sprint", true);
         colorAdjustments = (ColorAdjustments)volume.profile.components.Find(x => x is ColorAdjustments);
         Player.GetComponent<GadgetsTool>().MagneticBoots = false;
         Player.GetComponent<GadgetsTool>().Camera = true;

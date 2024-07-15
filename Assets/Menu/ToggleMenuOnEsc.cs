@@ -3,7 +3,6 @@ using UnityEngine;
 public class ToggleMenuOnEsc : MonoBehaviour
 {
     public GameObject targetObject; // Reference to the menu GameObject
-    public MonoBehaviour cursorScript;
     public MonoBehaviour PlayerController; // Reference to the player control script
     public MonoBehaviour CameraController; // Reference to the camera control script
     public MainUIManager mainUIManager;

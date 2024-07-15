@@ -100,8 +100,10 @@ public class CameraController : MonoBehaviour
         }
 
         count = detectedTargets.Count;
+        
         foreach (var target in detectedTargets)
         {
+            //Debug.Log(target.name);
             string targetName = target.gameObject.transform.parent.name;
             //Debug.Log(target.transform.parent.rotation);
             bool isFacingAway = IsFacingAwayFromPlayer(target.parent.transform);
