@@ -39,23 +39,22 @@ public class InSelectionBar : MonoBehaviour
             if (sticker.IndexShape == Shapeindex)
             {
                 AttachSpriteToChild(sticker.position1, sticker.StickerName);
-                break;
             }
         }
     }
     void AttachSpriteToChild(Vector3 localPosition, string spriteName)
     {
-        foreach (Transform child in transform)
+        GameObject thebigblock = this.gameObject;
+        foreach (Transform child in thebigblock.transform)
         {
             if (child.localPosition == localPosition)
             {
-                SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
-                if (spriteRenderer == null)
-                {
-                    spriteRenderer = child.gameObject.AddComponent<SpriteRenderer>();
-                }
+                GameObject newSpriteObject = new GameObject(spriteName);
+                newSpriteObject.transform.parent = child;
+                newSpriteObject.transform.localPosition = Vector3.zero;
+                SpriteRenderer spriteRenderer = newSpriteObject.AddComponent<SpriteRenderer>();
                 spriteRenderer.sprite = GetSpriteByName(spriteName);
-
+                spriteRenderer.sortingOrder = 11;
                 break;
             }
         }

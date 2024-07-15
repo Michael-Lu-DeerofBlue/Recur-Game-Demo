@@ -449,6 +449,7 @@ public class BlockManager : MonoBehaviour
             if (sticker.IndexShape == Shapeindex)
             {
                 AttachSpriteToChild(sticker.position1, sticker.StickerName);
+
             }
         }
     }
@@ -465,6 +466,7 @@ public class BlockManager : MonoBehaviour
                 SpriteRenderer spriteRenderer = newSpriteObject.AddComponent<SpriteRenderer>();
                 spriteRenderer.sprite = GetSpriteByName(spriteName);
                 Debug.Log("Parent GameObject: " + newSpriteObject.transform.parent.name);
+                spriteRenderer.sortingOrder = 11;
                 break;
             }
         }
