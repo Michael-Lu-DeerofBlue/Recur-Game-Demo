@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static StickerInfo;
 
 public class StickerInfo : MonoBehaviour
 {
@@ -23,7 +24,6 @@ public class StickerInfo : MonoBehaviour
         {
         dataList = new List<StickerData>();
         inSelectionBar = FindObjectOfType<InSelectionBar>();
-
-        dataList.Add(new StickerData(4, "StickerExample", new Vector3(0, 0, 0)));
+        ES3.Load("StickerData", dataList);
     }
 }
