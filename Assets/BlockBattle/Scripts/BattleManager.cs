@@ -40,7 +40,8 @@ public class BattleManager : MonoBehaviour
     public bool PlayerImmuingDebuff = false;
     public int CriticalNum = 0;
 
-    // enemey debuff type:
+    // enemey debuff type: Fragiling 写在 Enemy上， 可以直接set Enemy.FragilingNum
+    
    // PauseCasting in enemy.cs
     //enemy status:
     public bool WeakMinionCompanionsOnHold = false;
@@ -125,18 +126,18 @@ public class BattleManager : MonoBehaviour
         {
             if(CriticalNum >= 1)
             {
-                damage = damage * 1.5f;
+                damage = damage * 1.5f* CriticalNum;
                 Target.HitHandle(damage);
-                CriticalNum--;
+                CriticalNum=0;
             }else if(CriticalNum == 0) { 
                 Target.HitHandle(damage);
             }
 
         }
     }
-    public void FragileEnemy(float damage, Enemy Target)
+    public void FragileEnemy(Enemy Target)
     {
-        Target.Fragiling = true;
+            Target.FragilingNum++;
     }
     public void ZornhauyEnmey(float damage, Enemy Target)
     {
@@ -211,6 +212,10 @@ public class BattleManager : MonoBehaviour
             case "Critical":
                 CriticalNum++;
                 return;
+            case "Piercing":
+                FragileEnemy(heroInfo.selectedEnemy);
+                return;
+
 
         }
     }
@@ -220,6 +225,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);  
         PlayerImmuingDebuff = false;  
     }
+ 
 
     public void DropDownBlock(float second)
     //we can just set the bool when doing remove rebug instead of using coroutine.

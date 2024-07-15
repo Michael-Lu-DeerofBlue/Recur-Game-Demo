@@ -19,16 +19,17 @@ public abstract class Enemy : MonoBehaviour
     public float timer;
     public HeroInfo heroInfo;
     public BattleManager battleManager;
-    public bool PauseCasting = false; 
     public string nextMove;//name of the skill that will be executed next.
-    public bool Fragiling = false;
     public bool isdead=false;
-    public float PauseTime = 0;
-    private ItemEventHandler itemEventHandler;
     private TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
     private bool SpendingSkillAnim = false;
     private GameObject enemyUIInstance;
+    
+    //Enemy debuff type:
+    public int FragilingNum = 0;
+    public float PauseTime = 0;
+    public bool PauseCasting = false;
 
     public string[] CurrentSkillIcons;
     private TextMeshProUGUI EnemyName;
@@ -46,7 +47,6 @@ public abstract class Enemy : MonoBehaviour
         battleManager = FindObjectOfType<BattleManager>();
         GetNextMove();//get casting time for the first turn.
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
-        itemEventHandler = FindObjectOfType<ItemEventHandler>();
         twoDto3D = FindObjectOfType<TwoDto3D>();
 
         CreateEnemyUI();
@@ -250,16 +250,21 @@ public virtual void ExecuteSkill()
     }
     public virtual void HitHandle(float damage)
     {
-        if (Fragiling)
+        if (FragilingNum > 0)
         {
-            HP -= damage*1.5f;
-            Debug.Log("Enemy is receving 1.5 times damage. HP: " + HP);
-            Fragiling = false;
+            HP -= damage * 1.5f;
+            FragilingNum--;
+            UpdateEnemyUI();
+            enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
+
+
         }
-        else
+        else if(FragilingNum == 0)
         {
             HP -= damage;
-            
+            UpdateEnemyUI();
+            enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
+
         }
         if (HP <= 0)
         {

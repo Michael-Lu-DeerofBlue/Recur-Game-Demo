@@ -92,7 +92,7 @@ public class StarryNight : Enemy
         if(ChargingCorruption == true)
         {
             HP -= 1;
-        }else if (Fragiling)
+        }else if (FragilingNum>0)
         {
             HP -= damage * 1.5f;
             Debug.Log("Enemy is receving 1.5 times damage. HP: " + HP);

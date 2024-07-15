@@ -17,6 +17,7 @@ public class HeroInfo : MonoBehaviour
     public GameObject PlayerHpBar;
     public GameObject[] SkillICoinsHolder;
     private List<(int index, int clearNumber, int holderIndex)> iconQueue = new List<(int, int, int)>();
+    private Queue<(int index, int clearNumber)> extraIconsQueue = new Queue<(int, int)>();
     private Image hpBarImage;
     private float MaxWeight;
     public TextMeshPro Hp;
@@ -70,30 +71,35 @@ public class HeroInfo : MonoBehaviour
 
         Sprite targetSprite = SkillIcon[index];
 
-        for (int i = 0; i < SkillICoinsHolder.Length; i++)
+        if (iconQueue.Count < SkillICoinsHolder.Length)
         {
-            SpriteRenderer sr = SkillICoinsHolder[i].GetComponent<SpriteRenderer>();
-
-            if (sr == null)
+            for (int i = 0; i < SkillICoinsHolder.Length; i++)
             {
-                Debug.LogWarning("SkillICoinsHolder element does not have a SpriteRenderer component.");
-                continue;
-            }
+                SpriteRenderer sr = SkillICoinsHolder[i].GetComponent<SpriteRenderer>();
 
-            if (sr.sprite == null)
-            {
-                sr.sprite = targetSprite;
-                iconQueue.Add((index, clearNumber, i));
-                Debug.Log("add actionqueue. " + index + " clearnumber: " + clearNumber);
-                return;
+                if (sr == null)
+                {
+                    Debug.LogWarning("SkillICoinsHolder element does not have a SpriteRenderer component.");
+                    continue;
+                }
+
+                if (sr.sprite == null)
+                {
+                    sr.sprite = targetSprite;
+                    iconQueue.Add((index, clearNumber, i));
+                    Debug.Log("add actionqueue. " + index + " clearnumber: " + clearNumber);
+                    return;
+                }
             }
+        }
+        else
+        {
+            extraIconsQueue.Enqueue((index, clearNumber));
+            Debug.Log("add extra queue. " + index + " clearnumber: " + clearNumber);
         }
 
         Debug.LogWarning("No empty SpriteRenderer found in SkillICoinsHolder.");
     }
-
-
-
 
     public virtual void ExecuteIconSkill()
     {
@@ -114,15 +120,37 @@ public class HeroInfo : MonoBehaviour
             ExecuteBehavior(index, clearNumber);
             iconQueue.RemoveAt(0);
 
-            // Destroy the first generated icon
+
             SpriteRenderer sr = SkillICoinsHolder[holderIndex].GetComponent<SpriteRenderer>();
             if (sr != null)
             {
                 sr.sprite = null;
             }
         }
-        battleManager.ContinueBlockGame();
+
+
+        if (iconQueue.Count == 0 && extraIconsQueue.Count > 0)
+        {
+            AddExtraIconsToQueue();
+            ExecuteIconSkill();
+        }
+        if(iconQueue.Count==0 && extraIconsQueue.Count == 0)
+        {
+            battleManager.ContinueBlockGame();
+        }
+
     }
+
+    private void AddExtraIconsToQueue()
+    {
+        int count = Mathf.Min(SkillICoinsHolder.Length, extraIconsQueue.Count);
+        for (int i = 0; i < count; i++)
+        {
+            var (extraIndex, extraClearNumber) = extraIconsQueue.Dequeue();
+            GenerateIcon(extraIndex, extraClearNumber);
+        }
+    }
+
 
 
     public virtual void ExecuteBehavior(int index, int clearNumber)
@@ -188,9 +216,9 @@ public class HeroInfo : MonoBehaviour
     public virtual void Fragile(float damage)
     {
         battleManager.AttackEnemy(damage, selectedEnemy);
-        battleManager.FragileEnemy(damage, selectedEnemy);
+        battleManager.FragileEnemy(selectedEnemy);
     }
-
+   
     public virtual void parry(int turnnumber)
     {
         parryCount+= turnnumber;
