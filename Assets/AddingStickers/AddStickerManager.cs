@@ -101,10 +101,8 @@ public class AddStickerManager : MonoBehaviour
 
     void UpdateInUseStickerDictionary(string text)
     {
-
         int count = inUseStickersInventory[text] + 1;
         inUseStickersInventory[text] = count;
-        Debug.Log(count.ToString());
     }
     public void SaveStickerData()
     {
