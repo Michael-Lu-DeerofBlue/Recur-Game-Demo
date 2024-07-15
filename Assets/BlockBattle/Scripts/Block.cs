@@ -449,7 +449,6 @@ public class BlockManager : MonoBehaviour
             if (sticker.IndexShape == Shapeindex)
             {
                 AttachSpriteToChild(sticker.position1, sticker.StickerName);
-                break;
             }
         }
     }

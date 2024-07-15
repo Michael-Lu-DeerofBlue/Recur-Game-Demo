@@ -4,17 +4,16 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Perseus : Enemy
+public class Perseus_1 : Enemy
 {
-    public int attackDamage = 8; 
-    public int CurseOfGorgonDamage = 100;
-
+    public int attackDamage = 3;
+    public int CurseOfGorgonDamage = 80;
 
     public int attackWeight = 1;
     public int CurseOfGorgonWeight = 1;
-    
+
     public float attackCastingTime = 8;
-    public float CurseOfGorgonCastingTime = 80;
+    public float CurseOfGorgonCastingTime = 60;
 
     private enum SkillType { Attack, CurseOfGorgon }
     private SkillType nextSkill;
@@ -36,18 +35,23 @@ public class Perseus : Enemy
     {
         int sum = attackWeight + CurseOfGorgonWeight;
         float attackProbability = (float)attackWeight / sum;
+        float CurseOfGorgonProbability = (float)CurseOfGorgonWeight / sum;
         float randomValue = Random.value;
-        
+
 
         if (randomValue < attackProbability)
         {
             SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
+            CurrentSkillIcons = new string[] { "Damage" };
+
         }
         else
         {
-            SkillCastingTime = CurseOfGorgonCastingTime;
+            SkillCastingTime = CurseOfGorgonCastingTime;  // CorruptingWind action
             nextSkill = SkillType.CurseOfGorgon;
+            CurrentSkillIcons = new string[] { "Damage", "Interrupt" };
+
         }
         nextMove = nextSkill.ToString();
     }

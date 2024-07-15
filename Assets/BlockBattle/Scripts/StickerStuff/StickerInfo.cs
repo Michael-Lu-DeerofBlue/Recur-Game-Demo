@@ -24,6 +24,10 @@ public class StickerInfo : MonoBehaviour
         {
         dataList = new List<StickerData>();
         inSelectionBar = FindObjectOfType<InSelectionBar>();
-        ES3.Load("StickerData", dataList);
+        dataList = ES3.Load<List<StickerData>>("StickerData");
+        foreach (var data in dataList)
+        {
+            Debug.Log(data.StickerName);
+        }
     }
 }

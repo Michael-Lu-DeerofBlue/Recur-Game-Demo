@@ -265,7 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7868329382648246484}
   - component: {fileID: 3197008888474548069}
-  - component: {fileID: 8521687895905690748}
+  - component: {fileID: 9096006732663665390}
   m_Layer: 0
   m_Name: Perseus
   m_TagString: Enemy
@@ -316,7 +316,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.171698, y: 9.654798, z: 1}
   m_Center: {x: -0.43235517, y: 2.016954, z: 0}
---- !u!114 &8521687895905690748
+--- !u!114 &9096006732663665390
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,15 +325,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4892679668077574771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0ecd5f709bb248419b00b09d828f399, type: 3}
+  m_Script: {fileID: 11500000, guid: 6840fccb87229d640947dc58bcaaa169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveFrequency: 4
-  moveAmplitude: 0.1
+  moveAmplitude: 0.5
   HP: 100
   MaxHp: 100
   SkillCastingTime: 0
-  DisplayName: perseus
+  DisplayName: 
   enemyInfoText: {fileID: 2320016935802981217}
   timer: 0
   heroInfo: {fileID: 0}
@@ -350,7 +350,7 @@ MonoBehaviour:
   attackWeight: 1
   CurseOfGorgonWeight: 0
   attackCastingTime: 8
-  CurseOfGorgonCastingTime: 100
+  CurseOfGorgonCastingTime: 60
 --- !u!1 &4921975322634956862
 GameObject:
   m_ObjectHideFlags: 0
