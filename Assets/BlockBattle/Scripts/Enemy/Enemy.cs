@@ -98,7 +98,7 @@ public abstract class Enemy : MonoBehaviour
             if (canvas != null)
             {
 
-                Vector3 screenPosition = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y - 6, transform.position.z));
+                Vector3 screenPosition = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y - 8, transform.position.z));
                 enemyUIInstance = Instantiate(battleManager.EnemyUI, screenPosition, Quaternion.identity);
                 enemyUIInstance.transform.SetParent(canvas.transform, false);
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), screenPosition, Camera.main, out Vector2 canvasPosition);
@@ -294,7 +294,7 @@ public virtual void ExecuteSkill()
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), screenPosition, Camera.main, out Vector2 canvasPosition);
             canvasPosition.x += 5f;
             DamageNumUI.GetComponent<RectTransform>().anchoredPosition = canvasPosition;
-
+            DamageNumUI.transform.SetAsLastSibling();
             TextMeshProUGUI damageText = DamageNumUI.GetComponentInChildren<TextMeshProUGUI>();
             if (damageText != null)
             {

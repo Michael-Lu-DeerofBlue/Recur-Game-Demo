@@ -28,7 +28,7 @@ public class InSelectionBar : MonoBehaviour
         StickerInfo= FindObjectOfType<StickerInfo>();
         CheckandAttachSticker();
         tipsInfo = FindObjectOfType<TipsInfo>();
-
+        this.transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
     }
 
     public void CheckandAttachSticker()

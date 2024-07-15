@@ -53,7 +53,7 @@ public class BattleManager : MonoBehaviour
     public int ToolTipsLevel=0;
     void Start()
     {
-        FirstCombat();
+     //   FirstCombat();
         heroInfo = FindObjectOfType<HeroInfo>();
         inttranslator = FindObjectOfType<IntTranslator>();
         spawnBlock = FindObjectOfType<SpawnBlock>();
