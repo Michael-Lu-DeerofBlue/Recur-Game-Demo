@@ -25,6 +25,7 @@ public abstract class Enemy : MonoBehaviour
     private TwoDto3D twoDto3D;
     private bool SpendingSkillAnim = false;
     private GameObject enemyUIInstance;
+    private GameObject DamageNumUI;
     
     //Enemy debuff type:
     public int FragilingNum = 0;
@@ -48,7 +49,6 @@ public abstract class Enemy : MonoBehaviour
         GetNextMove();//get casting time for the first turn.
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
         twoDto3D = FindObjectOfType<TwoDto3D>();
-
         CreateEnemyUI();
 
         Transform mySpriteTransform = FindChildByName(transform, "MySprite");
@@ -256,7 +256,7 @@ public virtual void ExecuteSkill()
             FragilingNum--;
             UpdateEnemyUI();
             enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
-
+            SpawnDamageUI(damage);
 
         }
         else if(FragilingNum == 0)
@@ -264,7 +264,7 @@ public virtual void ExecuteSkill()
             HP -= damage;
             UpdateEnemyUI();
             enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
-
+            SpawnDamageUI(damage);
         }
         if (HP <= 0)
         {
@@ -272,7 +272,71 @@ public virtual void ExecuteSkill()
             deadhandle();
         }
     }
+    public virtual void SpawnDamageUI(float damage)
+    {
+        GameObject canvas = GameObject.Find("Canvas");
+        if (canvas != null)
+        {
+            // Set DamageNumUI to EnemyDamageNumUI from battleManager
+            DamageNumUI = Instantiate(battleManager.EnemyDamageNumUI);
 
+            // Convert the world position to screen position
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+
+            // Set the position of DamageNumUI to the screen position
+            DamageNumUI.transform.SetParent(canvas.transform, false);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), screenPosition, Camera.main, out Vector2 canvasPosition);
+            canvasPosition.x += 5f;
+            DamageNumUI.GetComponent<RectTransform>().anchoredPosition = canvasPosition;
+
+            TextMeshProUGUI damageText = DamageNumUI.GetComponentInChildren<TextMeshProUGUI>();
+            if (damageText != null)
+            {
+                damageText.text = damage.ToString();
+            }
+        }
+        StartCoroutine(AnimateDamageUI(DamageNumUI, 0.2f, 0.1f));
+    }
+
+    private IEnumerator AnimateDamageUI(GameObject damageUI, float duration, float shakeMagnitude)
+    {
+        RectTransform rectTransform = damageUI.GetComponent<RectTransform>();
+        Vector2 originalPosition = rectTransform.anchoredPosition;
+
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            float x = Random.Range(-1f, 1f) * shakeMagnitude;
+            float y = Random.Range(-1f, 1f) * shakeMagnitude;
+
+            rectTransform.anchoredPosition = new Vector2(originalPosition.x + x, originalPosition.y + y);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        rectTransform.anchoredPosition = originalPosition;
+
+        // Fade out
+        CanvasGroup canvasGroup = damageUI.GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+        {
+            canvasGroup = damageUI.AddComponent<CanvasGroup>();
+        }
+
+        elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            canvasGroup.alpha = Mathf.Lerp(1, 0, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(damageUI);
+    }
     public virtual void deadhandle()
     {
         isdead = true;// to prevent the enemy from added into the existing enemy array or executing the turn after it is dead.
