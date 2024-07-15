@@ -216,6 +216,16 @@ public class BattleManager : MonoBehaviour
             case "Piercing":
                 FragileEnemy(heroInfo.selectedEnemy);
                 return;
+            case "Sober":
+                Debug.Log("SoberStickerSoberStickerSoberStickerSoberSticker");
+                return;
+            case "Swordmaster":
+                Debug.Log("SwordmasterSwordmasterSwordmasterSwordmasterSwordmaster");
+                return;
+            case "Gunslinger":
+                Debug.Log("GunslingerGunslingerGunslingerGunslingerGunslingerGunslinger");
+                return;
+
 
 
         }

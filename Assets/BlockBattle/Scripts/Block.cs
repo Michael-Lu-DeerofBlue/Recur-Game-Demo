@@ -272,9 +272,26 @@ public class BlockManager : MonoBehaviour
             {
                 battleManager.HandleStickerEffect("Critical");
             }
+            if (child.GetComponent<SpriteRenderer>().sprite.name == "Piercing")
+            {
+                battleManager.HandleStickerEffect("Piercing");
+            }
+            if (child.GetComponent<SpriteRenderer>().sprite.name == "Sober")
+            {
+                battleManager.HandleStickerEffect("Sober");
+            }
+            if (child.GetComponent<SpriteRenderer>().sprite.name == "Swordmaster")
+            {
+                battleManager.HandleStickerEffect("Swordmaster");
+            }
+            if (child.GetComponent<SpriteRenderer>().sprite.name == "Gunslinger")
+            {
+                battleManager.HandleStickerEffect("GunSlinger");
+            }
         }
 
-        int x = (int)block.position.x;
+
+            int x = (int)block.position.x;
         int y = (int)block.position.y;
 
         if (IsInsideExtendedGrid(new Vector3(x + 1, y, 0)))
