@@ -57,6 +57,8 @@ public class BattleManager : MonoBehaviour
         heroInfo = FindObjectOfType<HeroInfo>();
         inttranslator = FindObjectOfType<IntTranslator>();
         spawnBlock = FindObjectOfType<SpawnBlock>();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
     }
 
@@ -212,6 +214,7 @@ public class BattleManager : MonoBehaviour
         {
             case "Critical":
                 CriticalNum++;
+                Debug.Log("CriticalCriticalCriticalCriticalCriticalCritical");
                 return;
             case "Piercing":
                 FragileEnemy(heroInfo.selectedEnemy);
