@@ -269,6 +269,15 @@ public class BattleManager : MonoBehaviour
     {
         TimeStop = false;
         clearedline = 0;
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        foreach(Enemy enemy in enemies)
+        {
+           if( enemy.FragilingNum>0 )
+            {
+                enemy.FragilingNum--;
+            }
+        }
+
     }
     public void addclearedlineNumber()
     {

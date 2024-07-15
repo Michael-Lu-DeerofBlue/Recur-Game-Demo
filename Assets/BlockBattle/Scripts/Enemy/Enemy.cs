@@ -259,8 +259,7 @@ public virtual void ExecuteSkill()
     {
         if (FragilingNum > 0)
         {
-            HP -= damage * 1.5f;
-            FragilingNum--;
+            HP -= damage * 1.2f;
             UpdateEnemyUI();
             enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
             SpawnDamageUI(damage);
