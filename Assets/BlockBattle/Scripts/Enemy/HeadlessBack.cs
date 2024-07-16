@@ -24,6 +24,7 @@ public class HeadlessBack : Enemy
         {
             case SkillType.Attack:
                 Attack(attackDamage);
+                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f);
                 break;
             case SkillType.SculptureGlance:
                 Attack(SculptureGlanceDamage);
