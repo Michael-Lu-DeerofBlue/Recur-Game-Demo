@@ -163,6 +163,7 @@ public abstract class Enemy : MonoBehaviour
             else
             {
                 Debug.Log("Animator does not contain the state :"+ nextMove);
+                ExecuteTurn();
             }
         }
         else
