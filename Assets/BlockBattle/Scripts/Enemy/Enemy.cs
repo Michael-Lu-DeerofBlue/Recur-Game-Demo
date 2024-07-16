@@ -5,6 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Animations;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -71,16 +72,16 @@ public abstract class Enemy : MonoBehaviour
         {
             return;
         }
+        if (timer <= 0 && !SpendingSkillAnim)
+        {
+            ExecuteAnimation();
 
-        if(battleManager.TimeStop==false)
+        }
+        if (battleManager.TimeStop==false && !SpendingSkillAnim)
         {
             CastingTimerReduce(CastingSpeedRate);
         }
-        if (timer <= 0)
-        {
-            ExecuteTurn();
 
-        }
 
         enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
         UpdateEnemyUI();
@@ -143,6 +144,34 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    public virtual void ExecuteAnimation()
+    {
+        SpendingSkillAnim = true;
+        string StateName = nextMove;
+        if (StateName == "Attack")
+        {
+            ExecuteTurn();
+            return;
+        }
+        if (animator != null)
+        {
+            bool hasNimaState = animator.HasState(0, Animator.StringToHash(nextMove));
+            if (hasNimaState)
+            {
+                animator.Play(nextMove);
+            }
+            else
+            {
+                Debug.Log("Animator does not contain the state :"+ nextMove);
+            }
+        }
+        else
+        {
+            Debug.LogError("Animator component is not assigned.");
+            ExecuteTurn();
+        }
+    }
+
     public virtual void ExecuteTurn()//all enemy will get casting time before they spend skill.
     {
         ExecuteSkill();
@@ -156,6 +185,7 @@ public abstract class Enemy : MonoBehaviour
             nextSkillIcon.sprite = null;
         }
         timer = SkillCastingTime;
+        SpendingSkillAnim = false;
         //after that, look at the update method. 
     }
     public virtual void DisplaySkillIcon()

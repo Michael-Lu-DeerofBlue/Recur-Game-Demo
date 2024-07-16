@@ -30,6 +30,7 @@ public class HeadlessFront : Enemy
         {
             case SkillType.Attack:
                 Attack(attackDamage);
+                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f);
                 break;
             case SkillType.SculptureGlane:
                 Attack(SculptureGlaneDamage);
@@ -44,7 +45,7 @@ public class HeadlessFront : Enemy
 
     public override void GetNextMove()
     {
-        int sum = attackWeight + SculptureGlaneWeight;
+        int sum = attackWeight + SculptureGlaneWeight + SculptureGazeWeight;
         float attackProbability = (float)attackWeight / sum;
         float SculptureGlaneProbability = (float)SculptureGlaneWeight / sum;
         float randomValue = Random.value;
