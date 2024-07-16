@@ -302,31 +302,41 @@ public virtual void ExecuteSkill()
     }
     public virtual void HitHandle(float damage)
     {
-        if (FragilingNum > 0)
+        if (damage > 0)
         {
-            HP -= damage * 1.2f;
-            UpdateEnemyUI();
-            enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
-            if (damage > 0)
+            if (FragilingNum > 0)
             {
-                SpawnDamageUI(damage);
-            }
+                HP -= damage * 1.2f;
+                UpdateEnemyUI();
+                enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
+                if (damage > 0)
+                {
+                    SpawnDamageUI(damage);
+                }
 
-        }
-        else if(FragilingNum == 0)
-        {
-            HP -= damage;
-            UpdateEnemyUI();
-            enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
-            if(damage>0)
+            }
+            else if (FragilingNum == 0)
             {
-                SpawnDamageUI(damage);
+                HP -= damage;
+                UpdateEnemyUI();
+                enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
+                if (damage > 0)
+                {
+                    SpawnDamageUI(damage);
+                }
             }
         }
+
+
         if (HP <= 0)
         {
             HP = 0;
+            soundManager.PlaySound("EnemyDie");
             deadhandle();
+        }
+        else
+        {
+            soundManager.PlaySound("EnemyTakeDamage");
         }
     }
     public virtual void SpawnDamageUI(float damage)
