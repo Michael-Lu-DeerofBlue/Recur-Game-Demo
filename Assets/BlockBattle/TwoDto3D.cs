@@ -32,18 +32,19 @@ public class TwoDto3D : MonoBehaviour
         {
             Victory= true;
             Debug.Log("Victory");
+            soundManager.PlaySound("PlayerWin");
         }
         else
         {
             Victory= false;
             Debug.Log("Defeat");
+            soundManager.PlaySound("CombatExit");
         }
         inventory = itemManager.inventory;
         foreach (var item in inventory)
         {
             Debug.Log($"Inventory item: {item.Key}, quantity: {item.Value}");
         }
-        soundManager.PlaySound("CombatExit");
         BackToLevel();
         // when need to save data from2d to 3D, just give Victory and iventory parameters.
     }

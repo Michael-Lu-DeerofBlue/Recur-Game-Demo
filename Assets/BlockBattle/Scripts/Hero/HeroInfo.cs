@@ -30,6 +30,7 @@ public class HeroInfo : MonoBehaviour
     public float horizontalSpacing =7.0f;
     private DamageNumber damageNumber;
     private List<IEnumerator> bleedingCoroutines = new List<IEnumerator>();
+    private SoundManager soundManager;
     // List to store pairs of index and clearNumber
 
 
@@ -43,6 +44,7 @@ public class HeroInfo : MonoBehaviour
         targetSelector = FindObjectOfType<TargetSelector>();
         damageNumber = FindObjectOfType<DamageNumber>();
         hpBarImage = PlayerHpBar.GetComponent<Image>();
+        soundManager = FindObjectOfType<SoundManager>();
 
     }
 
@@ -204,6 +206,7 @@ public class HeroInfo : MonoBehaviour
         HitPoint -= damage;
         Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
         damageNumber.ShowDamageNumber(damage);
+        soundManager.PlaySound("PlayerTakeDamage");
         if (HitPoint <= 0)
         {
             HitPoint = 0;
