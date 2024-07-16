@@ -168,6 +168,7 @@ public abstract class Enemy : MonoBehaviour
         else
         {
             Debug.LogError("Animator component is not assigned.");
+            ExecuteTurn();
         }
     }
 
