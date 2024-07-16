@@ -347,14 +347,14 @@ public class HeroInfo : MonoBehaviour
     {
         while (true)
         {
-            while (battleManager.TimeStop)
+            while (battleManager.BlockGameTimeStop)
             {
                 yield return null; 
             }
 
             yield return new WaitForSeconds(5f);
 
-            if (!battleManager.TimeStop)
+            if (!battleManager.BlockGameTimeStop)
             {
                 HitHandle(1);
                 Debug.Log("HP: " + HitPoint);

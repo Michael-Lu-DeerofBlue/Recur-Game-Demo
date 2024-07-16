@@ -12,17 +12,21 @@ public class TwoDto3D : MonoBehaviour
     private Dictionary<string, int> inventory = new Dictionary<string, int>();
     public Flowchart flowchart;
     public static List<string> ToThreeEnemies;
+    private SoundManager soundManager;
+
+    void Start()
+    {
+        soundManager = FindAnyObjectByType<SoundManager>();
+    }
     // Start is called before the first frame update
     public void TwoDGameOver()
     {
         Debug.Log("Here");
         enemies = FindObjectsOfType<Enemy>();
-        /*
         for (int i = 0; i <enemies.Length; i++)
         {
             ToThreeEnemies.Add(enemies[i].DisplayName);
         }
-        */
         ItemManager itemManager = FindObjectOfType<ItemManager>();
         if (enemies.Length == 0)
         {
@@ -39,6 +43,7 @@ public class TwoDto3D : MonoBehaviour
         {
             Debug.Log($"Inventory item: {item.Key}, quantity: {item.Value}");
         }
+        soundManager.PlaySound("CombatExit");
         BackToLevel();
         // when need to save data from2d to 3D, just give Victory and iventory parameters.
     }

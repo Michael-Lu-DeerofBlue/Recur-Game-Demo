@@ -16,10 +16,12 @@ public class SelectionTool : MonoBehaviour
     public GameObject Spawner;
     public GameObject Translator;
     public bool stillFalling;
+    private SoundManager soundManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        soundManager=FindAnyObjectByType<SoundManager>();
         foreach (var kvp in actionBlockDictionary)
         {
             blockList.Add(kvp.Key);
@@ -51,6 +53,7 @@ public class SelectionTool : MonoBehaviour
         // Update the UI to reflect changes
         SelectionUI.GetComponent<SelectionToolUI>().UpdateStorageBlocks(storedBlock, storedColorIndex);
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
+        soundManager.PlaySound("StoreActionBlock");
     }
 
     public void addToFall(int index, bool Storage)
@@ -85,6 +88,7 @@ public class SelectionTool : MonoBehaviour
             }
             SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
             Spawner.GetComponent<SpawnBlock>().SpawnNewBlock(index, color, threeColorList[Position]); // 这Spawn是Spawn在grid上，index代表方块形状，color代表我要在grid上生成的方块的颜色
+            soundManager.PlaySound("ActionBlockChoose");
         }
         else
         {

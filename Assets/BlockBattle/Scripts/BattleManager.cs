@@ -1,3 +1,4 @@
+using Fungus;
 using PixelCrushers;
 using System;
 using System.Collections;
@@ -20,8 +21,9 @@ public class BattleManager : MonoBehaviour
     public float Timer;
     public SelectionTool selectionTool;
     public IntTranslator inttranslator;
-    public bool TimeStop = false;
+    public bool BlockGameTimeStop = false;
     public bool GameOver = false;
+    private SoundManager soundManager;
 
     //Player status:
     public bool PlayerLandOn = false;
@@ -59,6 +61,8 @@ public class BattleManager : MonoBehaviour
         spawnBlock = FindObjectOfType<SpawnBlock>();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        soundManager = FindObjectOfType<SoundManager>();
+        soundManager.PlaySound("CombatEnter");
 
     }
 
@@ -282,11 +286,35 @@ public class BattleManager : MonoBehaviour
     }
     public void IntrruptBlockGame()//called when start to select enemy.
     {
-        TimeStop = true;
+        BlockGameTimeStop = true;
+    }
+
+    public void CheckAndPlayLineCleardSound()
+    {
+        if (clearedline == 0)
+        {
+        }
+        if (clearedline == 1)
+        {
+            soundManager.PlaySound("ClearOneLine");
+        }
+        if (clearedline == 2)
+        {
+            soundManager.PlaySound("ClearTwoLines");
+        }
+        if (clearedline == 3)
+        {
+            soundManager.PlaySound("ClearTwoLines");
+
+        }
+        if (clearedline == 4)
+        {
+            soundManager.PlaySound("ClearFourLines");
+        }
     }
     public void ContinueBlockGame()//called when start to select enemy.
     {
-        TimeStop = false;
+        BlockGameTimeStop = false;
         clearedline = 0;
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach(Enemy enemy in enemies)

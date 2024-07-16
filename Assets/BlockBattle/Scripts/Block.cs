@@ -26,7 +26,7 @@ public class BlockManager : MonoBehaviour
     public Sprite[] sprites;
     private int Shapeindex;
     private bool isClearingRightSideBlocks = false;
-    private int movedLines = 0;
+    private SoundManager soundManager;
     void Start()
     {
         twoDto3D = FindObjectOfType<TwoDto3D>();
@@ -39,6 +39,7 @@ public class BlockManager : MonoBehaviour
 
        Shapeindex=spawnblock.GetLastSpawnedIndex();
        CheckandAttachSticker();
+        soundManager = FindObjectOfType<SoundManager>();
 
 
     }
@@ -46,7 +47,7 @@ public class BlockManager : MonoBehaviour
 
     void Update()
     {
-        if (battleManager.TimeStop == false) {
+        if (battleManager.BlockGameTimeStop == false) {
             if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
         {
                 if (battleManager.DisablePlayerInput == true) return;
@@ -87,7 +88,8 @@ public class BlockManager : MonoBehaviour
             if (!ValidMove())
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
             FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
-        }
+                soundManager.PlaySound("ActionBlockOrient"); 
+            }
 
         // Handle block falling over time
 
@@ -133,10 +135,11 @@ public class BlockManager : MonoBehaviour
             {
                 MoveLineToRightSide(i);
                 RowDown(i);
-                battleManager.IntrruptBlockGame();
                 battleManager.addclearedlineNumber();
+                battleManager.IntrruptBlockGame();
             }
         }
+        battleManager.CheckAndPlayLineCleardSound();
     }
 
     // Check if a line is complete
@@ -147,7 +150,6 @@ public class BlockManager : MonoBehaviour
             if (grid[j, i] == null)
                 return false;
         }
-        movedLines++;
         return true;
 
     }
@@ -198,7 +200,7 @@ public class BlockManager : MonoBehaviour
     IEnumerator ClearRightSideBlocks()
     {
         isClearingRightSideBlocks = true;
-        while (battleManager.TimeStop == true)
+        while (battleManager.BlockGameTimeStop == true)
         {
             yield return new WaitForSeconds(0.3f);
 
@@ -225,7 +227,7 @@ public class BlockManager : MonoBehaviour
     }
     public void StartClearBlock()
     {
-        battleManager.TimeStop = true;
+        battleManager.BlockGameTimeStop = true;
         if (!isClearingRightSideBlocks)
         {
             StartCoroutine(ClearRightSideBlocks());
@@ -355,7 +357,7 @@ public class BlockManager : MonoBehaviour
                 grid[roundedX, roundedY] = children;
                 if (roundedY >= height - 1)
                 {
-                    battleManager.TimeStop = true;
+                    battleManager.BlockGameTimeStop = true;
                     GameObject gameInstance = GameObject.Find("GameInstance");
                     if (gameInstance != null) { gameInstance.GetComponent<TwoDto3D>().TwoDGameOver(); }
                     return;
@@ -366,6 +368,7 @@ public class BlockManager : MonoBehaviour
         selectionToolProcessor.GetComponent<SelectionTool>().stillFalling = false;
         if (ghostBlock != null)
         {
+            soundManager.PlaySound("LandActionBlock");
             Destroy(ghostBlock);
         }
         //FindObjectOfType<SpawnBlock>().SpawnNewBlock(1);

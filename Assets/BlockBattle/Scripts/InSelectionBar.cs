@@ -124,7 +124,7 @@ public class InSelectionBar : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) // 1 is the right mouse button
         {
             if (battleManager.DisablePlayerInput == true) return;
-            if (battleManager.TimeStop == true)
+            if (battleManager.BlockGameTimeStop == true)
             {
                 return;
             }

@@ -30,6 +30,7 @@ public class ItemManager : MonoBehaviour
     public Animator Animator;
     public Button showHideButton;
     public bool playingConsumableAnim = false;
+    private SoundManager soundManager;
 
 
     void Start()
@@ -57,6 +58,7 @@ public class ItemManager : MonoBehaviour
             index++;
         }
          showHideButton.onClick.AddListener(SwitchInventory);  
+        soundManager = FindObjectOfType<SoundManager>();
     }
     private void Update()
     {
@@ -167,7 +169,9 @@ public class ItemManager : MonoBehaviour
 
         if (inventory.ContainsKey(itemName))
         {
+            soundManager.PlaySound("UseItem");
             playingConsumableAnim = true;
+
             StartCoroutine(AnimateButton(inventoryButton.button.GetComponent<RectTransform>(),inventoryButton));
 
         }

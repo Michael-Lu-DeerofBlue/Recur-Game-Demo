@@ -29,6 +29,7 @@ public abstract class Enemy : MonoBehaviour
     private GameObject enemyUIInstance;
     private GameObject DamageNumUI;
     private Coroutine currentSkillIconsCoroutine;
+    private SoundManager soundManager;
 
     //Enemy debuff type:
     public int FragilingNum = 0;
@@ -55,6 +56,7 @@ public abstract class Enemy : MonoBehaviour
         twoDto3D = FindObjectOfType<TwoDto3D>();
         CreateEnemyUI();
         animator = GetComponent<Animator>();
+        soundManager = FindObjectOfType<SoundManager>();
 
         Transform mySpriteTransform = FindChildByName(transform, "MySprite");
         if (mySpriteTransform != null)
@@ -77,7 +79,7 @@ public abstract class Enemy : MonoBehaviour
             ExecuteAnimation();
 
         }
-        if (battleManager.TimeStop==false && !SpendingSkillAnim)
+        if (battleManager.BlockGameTimeStop==false && !SpendingSkillAnim)
         {
             CastingTimerReduce(CastingSpeedRate);
         }
@@ -427,6 +429,7 @@ public virtual void ExecuteSkill()
         if (!isdead)
         {
             targetSelector.SwitchTargetByClick(this);
+            soundManager.PlaySound("TargetChange");
         }
     }
 
@@ -435,7 +438,6 @@ public virtual void ExecuteSkill()
     {
         UIBG = FindChildByName(enemyUIInstance.transform, "UntargetBG").GetComponent<Image>();
         UIBG.sprite = battleManager.TargetUIBGSprite;
-
 
         RectTransform uiRectTransform = enemyUIInstance.GetComponent<RectTransform>();
         if (uiRectTransform != null)
@@ -474,7 +476,7 @@ public virtual void ExecuteSkill()
         }
         else
         {
-            Debug.LogWarning("MySprite not found!");
+            Debug.LogWarning("MySprite not found!"); 
         }
     }
 
