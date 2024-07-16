@@ -223,6 +223,11 @@ public class Level1 : LevelController
 
     void OnConversationEnd(Transform actor)
     {
+        // Access the current conversation's name
+        int conversationName = DialogueManager.Instance.currentConversationState.subtitle.dialogueEntry.conversationID;
+        // Debug log or use the conversation name as needed
+        Debug.Log("Conversation ended: " + conversationName.ToString());
+
         if (!conversationTracker[0])
         {
             conversationTracker[0] = true;
@@ -276,12 +281,12 @@ public class Level1 : LevelController
             case "English":
                 language = "en";
                 //set subtitle speed
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 20;
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 200;
                 break;
             case "Chinese (Simplified)":
                 language = "cn";
                 //set subtitle speed
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 10;
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 100;
                 break;
             // Add more cases for other languages if needed
             default:

@@ -8,6 +8,9 @@ using Fungus;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
+using I2.Loc;
+using PixelCrushers.DialogueSystem;
+using Unity.Burst.CompilerServices;
 
 public class Level2 : LevelController
 {
@@ -24,7 +27,10 @@ public class Level2 : LevelController
     public GameObject key;
     public Volume volume;
     private ColorAdjustments colorAdjustments;
-
+    public string language;
+    public string[] conversationName;
+    public int ch_sub_speed;
+    public int en_sub_speed;
     // Start is called before the first frame update
     void Awake()
     {
@@ -296,6 +302,56 @@ public class Level2 : LevelController
         else
         {
             Debug.LogError("Enemy at index " + randomIndex + " does not have an Enemy script.");
+        }
+    }
+
+    void OnEnable()
+    {
+        // Subscribe to the conversation end event
+        DialogueManager.Instance.conversationEnded += OnConversationEnd;
+    }
+
+    void OnDisable()
+    {
+        // Unsubscribe from the conversation end event
+        if (DialogueManager.Instance != null)
+        {
+            DialogueManager.Instance.conversationEnded -= OnConversationEnd;
+        }
+
+    }
+
+    void OnConversationEnd(Transform actor)
+    {
+        int conversationName = DialogueManager.Instance.currentConversationState.subtitle.dialogueEntry.conversationID;
+        // Debug log or use the conversation name as needed
+        Debug.Log("Conversation ended: " + conversationName.ToString());
+    }
+
+    public void Sentence3()
+    {
+        JudgeLanguage();
+        DialogueManager.StartConversation(conversationName[3] + "_" + language);
+    }
+
+    void JudgeLanguage()
+    {
+        switch (LocalizationManager.CurrentLanguage)
+        {
+            case "English":
+                language = "en";
+                //set subtitle speed
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = en_sub_speed;
+                break;
+            case "Chinese (Simplified)":
+                language = "cn";
+                //set subtitle speed
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = ch_sub_speed;
+                break;
+            // Add more cases for other languages if needed
+            default:
+                language = "en";
+                break;
         }
     }
 }
