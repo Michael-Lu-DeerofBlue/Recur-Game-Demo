@@ -21,7 +21,7 @@ public class Level2 : LevelController
     public GameObject LevelController;
     public GameObject triggerBox;
     public float targetExposure = -2.0f;
-
+    public GameObject key;
     public Volume volume;
     private ColorAdjustments colorAdjustments;
 
@@ -95,13 +95,13 @@ public class Level2 : LevelController
 
     }
 
-    void ResetEnemyTarget(Transform target)
+    public void ResetEnemyTarget(Transform target)
     {
         foreach (Transform enemy in enemies)
         {
             if (enemy.gameObject.active)
             {
-                enemy.GetComponent<ThreeEnemyBase>().inPursuit(Player.transform);
+                enemy.GetComponent<ThreeEnemyBase>().inPursuit(target);
             }
         }
     }
@@ -169,6 +169,7 @@ public class Level2 : LevelController
         }
 
         //Enemy
+        randomIndex = ES3.Load<int>("EnemyKeyIndex");
         StartTheEnemy();
         StartTheSight();
         foreach (Transform enemy in enemies)
@@ -184,7 +185,7 @@ public class Level2 : LevelController
         spotlightManager.GetComponent<SpotlightManager>().Resume();
 
         //PlayerStats & EnemyStats
-        if (TwoDto3D.ToThreeEnemies.Length == 0)
+        if (TwoDto3D.ToThreeEnemies.Count == 0)
         {
             //Debug.Log("Here");
             foreach (var key in ThreeDTo2DData.dataDictionary.Keys)
@@ -195,15 +196,37 @@ public class Level2 : LevelController
                 {
                     obj.SetActive(false);
                 }
-                else
-                {
-                    Debug.LogWarning($"GameObject with name '{key}' not found.");
-                }
             }
         }
         else
         {
             Player.GetComponent<ThreeDPlayerBase>().gotHitByEnemy();
+            /*
+            foreach (var key in ThreeDTo2DData.dataDictionary.Keys)
+            {
+                //Debug.Log(key);
+                GameObject obj = GameObject.Find(key);
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
+            }
+            foreach (string name in TwoDto3D.ToThreeEnemies)
+            {
+                //Debug.Log(key);
+                GameObject obj = GameObject.Find(name);
+                if (obj != null)
+                {
+                    obj.SetActive(true);
+                }
+            }
+            */
+        }
+
+        //Key
+        if (!enemies[randomIndex].gameObject.activeSelf)
+        {
+            key.GetComponent<Door>().Keyed = true;
         }
     }
 

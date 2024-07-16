@@ -25,7 +25,12 @@ public class ThreeDPlayerBase : MonoBehaviour
     public void gotHitByEnemy()
     {
         PlayEffectHit();
+        if (GameObject.Find("GoggleCanvas") != null)
+        {
+            GameObject.Find("GoggleCanvas").GetComponent<Player3DUI>().DecreaseHP();
+        }
         HP--;
+        ES3.Save("MoveHP",HP);
         UIHandler.GetComponent<PlayerToUI>().UpdateHP(HP);
         if (HP <= 0)
         {

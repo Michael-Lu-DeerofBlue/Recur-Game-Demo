@@ -92,7 +92,11 @@ public class CameraController : MonoBehaviour
                     {
                         if (!IsObstructed(ray.origin, hit.point))
                         {
-                            detectedTargets.Add(hit.transform);
+                            if (detectedTargets.Count < 4)
+                            {
+                                detectedTargets.Add(hit.transform);
+                            }
+                            
                         }
                     }
                 }

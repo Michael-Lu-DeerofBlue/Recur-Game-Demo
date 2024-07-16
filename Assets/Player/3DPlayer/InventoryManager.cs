@@ -63,7 +63,7 @@ public class InventoryManager : MonoBehaviour
         //Vitals
         if (ES3.KeyExists("MoveHP"))
         {
-            MoveHP = ES3.Load<int>("MoveHP");
+            MoveHP = ES3.Load<int>("MoveHP"); 
         }
         if (ES3.KeyExists("CombatHP"))
         {

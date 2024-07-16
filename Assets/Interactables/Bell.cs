@@ -10,7 +10,7 @@ public class Bell : Interactable
     public int spotLightCode;
     public float cdTime;
     public bool used;
-
+    public GameObject levelScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +27,7 @@ public class Bell : Interactable
     {
         //Debug.Log("Interacted with" + gameObject.name);
         PlayEffectBell();
+        levelScript.GetComponent<Level2>().ResetEnemyTarget(gameObject.transform);
     }
 
     void PlayEffectBell()

@@ -11,13 +11,18 @@ public class TwoDto3D : MonoBehaviour
     public bool Victory;
     private Dictionary<string, int> inventory = new Dictionary<string, int>();
     public Flowchart flowchart;
-    public static Enemy[] ToThreeEnemies;
+    public static List<string> ToThreeEnemies;
     // Start is called before the first frame update
     public void TwoDGameOver()
     {
         Debug.Log("Here");
         enemies = FindObjectsOfType<Enemy>();
-        ToThreeEnemies = enemies;
+        /*
+        for (int i = 0; i <enemies.Length; i++)
+        {
+            ToThreeEnemies.Add(enemies[i].DisplayName);
+        }
+        */
         ItemManager itemManager = FindObjectOfType<ItemManager>();
         if (enemies.Length == 0)
         {
@@ -42,7 +47,7 @@ public class TwoDto3D : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            ToThreeEnemies =  new Enemy[0];
+            ToThreeEnemies = new List<string>();
             BackToLevel();
         }
     }
