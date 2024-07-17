@@ -46,6 +46,8 @@ public abstract class Enemy : MonoBehaviour
     public Image CurrentIcon;
     public Animator animator;
 
+    public string in3DName;
+
     public void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();

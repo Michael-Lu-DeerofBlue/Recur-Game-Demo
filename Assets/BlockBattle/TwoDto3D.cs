@@ -23,10 +23,13 @@ public class TwoDto3D : MonoBehaviour
     {
         Debug.Log("Here");
         enemies = FindObjectsOfType<Enemy>();
-        for (int i = 0; i <enemies.Length; i++)
-        {
-            ToThreeEnemies.Add(enemies[i].DisplayName);
-        }
+        if (enemies.Length != 0)
+            {
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    ToThreeEnemies.Add(enemies[i].in3DName);
+                }
+        }               
         ItemManager itemManager = FindObjectOfType<ItemManager>();
         if (enemies.Length == 0)
         {

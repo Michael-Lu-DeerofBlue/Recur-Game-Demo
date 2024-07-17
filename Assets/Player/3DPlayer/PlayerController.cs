@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour
     }
     private void JudgeSprint()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint && InventoryManager.sprintB)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && inMovement && !inSprint )
         {
             inSprint = true;
             movementSpeed = DEFAULT_SPRINT_SPEED;

@@ -35,6 +35,8 @@ public class Level2 : LevelController
     public int en_sub_speed;
     private Queue<string> conversationQueue = new Queue<string>();
     private bool isConversationRunning = false;
+    public int pursuitSpeed;
+    public int patrolSpeed;
 
     void Awake()
     {
@@ -120,6 +122,7 @@ public class Level2 : LevelController
             if (enemy.gameObject.active)
             {
                 enemy.GetComponent<ThreeEnemyBase>().inPursuit(target);
+                enemy.GetComponent<AIPath>().maxSpeed = pursuitSpeed;
             }
         }
     }
@@ -132,6 +135,8 @@ public class Level2 : LevelController
             {
                 enemy.GetComponent<AIDestinationSetter>().enabled = false;
                 enemy.GetComponent<Patrol>().enabled = true;
+                enemy.GetComponent<AIPath>().maxSpeed = patrolSpeed;
+
             }
         }
     }

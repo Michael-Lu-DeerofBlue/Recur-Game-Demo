@@ -8,6 +8,7 @@ public abstract class LevelController : MonoBehaviour
 {
     public Flowchart flowchart;
     private GameObject player;
+    public bool perseus;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -28,7 +29,16 @@ public abstract class LevelController : MonoBehaviour
     public IEnumerator LoadBattle()
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("BattleLevel");
+        if (perseus)
+        {
+            SceneManager.LoadScene("BattleLevel - per - tutorial");
+
+        }
+        else
+        {
+            SceneManager.LoadScene("BattleLevel");
+
+        }
     }
 
     public void LoadData()

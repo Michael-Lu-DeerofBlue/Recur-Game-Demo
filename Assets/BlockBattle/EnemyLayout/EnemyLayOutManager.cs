@@ -36,18 +36,22 @@ public class EnemyLayOutManager : MonoBehaviour
             switch (enemyName)
             {
                 case "Perseus":
+                    enemy.GetComponent<Enemy>().in3DName = kvp.Key;
                     enemy = Perseus;
                     break;
                 case "Bride":
-                    if (EnemiesList[kvp.Key]) { enemy = HeadLessBack; break; }
-                    else { enemy = HeadLessFront; break; }
+                    if (EnemiesList[kvp.Key]) { enemy = HeadLessBack; enemy.GetComponent<Enemy>().in3DName = kvp.Key; break; }
+                    else { enemy = HeadLessFront; enemy.GetComponent<Enemy>().in3DName = kvp.Key; break; }
                 case "Lion":
+                    enemy.GetComponent<Enemy>().in3DName = kvp.Key;
                     enemy = Lion;
                     break;
                 case "Bird":
+                    enemy.GetComponent<Enemy>().in3DName = kvp.Key;
                     enemy = MockingBird;
                     break;
                 case "Mondrinion":
+                    enemy.GetComponent<Enemy>().in3DName = kvp.Key;
                     int index = int.Parse(kvp.Key.Split(' ')[1]);
                     enemy = Mondrinion[index];
                     break;
