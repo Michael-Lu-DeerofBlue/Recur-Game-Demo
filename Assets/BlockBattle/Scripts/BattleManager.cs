@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Runtime.ConstrainedExecution;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class BattleManager : MonoBehaviour
@@ -136,8 +137,12 @@ public class BattleManager : MonoBehaviour
                 damage = damage * 1.5f* CriticalNum;
                 Target.HitHandle(damage);
                 CriticalNum=0;
-            }else if(CriticalNum == 0) { 
-                Target.HitHandle(damage);
+            }else if(CriticalNum == 0) {
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                if (currentSceneName != "BattleLevel - tutorial")
+                {
+                    Target.HitHandle(damage);
+                }
             }
 
         }

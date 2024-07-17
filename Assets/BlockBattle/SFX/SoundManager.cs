@@ -41,7 +41,10 @@ public class SoundManager : MonoBehaviour
     {
         if (audioClipDictionary.TryGetValue(clipName, out var clip))
         {
-            audioSource.PlayOneShot(clip);
+            if (clip != null)
+            {
+                audioSource.PlayOneShot(clip);
+            }
         }
         else
         {

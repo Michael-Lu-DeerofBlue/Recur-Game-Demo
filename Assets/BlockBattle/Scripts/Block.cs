@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BlockManager : MonoBehaviour
 {
@@ -47,51 +48,79 @@ public class BlockManager : MonoBehaviour
 
     void Update()
     {
-        if (battleManager.BlockGameTimeStop == false) {
-            if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
+        if (battleManager.BlockGameTimeStop == false)
         {
+            if (Input.GetKeyDown(KeyCode.Space))   // Drop the block
+            {
                 if (battleManager.DisablePlayerInput == true) return;
                 while (true)
-            {
-                transform.position += new Vector3(0, -1, 0);
-                if (!ValidMove())
                 {
-                    transform.position -= new Vector3(0, -1, 0);
-                    AddToGrid();
-                    CheckForLines();
-                    this.enabled = false;
-                    break;
+                    transform.position += new Vector3(0, -1, 0);
+                    if (!ValidMove())
+                    {
+                        transform.position -= new Vector3(0, -1, 0);
+                        AddToGrid();
+                        CheckForLines();
+                        this.enabled = false;
+                        string currentSceneName = SceneManager.GetActiveScene().name;
+                        if (currentSceneName == "BattleLevel - tutorial")
+                        {
+                            GameObject controller = GameObject.Find("tip controller");
+                            if (controller != null && controller.GetComponent<HintController>().currentIndex == 4) { controller.GetComponent<HintController>().SwitchTip(); }
+                        }
+
+                        break;
+                    }
                 }
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (battleManager.DisablePlayerInput == true) return;
+            else if (Input.GetKeyDown(KeyCode.A))
+            {
+                if (battleManager.DisablePlayerInput == true) return;
                 transform.position += new Vector3(-1, 0, 0);
-            if (!ValidMove())
-                transform.position -= new Vector3(-1, 0, 0);
-            FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
+                if (!ValidMove())
+                    transform.position -= new Vector3(-1, 0, 0);
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                if (currentSceneName == "BattleLevel - tutorial")
+                {
+                    GameObject controller = GameObject.Find("tip controller");
+                    if (controller != null && controller.GetComponent<HintController>().currentIndex == 2) { controller.GetComponent<HintController>().SwitchTip(); }
+                }
+                FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
+
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
                 if (battleManager.DisablePlayerInput == true) return;
                 transform.position += new Vector3(1, 0, 0);
-            if (!ValidMove())
-                transform.position -= new Vector3(1, 0, 0);
-            FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
+                if (!ValidMove())
+                    transform.position -= new Vector3(1, 0, 0);
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                if (currentSceneName == "BattleLevel - tutorial")
+                {
+                    GameObject controller = GameObject.Find("tip controller");
+                    if (controller != null && controller.GetComponent<HintController>().currentIndex == 2) { controller.GetComponent<HintController>().SwitchTip(); }
+                }
+                FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
+
+            }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
                 if (battleManager.DisablePlayerInput == true) return;
                 if (lockedRotation == true) return;
-            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
-            if (!ValidMove())
-                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
-            FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
-                soundManager.PlaySound("ActionBlockOrient"); 
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
+                if (!ValidMove())
+                    transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                if (currentSceneName == "BattleLevel - tutorial")
+                {
+                    GameObject controller = GameObject.Find("tip controller");
+                    if (controller != null && controller.GetComponent<HintController>().currentIndex == 1) { controller.GetComponent<HintController>().SwitchTip(); }
+                }
+                FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
+                soundManager.PlaySound("ActionBlockOrient");
             }
 
-        // Handle block falling over time
+            // Handle block falling over time
 
 
             if (Time.time - previousTime > (Input.GetKey(KeyCode.S) ? fallTime / 10 : fallTime))
@@ -99,11 +128,19 @@ public class BlockManager : MonoBehaviour
                 transform.position += new Vector3(0, -1, 0);
                 if (!ValidMove())
                 {
+                    string currentSceneName = SceneManager.GetActiveScene().name;
+                    if (currentSceneName == "BattleLevel - tutorial")
+                    {
+                        GameObject controller = GameObject.Find("tip controller");
+                        if (controller != null && controller.GetComponent<HintController>().currentIndex == 3) { controller.GetComponent<HintController>().SwitchTip(); }
+                    }
                     transform.position -= new Vector3(0, -1, 0);
                     AddToGrid();
                     CheckForLines();
                     this.enabled = false;
+
                 }
+                
                 previousTime = Time.time;
             }
         }
@@ -137,9 +174,24 @@ public class BlockManager : MonoBehaviour
                 RowDown(i);
                 battleManager.addclearedlineNumber();
                 battleManager.IntrruptBlockGame();
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                if (currentSceneName == "BattleLevel - tutorial")
+                {
+                    GameObject controller = GameObject.Find("tip controller");
+                    if (controller != null)
+                    {
+                        controller.GetComponent<HintController>().lineCleared++;
+                        if (controller.GetComponent<HintController>().lineCleared == 5)
+                        {
+                            controller.GetComponent<HintController>().ExitOut();
+                            battleManager.BlockGameTimeStop = true;
+                        }
+                    }
+                }
             }
         }
         battleManager.CheckAndPlayLineCleardSound();
+       
     }
 
     // Check if a line is complete

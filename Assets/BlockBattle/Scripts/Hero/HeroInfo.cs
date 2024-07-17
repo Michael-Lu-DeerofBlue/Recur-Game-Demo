@@ -8,6 +8,7 @@ using System;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.SceneManagement;
 
 public class HeroInfo : MonoBehaviour
 {
@@ -114,29 +115,37 @@ public class HeroInfo : MonoBehaviour
 
     private IEnumerator ExecuteIconSkillCoroutine()
     {
-        while (iconQueue.Count > 0)
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName != "BattleLevel - tutorial")
         {
-            yield return new WaitForSeconds(1f);
-
-            (int index, int clearNumber, int holderIndex) = iconQueue[0];
-            ExecuteBehavior(index, clearNumber);
-            iconQueue.RemoveAt(0);
-
-
-            SpriteRenderer sr = SkillICoinsHolder[holderIndex].GetComponent<SpriteRenderer>();
-            if (sr != null)
+            while (iconQueue.Count > 0)
             {
-                sr.sprite = null;
+                yield return new WaitForSeconds(1f);
+
+                (int index, int clearNumber, int holderIndex) = iconQueue[0];
+                ExecuteBehavior(index, clearNumber);
+                iconQueue.RemoveAt(0);
+
+
+                SpriteRenderer sr = SkillICoinsHolder[holderIndex].GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.sprite = null;
+                }
+            }
+
+
+            if (iconQueue.Count == 0 && extraIconsQueue.Count > 0)
+            {
+                AddExtraIconsToQueue();
+                ExecuteIconSkill();
+            }
+            if (iconQueue.Count == 0 && extraIconsQueue.Count == 0)
+            {
+                battleManager.ContinueBlockGame();
             }
         }
-
-
-        if (iconQueue.Count == 0 && extraIconsQueue.Count > 0)
-        {
-            AddExtraIconsToQueue();
-            ExecuteIconSkill();
-        }
-        if(iconQueue.Count==0 && extraIconsQueue.Count == 0)
+        else
         {
             battleManager.ContinueBlockGame();
         }

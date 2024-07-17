@@ -226,7 +226,7 @@ public class Level1 : LevelController
         // Access the current conversation's name
         int conversationName = DialogueManager.Instance.currentConversationState.subtitle.dialogueEntry.conversationID;
         // Debug log or use the conversation name as needed
-        Debug.Log("Conversation ended: " + conversationName.ToString());
+        //Debug.Log("Conversation ended: " + conversationName.ToString());
 
         if (!conversationTracker[0])
         {

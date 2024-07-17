@@ -17,6 +17,9 @@
         },
         {
             "m_Id": "d350c5ac5128400bb2b0312718976e22"
+        },
+        {
+            "m_Id": "790bc3b658df469eaad4201b63792da0"
         }
     ],
     "m_Keywords": [],
@@ -86,6 +89,9 @@
         },
         {
             "m_Id": "3b8b178b03574c44ac5b74254c29b276"
+        },
+        {
+            "m_Id": "696f45593bd54f8b975c7a46432e42b2"
         }
     ],
     "m_GroupDatas": [],
@@ -101,6 +107,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "94d9ba8cae5d4374ba6371d51d1c284b"
+                },
+                "m_SlotId": 2
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "696f45593bd54f8b975c7a46432e42b2"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "3b8b178b03574c44ac5b74254c29b276"
                 },
                 "m_SlotId": 2
             }
@@ -343,6 +363,9 @@
         },
         {
             "m_Id": "d350c5ac5128400bb2b0312718976e22"
+        },
+        {
+            "m_Id": "790bc3b658df469eaad4201b63792da0"
         }
     ]
 }
@@ -624,6 +647,21 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.BaseColor"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "2ac9eb2a3d5449ae97cc8d12080d70e8",
+    "m_Id": 0,
+    "m_DisplayName": "Rotate",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -992,6 +1030,42 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "696f45593bd54f8b975c7a46432e42b2",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1309.3150634765625,
+            "y": 20.01136589050293,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "2ac9eb2a3d5449ae97cc8d12080d70e8"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "790bc3b658df469eaad4201b63792da0"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "6b964a0b1ef14f68bff421fb41b0e036",
     "m_Group": {
@@ -1223,6 +1297,34 @@
         "e31": 0.0,
         "e32": 0.0,
         "e33": 1.0
+    }
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "790bc3b658df469eaad4201b63792da0",
+    "m_Guid": {
+        "m_GuidSerialized": "e7d20ad0-7d91-43aa-99b2-3c457ed3a39e"
+    },
+    "m_Name": "Rotate",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Rotate",
+    "m_DefaultReferenceName": "_Rotate",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 0.0,
+    "m_FloatType": 0,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
     }
 }
 

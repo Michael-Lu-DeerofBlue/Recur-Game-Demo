@@ -9,11 +9,16 @@ public class LoclizationFontSwitcher : MonoBehaviour
     public TMP_FontAsset englishFont;
     public TMP_FontAsset chineseFont;
 
-    private TextMeshProUGUI textMeshPro;
+    private TextMeshProUGUI textMeshProUI;
+    private TextMeshPro textMeshPro;
 
-    void Start()
+    void Awake()
     {
-        textMeshPro = GetComponent<TextMeshProUGUI>();
+        textMeshProUI = GetComponent<TextMeshProUGUI>();
+        if (textMeshProUI == null)
+        {
+            textMeshPro = GetComponent<TextMeshPro>();
+        }
 
         // Subscribe to the OnLocalizeEvent
         LocalizationManager.OnLocalizeEvent += OnLanguageChanged;
@@ -33,10 +38,24 @@ public class LoclizationFontSwitcher : MonoBehaviour
         switch (LocalizationManager.CurrentLanguage)
         {
             case "English":
-                textMeshPro.font = englishFont;
+                if (textMeshProUI == null)
+                {
+                    textMeshPro.font = englishFont;
+                }
+                else
+                {
+                    textMeshProUI.font = englishFont;
+                }
                 break;
             case "Chinese (Simplified)":
-                textMeshPro.font = chineseFont;
+                if (textMeshProUI == null)
+                {
+                    textMeshPro.font = chineseFont;
+                }
+                else
+                {
+                    textMeshProUI.font = chineseFont;
+                }
                 break;
             // Add more cases for other languages if needed
             default:
@@ -45,6 +64,7 @@ public class LoclizationFontSwitcher : MonoBehaviour
         }
 
         // Force the text to update to apply the new font
-        textMeshPro.SetAllDirty();
+        if (textMeshPro != null) { textMeshPro.SetAllDirty(); }
+        if (textMeshProUI != null) { textMeshProUI.SetAllDirty(); }
     }
 }

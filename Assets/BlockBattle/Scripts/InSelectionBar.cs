@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class InSelectionBar : MonoBehaviour
 {
@@ -115,6 +116,12 @@ public class InSelectionBar : MonoBehaviour
                                 }
                             }
                         }
+                        string currentSceneName = SceneManager.GetActiveScene().name;
+                        if (currentSceneName == "BattleLevel - tutorial")
+                        {
+                            GameObject controller = GameObject.Find("tip controller");
+                            if (controller != null && controller.GetComponent<HintController>().currentIndex == 5) { controller.GetComponent<HintController>().SwitchTip(); }
+                        }
                         selectionToolProcessor.GetComponent<SelectionTool>().addToStorage(Shapeindex);
                         Destroy(gameObject);
                     }
@@ -156,9 +163,16 @@ public class InSelectionBar : MonoBehaviour
                             selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex, true);
                             Destroy(gameObject);
                         }
+                        string currentSceneName = SceneManager.GetActiveScene().name;
+                        if (currentSceneName == "BattleLevel - tutorial" )
+                        {
+                            GameObject controller = GameObject.Find("tip controller");
+                            if (controller != null && controller.GetComponent<HintController>().currentIndex == 0 || controller.GetComponent<HintController>().currentIndex > 5) { controller.GetComponent<HintController>().SwitchTip(); }
+                        }
                     }
                 }
             }
+           
         }
     }
     private void OnMouseEnter()
