@@ -12,7 +12,7 @@ public class TTooltipSystem : MonoBehaviour
     }
 
     // Update is called once per frame
-    public static void show(string header = "123", string content = "123132123")
+    public static void showInventoryTips(string header = "123", string content = "123132123")
     {
         BattleManager battleManager = FindAnyObjectByType<BattleManager>();
         if (battleManager == null)

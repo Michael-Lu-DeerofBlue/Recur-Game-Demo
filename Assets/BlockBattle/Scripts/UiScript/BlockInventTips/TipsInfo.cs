@@ -27,42 +27,42 @@ public class TipsInfo : MonoBehaviour
                     case 0:
                         header = "redblock";
                         content="longsword 红色 red block skill ";
-                        TTooltipSystem.show(header,content);
+                        TTooltipSystem.showInventoryTips(header,content);
                         break;
                     case 1:
                         header = "Greenblock";
                         content = "longsword green block skill ";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case 2:
                         header = "Orangeblock";
                         content = "longsword Orange block skill 橙色技能 ";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case 3:
                         header = "DBlueblock";
                         content = "longsword Dblue block skill ";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case 4:
                         header = "Purpleblock";
                         content = "longsword Purple block skill ";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case 5:
                         header = "Yellowblock";
                         content = "longsword yellow block skill ";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case 6:
                         header = "Lightblueblock";
                         content = "longsword lb block skill ";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case 8:
                         header = "stunblock";
                         content = "do nothing block ";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                 }
             }
@@ -86,27 +86,27 @@ public class TipsInfo : MonoBehaviour
                     case "MedKit":
                         header = "Med Kit";
                         content = "+10HP";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case "SprayCan":
                         header = "Spray Can";
                         content = "Refresh all Action Blocks in Choice Section";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case "Mint":
                         header = "Mint";
                         content = "Remove all debuffs and immune to all debuffs for 10 seconds";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case "PaperCutter":
                         header = "Paper Cutter";
                         content = "Inflict [Fragile]";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case "FracturedPocketWatch":
                         header = "Fractured Pocket Watch";
                         content = "Pause Action Bar for 3 seconds ";
-                        TTooltipSystem.show(header, content);
+                        TTooltipSystem.showInventoryTips(header, content);
                         break;
 
                 }
