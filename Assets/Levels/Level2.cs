@@ -22,7 +22,9 @@ public class Level2 : LevelController
     public int randomIndex;
     public float duration = 5.0f; // Duration over which the light will decrease
     public GameObject LevelController;
-    public GameObject triggerBox;
+    public GameObject firstTrigger;
+    public GameObject secondTrigger;
+    public GameObject thirdTrigger;
     public float targetExposure = -2.0f;
     public GameObject key;
     public Volume volume;
@@ -31,7 +33,9 @@ public class Level2 : LevelController
     public string[] conversationName;
     public int ch_sub_speed;
     public int en_sub_speed;
-    // Start is called before the first frame update
+    private Queue<string> conversationQueue = new Queue<string>();
+    private bool isConversationRunning = false;
+
     void Awake()
     {
         ES3.Save("Sprint", true);
@@ -45,7 +49,8 @@ public class Level2 : LevelController
         }
         else
         {
-            triggerBox.SetActive(true);
+            firstTrigger.SetActive(true);
+            secondTrigger.SetActive(true);
             SetRandomEnemyHasKey();
         }
     }
@@ -60,6 +65,7 @@ public class Level2 : LevelController
             //Debug.Log(playerShined);
             if (playerShined)
             {
+                Scene2E();
                 ResetEnemyTarget(Player.transform);
                 break;
             }
@@ -71,11 +77,17 @@ public class Level2 : LevelController
                 bool enemyShined = spotlight.GetComponent<SpotlightDetection>().EnemyInSpotLight(enemy);
                 if (enemyShined)
                 {
+                    Scene2F(); //play dialogue
                     enemy.GetComponent<ThreeEnemyBase>().ChangeMaterial();
                 }
             }
         }
 
+    }
+
+    private void Start()
+    {
+        flowchart.ExecuteBlock("StartConvo"); //initial conversation
     }
 
     IEnumerator GraduallyChangeExposure()
@@ -161,6 +173,7 @@ public class Level2 : LevelController
 
     public void Reload() //Player, Enemy, SpotLights
     {
+        secondTrigger.SetActive(true); //key reminder
         //Exposure
         colorAdjustments.postExposure.value = targetExposure;
 
@@ -323,15 +336,132 @@ public class Level2 : LevelController
 
     void OnConversationEnd(Transform actor)
     {
-        int conversationName = DialogueManager.Instance.currentConversationState.subtitle.dialogueEntry.conversationID;
-        // Debug log or use the conversation name as needed
-        Debug.Log("Conversation ended: " + conversationName.ToString());
+        isConversationRunning = false;
+        if (conversationQueue.Count > 0)
+        {
+            StartConversation(conversationQueue.Dequeue()); //remove entry from the queue so the next one can play
+        }
+
+        int conversationID = DialogueManager.Instance.currentConversationState.subtitle.dialogueEntry.conversationID;
+        Debug.Log("Conversation ended: " + conversationID.ToString());
+
+        if (conversationID == 2 || conversationID == 4)
+        {
+            secondTrigger.SetActive(false);
+        }
+        else if (conversationID == 5 || conversationID == 6)
+        {
+            firstTrigger.SetActive(false);
+        }
+        else if (conversationID == 7 || conversationID == 8)
+        {
+            thirdTrigger.SetActive(false);
+        }
     }
 
-    public void Sentence3()
+    public void Scene2A() //start convo
     {
         JudgeLanguage();
-        DialogueManager.StartConversation(conversationName[3] + "_" + language);
+        string conversation = conversationName[0] + "_" + language;
+        if (isConversationRunning)
+        {
+            conversationQueue.Enqueue(conversation);
+        }
+        else
+        {
+            StartConversation(conversation);
+        }
+    }
+
+    public void Scene2B() //must possess key
+    {
+        JudgeLanguage();
+        string conversation = conversationName[1] + "_" + language;
+        if (isConversationRunning)
+        {
+            conversationQueue.Enqueue(conversation);
+        }
+        else
+        {
+            StartConversation(conversation);
+        }
+    }
+
+    public void Scene2C() //approach gate
+    {
+        JudgeLanguage();
+        string conversation = conversationName[2] + "_" + language;
+        if (isConversationRunning)
+        {
+            conversationQueue.Enqueue(conversation);
+        }
+        else
+        {
+            StartConversation(conversation);
+        }
+    }
+
+    public void Scene2D() //engage brides
+    {
+        JudgeLanguage();
+        string conversation = conversationName[3] + "_" + language;
+        if (isConversationRunning)
+        {
+            conversationQueue.Enqueue(conversation);
+        }
+        else
+        {
+            StartConversation(conversation);
+        }
+    }
+
+    public void Scene2E() //player spotlight
+    {
+        JudgeLanguage();
+        string conversation = conversationName[4] + "_" + language;
+        StartConversation(conversation);
+    }
+
+    public void Scene2F() //enemy spotlight
+    {
+        JudgeLanguage();
+        string conversation = conversationName[5] + "_" + language;
+        StartConversation(conversation);
+    }
+
+    public void Scene2G() //defeat brides (NOT CALLED YET)
+    {
+        JudgeLanguage();
+        string conversation = conversationName[6] + "_" + language;
+        if (isConversationRunning)
+        {
+            conversationQueue.Enqueue(conversation);
+        }
+        else
+        {
+            StartConversation(conversation);
+        }
+    }
+
+    public void Scene2H() //area complete (NOT CALLED YET)
+    {
+        JudgeLanguage();
+        string conversation = conversationName[7] + "_" + language;
+        if (isConversationRunning)
+        {
+            conversationQueue.Enqueue(conversation);
+        }
+        else
+        {
+            StartConversation(conversation);
+        }
+    }
+
+    private void StartConversation(string conversation)
+    {
+        isConversationRunning = true;
+        Debug.Log("Starting conversation: " + conversation);
+        DialogueManager.StartConversation(conversation);
     }
 
     void JudgeLanguage()

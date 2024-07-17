@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fungus;
 
-public class TeleportPlayerScript : MonoBehaviour
+public class TriggerBoxMessage : MonoBehaviour
 {
+    public GameObject trigger;
     public GameObject target;
     public string message;
     // Start is called before the first frame update
@@ -18,6 +19,7 @@ public class TeleportPlayerScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Entered trigger: " + trigger);
             target.SendMessage(message);
         }
     }
