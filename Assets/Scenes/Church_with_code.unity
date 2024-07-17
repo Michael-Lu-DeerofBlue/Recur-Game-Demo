@@ -68053,6 +68053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flowchart: {fileID: 1196037907}
+  perseus: 0
   Player: {fileID: 2104803499}
   activeSpotlights: []
   enemies:
@@ -68085,6 +68086,8 @@ MonoBehaviour:
   - scene2h
   ch_sub_speed: 20
   en_sub_speed: 20
+  pursuitSpeed: 5
+  patrolSpeed: 3
 --- !u!4 &1636812606
 Transform:
   m_ObjectHideFlags: 0
@@ -85570,7 +85573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2083906432
 Transform:
   m_ObjectHideFlags: 0
