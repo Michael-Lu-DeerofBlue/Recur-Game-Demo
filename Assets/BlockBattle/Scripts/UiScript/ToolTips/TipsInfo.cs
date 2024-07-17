@@ -75,13 +75,22 @@ public class TipsInfo : MonoBehaviour
                         TTooltipSystem.showBlockTips(header, content, detail1, detail2, detail3, detail4);
                         break;
                     case 5:
-                        header = "Yellowblock";
-                        content = "longsword yellow block skill ";
+                        header = "格挡架势";
+                        content = "获得格挡次数，可抵消伤害";
+                        detail1 = "1层格挡";
+                        detail2 = "1层格挡";
+                        detail3 = "2层格挡";
+                        detail4 = "2层格挡";
+
                         TTooltipSystem.showBlockTips(header, content, detail1, detail2, detail3, detail4);
                         break;
                     case 6:
-                        header = "Lightblueblock";
-                        content = "longsword lb block skill ";
+                        header = "怒击";
+                        content = "造成1点伤害；如果消除了4行的同时消除4个方块，造成30点伤害";
+                        detail1 = "造成1点伤害";
+                        detail2 = "造成1点伤害";
+                        detail3 = "造成1点伤害";
+                        detail4 = "符合条件时，伤害+29";
                         TTooltipSystem.showBlockTips(header, content, detail1, detail2, detail3, detail4);
                         break;
                     case 8:

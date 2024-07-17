@@ -53,12 +53,13 @@ public class BlockTip : MonoBehaviour
             RectTransform rectTransform = transform as RectTransform;
             position.x -= rectTransform.rect.width;
         }
-        if (position.y < 180)
+        if (position.y < 880)
         {
             RectTransform rectTransform = transform as RectTransform;
             position.y += rectTransform.rect.height;
         }
         transform.position = position;
+        Debug.Log(transform.position);
     }
 
 
