@@ -121,6 +121,12 @@ public class BattleManager : MonoBehaviour
     public void ExecuteIconSkill()
     {
         heroInfo.ExecuteIconSkill();
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "BattleLevel - per - tutorial")
+        {
+            GameObject controller = GameObject.Find("tip controller");
+            if (controller != null && controller.GetComponent<HintController>().currentIndex == 6) { controller.GetComponent<HintController>().WaitAndSwitch(); }
+        }
     }
 
     public void AddStunBlock(int Num, int ColorIndex)

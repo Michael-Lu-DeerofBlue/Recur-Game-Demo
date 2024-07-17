@@ -122,18 +122,21 @@ public class BlockManager : MonoBehaviour
 
             // Handle block falling over time
 
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                if (currentSceneName == "BattleLevel - tutorial")
+                {
+                    GameObject controller = GameObject.Find("tip controller");
+                    if (controller != null && controller.GetComponent<HintController>().currentIndex == 3) { controller.GetComponent<HintController>().SwitchTip(); }
+                }
+            }
 
             if (Time.time - previousTime > (Input.GetKey(KeyCode.S) ? fallTime / 10 : fallTime))
             {
                 transform.position += new Vector3(0, -1, 0);
                 if (!ValidMove())
                 {
-                    string currentSceneName = SceneManager.GetActiveScene().name;
-                    if (currentSceneName == "BattleLevel - tutorial")
-                    {
-                        GameObject controller = GameObject.Find("tip controller");
-                        if (controller != null && controller.GetComponent<HintController>().currentIndex == 3) { controller.GetComponent<HintController>().SwitchTip(); }
-                    }
                     transform.position -= new Vector3(0, -1, 0);
                     AddToGrid();
                     CheckForLines();
@@ -187,6 +190,11 @@ public class BlockManager : MonoBehaviour
                             battleManager.BlockGameTimeStop = true;
                         }
                     }
+                }
+                if (currentSceneName == "BattleLevel - per - tutorial")
+                {
+                    GameObject controller = GameObject.Find("tip controller");
+                    if (controller != null && controller.GetComponent<HintController>().currentIndex == 5) { controller.GetComponent<HintController>().SwitchTip(); }
                 }
             }
         }

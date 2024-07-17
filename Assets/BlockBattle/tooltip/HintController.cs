@@ -6,6 +6,7 @@ using PixelCrushers.DialogueSystem.ChatMapper;
 using I2.Loc;
 using TMPro;
 using Fungus;
+using UnityEngine.SceneManagement;
 
 public class HintController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class HintController : MonoBehaviour
     public string conversationName;
     public TextMeshPro countText;
     public Flowchart flowchart;
+    public GameObject perTutorialManager;
     void Start()
     {
         // Ensure all game objects are disabled except the first one
@@ -27,7 +29,11 @@ public class HintController : MonoBehaviour
 
     private void Update()
     {
-        countText.text = lineCleared.ToString() + "/5";
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "BattleLevel - tutorial")
+        {
+            countText.text = lineCleared.ToString() + "/5";
+        }
     }
 
     public void ExitOut()
@@ -58,31 +64,69 @@ public class HintController : MonoBehaviour
         }
     }
 
+    public void WaitAndSwitch()
+    {
+        flowchart.ExecuteBlock("WaitAndSwitch");
+    }
+
 
     public void SwitchTip()
     {
         if (gameObjects == null || gameObjects.Count == 0)
             return;
         //Debug.Log(gameObjects.Count);
-        if (currentIndex < gameObjects.Count - 1)
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        //Per tutorial
+        if (currentSceneName == "BattleLevel - per - tutorial")
         {
-            // Disable the current game object
-            gameObjects[currentIndex].SetActive(false);
-
-            // Increment the index and wrap around if needed
-            currentIndex = (currentIndex + 1);
-            if (currentIndex == 7)
+            if (currentIndex < gameObjects.Count - 1)
             {
-                countText.gameObject.SetActive(true);
+                // Disable the current game object
+                gameObjects[currentIndex].SetActive(false);
+               
+                // Increment the index and wrap around if needed
+                currentIndex = (currentIndex + 1);
+                if (currentIndex == 2)
+                {
+                    perTutorialManager.GetComponent<PerseusTutorial>().Resume();
+                    flowchart.ExecuteBlock("WaitAndPause");
+                }
+                // Enable the next game object
+                gameObjects[currentIndex].SetActive(true);
             }
+            else
+            {
+                foreach (GameObject go in gameObjects) { go.SetActive(false); }
+            }
+        }
 
-            // Enable the next game object
-            gameObjects[currentIndex].SetActive(true);
-        }
-        else
+
+
+        //Tutorial
+        if (currentSceneName == "BattleLevel - tutorial")
         {
-            foreach (GameObject go in gameObjects) { go.SetActive(false); }
+            if (currentIndex < gameObjects.Count - 1)
+            {
+                // Disable the current game object
+                gameObjects[currentIndex].SetActive(false);
+
+                // Increment the index and wrap around if needed
+                currentIndex = (currentIndex + 1);
+                if (currentIndex == 7)
+                {
+                    countText.gameObject.SetActive(true);
+                }
+
+                // Enable the next game object
+                gameObjects[currentIndex].SetActive(true);
+            }
+            else
+            {
+                foreach (GameObject go in gameObjects) { go.SetActive(false); }
+            }
         }
+
+       
         
     }
 }

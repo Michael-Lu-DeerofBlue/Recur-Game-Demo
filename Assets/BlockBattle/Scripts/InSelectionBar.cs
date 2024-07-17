@@ -169,6 +169,11 @@ public class InSelectionBar : MonoBehaviour
                             GameObject controller = GameObject.Find("tip controller");
                             if (controller != null && controller.GetComponent<HintController>().currentIndex == 0 || controller.GetComponent<HintController>().currentIndex > 5) { controller.GetComponent<HintController>().SwitchTip(); }
                         }
+                        if (currentSceneName == "BattleLevel - per - tutorial")
+                        {
+                            GameObject controller = GameObject.Find("tip controller");
+                            if (controller != null && controller.GetComponent<HintController>().currentIndex == 4) { controller.GetComponent<HintController>().SwitchTip(); }
+                        }
                     }
                 }
             }
