@@ -27,19 +27,19 @@ public class BlockTip : MonoBehaviour
         {
             headerField.text = header;
             ContentField.text = content;
-            detailText1.text = detail1;
-            detailText2.text = detail2; 
-            detailText3.text = detail3;
-            detailText4.text = detail4;
+            detailblock1.SetActive(true);
+            detailblock2.SetActive(true);
+            detailblock3.SetActive(true);
+            detailblock4.SetActive(true);
         }
         else if (battleManager.ToolTipsLevel == 1)
         {
             headerField.text = header;
             ContentField.text = content;
-            detailText1.text = "";
-            detailText2.text = "";
-            detailText3.text = "";
-            detailText4.text = "";
+            detailblock1.SetActive(false);
+            detailblock2.SetActive(false);
+            detailblock3.SetActive(false);
+            detailblock4.SetActive(false);
 
         }
     }
@@ -59,7 +59,6 @@ public class BlockTip : MonoBehaviour
             position.y += rectTransform.rect.height;
         }
         transform.position = position;
-        Debug.Log(transform.position);
     }
 
 
