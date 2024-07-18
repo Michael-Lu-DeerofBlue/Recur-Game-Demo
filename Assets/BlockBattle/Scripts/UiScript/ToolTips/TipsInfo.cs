@@ -118,28 +118,28 @@ public class TipsInfo : MonoBehaviour
                 switch (Name)
                 {
                     case "MedKit":
-                        header = "Med Kit";
-                        content = "+10HP";
+                        header = "医疗包";
+                        content = "恢复10点HP";
                         TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case "SprayCan":
-                        header = "Spray Can";
-                        content = "Refresh all Action Blocks in Choice Section";
+                        header = "喷漆罐";
+                        content = "刷新选择区的所有指令块";
                         TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case "Mint":
-                        header = "Mint";
-                        content = "Remove all debuffs and immune to all debuffs for 10 seconds";
+                        header = "劲爽薄荷糖";
+                        content = "移除所有减益，并在10秒内免疫大部分减益";
                         TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case "PaperCutter":
-                        header = "Paper Cutter";
-                        content = "Inflict [Fragile]";
+                        header = "裁纸刀";
+                        content = "对目标施加1层脆弱";
                         TTooltipSystem.showInventoryTips(header, content);
                         break;
                     case "FracturedPocketWatch":
-                        header = "Fractured Pocket Watch";
-                        content = "Pause Action Bar for 3 seconds ";
+                        header = "破碎的怀表";
+                        content = "对所有敌人施加停滞，持续3秒";
                         TTooltipSystem.showInventoryTips(header, content);
                         break;
 
