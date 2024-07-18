@@ -52,6 +52,7 @@ public class Lion : Enemy
             SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
             CurrentSkillIcons = new string[] { "Damage" };
+            NextSkillDamage = attackDamage;
         }
         else if (randomValue < attackProbability + BleedBlockProbability)
         {

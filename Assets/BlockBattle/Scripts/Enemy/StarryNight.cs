@@ -67,6 +67,7 @@ public class StarryNight : Enemy
         {
             SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
+            NextSkillDamage = attackDamage;
         }
         else if (randomValue < attackProbability + paintingSplashProbability)
         {

@@ -85,6 +85,7 @@ public class WeakMinion : Enemy
         {
             SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
+            NextSkillDamage = Mathf.RoundToInt(attackDamage);
         }
         else 
         {

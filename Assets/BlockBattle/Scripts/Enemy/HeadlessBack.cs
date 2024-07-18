@@ -46,6 +46,7 @@ public class HeadlessBack : Enemy
             SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
             CurrentSkillIcons = new string[] { "Damage" };
+            NextSkillDamage = attackDamage;
 
         }
         else

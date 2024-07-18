@@ -7,6 +7,7 @@ public class TTooltipSystem : MonoBehaviour
     private static TTooltipSystem current;
     public TTooltip Ttooltip;
     public BlockTip blockTip;
+    public EnemyTip enemyTip;
     public void Awake()
     {
         current = this;
@@ -24,8 +25,24 @@ public class TTooltipSystem : MonoBehaviour
 
         if (battleManager.ToolTipsLevel != 2)
         {
-            current.Ttooltip.SetText(header, content);
             current.Ttooltip.gameObject.SetActive(true);
+            current.Ttooltip.SetText(header, content);
+        }
+    }
+
+    public static void showEnemyTips(string Name = "123", string HP = "123", string CastingTime = "123", string NextMove = "123", int nextskilldamage=0)
+    {
+        BattleManager battleManager = FindAnyObjectByType<BattleManager>();
+        if (battleManager == null)
+        {
+            Debug.LogError("BattleManager not found.");
+            return;
+        }
+
+        if (battleManager.ToolTipsLevel != 2)
+        {
+            current.enemyTip.gameObject.SetActive(true);
+            current.enemyTip.SetText(Name,HP,CastingTime,NextMove,nextskilldamage);
         }
     }
 
@@ -40,13 +57,15 @@ public class TTooltipSystem : MonoBehaviour
 
         if (battleManager.ToolTipsLevel != 2)
         {
-            current.blockTip.SetText(header, content,detail1,detail2,detail3,detail4);
             current.blockTip.gameObject.SetActive(true);
+            current.blockTip.SetText(header, content,detail1,detail2,detail3,detail4);
+
         }
     }
     public static void Hide()
     {
         current.Ttooltip.gameObject.SetActive(false);
         current.blockTip.gameObject.SetActive(false);
+        current.enemyTip.gameObject.SetActive(false);
     }
 }

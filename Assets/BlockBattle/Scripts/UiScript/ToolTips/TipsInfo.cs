@@ -144,9 +144,51 @@ public class TipsInfo : MonoBehaviour
                         break;
 
                 }
-            }
+    }
 
+    public string GetEnemyChineseName(string Name)
+    {
+        switch (Name)
+        {
+            case "headless bride":
+                return "无首新娘";
+            case "Perseus":
+                return "帕尔修斯";
+        }
+        return Name;
+    }
 
+    public string GetEnemySkillChineseName(string SkillName)
+    {
+        switch (SkillName)
+        {
+            case "Attack":
+                return "普通攻击";
+            case "CurseOfGorgon":
+                return "戈尔贡的诅咒";
+            case "SculptureGlane":
+                return "扫视";
+            case "SculptureGaze":
+                return "破碎凝视";
+        }
+        return SkillName;
+    }
+
+    public string GetEnemySkillDetail(string SkillName,int damage)
+    {
+        switch (SkillName)
+        {
+            case "Attack":
+                return "造成"+damage+"点伤害";
+            case "CurseOfGorgon":
+                return "戈尔贡的诅咒";
+            case "SculptureGlane":
+                return "造成7点伤害，并将1个眩晕置入选择区。";
+            case "SculptureGaze":
+                return "敌人被偷袭后，失去该技能。造成8点伤害，并将3个眩晕置入选择区。";
+        }
+        return SkillName;
+    }
 
 
 

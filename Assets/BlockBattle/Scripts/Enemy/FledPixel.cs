@@ -20,5 +20,6 @@ public class FledPixel: Enemy
     public override void GetNextMove()
     {
         nextSkill = SkillType.Attack;
+        NextSkillDamage = attackDamage;
     }
 }

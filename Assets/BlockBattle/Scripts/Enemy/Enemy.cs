@@ -19,6 +19,7 @@ public abstract class Enemy : MonoBehaviour
     public TextMeshPro enemyInfoText;
     public float timer;
     public float CastingSpeedRate=1;
+    public int NextSkillDamage=0;
     public HeroInfo heroInfo;
     public BattleManager battleManager;
     public string nextMove;//name of the skill that will be executed next.
@@ -45,6 +46,7 @@ public abstract class Enemy : MonoBehaviour
     private Sprite originalUISprite;
     public Image CurrentIcon;
     public Animator animator;
+    private bool ShowingTip = false;
 
     public string in3DName;
 
@@ -71,6 +73,8 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Update()
     {
+
+
         if (PauseCasting||SpendingSkillAnim)//the casting time will not decrease sometime because of debug, or during interruption of block game.
         {
             return;
@@ -95,6 +99,10 @@ public abstract class Enemy : MonoBehaviour
             {
                 SelectedByPlayer();
             }
+        }
+        if (ShowingTip)
+        {
+            TTooltipSystem.showEnemyTips(DisplayName, HP.ToString("F2"), timer.ToString("F2"), nextMove,NextSkillDamage);
         }
     }
     public void CastingTimerReduce(float SpeedRate)
@@ -428,11 +436,14 @@ public virtual void ExecuteSkill()
     }
     public virtual void OnMouseEnter()
     {
+        ShowingTip = true;
 
     }
 
     public virtual void OnMouseExit()
     {
+        TTooltipSystem.Hide();
+        ShowingTip = false;
 
     }
 

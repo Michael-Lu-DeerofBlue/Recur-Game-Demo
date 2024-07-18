@@ -201,6 +201,7 @@ public class ItemManager : MonoBehaviour
 
     void OnButtonHover(InventoryButton inventoryButton)
     {
+        if (!enable) return;
         string itemName = inventoryButton.image.sprite.name;
         tipInfo.FindInventoryTipsContext(itemName);
     }
