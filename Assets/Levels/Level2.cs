@@ -11,6 +11,7 @@ using UnityEngine.Rendering;
 using I2.Loc;
 using PixelCrushers.DialogueSystem;
 using Unity.Burst.CompilerServices;
+using System;
 
 public class Level2 : LevelController
 {
@@ -37,6 +38,7 @@ public class Level2 : LevelController
     private bool isConversationRunning = false;
     public int pursuitSpeed;
     public int patrolSpeed;
+    public bool inPursuitCalled;
 
     void Awake()
     {
@@ -117,21 +119,32 @@ public class Level2 : LevelController
 
     public void ResetEnemyTarget(Transform target)
     {
-        foreach (Transform enemy in enemies)
+        if (!inPursuitCalled)
         {
-            if (enemy.gameObject.active)
+            inPursuitCalled = true;
+            foreach (Transform enemy in enemies)
             {
-                enemy.GetComponent<ThreeEnemyBase>().inPursuit(target);
-                enemy.GetComponent<AIPath>().maxSpeed = pursuitSpeed;
+                int random = UnityEngine.Random.Range(1, 10);
+                if (random <= 4)
+                {
+                    if (enemy.gameObject.activeSelf)
+                    {
+                        enemy.GetComponent<ThreeEnemyBase>().inPursuit(target);
+                        enemy.GetComponent<AIPath>().maxSpeed = pursuitSpeed;
+                    }
+                }
+
             }
+            StartCoroutine(SetBooleanFalseAfterDelay(5f));
         }
+       
     }
 
     void ResetEnemyBackToPatrol(Transform target)
     {
         foreach (Transform enemy in enemies)
         {
-            if (enemy.gameObject.active)
+            if (enemy.gameObject.activeSelf)
             {
                 enemy.GetComponent<AIDestinationSetter>().enabled = false;
                 enemy.GetComponent<Patrol>().enabled = true;
@@ -309,7 +322,7 @@ public class Level2 : LevelController
             return;
         }
 
-        randomIndex = Random.Range(0, enemies.Count);
+        randomIndex = UnityEngine.Random.Range(0, enemies.Count);
         ThreeEnemyBase enemyScript = enemies[randomIndex].GetComponent<ThreeEnemyBase>();
 
         if (enemyScript != null)
@@ -348,7 +361,7 @@ public class Level2 : LevelController
         }
 
         int conversationID = DialogueManager.Instance.currentConversationState.subtitle.dialogueEntry.conversationID;
-        Debug.Log("Conversation ended: " + conversationID.ToString());
+        //Debug.Log("Conversation ended: " + conversationID.ToString());
 
         if (conversationID == 2 || conversationID == 4)
         {
@@ -465,7 +478,7 @@ public class Level2 : LevelController
     private void StartConversation(string conversation)
     {
         isConversationRunning = true;
-        Debug.Log("Starting conversation: " + conversation);
+        //Debug.Log("Starting conversation: " + conversation);
         DialogueManager.StartConversation(conversation);
     }
 
@@ -488,5 +501,14 @@ public class Level2 : LevelController
                 language = "en";
                 break;
         }
+    }
+
+    IEnumerator SetBooleanFalseAfterDelay(float delay)
+    {
+        // Wait for the specified amount of time
+        yield return new WaitForSeconds(delay);
+
+        // Set the boolean to false
+        inPursuitCalled = false;
     }
 }

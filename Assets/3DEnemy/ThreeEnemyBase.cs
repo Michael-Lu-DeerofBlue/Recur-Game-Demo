@@ -81,13 +81,20 @@ public class ThreeEnemyBase : MonoBehaviour
         inChange = false;
     }
 
+    IEnumerator BackToPatroTimerStart(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        gameObject.GetComponent<AIDestinationSetter>().enabled = false;
+        gameObject.GetComponent<Patrol>().enabled = true;
+    }
+
 
     // Update is called once per frame
     public void inPursuit(Transform target)
     {
         if (!inStool)
         {
-            //Debug.Log(gameObject.name + " In Pursuit");
+            Debug.Log(gameObject.name + " In Pursuit at " + Time.time);
             inPursuitBool = true;
             gameObject.GetComponent<Patrol>().enabled = false;
             gameObject.GetComponent<AIDestinationSetter>().target = target;
@@ -100,10 +107,13 @@ public class ThreeEnemyBase : MonoBehaviour
 
     public void backToPatrol()
     {
-        //Debug.Log(gameObject.name + " Back to Patrol");
+        Debug.Log(gameObject.name + " Back to Patrol at " + Time.time);
         inPursuitBool = false;
-        gameObject.GetComponent<AIDestinationSetter>().enabled = false;
-        gameObject.GetComponent<Patrol>().enabled = true;
+        gameObject.GetComponent<AIPath>().maxSpeed = 3;
+        int i = gameObject.GetComponent<Patrol>().targets.Length;
+        int r = Random.Range(0, i);
+        gameObject.GetComponent<AIDestinationSetter>().target = gameObject.GetComponent<Patrol>().targets[r];
+        StartCoroutine(BackToPatroTimerStart(1));
         gameObject.GetComponent<EnemyFOV>().radius = 6;
     }
 

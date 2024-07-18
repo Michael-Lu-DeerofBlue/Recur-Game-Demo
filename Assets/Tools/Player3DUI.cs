@@ -55,7 +55,7 @@ public class Player3DUI : MonoBehaviour
 
     public void DecreaseHP()
     {
-        moveHPs[MoveHP].SetActive(false);
+        moveHPs[MoveHP-1].SetActive(false); 
     }
 
 
