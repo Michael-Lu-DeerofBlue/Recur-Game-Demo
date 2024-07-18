@@ -27,7 +27,7 @@ public class Bell : Interactable
     {
         //Debug.Log("Interacted with" + gameObject.name);
         PlayEffectBell();
-        levelScript.GetComponent<Level2>().ResetEnemyTarget(gameObject.transform);
+        levelScript.GetComponent<Level2>().ResetAllEnemyTarget(gameObject.transform);
     }
 
     void PlayEffectBell()

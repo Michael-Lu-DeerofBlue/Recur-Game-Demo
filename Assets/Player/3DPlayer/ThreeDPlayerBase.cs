@@ -27,11 +27,11 @@ public class ThreeDPlayerBase : MonoBehaviour
         PlayEffectHit();
         if (GameObject.Find("GoggleCanvas") != null)
         {
-            GameObject.Find("GoggleCanvas").GetComponent<Player3DUI>().DecreaseHP();
+            GameObject.Find("GoggleCanvas").GetComponent<Player3DUI>().DecreaseHP(HP);
         }
         HP--;
         ES3.Save("MoveHP",HP);
-        UIHandler.GetComponent<PlayerToUI>().UpdateHP(HP);
+        //UIHandler.GetComponent<PlayerToUI>().UpdateHP(HP);
         if (HP <= 0)
         {
             ThreeDTo2DData.ThreeDScene = null;

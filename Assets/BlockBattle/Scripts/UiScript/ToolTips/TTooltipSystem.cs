@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TTooltipSystem : MonoBehaviour
 {
@@ -66,6 +67,11 @@ public class TTooltipSystem : MonoBehaviour
     {
         current.Ttooltip.gameObject.SetActive(false);
         current.blockTip.gameObject.SetActive(false);
-        current.enemyTip.gameObject.SetActive(false);
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName != "BattleLevel - tutorial")
+        {
+            current.enemyTip.gameObject.SetActive(false);
+        }
+        
     }
 }

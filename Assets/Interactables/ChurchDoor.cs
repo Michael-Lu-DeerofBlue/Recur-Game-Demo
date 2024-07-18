@@ -42,7 +42,7 @@ public class Door : Interactable
         if (!flowchart.HasExecutingBlocks())
         {
             // Start the Fungus flowchart for sprinting
-            //flowchart.ExecuteBlock("Door");
+            flowchart.ExecuteBlock("Door");
         }
     }
 }

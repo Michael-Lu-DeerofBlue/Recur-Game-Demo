@@ -53,9 +53,13 @@ public class Player3DUI : MonoBehaviour
         MoveHP = InventoryManager.MoveHP;
     }
 
-    public void DecreaseHP()
+    public void DecreaseHP(int hp)
     {
-        moveHPs[MoveHP-1].SetActive(false); 
+        Debug.Log("here");
+        if (hp > 0)
+        {
+            moveHPs[hp - 1].SetActive(false);
+        }
     }
 
 

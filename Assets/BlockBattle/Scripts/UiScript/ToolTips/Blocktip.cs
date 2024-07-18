@@ -27,6 +27,10 @@ public class BlockTip : MonoBehaviour
         {
             headerField.text = header;
             ContentField.text = content;
+            detailText1.text = detail1;
+            detailText2.text = detail2;
+            detailText3.text = detail3;
+            detailText4.text = detail4;
             detailblock1.SetActive(true);
             detailblock2.SetActive(true);
             detailblock3.SetActive(true);
@@ -36,6 +40,10 @@ public class BlockTip : MonoBehaviour
         {
             headerField.text = header;
             ContentField.text = content;
+            detailText1.text = detail1;
+            detailText2.text = detail2;
+            detailText3.text = detail3;
+            detailText4.text = detail4;
             detailblock1.SetActive(false);
             detailblock2.SetActive(false);
             detailblock3.SetActive(false);

@@ -49,7 +49,7 @@ public abstract class Enemy : MonoBehaviour
     private bool ShowingTip = false;
 
     public string in3DName;
-
+    public bool allDead;
     public void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();
@@ -424,11 +424,19 @@ public virtual void ExecuteSkill()
         if (enemies.Length == 0)
         {
             Debug.Log("Here");
-            GameObject gameInstance = GameObject.Find("GameInstance");
-            if (gameInstance != null) { gameInstance.GetComponent<TwoDto3D>().TwoDGameOver(); }
-            battleManager.GameOver=true;
+            allDead = true;
         }
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if (allDead)
+        {
+            GameObject gameInstance = GameObject.Find("GameInstance");
+            if (gameInstance != null) { gameInstance.GetComponent<TwoDto3D>().TwoDGameOver(); }
+            battleManager.GameOver = true;
+        }
     }
     public void RefreshChoiceSectionBlock()
     {

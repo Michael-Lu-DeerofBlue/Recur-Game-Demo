@@ -12,6 +12,7 @@ using I2.Loc;
 using PixelCrushers.DialogueSystem;
 using Unity.Burst.CompilerServices;
 using System;
+using TMPro;
 
 public class Level2 : LevelController
 {
@@ -39,13 +40,16 @@ public class Level2 : LevelController
     public int pursuitSpeed;
     public int patrolSpeed;
     public bool inPursuitCalled;
-
+    public string[] hints;
+    public int hintsCurrentIndex;
+    public TextMeshProUGUI hint;
+    public bool reloaded;
     void Awake()
     {
+        ES3.Save("MoveHP", 2);
         ES3.Save("Sprint", true);
         colorAdjustments = (ColorAdjustments)volume.profile.components.Find(x => x is ColorAdjustments);
         Player.GetComponent<GadgetsTool>().MagneticBoots = false;
-        Player.GetComponent<GadgetsTool>().Camera = true;
         if (ThreeDTo2DData.ThreeDScene != null)
         {
             ThreeDTo2DData.ThreeDScene = null;
@@ -91,7 +95,9 @@ public class Level2 : LevelController
 
     private void Start()
     {
+        JudgeLanguage();
         flowchart.ExecuteBlock("StartConvo"); //initial conversation
+      
     }
 
     IEnumerator GraduallyChangeExposure()
@@ -113,8 +119,6 @@ public class Level2 : LevelController
 
         // Ensure the final exposure is set
         colorAdjustments.postExposure.value = targetExposure;
-
-
     }
 
     public void ResetEnemyTarget(Transform target)
@@ -140,6 +144,19 @@ public class Level2 : LevelController
        
     }
 
+    public void ResetAllEnemyTarget(Transform target)
+    {
+        foreach (Transform enemy in enemies)
+        {
+            if (enemy.gameObject.activeSelf)
+            {
+                enemy.GetComponent<ThreeEnemyBase>().inBell(target);
+                enemy.GetComponent<AIPath>().maxSpeed = pursuitSpeed;
+            }
+        }
+
+    }
+
     void ResetEnemyBackToPatrol(Transform target)
     {
         foreach (Transform enemy in enemies)
@@ -156,6 +173,8 @@ public class Level2 : LevelController
     public void ColdStart()
     {
         StartCoroutine(GraduallyChangeExposure());
+        Player.GetComponent<PlayerInteract>().canInteract = true;
+        Player.GetComponent<GadgetsTool>().Camera = true;
         flowchart.ExecuteBlock("ColdStart");
     }
 
@@ -191,6 +210,7 @@ public class Level2 : LevelController
 
     public void Reload() //Player, Enemy, SpotLights
     {
+        reloaded = true;
         secondTrigger.SetActive(true); //key reminder
         //Exposure
         colorAdjustments.postExposure.value = targetExposure;
@@ -222,15 +242,15 @@ public class Level2 : LevelController
         spotlightManager.GetComponent<SpotlightManager>().Resume();
 
         //PlayerStats & EnemyStats
-        if (TwoDto3D.ToThreeEnemies.Count == 0)
+        if (TwoDto3D.win  == true)
         {
-            //Debug.Log("Here");
+            
             foreach (var key in ThreeDTo2DData.dataDictionary.Keys)
             {
-                //Debug.Log(key);
+                Debug.Log(key);
                 GameObject obj = GameObject.Find(key);
                 if (obj != null)
-                {
+                {Debug.Log("Here");
                     obj.SetActive(false);
                 }
             }
@@ -265,6 +285,12 @@ public class Level2 : LevelController
         {
             key.GetComponent<Door>().Keyed = true;
         }
+
+        //Player Interact
+        Player.GetComponent<PlayerInteract>().canInteract = true;
+
+        //close door
+        flowchart.ExecuteBlock("CloseDoor");
     }
 
     public void ResetLevel()
@@ -278,7 +304,7 @@ public class Level2 : LevelController
         Time.timeScale = 0f;
 
         // Wait for 5 real-time seconds
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(0.5f);
         Time.timeScale = 1f;
 
         // Reload the current scene
@@ -294,7 +320,7 @@ public class Level2 : LevelController
         ES3.DeleteKey("InLevelPlayerPosition");
         ES3.DeleteKey("InLevelPlayerRotation");
         ES3.DeleteKey("EnemyKeyIndex");
-
+        ES3.Save("MoveHP",2);
     }
 
     public void Save()
@@ -361,9 +387,18 @@ public class Level2 : LevelController
         }
 
         int conversationID = DialogueManager.Instance.currentConversationState.subtitle.dialogueEntry.conversationID;
-        //Debug.Log("Conversation ended: " + conversationID.ToString());
-
-        if (conversationID == 2 || conversationID == 4)
+        Debug.Log("Conversation ended: " + conversationID.ToString());
+        
+        if ( conversationID == 1 || conversationID == 3)
+        {
+            hint.text = hints[0];
+            if (language == "en")
+            {
+                hint.text = "Use Shift to Sprint";
+            }
+            flowchart.ExecuteBlock("SwapHints");
+        }
+        else if (conversationID == 2 || conversationID == 4)
         {
             secondTrigger.SetActive(false);
         }
@@ -375,20 +410,28 @@ public class Level2 : LevelController
         {
             thirdTrigger.SetActive(false);
         }
+        else if (conversationID == 13 || conversationID == 14)
+        {
+            Scene2H();
+        }
     }
 
     public void Scene2A() //start convo
     {
-        JudgeLanguage();
-        string conversation = conversationName[0] + "_" + language;
-        if (isConversationRunning)
+        if (!reloaded)
         {
-            conversationQueue.Enqueue(conversation);
+            JudgeLanguage();
+            string conversation = conversationName[0] + "_" + language;
+            if (isConversationRunning)
+            {
+                conversationQueue.Enqueue(conversation);
+            }
+            else
+            {
+                StartConversation(conversation);
+            }
         }
-        else
-        {
-            StartConversation(conversation);
-        }
+       
     }
 
     public void Scene2B() //must possess key
@@ -407,15 +450,18 @@ public class Level2 : LevelController
 
     public void Scene2C() //approach gate
     {
-        JudgeLanguage();
-        string conversation = conversationName[2] + "_" + language;
-        if (isConversationRunning)
+        if (!reloaded)
         {
-            conversationQueue.Enqueue(conversation);
-        }
-        else
-        {
-            StartConversation(conversation);
+            JudgeLanguage();
+            string conversation = conversationName[2] + "_" + language;
+            if (isConversationRunning)
+            {
+                conversationQueue.Enqueue(conversation);
+            }
+            else
+            {
+                StartConversation(conversation);
+            }
         }
     }
 
@@ -447,7 +493,7 @@ public class Level2 : LevelController
         StartConversation(conversation);
     }
 
-    public void Scene2G() //defeat brides (NOT CALLED YET)
+    public void Scene2G() 
     {
         JudgeLanguage();
         string conversation = conversationName[6] + "_" + language;
@@ -510,5 +556,24 @@ public class Level2 : LevelController
 
         // Set the boolean to false
         inPursuitCalled = false;
+    }
+
+    public void SwapHint()
+    {
+        hintsCurrentIndex++;
+        hint.text = hints[hintsCurrentIndex];
+        if (language == "en" && hintsCurrentIndex == 1)
+        {
+            hint.text = "Taking Photos from the back weakens the enemies";
+        }
+        if (language == "en" && hintsCurrentIndex == 2)
+        {
+            hint.text = "The amount of enemies in the frame determines the amount of enemies you combat";
+        }
+    }
+
+    public void StartHint()
+    {
+       
     }
 }

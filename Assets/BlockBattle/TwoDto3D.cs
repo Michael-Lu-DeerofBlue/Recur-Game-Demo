@@ -13,7 +13,7 @@ public class TwoDto3D : MonoBehaviour
     public Flowchart flowchart;
     public static List<string> ToThreeEnemies;
     private SoundManager soundManager;
-
+    public static bool win;
     void Start()
     {
         soundManager = FindAnyObjectByType<SoundManager>();
@@ -23,22 +23,17 @@ public class TwoDto3D : MonoBehaviour
     {
         Debug.Log("Here");
         enemies = FindObjectsOfType<Enemy>();
-        if (enemies.Length != 0)
-            {
-                for (int i = 0; i < enemies.Length; i++)
-                {
-                    ToThreeEnemies.Add(enemies[i].in3DName);
-                }
-        }               
         ItemManager itemManager = FindObjectOfType<ItemManager>();
         if (enemies.Length == 0)
         {
+            win = true;
             Victory= true;
             Debug.Log("Victory");
             soundManager.PlaySound("PlayerWin");
         }
         else
         {
+            win= false;
             Victory= false;
             Debug.Log("Defeat");
             soundManager.PlaySound("CombatExit");

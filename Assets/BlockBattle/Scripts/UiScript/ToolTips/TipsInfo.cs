@@ -57,6 +57,7 @@ public class TipsInfo : MonoBehaviour
                         TTooltipSystem.showBlockTips(header, content, detail1, detail2, detail3, detail4);
                         break;
                     case 3:
+                        Debug.Log("here");
                         header = "恢复架势";
                         content = "移除自身负面状态";
                         detail1 = "1个减益";

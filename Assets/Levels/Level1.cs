@@ -264,10 +264,10 @@ public class Level1 : LevelController
             conversationTracker[4] = true;
             Player.GetComponent<GadgetsTool>().Camera = true;
             JudgeLanguage();
-            string hintText = "用E进入摄影状态";
+            string hintText = "用E进入摄影状态，左键拍摄敌人，进入战斗";
             if (language == "en")
             {
-                hintText = "use E to enter camera mode";
+                hintText = "use E to enter camera mode, left click to photo and combat the enemy";
             }
             hint.text = hintText;
         }
@@ -281,12 +281,12 @@ public class Level1 : LevelController
             case "English":
                 language = "en";
                 //set subtitle speed
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 200;
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 15;
                 break;
             case "Chinese (Simplified)":
                 language = "cn";
                 //set subtitle speed
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 100;
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 7;
                 break;
             // Add more cases for other languages if needed
             default:

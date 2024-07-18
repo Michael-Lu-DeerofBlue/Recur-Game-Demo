@@ -11,7 +11,7 @@ public class PlayerInteract : MonoBehaviour
     private Camera cam;
     private PlayerToUI playerToUI;
     private InputManager inputManager;
-
+    public bool canInteract;
     void Start()
     {
         cam = GetComponent<PlayerController>().cam;
@@ -45,17 +45,21 @@ public class PlayerInteract : MonoBehaviour
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         //Debug.DrawRay(ray.origin, ray.direction * distance);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, distance, mask))
+        if (canInteract)
         {
-            Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-            if (interactable != null)
+            if (Physics.Raycast(ray, out hitInfo, distance, mask))
             {
-                playerToUI.UpdateText(interactable.promptMessage);
-                if (inputManager.OnFoot.Interact.triggered)
+                Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
+                if (interactable != null)
                 {
-                    interactable.BaseInteract();
+                    playerToUI.UpdateText(interactable.promptMessage);
+                    if (inputManager.OnFoot.Interact.triggered)
+                    {
+                        interactable.BaseInteract();
+                    }
                 }
             }
         }
+       
     }
 }

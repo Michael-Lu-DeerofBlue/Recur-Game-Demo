@@ -19,7 +19,7 @@ public class TriggerBoxMessage : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Entered trigger: " + trigger);
+            //Debug.Log("Entered trigger: " + trigger);
             target.SendMessage(message);
         }
     }
