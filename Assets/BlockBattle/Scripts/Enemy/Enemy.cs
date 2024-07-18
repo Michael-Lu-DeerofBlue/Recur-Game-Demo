@@ -26,7 +26,6 @@ public abstract class Enemy : MonoBehaviour
     private TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
     public bool SpendingSkillAnim = false;
-    private GameObject enemyUIInstance;
     private GameObject DamageNumUI;
     private Coroutine currentSkillIconsCoroutine;
     private SoundManager soundManager;
@@ -38,6 +37,7 @@ public abstract class Enemy : MonoBehaviour
 
     public string[] CurrentSkillIcons;
     private TextMeshProUGUI EnemyName;
+    private GameObject enemyUIInstance;
     private Image hpBar;
     private Image castingBar;
     private Image nextSkillIcon;
@@ -56,7 +56,6 @@ public abstract class Enemy : MonoBehaviour
         GetNextMove();//get casting time for the first turn.
         timer = SkillCastingTime; //added this so that the first move is executed with a timer
         twoDto3D = FindObjectOfType<TwoDto3D>();
-        CreateEnemyUI();
         animator = GetComponent<Animator>();
         soundManager = FindObjectOfType<SoundManager>();
 
@@ -66,7 +65,7 @@ public abstract class Enemy : MonoBehaviour
             StartCoroutine(AnimateSprite(mySpriteTransform,moveFrequency, moveAmplitude));
         }
 
-
+        CreateEnemyUI();
     }
 
 
@@ -89,6 +88,7 @@ public abstract class Enemy : MonoBehaviour
 
         enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
         UpdateEnemyUI();
+
         if(targetSelector.CurrentTarget != null)
         {
             if (targetSelector.CurrentTarget == this)
@@ -103,11 +103,12 @@ public abstract class Enemy : MonoBehaviour
     }
 
 
-    private void CreateEnemyUI()
+    public void CreateEnemyUI()
     {
         if (battleManager != null && battleManager.EnemyUI != null)
         {
-            GameObject canvas = GameObject.Find("Canvas");
+
+            GameObject canvas = GameObject.Find("BattleCanvas");
             if (canvas != null)
             {
 
