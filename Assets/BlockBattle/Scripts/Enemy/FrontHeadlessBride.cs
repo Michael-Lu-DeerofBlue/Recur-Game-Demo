@@ -29,15 +29,15 @@ public class HeadlessFront : Enemy
         switch (nextSkill)
         {
             case SkillType.Attack:
-                Attack(attackDamage);
-                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f);
+                DealAttackDamage(attackDamage);
+                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f, attackDamage);
                 break;
             case SkillType.SculptureGlane:
-                Attack(SculptureGlaneDamage);
+                DealAttackDamage(SculptureGlaneDamage);
                 battleManager.AddStunBlock(1,8);
                 break;
             case SkillType.SculptureGaze:
-                Attack(SculptureGazeDamage);
+                DealAttackDamage(SculptureGazeDamage);
                 battleManager.AddStunBlock(3, 8);
                 break;
         }

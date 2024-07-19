@@ -215,7 +215,7 @@ public class HeroInfo : MonoBehaviour
         HitPoint -= damage;
         Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
         damageNumber.ShowDamageNumber(damage);
-        soundManager.PlaySound("PlayerTakeDamage");
+        soundManager.PlaySfx("PlayerTakeDamage");
         if (HitPoint <= 0)
         {
             HitPoint = 0;

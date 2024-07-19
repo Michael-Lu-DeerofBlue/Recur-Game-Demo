@@ -29,14 +29,14 @@ public class TwoDto3D : MonoBehaviour
             win = true;
             Victory= true;
             Debug.Log("Victory");
-            soundManager.PlaySound("PlayerWin");
+            soundManager.PlaySfx("PlayerWin");
         }
         else
         {
             win= false;
             Victory= false;
             Debug.Log("Defeat");
-            soundManager.PlaySound("CombatExit");
+            soundManager.PlaySfx("CombatExit");
         }
         inventory = itemManager.inventory;
         foreach (var item in inventory)

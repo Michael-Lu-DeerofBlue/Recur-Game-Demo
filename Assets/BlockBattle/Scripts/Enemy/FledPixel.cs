@@ -14,7 +14,7 @@ public class FledPixel: Enemy
 
     public override void ExecuteSkill()
     {
-    Attack(2);
+    DealAttackDamage(2);
     }
 
     public override void GetNextMove()

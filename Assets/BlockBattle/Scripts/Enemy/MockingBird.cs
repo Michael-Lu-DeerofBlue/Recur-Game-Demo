@@ -19,7 +19,7 @@ public class MockingBird: Enemy
     public float DisableInputCastingTime = 4;
     public float FleeCastingTime = 10;
 
-    private enum SkillType { Attack, DisableInput, Flee }
+    private enum SkillType { Attack, Scream, Flee }
     private SkillType nextSkill;
 
     public override void ExecuteSkill()
@@ -27,9 +27,13 @@ public class MockingBird: Enemy
         switch (nextSkill)
         {
             case SkillType.Attack:
-                Attack(attackDamage);
+                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f, attackDamage);
                 break;
-            case SkillType.DisableInput:
+            case SkillType.Scream:
+                string[] clipNames = { "BirdScream1", "BirdScream2", "BirdScream3" };
+                int randomIndex = Random.Range(0, 2);
+                string selectedClipName = clipNames[randomIndex];
+                soundManager.PlaySfx(selectedClipName);
                 battleManager.disableInputForSeconds(2);
                 break;
             case SkillType.Flee:
@@ -55,7 +59,7 @@ public class MockingBird: Enemy
         else if (randomValue < attackProbability + disableInputProbability)
         {
             SkillCastingTime = DisableInputCastingTime;  
-            nextSkill = SkillType.DisableInput;
+            nextSkill = SkillType.Scream;
         }
         else
         {

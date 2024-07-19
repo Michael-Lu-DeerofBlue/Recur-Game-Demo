@@ -29,7 +29,7 @@ public abstract class Enemy : MonoBehaviour
     public bool SpendingSkillAnim = false;
     private GameObject DamageNumUI;
     private Coroutine currentSkillIconsCoroutine;
-    private SoundManager soundManager;
+    public SoundManager soundManager;
 
     //Enemy debuff type:
     public int FragilingNum = 0;
@@ -47,6 +47,7 @@ public abstract class Enemy : MonoBehaviour
     public Image CurrentIcon;
     public Animator animator;
     private bool ShowingTip = false;
+   
 
     public string in3DName;
     public bool allDead;
@@ -181,7 +182,7 @@ public abstract class Enemy : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Animator component is not assigned.");
+            Debug.Log("Animator component is not assigned.");
             ExecuteTurn();
         }
     }
@@ -263,7 +264,7 @@ public virtual void ExecuteSkill()
         timer = SkillCastingTime;
     }
 
-    public virtual void Attack(float Damage)
+    public virtual void DealAttackDamage(float Damage)
     {
                 heroInfo.HitHandle(Damage);
     }
@@ -342,12 +343,12 @@ public virtual void ExecuteSkill()
         if (HP <= 0)
         {
             HP = 0;
-            soundManager.PlaySound("EnemyDie");
+            soundManager.PlaySfx("EnemyDie");
             deadhandle();
         }
         else
         {
-            soundManager.PlaySound("EnemyTakeDamage");
+            soundManager.PlaySfx("EnemyTakeDamage");
         }
     }
     public virtual void SpawnDamageUI(float damage)
@@ -461,7 +462,7 @@ public virtual void ExecuteSkill()
         if (!isdead)
         {
             targetSelector.SwitchTargetByClick(this);
-            soundManager.PlaySound("TargetChange");
+            soundManager.PlaySfx("TargetChange");
         }
     }
 
@@ -498,13 +499,13 @@ public virtual void ExecuteSkill()
     }
 
 
-    public virtual void AttackScaleAnimation(float firstDuration, float firstScale, float secondDuration, float secondScale)
+    public virtual void AttackScaleAnimation(float firstDuration, float firstScale, float secondDuration, float secondScale, int AttackDamage)
     {
         Transform mySpriteTransform = FindChildByName(transform, "MySprite");
         if (mySpriteTransform != null)
         {
             SpendingSkillAnim = true;
-            StartCoroutine(ScaleSprite(mySpriteTransform, firstDuration, firstScale, secondDuration, secondScale));
+            StartCoroutine(ScaleSprite(mySpriteTransform, firstDuration, firstScale, secondDuration, secondScale, AttackDamage));
         }
         else
         {
@@ -529,7 +530,7 @@ public virtual void ExecuteSkill()
         return null;
     }
 
-    private IEnumerator ScaleSprite(Transform spriteTransform, float firstDuration, float firstScale, float secondDuration, float secondScale)
+    private IEnumerator ScaleSprite(Transform spriteTransform, float firstDuration, float firstScale, float secondDuration, float secondScale, int AttackDamage)
     {
         Vector3 originalScale = spriteTransform.localScale;
         Vector3 targetScale1 = originalScale * firstScale;
@@ -566,7 +567,7 @@ public virtual void ExecuteSkill()
             yield return null;
         }
         spriteTransform.localScale = originalScale;
-
+        DealAttackDamage(AttackDamage);
         SpendingSkillAnim = false;
     }
 

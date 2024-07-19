@@ -29,7 +29,7 @@ public class StarryNight : Enemy
         switch (nextSkill)
         {
             case SkillType.Attack:
-                Attack(attackDamage);
+                DealAttackDamage(attackDamage);
                 break;
             case SkillType.PaintingSplash:
                 DropDownblock(3);
@@ -38,7 +38,7 @@ public class StarryNight : Enemy
                 RefreshChoiceSectionBlock();
                 break;
             case SkillType.corruption:
-                Attack(RealityCorruptionDamage);
+                DealAttackDamage(RealityCorruptionDamage);
                 ChargingCorruption = false;
                 break;
         }

@@ -23,10 +23,11 @@ public class Perseus_1 : Enemy
         switch (nextSkill)
         {
             case SkillType.Attack:
-                Attack(attackDamage);
+                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f, attackDamage);
                 break;
             case SkillType.CurseOfGorgon:
-                Attack(CurseOfGorgonDamage);
+                DealAttackDamage(CurseOfGorgonDamage);
+                soundManager.PlaySfx("Perseus_Gorgon");
                 break;
         }
     }

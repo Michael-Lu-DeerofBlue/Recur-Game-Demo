@@ -23,11 +23,10 @@ public class HeadlessBack : Enemy
         switch (nextSkill)
         {
             case SkillType.Attack:
-                Attack(attackDamage);
-                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f);
+                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f, attackDamage);
                 break;
             case SkillType.SculptureGlance:
-                Attack(SculptureGlanceDamage);
+                DealAttackDamage(SculptureGlanceDamage);
                 battleManager.AddStunBlock(1, 8);
                 break;
         }

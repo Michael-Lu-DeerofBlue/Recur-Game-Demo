@@ -19,7 +19,7 @@ public class Lion : Enemy
     public float BleedBlockCastingTime = 4;
     public float FleeCastingTime = 10;
 
-    private enum SkillType { Attack, Bleed, Flee }
+    private enum SkillType { Attack, Bite, Flee }
     private SkillType nextSkill;
 
     public override void ExecuteSkill()
@@ -27,10 +27,11 @@ public class Lion : Enemy
         switch (nextSkill)
         {
             case SkillType.Attack:
-                Attack(attackDamage);
+                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f, attackDamage);
                 break;
-            case SkillType.Bleed:
-                Attack(BleedBlockDamage);
+            case SkillType.Bite:
+                soundManager.PlaySfx("LionBite");
+                DealAttackDamage(BleedBlockDamage);
                 AddBleeding();
                 break;
             case SkillType.Flee:
@@ -57,7 +58,7 @@ public class Lion : Enemy
         else if (randomValue < attackProbability + BleedBlockProbability)
         {
             SkillCastingTime = BleedBlockCastingTime;  
-            nextSkill = SkillType.Bleed;
+            nextSkill = SkillType.Bite;
             CurrentSkillIcons = new string[] { "Damage", "Interrupt" };
         }
         else

@@ -327,18 +327,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92bb7a79044867f4da334087d5b680d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveFrequency: 4
+  moveAmplitude: 0.5
   HP: 20
   MaxHp: 20
   SkillCastingTime: 0
+  DisplayName: mondrinion
   enemyInfoText: {fileID: 2320016935802981217}
   timer: 0
-  hero: {fileID: 0}
+  CastingSpeedRate: 1
+  NextSkillDamage: 0
+  heroInfo: {fileID: 0}
   battleManager: {fileID: 0}
-  PauseCasting: 0
   nextMove: 
-  Fragiling: 0
   isdead: 0
+  SpendingSkillAnim: 0
+  soundManager: {fileID: 0}
+  FragilingNum: 0
   PauseTime: 0
+  PauseCasting: 0
+  CurrentSkillIcons: []
+  CurrentIcon: {fileID: 0}
+  animator: {fileID: 0}
+  in3DName: 
+  allDead: 0
   attackDamage: 8
   CompanionsMinDamage: 4
   CompanionsMaxDamage: 12

@@ -24,13 +24,13 @@ public class CorruptedCanva : Enemy
         switch (nextSkill)
         {
             case SkillType.Attack:
-                Attack(attackDamage);
+                DealAttackDamage(attackDamage);
                 break;
             case SkillType.PaintingSplash:
                 DropDownblock(3);
                 break;
             case SkillType.CorruptingWind:
-                Attack(corruptingWindDamage);
+                DealAttackDamage(corruptingWindDamage);
                 LockRotationForNextBlock();
                 break;
         }

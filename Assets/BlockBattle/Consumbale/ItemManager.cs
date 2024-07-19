@@ -169,7 +169,7 @@ public class ItemManager : MonoBehaviour
 
         if (inventory.ContainsKey(itemName))
         {
-            soundManager.PlaySound("UseItem");
+            soundManager.PlaySfx("UseItem");
             playingConsumableAnim = true;
 
             StartCoroutine(AnimateButton(inventoryButton.button.GetComponent<RectTransform>(),inventoryButton));

@@ -37,7 +37,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(string clipName)
+    public void PlaySfx(string clipName)
     {
         if (audioClipDictionary.TryGetValue(clipName, out var clip))
         {
@@ -50,6 +50,15 @@ public class SoundManager : MonoBehaviour
         {
             Debug.LogWarning("Audio clip not found: " + clipName);
         }
+    }
+    void PlaySound(AudioClip clip, Vector3 position)
+    {
+        GameObject tempAudio = new GameObject("TempAudio");
+        tempAudio.transform.position = position;
+        AudioSource audioSource = tempAudio.AddComponent<AudioSource>();
+        audioSource.clip = clip;
+        audioSource.Play();
+        Destroy(tempAudio, clip.length);
     }
 }
 

@@ -29,14 +29,15 @@ public class deer : Enemy
         switch (nextSkill)
         {
             case SkillType.Attack:
-                Attack(attackDamage);
-                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f);
+                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f, attackDamage);
                 break;
             case SkillType.Charge:
                 battleManager.ExcitAllEnemies(20);
+                soundManager.PlaySfx("Deer_Charge");
                 break;
             case SkillType.GoldenAntler:
-               Attack(GoldenAntlerDamage);
+                soundManager.PlaySfx("Deer_Golden");
+               DealAttackDamage(GoldenAntlerDamage);
                Enemy[] enemies = FindObjectsOfType<Enemy>();
               foreach (Enemy enemy in enemies)
                 {

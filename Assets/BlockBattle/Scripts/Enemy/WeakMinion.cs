@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class WeakMinion : Enemy
 {
-    public float attackDamage = 1;
-    public float CompanionsMinDamage = 1;
-    public float CompanionsMaxDamage = 8;
+    public int attackDamage = 1;
+    public int CompanionsMinDamage = 1;
+    public int CompanionsMaxDamage = 8;
     public int attackWeight = 1;
     public int CompanionsWeight = 1;
     public float attackCastingTime = 8;
@@ -18,11 +18,7 @@ public class WeakMinion : Enemy
     private SkillType nextSkill;
     public bool waiting = false;
 
-    public override void Attack(float damage)
-    {
-        base.Attack(damage);
-        AttackScaleAnimation(0.2f,1.3f,0.6f,1.0f);
-    }
+
     public override void ExecuteTurn()//all enemy will get casting time before they spend skill.
     {
         ExecuteSkill();
@@ -43,7 +39,7 @@ public class WeakMinion : Enemy
         if (waiting)
         {
             RandomDamageAttack(CompanionsMinDamage, CompanionsMaxDamage);
-            AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f);
+            AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f,attackDamage);
             GetNextMove();
             timer = SkillCastingTime;
             PauseCasting = false;
@@ -58,9 +54,12 @@ public class WeakMinion : Enemy
         switch (nextSkill)
         {
             case SkillType.Attack:
-                Attack(attackDamage);
+                soundManager.PlaySfx("Attack_Mondrinion");
+                AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f,attackDamage);
                 break;
             case SkillType.Companions:
+                string selectedClipName = Random.value > 0.5f ? "MondrinionAlt" : "Mondrinion";
+                soundManager.PlaySfx(selectedClipName);
                 waiting = true;
                 battleManager.CheckCompanions();
                 break;

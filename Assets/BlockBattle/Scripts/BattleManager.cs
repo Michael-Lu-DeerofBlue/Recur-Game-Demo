@@ -63,7 +63,7 @@ public class BattleManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         soundManager = FindObjectOfType<SoundManager>();
-        soundManager.PlaySound("CombatEnter");
+        soundManager.PlaySfx("CombatEnter");
 
     }
 
@@ -307,20 +307,20 @@ public class BattleManager : MonoBehaviour
         }
         if (clearedline == 1)
         {
-            soundManager.PlaySound("ClearOneLine");
+            soundManager.PlaySfx("ClearOneLine");
         }
         if (clearedline == 2)
         {
-            soundManager.PlaySound("ClearTwoLines");
+            soundManager.PlaySfx("ClearTwoLines");
         }
         if (clearedline == 3)
         {
-            soundManager.PlaySound("ClearTwoLines");
+            soundManager.PlaySfx("ClearTwoLines");
 
         }
         if (clearedline == 4)
         {
-            soundManager.PlaySound("ClearFourLines");
+            soundManager.PlaySfx("ClearFourLines");
         }
     }
     public void ContinueBlockGame()//called when start to select enemy.

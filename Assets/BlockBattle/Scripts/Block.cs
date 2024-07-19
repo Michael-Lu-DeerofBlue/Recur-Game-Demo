@@ -117,7 +117,7 @@ public class BlockManager : MonoBehaviour
                     if (controller != null && controller.GetComponent<HintController>().currentIndex == 1) { controller.GetComponent<HintController>().SwitchTip(); }
                 }
                 FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
-                soundManager.PlaySound("ActionBlockOrient");
+                soundManager.PlaySfx("ActionBlockOrient");
             }
 
             // Handle block falling over time
@@ -428,7 +428,7 @@ public class BlockManager : MonoBehaviour
         selectionToolProcessor.GetComponent<SelectionTool>().stillFalling = false;
         if (ghostBlock != null)
         {
-            soundManager.PlaySound("LandActionBlock");
+            soundManager.PlaySfx("LandActionBlock");
             Destroy(ghostBlock);
         }
         //FindObjectOfType<SpawnBlock>().SpawnNewBlock(1);
