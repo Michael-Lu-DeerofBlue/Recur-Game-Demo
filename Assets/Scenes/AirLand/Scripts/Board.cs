@@ -17,6 +17,7 @@ public class TileData
 }
 public class Board : MonoBehaviour
 {
+    public GameObject playerLocation;
     public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
 
@@ -44,7 +45,7 @@ public class Board : MonoBehaviour
         }
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "tiledata.json");
-     LoadTiles();
+    // LoadTiles();
     }
 
 
@@ -94,9 +95,25 @@ public class Board : MonoBehaviour
 
 private void Start()
     {
+        setMyPositionForPlayer();
+        setSpawnPosition();
         SpawnPiece();
     }
+    public void setSpawnPosition()
+    {
+        Vector3 playerPosition = playerLocation.transform.position;
+        int playerXIntRound = Mathf.RoundToInt(playerPosition.x);
+        spawnPosition.x = playerXIntRound;
 
+    }
+    public void setMyPositionForPlayer()
+    {
+        Vector3 playerPosition = playerLocation.transform.position;
+        float playerZ = playerPosition.z;
+        Vector3 newPosition = transform.position;
+        newPosition.z = playerZ - 10;
+        transform.position = newPosition;
+    }
     public void SpawnPiece()
     {
         int random = Random.Range(0, tetrominoes.Length);
