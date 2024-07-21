@@ -15,6 +15,7 @@ public class TileData
 {
     public Vector3Int position;
 }
+
 public class Board : MonoBehaviour
 {
     public GameObject playerLocation;
@@ -26,6 +27,7 @@ public class Board : MonoBehaviour
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
     public Tile FillTiles;
     private string saveFilePath;
+
     public RectInt Bounds
     {
         get
@@ -40,14 +42,14 @@ public class Board : MonoBehaviour
         tilemap = GetComponentInChildren<Tilemap>();
         activePiece = GetComponentInChildren<Piece>();
 
-        for (int i = 0; i < tetrominoes.Length; i++) {
+        for (int i = 0; i < tetrominoes.Length; i++)
+        {
             tetrominoes[i].Initialize();
         }
 
         saveFilePath = Path.Combine(Application.persistentDataPath, "tiledata.json");
-    // LoadTiles();
+        // LoadTiles();
     }
-
 
     private void Update()
     {
@@ -91,21 +93,20 @@ public class Board : MonoBehaviour
         }
     }
 
-
-
-private void Start()
+    private void Start()
     {
         setMyPositionForPlayer();
         setSpawnPosition();
         SpawnPiece();
     }
+
     public void setSpawnPosition()
     {
         Vector3 playerPosition = playerLocation.transform.position;
         int playerXIntRound = Mathf.RoundToInt(playerPosition.x);
         spawnPosition.x = playerXIntRound;
-
     }
+
     public void setMyPositionForPlayer()
     {
         Vector3 playerPosition = playerLocation.transform.position;
@@ -114,6 +115,7 @@ private void Start()
         newPosition.z = playerZ - 10;
         transform.position = newPosition;
     }
+
     public void SpawnPiece()
     {
         int random = Random.Range(0, tetrominoes.Length);
@@ -121,9 +123,12 @@ private void Start()
 
         activePiece.Initialize(this, spawnPosition, data);
 
-        if (IsValidPosition(activePiece, spawnPosition)) {
+        if (IsValidPosition(activePiece, spawnPosition))
+        {
             Set(activePiece);
-        } else {
+        }
+        else
+        {
             GameOver();
         }
     }
@@ -163,21 +168,19 @@ private void Start()
             Vector3Int tilePosition = piece.cells[i] + position;
 
             // An out of bounds tile is invalid
-            if (!bounds.Contains((Vector2Int)tilePosition)) {
+            if (!bounds.Contains((Vector2Int)tilePosition))
+            {
                 return false;
             }
 
             // A tile already occupies the position, thus invalid
-            if (tilemap.HasTile(tilePosition)) {
+            if (tilemap.HasTile(tilePosition))
+            {
                 return false;
             }
         }
 
         return true;
     }
-
-
-
-
 
 }

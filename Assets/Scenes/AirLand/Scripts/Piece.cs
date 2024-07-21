@@ -72,20 +72,26 @@ public class Piece : MonoBehaviour
 
     private void HandleMoveInputs()
     {
-        // Soft drop movement
         if (Input.GetKey(KeyCode.S))
         {
-            if (Move(Vector2Int.down)) {
-                // Update the step time to prevent double movement
+            if (Move(Vector2Int.down))
+            {
+
                 stepTime = Time.time + stepDelay;
             }
+            return; 
         }
 
-        // Left/right movement
-        if (Input.GetKey(KeyCode.A)) {
+        // ¼ì²é×ó/ÓÒÒÆ¶¯
+        if (Input.GetKey(KeyCode.A))
+        {
             Move(Vector2Int.left);
-        } else if (Input.GetKey(KeyCode.D)) {
+            return; 
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
             Move(Vector2Int.right);
+            return; 
         }
     }
 
@@ -96,10 +102,7 @@ public class Piece : MonoBehaviour
         // Step down to the next row
         Move(Vector2Int.down);
 
-        // Once the piece has been inactive for too long it becomes locked
-        if (lockTime >= lockDelay) {
-            Lock();
-        }
+
     }
 
     private void HardDrop()
