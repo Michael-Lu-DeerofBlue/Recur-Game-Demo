@@ -138,7 +138,7 @@ public class Board : MonoBehaviour
         Vector3 playerPosition = playerLocation.transform.position;
         float playerZ = playerPosition.z;
         Vector3 newPosition = transform.position;
-        newPosition.z = playerZ - 10;
+        newPosition.z = Mathf.RoundToInt(playerZ - 10);
         tilemap.transform.position = newPosition;
     }
 
