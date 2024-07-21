@@ -21,6 +21,7 @@ public class Board : MonoBehaviour
     public GameObject playerLocation;
     public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
+    public Tilemap notMoveMap;
 
     public TetrominoData[] tetrominoes;
     public Vector2Int boardSize = new Vector2Int(10, 20);
@@ -97,9 +98,34 @@ public class Board : MonoBehaviour
     {
         setMyPositionForPlayer();
         setSpawnPosition();
+        MergeTilemaps();
         SpawnPiece();
     }
+    void MergeTilemaps()
+    {
+        // 获取NotMoveMap的所有Tile的位置
+        BoundsInt bounds = notMoveMap.cellBounds;
+        TileBase[] allTiles = notMoveMap.GetTilesBlock(bounds);
 
+        // 遍历所有位置并将Tile复制到mainTilemap，同时确保世界位置不变
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            {
+                Vector3Int localPlace = new Vector3Int(x, y, 0);
+                TileBase tile = notMoveMap.GetTile(localPlace);
+                if (tile != null)
+                {
+                    // 获取世界坐标
+                    Vector3 worldPosition = notMoveMap.CellToWorld(localPlace);
+                    // 将世界坐标转换为mainTilemap的单元格坐标
+                    Vector3Int mainTilemapPosition = tilemap.WorldToCell(worldPosition);
+                    // 在mainTilemap的正确位置设置Tile
+                    tilemap.SetTile(mainTilemapPosition, tile);
+                }
+            }
+        }
+    }
     public void setSpawnPosition()
     {
         Vector3 playerPosition = playerLocation.transform.position;
@@ -113,7 +139,7 @@ public class Board : MonoBehaviour
         float playerZ = playerPosition.z;
         Vector3 newPosition = transform.position;
         newPosition.z = playerZ - 10;
-        transform.position = newPosition;
+        tilemap.transform.position = newPosition;
     }
 
     public void SpawnPiece()
