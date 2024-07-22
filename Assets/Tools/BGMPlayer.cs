@@ -31,7 +31,7 @@ public class BGMPlayer : MonoBehaviour
         // Check if an AudioSource is attached and play the audio
         if (audioSource != null)
         {
-            audioSource.Play();
+            //audioSource.Play();
         }
         else
         {
