@@ -428,6 +428,8 @@ public class BattleManager : MonoBehaviour
         enemy.ResetCasting();
     }
 
+
+
     public void CheckOnLand(string BlockColor)
     {
         if (inttranslator != null)

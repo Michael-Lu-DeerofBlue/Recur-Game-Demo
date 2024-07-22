@@ -215,7 +215,7 @@ public class HeroInfo : MonoBehaviour
         HitPoint -= damage;
         Hp.text = "HP: " + Mathf.RoundToInt(HitPoint).ToString();
         damageNumber.ShowDamageNumber(damage);
-        soundManager.PlaySfx("PlayerTakeDamage");
+        soundManager.PlaySfx("Player_Hit");
         if (HitPoint <= 0)
         {
             HitPoint = 0;
@@ -368,8 +368,9 @@ public class HeroInfo : MonoBehaviour
 
             if (!battleManager.BlockGameTimeStop)
             {
-                HitHandle(1);
-                Debug.Log("HP: " + HitPoint);
+                HitPoint--;
+                damageNumber.ShowDamageNumber(1);
+                Debug.Log("Bleeding");
             }
         }
     }
