@@ -20,7 +20,7 @@ public class ThreeEnemyBase : MonoBehaviour
     public Transform model;
     public bool inChange;
     public bool hasKey;
-
+    public int patrolSpeed = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -120,7 +120,7 @@ public class ThreeEnemyBase : MonoBehaviour
     {
         //Debug.Log(gameObject.name + " Back to Patrol at " + Time.time);
         inPursuitBool = false;
-        gameObject.GetComponent<AIPath>().maxSpeed = 3;
+        gameObject.GetComponent<AIPath>().maxSpeed = patrolSpeed;
         int i = gameObject.GetComponent<Patrol>().targets.Length;
         int r = Random.Range(0, i);
         gameObject.GetComponent<AIDestinationSetter>().target = gameObject.GetComponent<Patrol>().targets[r];
