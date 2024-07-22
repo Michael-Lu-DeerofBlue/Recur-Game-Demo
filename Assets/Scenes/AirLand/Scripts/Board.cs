@@ -5,18 +5,6 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Fungus;
 
-[DefaultExecutionOrder(-1)]
-[System.Serializable]
-public class TileDataContainer
-{
-    public List<TileData> tiles;
-}
-
-[System.Serializable]
-public class TileData
-{
-    public Vector3Int position;
-}
 
 public class Board : MonoBehaviour
 {
@@ -34,6 +22,8 @@ public class Board : MonoBehaviour
     public float offset;
     public List<Vector3> exisitingBlocks; //用来在生成的时候存目前现在里面有的Block，但是看的是MainBlock里面的坐标，这样方便我们在Exit的时候只生成那些让cube出来的坐标
     public List<Vector3> outputBlocksForBridge; //用来给搭建的脚本知道我要在哪里搭上Cubes
+
+    private Dictionary<string, TileBase> tileDictionary;
     public RectInt Bounds
     {
         get
@@ -52,32 +42,88 @@ public class Board : MonoBehaviour
         {
             tetrominoes[i].Initialize();
         }
-
         saveFilePath = Path.Combine(Application.persistentDataPath, "tiledata.json");
-         //LoadTiles();
     }
+
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            SaveTiles();
+            SaveTileMap();
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
             Exit(false);
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadMap();
+        }
     }
 
-    private void Exit(bool filled) {
-        List<Vector3> activePieceTilePos = GetActivePieceTilePosition(activePiece); 
+    public void SaveTileMap()
+    {
+        List<Vector3> tilePositions = new List<Vector3>();
+
         foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
             if (tilemap.HasTile(pos))
             {
-                
                 Vector3 worldPos = tilemap.CellToWorld(pos);
-                worldPos = new Vector3(worldPos.x-3.57f, worldPos.y, worldPos.z+ 3.57f-5.76f);
+                notMoveMap.SetTile(notMoveMap.WorldToCell(worldPos), tilemap.GetTile(pos));
+                tilePositions.Add(worldPos);
+            }
+        }
+
+        string json = JsonUtility.ToJson(new TileDataContainer(tilePositions));
+        File.WriteAllText(saveFilePath, json);
+    }
+
+    // Load the tilemap data
+    public void LoadMap()
+    {
+
+        if (File.Exists(saveFilePath))
+        {
+            string json = File.ReadAllText(saveFilePath);
+            TileDataContainer tileDataContainer = JsonUtility.FromJson<TileDataContainer>(json);
+
+            foreach (var position in tileDataContainer.positions)
+            {
+                Vector3Int cellPos = notMoveMap.WorldToCell(position);
+                notMoveMap.SetTile(cellPos, FillTiles);
+            }
+        }
+
+        // Call MergeTilemaps() after loading
+        MergeTilemaps();
+    }
+
+    [System.Serializable]
+    public class TileDataContainer
+    {
+        public List<Vector3> positions;
+
+        public TileDataContainer(List<Vector3> tilePositions)
+        {
+            positions = tilePositions;
+        }
+    }
+
+
+
+
+    private void Exit(bool filled)
+    {
+        List<Vector3> activePieceTilePos = GetActivePieceTilePosition(activePiece);
+        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
+        {
+            if (tilemap.HasTile(pos))
+            {
+
+                Vector3 worldPos = tilemap.CellToWorld(pos);
+                worldPos = new Vector3(worldPos.x - 1.81f, worldPos.y, worldPos.z + 3.57f - 5.26f);
                 if (filled)//是被迫填满的情况
                 {
                     if (!exisitingBlocks.Contains(pos))
@@ -92,7 +138,7 @@ public class Board : MonoBehaviour
                         outputBlocksForBridge.Add(worldPos); //将新增的block的worldpos导出，这样我们就可以造桥了
                     }
                 }
-                
+
             }
         }
         activePiece.stopped = true;
@@ -101,47 +147,13 @@ public class Board : MonoBehaviour
         levelController.GetComponent<Level3>().ExitBoard();
     }
 
-    private void SaveTiles()
-    {
-        List<TileData> tileDataList = new List<TileData>();
-
-        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
-        {
-            if (tilemap.HasTile(pos))
-            {
-                TileData tileData = new TileData { position = pos };
-                tileDataList.Add(tileData);
-            }
-        }
-
-        string json = JsonUtility.ToJson(new TileDataContainer { tiles = tileDataList }, true);
-        File.WriteAllText(saveFilePath, json);
-        Debug.Log("Tiles saved.");
-    }
-
-    private void LoadTiles()
-    {
-        if (File.Exists(saveFilePath))
-        {
-            string json = File.ReadAllText(saveFilePath);
-            TileDataContainer tileDataContainer = JsonUtility.FromJson<TileDataContainer>(json);
-
-            foreach (TileData tileData in tileDataContainer.tiles)
-            {
-                tilemap.SetTile(tileData.position, FillTiles);
-            }
-
-            Debug.Log("Tiles loaded.");
-        }
-    }
-
     private void OnEnable()
     {
         setMyPositionForPlayer();
         setSpawnPosition();
-        MergeTilemaps();
         SpawnPiece();
     }
+
     void MergeTilemaps()
     {
         // 获取NotMoveMap的所有Tile的位置
@@ -167,11 +179,12 @@ public class Board : MonoBehaviour
                 }
             }
         }
+        notMoveMap.gameObject.SetActive(false);
     }
     public void setSpawnPosition()
     {
         Vector3 playerPosition = levelController.GetComponent<Level3>().GrabNearestMarkerLocation();
-        int playerXIntRound = Mathf.RoundToInt(playerPosition.x);
+        int playerXIntRound = Mathf.RoundToInt(-playerPosition.x / 3.5f);
         spawnPosition.x = playerXIntRound;
     }
 
@@ -260,5 +273,6 @@ public class Board : MonoBehaviour
 
         return true;
     }
+
 
 }
