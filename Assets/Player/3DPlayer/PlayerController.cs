@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
 
     public void UpdateUI()
     {
-        playerToUI.MagneticBootsUI(isMagneticBootsOn.ToString());
+        //playerToUI.MagneticBootsUI(isMagneticBootsOn.ToString());
     }
 
     /// <summary>

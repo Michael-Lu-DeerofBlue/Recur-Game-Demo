@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Fungus;
 
 [DefaultExecutionOrder(-1)]
 [System.Serializable]
@@ -18,7 +20,7 @@ public class TileData
 
 public class Board : MonoBehaviour
 {
-    public GameObject playerLocation;
+    public GameObject levelController;
     public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
     public Tilemap notMoveMap;
@@ -29,6 +31,9 @@ public class Board : MonoBehaviour
     public Tile FillTiles;
     private string saveFilePath;
 
+    public float offset;
+    public List<Vector3> exisitingBlocks; //用来在生成的时候存目前现在里面有的Block，但是看的是MainBlock里面的坐标，这样方便我们在Exit的时候只生成那些让cube出来的坐标
+    public List<Vector3> outputBlocksForBridge; //用来给搭建的脚本知道我要在哪里搭上Cubes
     public RectInt Bounds
     {
         get
@@ -58,6 +63,42 @@ public class Board : MonoBehaviour
         {
             SaveTiles();
         }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Exit(false);
+        }
+    }
+
+    private void Exit(bool filled) {
+        List<Vector3> activePieceTilePos = GetActivePieceTilePosition(activePiece); 
+        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
+        {
+            if (tilemap.HasTile(pos))
+            {
+                
+                Vector3 worldPos = tilemap.CellToWorld(pos);
+                worldPos = new Vector3(worldPos.x-3.57f, worldPos.y, worldPos.z+ 3.57f-5.76f);
+                if (filled)//是被迫填满的情况
+                {
+                    if (!exisitingBlocks.Contains(pos))
+                    {
+                        outputBlocksForBridge.Add(worldPos);
+                    }
+                }
+                else //没被迫逼满的情况
+                {
+                    if (!exisitingBlocks.Contains(pos) && !activePieceTilePos.Contains(pos))
+                    {
+                        outputBlocksForBridge.Add(worldPos); //将新增的block的worldpos导出，这样我们就可以造桥了
+                    }
+                }
+                
+            }
+        }
+        activePiece.stopped = true;
+        Clear(activePiece);
+        levelController.GetComponent<Level3>().BridgeCubePositions = outputBlocksForBridge;
+        levelController.GetComponent<Level3>().ExitBoard();
     }
 
     private void SaveTiles()
@@ -94,7 +135,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
         setMyPositionForPlayer();
         setSpawnPosition();
@@ -120,6 +161,7 @@ public class Board : MonoBehaviour
                     Vector3 worldPosition = notMoveMap.CellToWorld(localPlace);
                     // 将世界坐标转换为mainTilemap的单元格坐标
                     Vector3Int mainTilemapPosition = tilemap.WorldToCell(worldPosition);
+                    exisitingBlocks.Add(mainTilemapPosition);
                     // 在mainTilemap的正确位置设置Tile
                     tilemap.SetTile(mainTilemapPosition, tile);
                 }
@@ -128,17 +170,17 @@ public class Board : MonoBehaviour
     }
     public void setSpawnPosition()
     {
-        Vector3 playerPosition = playerLocation.transform.position;
+        Vector3 playerPosition = levelController.GetComponent<Level3>().GrabNearestMarkerLocation();
         int playerXIntRound = Mathf.RoundToInt(playerPosition.x);
         spawnPosition.x = playerXIntRound;
     }
 
     public void setMyPositionForPlayer()
     {
-        Vector3 playerPosition = playerLocation.transform.position;
+        Vector3 playerPosition = levelController.GetComponent<Level3>().GrabNearestMarkerLocation();
         float playerZ = playerPosition.z;
         Vector3 newPosition = transform.position;
-        newPosition.z = Mathf.RoundToInt(playerZ - 10);
+        newPosition.z = Mathf.RoundToInt(playerZ + offset);
         tilemap.transform.position = newPosition;
     }
 
@@ -159,10 +201,20 @@ public class Board : MonoBehaviour
         }
     }
 
+    public List<Vector3> GetActivePieceTilePosition(Piece piece)
+    {
+        List<Vector3> activePieceTilePosition = new List<Vector3>();
+        for (int i = 0; i < piece.cells.Length; i++)
+        {
+            Vector3Int tilePosition = piece.cells[i] + piece.position;
+            activePieceTilePosition.Add(tilePosition);
+        }
+        return activePieceTilePosition;
+    }
+
     public void GameOver()
     {
-        tilemap.ClearAllTiles();
-
+        Exit(true);
         // Do anything else you want on game over here..
     }
 

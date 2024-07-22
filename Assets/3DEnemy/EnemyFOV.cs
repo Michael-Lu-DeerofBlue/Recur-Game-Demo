@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyFOV : MonoBehaviour
 {
@@ -34,7 +35,12 @@ public class EnemyFOV : MonoBehaviour
 
             if (canSeePlayer)
             {
-                gameObject.GetComponent<ThreeEnemyBase>().inPursuit(playerRef.transform);
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                if (currentSceneName == "church_with_code")
+                {
+                    gameObject.GetComponent<ThreeEnemyBase>().inPursuit(playerRef.transform);
+                }
+               
             }
         }
 

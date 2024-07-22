@@ -16,6 +16,8 @@ public class Piece : MonoBehaviour
     private float moveTime;
     private float lockTime;
 
+    public bool stopped;
+
     public void Initialize(Board board, Vector3Int position, TetrominoData data)
     {
         this.data = data;
@@ -61,7 +63,7 @@ public class Piece : MonoBehaviour
         }
 
         // Advance the piece to the next row every x seconds
-        if (Time.time > stepTime) {
+        if (Time.time > stepTime && !stopped) {
             Step();
         }
 
