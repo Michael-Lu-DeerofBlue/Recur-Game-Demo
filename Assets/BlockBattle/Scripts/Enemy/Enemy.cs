@@ -24,7 +24,7 @@ public abstract class Enemy : MonoBehaviour
     public BattleManager battleManager;
     public string nextMove;//name of the skill that will be executed next.
     public bool isdead=false;
-    private TargetSelector targetSelector;
+    public TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
     public bool SpendingSkillAnim = false;
     private GameObject DamageNumUI;
@@ -36,6 +36,9 @@ public abstract class Enemy : MonoBehaviour
     public float PauseTime = 0;
     public bool PauseCasting = false;
 
+    //Enemy buff type:
+    public bool Invincible = false;
+
     public string[] CurrentSkillIcons;
     private TextMeshProUGUI EnemyName;
     private GameObject enemyUIInstance;
@@ -46,7 +49,7 @@ public abstract class Enemy : MonoBehaviour
     private Sprite originalUISprite;
     public Image CurrentIcon;
     public Animator animator;
-    private bool ShowingTip = false;
+    public bool ShowingTip = false;
    
 
     public string in3DName;
@@ -149,7 +152,7 @@ public abstract class Enemy : MonoBehaviour
         }
         DisplaySkillIcon();
     }
-    private void UpdateEnemyUI()
+   public void UpdateEnemyUI()
     {
         if (enemyUIInstance != null)
         {
@@ -316,6 +319,7 @@ public virtual void ExecuteSkill()
     {
         if (damage > 0)
         {
+            if (Invincible) return;
             if (FragilingNum > 0)
             {
                 HP -= damage * 1.2f;

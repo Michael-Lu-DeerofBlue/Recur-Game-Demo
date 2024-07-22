@@ -20,7 +20,7 @@ public class ThreeEnemyBase : MonoBehaviour
     public Transform model;
     public bool inChange;
     public bool hasKey;
-    public int patrolSpeed = 3;
+    public float patrolSpeed = 3;
     // Start is called before the first frame update
     void Start()
     {

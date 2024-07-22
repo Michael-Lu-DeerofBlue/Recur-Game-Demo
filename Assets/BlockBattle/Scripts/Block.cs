@@ -28,6 +28,7 @@ public class BlockManager : MonoBehaviour
     private int Shapeindex;
     private bool isClearingRightSideBlocks = false;
     private SoundManager soundManager;
+
     void Start()
     {
         twoDto3D = FindObjectOfType<TwoDto3D>();
@@ -111,6 +112,8 @@ public class BlockManager : MonoBehaviour
                 if (!ValidMove())
                     transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
                 string currentSceneName = SceneManager.GetActiveScene().name;
+
+
                 if (currentSceneName == "BattleLevel - tutorial")
                 {
                     GameObject controller = GameObject.Find("tip controller");
@@ -118,6 +121,7 @@ public class BlockManager : MonoBehaviour
                 }
                 FindObjectOfType<SpawnBlock>().SpawnGhostBlock();
                 soundManager.PlaySfx("ActionBlockOrient");
+                CallFloralWhileRota();
             }
 
             // Handle block falling over time
@@ -555,4 +559,15 @@ public class BlockManager : MonoBehaviour
         return null;
     }
 
+    public void CallFloralWhileRota()
+    {
+        FloralSarcoid[] floralSarcoids = FindObjectsOfType<FloralSarcoid>();
+        if (floralSarcoids.Length > 0)
+        {
+            foreach(FloralSarcoid floralSarcoid in floralSarcoids)
+            {
+                floralSarcoid.OneSecFasterWhileBlockRota();
+            }
+        }
+    }
 }
