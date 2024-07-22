@@ -32,10 +32,12 @@ public class CameraController : MonoBehaviour
             isCameraMode = !isCameraMode;
             if (isCameraMode)
             {
+                //on
                 StartCoroutine(Fade(transColor, whiteColor));
             }
             else
             {
+                //off
                 StartCoroutine(Fade(whiteColor, transColor));
             }
         }
