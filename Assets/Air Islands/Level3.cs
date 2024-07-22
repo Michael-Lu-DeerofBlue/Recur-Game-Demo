@@ -20,7 +20,7 @@ public class Level3 : LevelController
 
     public void EnterBoard()
     {
-        flowchart.ExecuteBlock("MoveToCanmera");
+        flowchart.ExecuteBlock("MoveToCamera");
     }
 
     public void ExitBoard()
@@ -54,9 +54,17 @@ public class Level3 : LevelController
     }
 
     // Update is called once per frame
+    [System.Obsolete]
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Debug.Log("BBBBBBBBBBBBBBBBBBBBB");
+            if (playerRef.active==true)
+            {
+                EnterBoard();
+            }
+        }
     }
 
     public void Rescan()

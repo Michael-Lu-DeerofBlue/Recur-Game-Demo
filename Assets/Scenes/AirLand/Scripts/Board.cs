@@ -65,7 +65,7 @@ public class Board : MonoBehaviour
     public void SaveTileMap()
     {
         List<Vector3> tilePositions = new List<Vector3>();
-
+        Clear(activePiece);
         foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
             if (tilemap.HasTile(pos))
@@ -175,6 +175,7 @@ public class Board : MonoBehaviour
                     Vector3Int mainTilemapPosition = tilemap.WorldToCell(worldPosition);
                     exisitingBlocks.Add(mainTilemapPosition);
                     // 在mainTilemap的正确位置设置Tile
+                    mainTilemapPosition.y = mainTilemapPosition.y + 1;
                     tilemap.SetTile(mainTilemapPosition, tile);
                 }
             }
