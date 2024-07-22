@@ -38,7 +38,7 @@ public class Level2 : LevelController
     private Queue<string> conversationQueue = new Queue<string>();
     private bool isConversationRunning = false;
     public int pursuitSpeed;
-    public int patrolSpeed;
+    public float patrolSpeed;
     public bool inPursuitCalled;
     public string[] hints;
     public int hintsCurrentIndex;
