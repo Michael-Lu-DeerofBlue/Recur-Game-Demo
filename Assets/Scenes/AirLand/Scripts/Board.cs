@@ -203,7 +203,7 @@ public class Board : MonoBehaviour
                    //Debug.Log("the positon in main is: "+mainTilemapPosition);
                     exisitingBlocks.Add(mainTilemapPosition);
                     // 在mainTilemap的正确位置设置Tile
-                    mainTilemapPosition.y = mainTilemapPosition.y + 1; //这好像是一个bug的来源
+                    mainTilemapPosition.y = mainTilemapPosition.y; //这好像是一个bug的来源
                     tilemap.SetTile(mainTilemapPosition, tile);
                 }
             }
@@ -291,6 +291,7 @@ public class Board : MonoBehaviour
             // An out of bounds tile is invalid
             if (!bounds.Contains((Vector2Int)tilePosition))
             {
+                Debug.Log("here" + Time.time);
                 return false;
             }
 
