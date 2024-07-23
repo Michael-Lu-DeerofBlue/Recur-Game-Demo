@@ -12,6 +12,7 @@ public class PlayerInteract : MonoBehaviour
     private PlayerToUI playerToUI;
     private InputManager inputManager;
     public bool canInteract;
+    private Terminal currentTerminal = null;
     void Start()
     {
         cam = GetComponent<PlayerController>().cam;
@@ -45,6 +46,7 @@ public class PlayerInteract : MonoBehaviour
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         //Debug.DrawRay(ray.origin, ray.direction * distance);
         RaycastHit hitInfo;
+        Terminal hitTerminal = null;
         if (canInteract)
         {
             if (Physics.Raycast(ray, out hitInfo, distance, mask))
@@ -58,8 +60,20 @@ public class PlayerInteract : MonoBehaviour
                         interactable.BaseInteract();
                     }
                 }
+                hitTerminal = hitInfo.collider.GetComponent<Terminal>();
+                if (hitTerminal != null)
+                {
+                    hitTerminal.ShowPrompt();
+                }
             }
         }
-       
+
+        if (currentTerminal != null && currentTerminal != hitTerminal)
+        {
+            currentTerminal.HidePrompt();
+        }
+
+        currentTerminal = hitTerminal;
+
     }
 }

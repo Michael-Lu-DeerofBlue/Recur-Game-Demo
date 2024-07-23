@@ -76,7 +76,6 @@ public class Piece : MonoBehaviour
         {
             if (Move(Vector2Int.down))
             {
-
                 stepTime = Time.time + stepDelay;
             }
             return; 
@@ -97,15 +96,13 @@ public class Piece : MonoBehaviour
 
     private void Step()
     {
+        
         stepTime = Time.time + stepDelay;
 
         // Step down to the next row
         Move(Vector2Int.down);
 
-        // Once the piece has been inactive for too long it becomes locked
-        if (lockTime >= lockDelay) {
-            Lock();
-        }
+       
     }
 
     private void HardDrop()
@@ -135,7 +132,7 @@ public class Piece : MonoBehaviour
         if (valid)
         {
             position = newPosition;
-            moveTime = Time.time + moveDelay;
+            moveTime = Time.time + moveDelay;   
             lockTime = 0f; // reset
         }
         if (!valid)

@@ -1,3 +1,5 @@
+using Pathfinding;
+using Pathfinding.RVO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +13,13 @@ public class Level3 : LevelController
     public GameObject cube;
     public List<GameObject> enemies;
     public List<Vector3> BridgeCubePositions;
-
+    public Camera playerCamera;
+    public Camera moveCamera;
+    public Camera topDownCamera;
+    public float waitDelay;
+    public GameObject board;
+    public GameObject[] SceneObjects;
+    public static bool firstAccess = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,22 +27,90 @@ public class Level3 : LevelController
     }
 
     public void EnterBoard()
-    {
+    {   
+        playerCamera.gameObject.SetActive(false);
+        moveCamera.gameObject.SetActive(true);
         flowchart.ExecuteBlock("MoveToCamera");
+        StartCoroutine(CameraMoveUp());
+    }
+
+    private IEnumerator CameraMoveUp()
+    {
+        // Wait for 0.5 seconds
+        yield return new WaitForSeconds(waitDelay);
+
+        // Change the camera's FOV to 115 over 1 second
+        float duration = 1f;
+        float startFOV = moveCamera.fieldOfView;
+        float endFOV = 115f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            moveCamera.fieldOfView = Mathf.Lerp(startFOV, endFOV, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        moveCamera.fieldOfView = endFOV;
+
+    }
+
+    public void DisableSceneObjects()
+    {
+        foreach (GameObject obj in SceneObjects)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    public void EnableSceneObjects()
+    {
+        foreach (GameObject obj in SceneObjects)
+        {
+            obj.SetActive(true);
+        }
     }
 
     public void ExitBoard()
     {
+        board.GetComponent<Board>().SaveTileMap();
+        EnableSceneObjects();
+        playerRef.gameObject.SetActive(true);
+        moveCamera.gameObject.SetActive(true);
+        topDownCamera.gameObject.SetActive(false);
         flowchart.ExecuteBlock("MoveBackToPlayer");
+        StartCoroutine(CameraMoveDown());
+    }
+
+    private IEnumerator CameraMoveDown()
+    {
+        // Wait for 0.5 seconds
+        yield return new WaitForSeconds(waitDelay);
+
+        // Change the camera's projection to perspective and FOV to 60 over 1 second
+
+        float duration = 2f;
+        float startFOV = moveCamera.fieldOfView;
+        float endFOV = 60f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            moveCamera.fieldOfView = Mathf.Lerp(startFOV, endFOV, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        moveCamera.fieldOfView = endFOV;
     }
 
     public void SpawnBridge()
     {
         foreach (var position in BridgeCubePositions)
         {
-            Instantiate(cube, position, Quaternion.identity);
+            GameObject lilBridge = Instantiate(cube, position, Quaternion.identity);
+            lilBridge.transform.parent = bridge.transform;
         }
-        //UpdateBehavior();
+        UpdateBehavior();
     }
 
     public void UpdateBehavior()
@@ -59,16 +135,25 @@ public class Level3 : LevelController
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            Debug.Log("BBBBBBBBBBBBBBBBBBBBB");
-            if (playerRef.active==true)
+            if (board.activeSelf == false)
             {
                 EnterBoard();
             }
+        }
+        
+    }
+
+    public void TerminalEnterBoard()
+    {
+        if (board.activeSelf == false)
+        {
+            EnterBoard();
         }
     }
 
     public void Rescan()
     {
+      
         if (aStarPath != null)
         {
             aStarPath.Scan(); // Rescan the whole map to generate a new grid map

@@ -76,4 +76,23 @@ public class InventoryManager : MonoBehaviour
             gadgetsB = ES3.Load<bool>("Gadgets");
         }
     }
+    public void AddHealth(float number)
+    {
+        float combatHealth = ES3.Load<float>("CombatHP");
+        combatHealth = combatHealth + number;
+        ES3.Save("CombatHP", combatHealth);
+        Debug.Log(number);
+    }
+    public void AddConsumables(string name, int number)
+    {
+        Dictionary<string, int> consumablesInt = ES3.Load<Dictionary<string, int>>("Consumables");
+        consumablesInt[name] = consumablesInt[name] + number;
+        ES3.Save("Consumables", consumablesInt);
+    }
+    public void AddSticker(string name, int number)
+    {
+        Dictionary<string, int> stickersInt = ES3.Load<Dictionary<string, int>>("Stickers");
+        stickersInt[name] = stickersInt[name] + number;
+        ES3.Save("Stickers", stickersInt);
+    }
 }

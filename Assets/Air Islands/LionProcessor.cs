@@ -32,6 +32,11 @@ public class LionProcessor : EnemyProcessor
         }
     }
 
+    private void FixedUpdate()
+    {
+        RounteCheck();
+    }
+
     // Update is called once per frame
     void Update()
     {

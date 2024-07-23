@@ -24,6 +24,10 @@ public class Board : MonoBehaviour
     public List<Vector3> outputBlocksForBridge; //用来给搭建的脚本知道我要在哪里搭上Cubes
 
     private Dictionary<string, TileBase> tileDictionary;
+
+    public float xOffset;
+    public float yOffset;
+    public float zOffset;
     public RectInt Bounds
     {
         get
@@ -61,45 +65,6 @@ public class Board : MonoBehaviour
             LoadMap();
         }
     }
-
-    public void SaveTileMap()
-    {
-        List<Vector3> tilePositions = new List<Vector3>();
-        Clear(activePiece);
-        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
-        {
-            if (tilemap.HasTile(pos))
-            {
-                Vector3 worldPos = tilemap.CellToWorld(pos);
-                notMoveMap.SetTile(notMoveMap.WorldToCell(worldPos), tilemap.GetTile(pos));
-                tilePositions.Add(worldPos);
-            }
-        }
-
-        string json = JsonUtility.ToJson(new TileDataContainer(tilePositions));
-        File.WriteAllText(saveFilePath, json);
-    }
-
-    // Load the tilemap data
-    public void LoadMap()
-    {
-
-        if (File.Exists(saveFilePath))
-        {
-            string json = File.ReadAllText(saveFilePath);
-            TileDataContainer tileDataContainer = JsonUtility.FromJson<TileDataContainer>(json);
-
-            foreach (var position in tileDataContainer.positions)
-            {
-                Vector3Int cellPos = notMoveMap.WorldToCell(position);
-                notMoveMap.SetTile(cellPos, FillTiles);
-            }
-        }
-
-        // Call MergeTilemaps() after loading
-        MergeTilemaps();
-    }
-
     [System.Serializable]
     public class TileDataContainer
     {
@@ -111,24 +76,73 @@ public class Board : MonoBehaviour
         }
     }
 
-
-
-
-    private void Exit(bool filled)
+    public void SaveTileMap()
     {
-        List<Vector3> activePieceTilePos = GetActivePieceTilePosition(activePiece);
+        List<Vector3> tilePositions = new List<Vector3>();
+        Clear(activePiece); //这个好像没有clear掉
         foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
         {
             if (tilemap.HasTile(pos))
             {
-
+                notMoveMap.gameObject.SetActive(true);
                 Vector3 worldPos = tilemap.CellToWorld(pos);
-                worldPos = new Vector3(worldPos.x - 1.81f, worldPos.y, worldPos.z + 3.57f - 5.26f);
+                notMoveMap.SetTile(notMoveMap.WorldToCell(worldPos), tilemap.GetTile(pos));
+                tilePositions.Add(worldPos);
+                //Debug.Log("the saved worldPoses are: " + worldPos);
+            }
+        }
+
+        notMoveMap.gameObject.SetActive(false);
+        string json = JsonUtility.ToJson(new TileDataContainer(tilePositions));
+        File.WriteAllText(saveFilePath, json);
+    }
+
+    // Load the tilemap data
+    public void LoadMap()
+    {
+        if (!Level3.firstAccess)
+        {
+            //Debug.Log("here");
+
+            notMoveMap.gameObject.SetActive(true);
+            tilemap.ClearAllTiles();
+            if (File.Exists(saveFilePath))
+            {
+                string json = File.ReadAllText(saveFilePath);
+                TileDataContainer tileDataContainer = JsonUtility.FromJson<TileDataContainer>(json);
+
+                foreach (var position in tileDataContainer.positions)
+                {
+                    Vector3Int cellPos = notMoveMap.WorldToCell(position);
+                    //Debug.Log("the reloaded cellPos is:" + cellPos);
+                    notMoveMap.SetTile(cellPos, FillTiles);
+                }
+            }
+        }
+
+        // Call MergeTilemaps() after loading
+        MergeTilemaps();
+    }
+
+    private void Exit(bool filled)
+    {
+        List<Vector3Int> activePieceTilePos = GetActivePieceTilePosition(activePiece);
+        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
+        {
+            if (tilemap.HasTile(pos))
+            {
+                Vector3 worldPos = tilemap.CellToWorld(pos);
+                worldPos = new Vector3(worldPos.x + xOffset, worldPos.y + yOffset, worldPos.z + zOffset);
                 if (filled)//是被迫填满的情况
                 {
                     if (!exisitingBlocks.Contains(pos))
                     {
+                         //Debug.Log("added to the output is:" + pos);
                         outputBlocksForBridge.Add(worldPos);
+                    }
+                    else
+                    {
+                        //Debug.Log("excluded from the output is:" + pos);
                     }
                 }
                 else //没被迫逼满的情况
@@ -141,6 +155,16 @@ public class Board : MonoBehaviour
 
             }
         }
+        if (filled)
+        {
+            foreach (Vector3Int pos in activePieceTilePos)
+            {
+                Vector3 worldPos = tilemap.CellToWorld(pos);
+                worldPos = new Vector3(worldPos.x + xOffset, worldPos.y + yOffset, worldPos.z +zOffset);
+                outputBlocksForBridge.Add(worldPos);
+            }
+        }
+
         activePiece.stopped = true;
         Clear(activePiece);
         levelController.GetComponent<Level3>().BridgeCubePositions = outputBlocksForBridge;
@@ -149,6 +173,7 @@ public class Board : MonoBehaviour
 
     private void OnEnable()
     {
+        tilemap = GetComponentInChildren<Tilemap>();
         setMyPositionForPlayer();
         setSpawnPosition();
         SpawnPiece();
@@ -158,8 +183,7 @@ public class Board : MonoBehaviour
     {
         // 获取NotMoveMap的所有Tile的位置
         BoundsInt bounds = notMoveMap.cellBounds;
-        TileBase[] allTiles = notMoveMap.GetTilesBlock(bounds);
-
+        tilemap.ClearAllTiles();
         // 遍历所有位置并将Tile复制到mainTilemap，同时确保世界位置不变
         for (int x = bounds.xMin; x < bounds.xMax; x++)
         {
@@ -171,16 +195,21 @@ public class Board : MonoBehaviour
                 {
                     // 获取世界坐标
                     Vector3 worldPosition = notMoveMap.CellToWorld(localPlace);
+                    worldPosition = new Vector3(worldPosition.x, worldPosition.y, worldPosition.z);
+                    //Debug.Log("the local positon in not move map is: "+ localPlace);
+                    //Debug.Log("the world positon in not move map is: "+ worldPosition);
                     // 将世界坐标转换为mainTilemap的单元格坐标
                     Vector3Int mainTilemapPosition = tilemap.WorldToCell(worldPosition);
+                   //Debug.Log("the positon in main is: "+mainTilemapPosition);
                     exisitingBlocks.Add(mainTilemapPosition);
                     // 在mainTilemap的正确位置设置Tile
-                    mainTilemapPosition.y = mainTilemapPosition.y + 1;
+                    mainTilemapPosition.y = mainTilemapPosition.y + 1; //这好像是一个bug的来源
                     tilemap.SetTile(mainTilemapPosition, tile);
                 }
             }
         }
         notMoveMap.gameObject.SetActive(false);
+        Level3.firstAccess = false;
     }
     public void setSpawnPosition()
     {
@@ -204,7 +233,7 @@ public class Board : MonoBehaviour
         TetrominoData data = tetrominoes[random];
 
         activePiece.Initialize(this, spawnPosition, data);
-
+        //Debug.Log(spawnPosition.y);
         if (IsValidPosition(activePiece, spawnPosition))
         {
             Set(activePiece);
@@ -215,9 +244,9 @@ public class Board : MonoBehaviour
         }
     }
 
-    public List<Vector3> GetActivePieceTilePosition(Piece piece)
+    public List<Vector3Int> GetActivePieceTilePosition(Piece piece)
     {
-        List<Vector3> activePieceTilePosition = new List<Vector3>();
+        List<Vector3Int> activePieceTilePosition = new List<Vector3Int>();
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
@@ -253,12 +282,12 @@ public class Board : MonoBehaviour
     public bool IsValidPosition(Piece piece, Vector3Int position)
     {
         RectInt bounds = Bounds;
-
+        //Debug.Log(bounds);
         // The position is only valid if every cell is valid
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + position;
-
+            //Debug.Log(tilePosition);
             // An out of bounds tile is invalid
             if (!bounds.Contains((Vector2Int)tilePosition))
             {
@@ -268,6 +297,7 @@ public class Board : MonoBehaviour
             // A tile already occupies the position, thus invalid
             if (tilemap.HasTile(tilePosition))
             {
+                //Debug.Log(tilePosition);
                 return false;
             }
         }
