@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Kamgam.SettingsGenerator;
 
@@ -37,21 +39,26 @@ public class BGMPlayer : MonoBehaviour
         {
             if (SourceTypes[i] == AudioSourceType.Effect)
             {
-                // connect the audio source to the effect volume setting
                 ConnectVolume("audioEffectVolume", AudioSources[i], ref EffectConnection);
             }
             else if (SourceTypes[i] == AudioSourceType.Music)
             {
-                // connect the audio source to the music volume setting
                 ConnectVolume("audioMusicVolume", AudioSources[i], ref MusicConnection);
             }
         }
     }
 
-    //connect to the volume setting and apply it to the audio source
     private void ConnectVolume(string volumeId, AudioSource audioSource, ref AudioSourceVolumeConnection connection)
     {
         var setting = SettingsInitializer.Settings.GetFloat(id: volumeId);
+        var volumeAdjuster = audioSource.GetComponent<BaseVolumeAdjuster>();
+
+        if (volumeAdjuster == null)
+        {
+            Debug.LogWarning("AudioSourceVolumeAdjuster component not found on the audio source.");
+            return;
+        }
+
         if (!setting.HasConnection())
         {
             connection = new AudioSourceVolumeConnection(InputRange, new AudioSource[] { audioSource });
@@ -65,6 +72,9 @@ public class BGMPlayer : MonoBehaviour
                 connection.AddAudioSources(new AudioSource[] { audioSource });
             }
         }
+
+        // Update volumeAdjuster when the setting changes
+        setting.OnValueChanged += (volume) => volumeAdjuster.UpdateVolume(volume);
         setting.Apply();
     }
 }
@@ -74,6 +84,7 @@ public enum AudioSourceType
     Effect,
     Music
 }
+
 
     // private void FixedUpdate()
     // {
