@@ -9,6 +9,7 @@ using Fungus;
 public class Board : MonoBehaviour
 {
     public GameObject levelController;
+    public Camera BlockGameCamera;
     public Tilemap tilemap { get; private set; }
     public Piece activePiece { get; private set; }
     public Tilemap notMoveMap;
@@ -22,7 +23,7 @@ public class Board : MonoBehaviour
     public float offset;
     public List<Vector3> exisitingBlocks; //用来在生成的时候存目前现在里面有的Block，但是看的是MainBlock里面的坐标，这样方便我们在Exit的时候只生成那些让cube出来的坐标
     public List<Vector3> outputBlocksForBridge; //用来给搭建的脚本知道我要在哪里搭上Cubes
-
+    public Vector2Int TopRightCornerPos;
     private Dictionary<string, TileBase> tileDictionary;
 
     public float xOffset;
@@ -32,8 +33,11 @@ public class Board : MonoBehaviour
     {
         get
         {
-            Vector2Int position = new Vector2Int(-boardSize.x / 2, -boardSize.y / 2);
-            return new RectInt(position, boardSize);
+            Vector2Int position = new Vector2Int(boardSize.x / 2, spawnPosition.y+3);
+            TopRightCornerPos = position;
+            SetCameraPosition();
+            return new RectInt(position, -boardSize);
+
         }
     }
 
@@ -54,7 +58,7 @@ public class Board : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            SaveTileMap();
+            ClearBlock(activePiece);
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -62,7 +66,6 @@ public class Board : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            LoadMap();
         }
     }
     [System.Serializable]
@@ -76,53 +79,9 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void SaveTileMap()
-    {
-        List<Vector3> tilePositions = new List<Vector3>();
-        Clear(activePiece); //这个好像没有clear掉
-        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
-        {
-            if (tilemap.HasTile(pos))
-            {
-                notMoveMap.gameObject.SetActive(true);
-                Vector3 worldPos = tilemap.CellToWorld(pos);
-                notMoveMap.SetTile(notMoveMap.WorldToCell(worldPos), tilemap.GetTile(pos));
-                tilePositions.Add(worldPos);
-                //Debug.Log("the saved worldPoses are: " + worldPos);
-            }
-        }
-
-        notMoveMap.gameObject.SetActive(false);
-        string json = JsonUtility.ToJson(new TileDataContainer(tilePositions));
-        File.WriteAllText(saveFilePath, json);
-    }
 
     // Load the tilemap data
-    public void LoadMap()
-    {
-        if (!Level3.firstAccess)
-        {
-            //Debug.Log("here");
 
-            notMoveMap.gameObject.SetActive(true);
-            tilemap.ClearAllTiles();
-            if (File.Exists(saveFilePath))
-            {
-                string json = File.ReadAllText(saveFilePath);
-                TileDataContainer tileDataContainer = JsonUtility.FromJson<TileDataContainer>(json);
-
-                foreach (var position in tileDataContainer.positions)
-                {
-                    Vector3Int cellPos = notMoveMap.WorldToCell(position);
-                    //Debug.Log("the reloaded cellPos is:" + cellPos);
-                    notMoveMap.SetTile(cellPos, FillTiles);
-                }
-            }
-        }
-
-        // Call MergeTilemaps() after loading
-        MergeTilemaps();
-    }
 
     private void Exit(bool filled)
     {
@@ -165,8 +124,7 @@ public class Board : MonoBehaviour
             }
         }
 
-        activePiece.stopped = true;
-        Clear(activePiece);
+        ClearBlock(activePiece);
         levelController.GetComponent<Level3>().BridgeCubePositions = outputBlocksForBridge;
         levelController.GetComponent<Level3>().ExitBoard();
     }
@@ -174,57 +132,22 @@ public class Board : MonoBehaviour
     private void OnEnable()
     {
         tilemap = GetComponentInChildren<Tilemap>();
-        setMyPositionForPlayer();
         setSpawnPosition();
+       SetCameraPosition();
         SpawnPiece();
     }
 
-    void MergeTilemaps()
-    {
-        // 获取NotMoveMap的所有Tile的位置
-        BoundsInt bounds = notMoveMap.cellBounds;
-        tilemap.ClearAllTiles();
-        // 遍历所有位置并将Tile复制到mainTilemap，同时确保世界位置不变
-        for (int x = bounds.xMin; x < bounds.xMax; x++)
-        {
-            for (int y = bounds.yMin; y < bounds.yMax; y++)
-            {
-                Vector3Int localPlace = new Vector3Int(x, y, 0);
-                TileBase tile = notMoveMap.GetTile(localPlace);
-                if (tile != null)
-                {
-                    // 获取世界坐标
-                    Vector3 worldPosition = notMoveMap.CellToWorld(localPlace);
-                    worldPosition = new Vector3(worldPosition.x, worldPosition.y, worldPosition.z);
-                    //Debug.Log("the local positon in not move map is: "+ localPlace);
-                    //Debug.Log("the world positon in not move map is: "+ worldPosition);
-                    // 将世界坐标转换为mainTilemap的单元格坐标
-                    Vector3Int mainTilemapPosition = tilemap.WorldToCell(worldPosition);
-                   //Debug.Log("the positon in main is: "+mainTilemapPosition);
-                    exisitingBlocks.Add(mainTilemapPosition);
-                    // 在mainTilemap的正确位置设置Tile
-                    mainTilemapPosition.y = mainTilemapPosition.y; //这好像是一个bug的来源
-                    tilemap.SetTile(mainTilemapPosition, tile);
-                }
-            }
-        }
-        notMoveMap.gameObject.SetActive(false);
-        Level3.firstAccess = false;
-    }
     public void setSpawnPosition()
     {
-        Vector3 playerPosition = levelController.GetComponent<Level3>().GrabNearestMarkerLocation();
-        int playerXIntRound = Mathf.RoundToInt(-playerPosition.x / 3.5f);
-        spawnPosition.x = playerXIntRound;
+       spawnPosition= levelController.GetComponent<Level3>().GrabNearestMarker();
+
     }
 
-    public void setMyPositionForPlayer()
+    public void SetCameraPosition()
     {
-        Vector3 playerPosition = levelController.GetComponent<Level3>().GrabNearestMarkerLocation();
-        float playerZ = playerPosition.z;
-        Vector3 newPosition = transform.position;
-        newPosition.z = Mathf.RoundToInt(playerZ + offset);
-        tilemap.transform.position = newPosition;
+        Vector3 localPosition = BlockGameCamera.transform.localPosition;
+        localPosition.y = spawnPosition.y - 8;
+        BlockGameCamera.transform.localPosition = localPosition;
     }
 
     public void SpawnPiece()
@@ -233,6 +156,7 @@ public class Board : MonoBehaviour
         TetrominoData data = tetrominoes[random];
 
         activePiece.Initialize(this, spawnPosition, data);
+        activePiece.Stopped = false;
         //Debug.Log(spawnPosition.y);
         if (IsValidPosition(activePiece, spawnPosition))
         {
@@ -278,6 +202,17 @@ public class Board : MonoBehaviour
             tilemap.SetTile(tilePosition, null);
         }
     }
+
+    public void ClearBlock(Piece piece)
+    {
+        piece.Stopped = true;
+        for (int i = 0; i < piece.cells.Length; i++)
+        {
+            Vector3Int tilePosition = piece.cells[i] + piece.position;
+            tilemap.SetTile(tilePosition, null);
+        }
+    }
+
 
     public bool IsValidPosition(Piece piece, Vector3Int position)
     {

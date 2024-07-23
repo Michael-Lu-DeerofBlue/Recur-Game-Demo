@@ -16,7 +16,7 @@ public class Piece : MonoBehaviour
     private float moveTime;
     private float lockTime;
 
-    public bool stopped;
+    public bool Stopped;
 
     public void Initialize(Board board, Vector3Int position, TetrominoData data)
     {
@@ -40,8 +40,8 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
+        if(Stopped) return;
         board.Clear(this);
-
         // We use a timer to allow the player to make adjustments to the piece
         // before it locks in place
         lockTime += Time.deltaTime;
@@ -63,7 +63,7 @@ public class Piece : MonoBehaviour
         }
 
         // Advance the piece to the next row every x seconds
-        if (Time.time > stepTime && !stopped) {
+        if (Time.time > stepTime ) {
             Step();
         }
 
@@ -115,8 +115,8 @@ public class Piece : MonoBehaviour
 
     private void Lock()
     {
-        board.Set(this);
 
+        board.Set(this);
         board.SpawnPiece();
     }
 
