@@ -59,6 +59,7 @@ public class Board : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             ClearBlock(activePiece);
+            SpawnPiece();
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -157,7 +158,7 @@ public class Board : MonoBehaviour
 
         activePiece.Initialize(this, spawnPosition, data);
         activePiece.Stopped = false;
-        //Debug.Log(spawnPosition.y);
+        activePiece.cleared = false;
         if (IsValidPosition(activePiece, spawnPosition))
         {
             Set(activePiece);
@@ -203,9 +204,11 @@ public class Board : MonoBehaviour
         }
     }
 
+
     public void ClearBlock(Piece piece)
     {
         piece.Stopped = true;
+        piece.cleared = true;
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + piece.position;
@@ -217,16 +220,11 @@ public class Board : MonoBehaviour
     public bool IsValidPosition(Piece piece, Vector3Int position)
     {
         RectInt bounds = Bounds;
-        //Debug.Log(bounds);
-        // The position is only valid if every cell is valid
         for (int i = 0; i < piece.cells.Length; i++)
         {
             Vector3Int tilePosition = piece.cells[i] + position;
-            //Debug.Log(tilePosition);
-            // An out of bounds tile is invalid
             if (!bounds.Contains((Vector2Int)tilePosition))
             {
-                Debug.Log("here" + Time.time);
                 return false;
             }
 

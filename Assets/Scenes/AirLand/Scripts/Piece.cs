@@ -1,13 +1,15 @@
+using Fungus;
 using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+    public InventoryManager CunDang;
     public Board board { get; private set; }
     public TetrominoData data { get; private set; }
     public Vector3Int[] cells { get; private set; }
     public Vector3Int position { get; private set; }
     public int rotationIndex { get; private set; }
-
+    public float OutOfBoundDamage = 1f;
     public float stepDelay = 1f;
     public float moveDelay = 0.5f;
     public float lockDelay = 0.5f;
@@ -16,8 +18,9 @@ public class Piece : MonoBehaviour
     private float moveTime;
     private float lockTime;
 
-    public bool Stopped;
 
+    public bool Stopped;
+    public bool cleared = false;
     public void Initialize(Board board, Vector3Int position, TetrominoData data)
     {
         this.data = data;
@@ -40,7 +43,7 @@ public class Piece : MonoBehaviour
 
     private void Update()
     {
-        if(Stopped) return;
+        if (Stopped) return;
         board.Clear(this);
         // We use a timer to allow the player to make adjustments to the piece
         // before it locks in place
@@ -66,8 +69,10 @@ public class Piece : MonoBehaviour
         if (Time.time > stepTime ) {
             Step();
         }
-
-        board.Set(this);
+        if (!cleared)
+        {
+            board.Set(this);
+        }
     }
 
     private void HandleMoveInputs()
@@ -132,12 +137,49 @@ public class Piece : MonoBehaviour
         if (valid)
         {
             position = newPosition;
-            moveTime = Time.time + moveDelay;   
+            moveTime = Time.time + moveDelay;
             lockTime = 0f; // reset
         }
         if (!valid)
         {
-            Lock();
+            // Determine if out of bounds
+            RectInt bounds = board.Bounds;
+            bool outOfBounds = false;
+            bool outOfBoundsVertically = false;
+
+            for (int i = 0; i < cells.Length; i++)
+            {
+                Vector3Int tilePosition = cells[i] + newPosition;
+                if (!bounds.Contains((Vector2Int)tilePosition))
+                {
+                    outOfBounds = true;
+                    if (tilePosition.y < bounds.yMin || tilePosition.y > bounds.yMax)
+                    {
+                        outOfBoundsVertically = true;
+                    }
+                }
+            }
+
+            if (outOfBounds)
+            {
+                if (outOfBoundsVertically)
+                {
+                    // If out of bounds vertically, clear the active piece and spawn a new one
+                    board.ClearBlock(this);
+                    board.SpawnPiece();
+                    CunDang.AddHealth(OutOfBoundDamage);
+                }
+                else
+                {
+                    // If out of bounds horizontally, treat it as a collision and lock the piece
+                    Lock();
+                }
+            }
+            else
+            {
+                // If it's not out of bounds, it means there is a tile collision
+                Lock();
+            }
         }
 
         return valid;
