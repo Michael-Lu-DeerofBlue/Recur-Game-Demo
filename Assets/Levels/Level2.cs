@@ -44,6 +44,7 @@ public class Level2 : LevelController
     public int hintsCurrentIndex;
     public TextMeshProUGUI hint;
     public bool reloaded;
+    public Flowchart flowchart;
     void Awake()
     {
         ES3.Save("MoveHP", 2);
@@ -236,6 +237,7 @@ public class Level2 : LevelController
         }
         ThreeEnemyBase enemyScript = enemies[randomIndex].GetComponent<ThreeEnemyBase>();
         enemyScript.hasKey = true;
+        PlayEffectKey();
 
         //Spotlights
         StartTheLights();
@@ -575,5 +577,15 @@ public class Level2 : LevelController
     public void StartHint()
     {
        
+    }
+
+    void PlayEffectKey()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("GetKey");
+        }
     }
 }

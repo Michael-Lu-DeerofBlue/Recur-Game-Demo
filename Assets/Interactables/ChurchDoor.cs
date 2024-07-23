@@ -27,7 +27,7 @@ public class Door : Interactable
         if (Keyed)
         {
             PlayEffectDoor();
-            flowchart.ExecuteBlock("DoorRotates");
+            EndDemo();
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
         else
@@ -41,8 +41,18 @@ public class Door : Interactable
         // Check if the flowchart is not already executing
         if (!flowchart.HasExecutingBlocks())
         {
-            // Start the Fungus flowchart for sprinting
-            flowchart.ExecuteBlock("Door");
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("OpenDoor");
+        }
+    }
+
+    void EndDemo()
+    {
+        // Check if the flowchart is not already executing
+        if (!flowchart.HasExecutingBlocks())
+        {
+            // Start the Fungus flowchart
+            flowchart.ExecuteBlock("EndDemo");
         }
     }
 }
