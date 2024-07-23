@@ -30428,7 +30428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1196037907}
+  selectedFlowchart: {fileID: 830114162}
 --- !u!4 &688801192
 Transform:
   m_ObjectHideFlags: 1
@@ -30906,11 +30906,6 @@ RectTransform:
   m_AnchoredPosition: {x: 772.505, y: -36}
   m_SizeDelta: {x: 1174.99, y: 22.35}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &736547772 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9158908014447940450, guid: 69b2d516467f0460d95e299094349273, type: 3}
-  m_PrefabInstance: {fileID: 3389066565644314697}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &738823950
 GameObject:
   m_ObjectHideFlags: 0
@@ -37576,56 +37571,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6734052188060901062, guid: 69b2d516467f0460d95e299094349273, type: 3}
   m_PrefabInstance: {fileID: 3389066565644314697}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736547772}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &830114203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736547772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2f6be51b3d7490ba5633ee095d0391, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 59
-  indentLevel: 0
-  soundClip: {fileID: 8300000, guid: 26d9c1622a03f4ba1a36398929c7f1ee, type: 3}
-  volume: 1
-  waitUntilFinished: 0
---- !u!114 &830114204
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736547772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: -122.18375
-    y: 231.36945
-    width: 91.87018
-    height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
-  itemId: 58
-  blockName: GetKey
-  description: 
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 830114203}
-  suppressAllAutoSelections: 0
 --- !u!1 &836307543
 GameObject:
   m_ObjectHideFlags: 0
@@ -97209,40 +97160,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 195792853075733300, guid: 69b2d516467f0460d95e299094349273, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: fca42f5eaf68744738a9815fe786ad74, type: 3}
     - target: {fileID: 5034229582212316556, guid: 69b2d516467f0460d95e299094349273, type: 3}
       propertyPath: m_Name
       value: SFX
       objectReference: {fileID: 0}
-    - target: {fileID: 6734052188060901062, guid: 69b2d516467f0460d95e299094349273, type: 3}
-      propertyPath: selectedBlocks.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6734052188060901062, guid: 69b2d516467f0460d95e299094349273, type: 3}
-      propertyPath: selectedCommands.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6734052188060901062, guid: 69b2d516467f0460d95e299094349273, type: 3}
-      propertyPath: selectedBlocks.Array.data[0]
-      value: 
-      objectReference: {fileID: 830114204}
-    - target: {fileID: 6734052188060901062, guid: 69b2d516467f0460d95e299094349273, type: 3}
-      propertyPath: selectedCommands.Array.data[0]
-      value: 
-      objectReference: {fileID: 830114203}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9158908014447940450, guid: 69b2d516467f0460d95e299094349273, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 830114204}
-    - targetCorrespondingSourceObject: {fileID: 9158908014447940450, guid: 69b2d516467f0460d95e299094349273, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 830114203}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69b2d516467f0460d95e299094349273, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

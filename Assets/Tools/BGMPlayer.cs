@@ -1,14 +1,19 @@
 using UnityEngine;
-using UnityEngine;
-using System.Collections;
-using UnityEditor;
 using Kamgam.SettingsGenerator;
 
 public class BGMPlayer : MonoBehaviour
 {
     private static BGMPlayer instance;
-    private AudioSource audioSource;
+    public AudioSource[] AudioSources;
+    public AudioSourceType[] SourceTypes;
     public Kamgam.SettingsGenerator.SettingsProvider Provider;
+
+    [Tooltip("How the input should be mapped to the required output of 0f..1f (X = min, Y = max).\n" +
+             "Useful if you have a range in percent (from 0 to 100) but need output ranging from 0f to 1f.")]
+    public Vector2 InputRange = new Vector2(0f, 100f);
+
+    [System.NonSerialized] public AudioSourceVolumeConnection EffectConnection;
+    [System.NonSerialized] public AudioSourceVolumeConnection MusicConnection;
 
     void Awake()
     {
@@ -24,34 +29,71 @@ public class BGMPlayer : MonoBehaviour
 
         // Make this GameObject persist across scenes
         DontDestroyOnLoad(gameObject);
+    }
 
-        // Get the AudioSource component attached to this GameObject
-        audioSource = GetComponent<AudioSource>();
-
-        // Check if an AudioSource is attached and play the audio
-        if (audioSource != null)
+    public void Start()
+    {
+        for (int i = 0; i < AudioSources.Length; i++)
         {
-            //audioSource.Play();
+            if (SourceTypes[i] == AudioSourceType.Effect)
+            {
+                // connect the audio source to the effect volume setting
+                ConnectVolume("audioEffectVolume", AudioSources[i], ref EffectConnection);
+            }
+            else if (SourceTypes[i] == AudioSourceType.Music)
+            {
+                // connect the audio source to the music volume setting
+                ConnectVolume("audioMusicVolume", AudioSources[i], ref MusicConnection);
+            }
+        }
+    }
+
+    //connect to the volume setting and apply it to the audio source
+    private void ConnectVolume(string volumeId, AudioSource audioSource, ref AudioSourceVolumeConnection connection)
+    {
+        var setting = SettingsInitializer.Settings.GetFloat(id: volumeId);
+        if (!setting.HasConnection())
+        {
+            connection = new AudioSourceVolumeConnection(InputRange, new AudioSource[] { audioSource });
+            setting.SetConnection(connection);
         }
         else
         {
-            Debug.LogError("AudioSource component missing on this GameObject.");
+            connection = setting.GetConnection() as AudioSourceVolumeConnection;
+            if (connection != null)
+            {
+                connection.AddAudioSources(new AudioSource[] { audioSource });
+            }
         }
-    }
-
-    private void FixedUpdate()
-    {
-        var settings = SettingsInitializer.Settings; 
-        SettingFloat volume = settings.GetFloat(id: "audioMusicVolume");
-        audioSource.volume = volume.GetFloatValue()/100f;
-    }
-
-    public void ChangeAudioClip(AudioClip newClip)
-    {
-        if (audioSource != null)
-        {
-            audioSource.clip = newClip;
-            audioSource.Play();
-        }
+        setting.Apply();
     }
 }
+
+public enum AudioSourceType
+{
+    Effect,
+    Music
+}
+
+    // private void FixedUpdate()
+    // {
+    //     var settings = SettingsInitializer.Settings;
+    //     if (isEffect)
+    //     {
+
+    //     }
+    //     else if (isMusic)
+    //     {
+    //         SettingFloat volume = settings.GetFloat(id: "audioMusicVolume");
+    //         audioSource.volume = volume.GetFloatValue()/100f;
+    //     }
+    // }
+
+    // public void ChangeAudioClip(AudioClip newClip)
+    // {
+    //     if (audioSource != null)
+    //     {
+    //         audioSource.clip = newClip;
+    //         audioSource.Play();
+    //     }
+    // }
