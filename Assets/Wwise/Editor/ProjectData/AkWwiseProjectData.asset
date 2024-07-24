@@ -66,8 +66,22 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 0f259dfeb4836640bc89b97033e34020
     GuidInternal: 
-    m_lastTime: -8584798148225960969
-    List: []
+    m_lastTime: -8584798093450902831
+    List:
+    - name: Main
+      guid: 7e100feb4ff5b546a66e31fbb5c887d0
+      id: 3161908922
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 0f259dfeb4836640bc89b97033e34020
+      - ElementName: Main
+        ObjectType: 7
+        guid: 7e100feb4ff5b546a66e31fbb5c887d0
+      Path: SoundBanks\Default Work Unit\Main
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -80,8 +94,42 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 61850c7cf359a04487e7a14f7abaf7e9
     GuidInternal: 
-    m_lastTime: -8584798148226221454
-    List: []
+    m_lastTime: -8584798093450882842
+    List:
+    - name: PlayCorridorLoop
+      guid: 8723848155469c429a0929ce8928a4f0
+      id: 583736263
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 61850c7cf359a04487e7a14f7abaf7e9
+      - ElementName: PlayCorridorLoop
+        ObjectType: 3
+        guid: 8723848155469c429a0929ce8928a4f0
+      Path: Events\Default Work Unit\PlayCorridorLoop
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: PlayTutorialLoop
+      guid: d4a2d969b7a7aa45af877f26535b5771
+      id: 137349311
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 61850c7cf359a04487e7a14f7abaf7e9
+      - ElementName: PlayTutorialLoop
+        ObjectType: 3
+        guid: d4a2d969b7a7aa45af877f26535b5771
+      Path: Events\Default Work Unit\PlayTutorialLoop
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -108,8 +156,74 @@ MonoBehaviour:
     ParentPath: States\Default Work Unit
     guid: 226516240481fa4d9900d1edf4a82296
     GuidInternal: 
-    m_lastTime: -8584798148226180235
-    List: []
+    m_lastTime: -8584798119532809983
+    List:
+    - name: Enemy_Battle
+      guid: c711847fb38caa4199907df3f645aed4
+      id: 324451396
+      PathAndIcons:
+      - ElementName: States
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 226516240481fa4d9900d1edf4a82296
+      - ElementName: Enemy_Battle
+        ObjectType: 9
+        guid: c711847fb38caa4199907df3f645aed4
+      Path: States\Default Work Unit\Enemy_Battle
+      values:
+      - name: Battle
+        guid: 583b1b0c74428b49a2461f185218b4d7
+        id: 2937832959
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 226516240481fa4d9900d1edf4a82296
+        - ElementName: Enemy_Battle
+          ObjectType: 9
+          guid: c711847fb38caa4199907df3f645aed4
+        - ElementName: Battle
+          ObjectType: 8
+          guid: 583b1b0c74428b49a2461f185218b4d7
+      - name: Non_Battle
+        guid: d87e516a9727924b8858ec56664d7c52
+        id: 3512553307
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 226516240481fa4d9900d1edf4a82296
+        - ElementName: Enemy_Battle
+          ObjectType: 9
+          guid: c711847fb38caa4199907df3f645aed4
+        - ElementName: Non_Battle
+          ObjectType: 8
+          guid: d87e516a9727924b8858ec56664d7c52
+      - name: None
+        guid: 32f73553d73c024488660139065e8767
+        id: 748895195
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 226516240481fa4d9900d1edf4a82296
+        - ElementName: Enemy_Battle
+          ObjectType: 9
+          guid: c711847fb38caa4199907df3f645aed4
+        - ElementName: None
+          ObjectType: 8
+          guid: 32f73553d73c024488660139065e8767
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     PathAndIcons:
@@ -138,9 +252,9 @@ MonoBehaviour:
     GuidInternal: 
     m_lastTime: -8584798148226150335
     List: []
-  ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 
+  ExpandedFileSystemItemIds: 02000000030000000600000007000000
+  ExpandedWaapiItemIds: 02000000030000000600000007000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
-  currentDataSource: 0
+  currentDataSource: 1
   CurrentPluginConfig: 

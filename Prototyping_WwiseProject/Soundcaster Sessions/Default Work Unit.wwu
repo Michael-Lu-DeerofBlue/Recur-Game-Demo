@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{B9D68F48-7511-4DF9-B5E9-8B5CB234DA28}" SchemaVersion="103">
 	<SoundcasterSessions>
-		<WorkUnit Name="Default Work Unit" ID="{B9D68F48-7511-4DF9-B5E9-8B5CB234DA28}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{B9D68F48-7511-4DF9-B5E9-8B5CB234DA28}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundcasterSession Name="Soundcaster Session" ID="{0B5875B0-E662-4593-8BCC-597C3AA88683}">
+					<ModuleList>
+						<Module>
+							<ObjectRef Name="PlayCorridorLoop" ID="{81842387-4655-429C-9A09-29CE8928A4F0}" WorkUnitID="{7C0C8561-59F3-44A0-87E7-A14F7ABAF7E9}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="PlayTutorialLoop" ID="{69D9A2D4-A7B7-45AA-AF87-7F26535B5771}" WorkUnitID="{7C0C8561-59F3-44A0-87E7-A14F7ABAF7E9}"/>
+							<Position X="1" Y="0"/>
+						</Module>
+					</ModuleList>
+					<RTPCValueList ShowAll="true"/>
+					<CurrentStateList ShowAll="true">
+						<CurrentStateRef Name="Non_Battle" ID="{6A517ED8-2797-4B92-8858-EC56664D7C52}"/>
+					</CurrentStateList>
+					<CurrentSwitchList ShowAll="true"/>
+				</SoundcasterSession>
+			</ChildrenList>
+		</WorkUnit>
 	</SoundcasterSessions>
 </WwiseDocument>
