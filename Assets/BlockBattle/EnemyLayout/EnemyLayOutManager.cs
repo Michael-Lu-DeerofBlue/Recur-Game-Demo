@@ -44,16 +44,25 @@ public class EnemyLayOutManager : MonoBehaviour
                     if (EnemiesList[kvp.Key]) { enemy = HeadLessBack; enemy.GetComponent<Enemy>().in3DName = kvp.Key; break; }
                     else { enemy = HeadLessFront; enemy.GetComponent<Enemy>().in3DName = kvp.Key; break; }
                 case "Lion":
-                    enemy.GetComponent<Enemy>().in3DName = kvp.Key;
-                    enemy = Lion;
-                    break;
+                    if (EnemiesList[kvp.Key])
+                    {
+                        enemy = Lion; //”–¥‡»ı
+                        Debug.Log("backstabbed lion");
+                        break;
+                    }
+                    else
+                    {
+                        enemy = Lion; //Œﬁ¥‡»ı
+                        break;
+                    }
                 case "Deer":
                     if (EnemiesList[kvp.Key]) { 
-                        enemy = Deer; //Œﬁ¥‡»ı
+                        enemy = Deer; //”–¥‡»ı
+                        Debug.Log("backstabbed deer");
                         break;
                         }
                     else {
-                        enemy = Deer; //”–¥‡»ı
+                        enemy = Deer; //Œﬁ¥‡»ı
                         break;
                     }
                 case "Bird":
