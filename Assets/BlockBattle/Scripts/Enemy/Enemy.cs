@@ -152,6 +152,15 @@ public abstract class Enemy : MonoBehaviour
         }
         DisplaySkillIcon();
     }
+
+    public void ReCreateEnemyUI()
+    {
+        if(enemyUIInstance != null)
+        {
+            Destroy(enemyUIInstance);
+            CreateEnemyUI();
+        }
+    }
    public void UpdateEnemyUI()
     {
         if (enemyUIInstance != null)

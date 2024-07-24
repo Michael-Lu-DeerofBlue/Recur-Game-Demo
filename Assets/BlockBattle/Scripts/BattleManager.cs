@@ -153,6 +153,10 @@ public class BattleManager : MonoBehaviour
 
         }
     }
+    public void FragilePlayer(int FragileNum) 
+    {
+        heroInfo.FragiledByEnemy(FragileNum);
+    }
     public void FragileEnemy(Enemy Target)
     {
             Target.FragilingNum++;
