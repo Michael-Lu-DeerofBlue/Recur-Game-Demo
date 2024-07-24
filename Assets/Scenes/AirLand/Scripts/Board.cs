@@ -15,9 +15,12 @@ public class Board : MonoBehaviour
     public Tilemap notMoveMap;
 
     public TetrominoData[] tetrominoes;
-    public Vector2Int boardSize = new Vector2Int(10, 20);
+    public Vector2Int boardSize = new Vector2Int(20, 20);
+    public Vector2Int VisualboardSize = new Vector2Int(20, 24);
+
     public Vector3Int spawnPosition = new Vector3Int(-1, 8, 0);
     public Tile FillTiles;
+    public Tile TransTiles;
     private string saveFilePath;
 
     public float offset;
@@ -37,6 +40,16 @@ public class Board : MonoBehaviour
             TopRightCornerPos = position;
             SetCameraPosition();
             return new RectInt(position, -boardSize);
+
+        }
+    }
+
+    public RectInt VisualBounds
+    {
+        get
+        {
+            Vector2Int position = new Vector2Int(boardSize.x / 2, spawnPosition.y+6);
+            return new RectInt(position, -VisualboardSize);
 
         }
     }
@@ -67,16 +80,6 @@ public class Board : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-        }
-    }
-    [System.Serializable]
-    public class TileDataContainer
-    {
-        public List<Vector3> positions;
-
-        public TileDataContainer(List<Vector3> tilePositions)
-        {
-            positions = tilePositions;
         }
     }
 
@@ -135,7 +138,10 @@ public class Board : MonoBehaviour
         tilemap = GetComponentInChildren<Tilemap>();
         setSpawnPosition();
        SetCameraPosition();
+        SetTileTransparency();
+        FillVisualBounds();
         SpawnPiece();
+
     }
 
     public void setSpawnPosition()
@@ -238,6 +244,30 @@ public class Board : MonoBehaviour
 
         return true;
     }
-
+    private void SetTileTransparency()
+    {
+        foreach (Vector3Int pos in tilemap.cellBounds.allPositionsWithin)
+        {
+            if (tilemap.HasTile(pos))
+            {
+                tilemap.SetTile(pos, TransTiles);
+            }
+        }
+    }
+    private void FillVisualBounds()
+    {
+        RectInt bounds = VisualBounds;
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            {
+                Vector3Int pos = new Vector3Int(x, y, 0);
+                if (tilemap.HasTile(pos))
+                {
+                    tilemap.SetTile(pos, FillTiles);
+                }
+            }
+        }
+    }
 
 }

@@ -79,7 +79,7 @@ public class Piece : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.S))
         {
-            if (Move(Vector2Int.down))
+            if (Move(Vector2Int.down!))
             {
                 stepTime = Time.time + stepDelay;
             }
@@ -112,10 +112,6 @@ public class Piece : MonoBehaviour
 
     private void HardDrop()
     {
-        if (Move(Vector2Int.down) != null)
-        {
-
-        }
         while (Move(Vector2Int.down)) {
             continue;
         }
@@ -171,7 +167,7 @@ public class Piece : MonoBehaviour
                     // If out of bounds vertically, clear the active piece and spawn a new one
                     board.ClearBlock(this);
                     board.SpawnPiece();
-                    CunDang.AddHealth(OutOfBoundDamage);
+                  //  CunDang.AddHealth(OutOfBoundDamage);
                 }
                 else
                 {
