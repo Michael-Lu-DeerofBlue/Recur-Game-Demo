@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -151,8 +152,44 @@ public class BlockManager : MonoBehaviour
                 previousTime = Time.time;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            LockRandomBlocks();
+        }
     }
 
+    void LockRandomBlocks()
+    {
+        List<Transform> addedBlocks = new List<Transform>();
+
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                if (grid[x, y] != null)
+                {
+                    addedBlocks.Add(grid[x, y]);
+                }
+            }
+        }
+
+        if (addedBlocks.Count < 4)
+        {
+            Debug.Log("Not enough blocks in the grid to lock.");
+            return;
+        }
+
+        List<Transform> randomBlocks = addedBlocks.OrderBy(x => Random.value).Take(4).ToList();
+
+
+        foreach (var block in randomBlocks)
+        {
+           
+        }
+
+        Debug.Log("Locked 4 random blocks.");
+    }
     public bool IsOccupied(Vector3 position)
     {
         int x = Mathf.RoundToInt(position.x);
