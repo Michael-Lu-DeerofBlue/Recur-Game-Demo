@@ -649,23 +649,24 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: UNITY_VISUAL_SCRIPTING;TextMeshPro
-    EmbeddedLinux: UNITY_VISUAL_SCRIPTING;TextMeshPro
-    GameCoreXboxOne: TextMeshPro
-    LinuxHeadlessSimulation: UNITY_VISUAL_SCRIPTING
-    Nintendo Switch: UNITY_VISUAL_SCRIPTING;TextMeshPro
-    PS4: UNITY_VISUAL_SCRIPTING;TextMeshPro
-    PS5: TextMeshPro
-    QNX: UNITY_VISUAL_SCRIPTING;TextMeshPro
+    Android: UNITY_VISUAL_SCRIPTING;TextMeshPro;DOTWEEN
+    EmbeddedLinux: UNITY_VISUAL_SCRIPTING;TextMeshPro;DOTWEEN
+    GameCoreScarlett: DOTWEEN
+    GameCoreXboxOne: TextMeshPro;DOTWEEN
+    LinuxHeadlessSimulation: UNITY_VISUAL_SCRIPTING;DOTWEEN
+    Nintendo Switch: UNITY_VISUAL_SCRIPTING;TextMeshPro;DOTWEEN
+    PS4: UNITY_VISUAL_SCRIPTING;TextMeshPro;DOTWEEN
+    PS5: TextMeshPro;DOTWEEN
+    QNX: UNITY_VISUAL_SCRIPTING;TextMeshPro;DOTWEEN
     Server: UNITY_VISUAL_SCRIPTING
-    Stadia: TextMeshPro
-    Standalone: UNITY_VISUAL_SCRIPTING;TextMeshPro;TMP_PRESENT;USE_ADDRESSABLES;USE_TIMELINE;STEAMWORKS_NET
-    VisionOS: UNITY_VISUAL_SCRIPTING;TextMeshPro
-    WebGL: UNITY_VISUAL_SCRIPTING;TextMeshPro;TMP_PRESENT
-    Windows Store Apps: UNITY_VISUAL_SCRIPTING
-    XboxOne: UNITY_VISUAL_SCRIPTING;TextMeshPro
-    iPhone: UNITY_VISUAL_SCRIPTING;TextMeshPro
-    tvOS: UNITY_VISUAL_SCRIPTING;TextMeshPro
+    Stadia: TextMeshPro;DOTWEEN
+    Standalone: UNITY_VISUAL_SCRIPTING;TextMeshPro;TMP_PRESENT;USE_ADDRESSABLES;USE_TIMELINE;STEAMWORKS_NET;DOTWEEN
+    VisionOS: UNITY_VISUAL_SCRIPTING;TextMeshPro;DOTWEEN
+    WebGL: UNITY_VISUAL_SCRIPTING;TextMeshPro;TMP_PRESENT;DOTWEEN
+    Windows Store Apps: UNITY_VISUAL_SCRIPTING;DOTWEEN
+    XboxOne: UNITY_VISUAL_SCRIPTING;TextMeshPro;DOTWEEN
+    iPhone: UNITY_VISUAL_SCRIPTING;TextMeshPro;DOTWEEN
+    tvOS: UNITY_VISUAL_SCRIPTING;TextMeshPro;DOTWEEN
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

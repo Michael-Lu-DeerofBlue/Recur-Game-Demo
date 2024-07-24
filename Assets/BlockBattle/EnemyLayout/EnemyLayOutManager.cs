@@ -14,6 +14,7 @@ public class EnemyLayOutManager : MonoBehaviour
     public Enemy HeadLessBack;
     public Enemy HeadLessFront;
     public Enemy Lion;
+    public Enemy Deer;
     public Enemy MockingBird;
     public Enemy[] Mondrinion;
     private int enemyNum;
@@ -46,6 +47,15 @@ public class EnemyLayOutManager : MonoBehaviour
                     enemy.GetComponent<Enemy>().in3DName = kvp.Key;
                     enemy = Lion;
                     break;
+                case "Deer":
+                    if (EnemiesList[kvp.Key]) { 
+                        enemy = Deer; //Œﬁ¥‡»ı
+                        break;
+                        }
+                    else {
+                        enemy = Deer; //”–¥‡»ı
+                        break;
+                    }
                 case "Bird":
                     enemy.GetComponent<Enemy>().in3DName = kvp.Key;
                     enemy = MockingBird;

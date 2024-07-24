@@ -1,8 +1,11 @@
+using Fungus;
 using Pathfinding;
 using Pathfinding.RVO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using System.Linq;
 
 public class Level3 : LevelController
 {
@@ -12,6 +15,7 @@ public class Level3 : LevelController
     public GameObject cube;
     public List<GameObject> enemies;
     public List<Vector3> BridgeCubePositions;
+    public List<Vector3> lastBridgeCubePositions = new List<Vector3>();
     public Camera playerCamera;
     public Camera moveCamera;
     public Camera topDownCamera;
@@ -20,6 +24,47 @@ public class Level3 : LevelController
     public GameObject[] SceneObjects;
     public static bool firstAccess = true;
     // Start is called before the first frame update
+
+    public void SpawnBridge()
+    {
+        // Sort the list by the z value of the position
+        BridgeCubePositions.Sort((a, b) => a.z.CompareTo(b.z));
+
+        if (lastBridgeCubePositions.Count == 0)
+        {
+            flowchart.ExecuteBlock("RescanAfter2Seconds");
+        }
+
+        // Determine new positions that are not in the lastBridgeCubePositions
+        var newPositions = BridgeCubePositions.Except(lastBridgeCubePositions).ToList();
+
+        // Start the coroutine to spawn and animate the bridge for new positions
+        StartCoroutine(SpawnBridgeCubes(newPositions));
+
+        // Update lastBridgeCubePositions to the current BridgeCubePositions
+        lastBridgeCubePositions = new List<Vector3>(BridgeCubePositions);
+    }
+
+    private IEnumerator SpawnBridgeCubes(List<Vector3> positions)
+    {
+        foreach (var position in positions)
+        {
+            GameObject lilBridge = Instantiate(cube, position, Quaternion.identity);
+            lilBridge.transform.parent = bridge.transform;
+
+            // Initially set the cube below the bridge position
+            lilBridge.transform.position = new Vector3(position.x, position.y - 5, position.z);
+
+            // Animate the cube rising up to the bridge position
+            lilBridge.transform.DOMoveY(position.y, 0.5f).SetEase(Ease.OutBounce);
+
+            // Wait for a specified delay before spawning the next cube
+            yield return new WaitForSeconds(waitDelay);
+        }
+
+        UpdateBehavior();
+    }
+
     void Start()
     {
         aStarPath = FindObjectOfType<AstarPath>(); // Find the AstarPath component in the scene
@@ -101,15 +146,7 @@ public class Level3 : LevelController
         moveCamera.fieldOfView = endFOV;
     }
 
-    public void SpawnBridge()
-    {
-        foreach (var position in BridgeCubePositions)
-        {
-            GameObject lilBridge = Instantiate(cube, position, Quaternion.identity);
-            lilBridge.transform.parent = bridge.transform;
-        }
-        UpdateBehavior();
-    }
+    
 
     public void UpdateBehavior()
     {
