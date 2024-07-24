@@ -250,27 +250,7 @@ public class Level2 : LevelController
         }
         else
         {
-            Player.GetComponent<ThreeDPlayerBase>().gotHitByEnemy();
-            /*
-            foreach (var key in ThreeDTo2DData.dataDictionary.Keys)
-            {
-                //Debug.Log(key);
-                GameObject obj = GameObject.Find(key);
-                if (obj != null)
-                {
-                    obj.SetActive(false);
-                }
-            }
-            foreach (string name in TwoDto3D.ToThreeEnemies)
-            {
-                //Debug.Log(key);
-                GameObject obj = GameObject.Find(name);
-                if (obj != null)
-                {
-                    obj.SetActive(true);
-                }
-            }
-            */
+            ResetLevel();
         }
 
         //Key

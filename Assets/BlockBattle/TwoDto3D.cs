@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Fungus;
+using PixelCrushers;
 
 public class TwoDto3D : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class TwoDto3D : MonoBehaviour
         }
         else if (ThreeDTo2DData.ThreeDScene == "Air Island Jungle")
         {
-
+            SceneTransitioner.Instance.ReturnToAirIsland();
         }
         else
         {

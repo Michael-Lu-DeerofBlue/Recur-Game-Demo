@@ -43,11 +43,17 @@ public abstract class EnemyProcessor : MonoBehaviour
         AnimationSwitchTo(runningAnimation);
     }
 
+    public void SwitchToNone()
+    {
+        AnimationSwitchTo("None");
+    }
+
     public virtual void Update()
     {
         //Debug.Log(inPursuit);
         if (inPursuit)
         {
+            Player = GameObject.Find("Player");
             float distance = Vector3.Distance(gameObject.transform.position, Player.transform.position);
             if (distance < 2f)
             {
@@ -63,6 +69,7 @@ public abstract class EnemyProcessor : MonoBehaviour
 
     public void Stool()
     {
+        SwitchToNone();
         StartCoroutine(StoolTimerStart(3f));
     }
 
@@ -75,6 +82,7 @@ public abstract class EnemyProcessor : MonoBehaviour
         inPursuit = true;
         inStool = false;
        // Debug.Log("turning on");
+       SwitchToRunning();
 
     }
 }

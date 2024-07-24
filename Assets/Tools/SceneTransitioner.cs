@@ -1,3 +1,4 @@
+using PixelCrushers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransitioner : MonoBehaviour
 {
-    public string airIslandSceneName = "Air Island Jungle";
+    public static SceneTransitioner Instance;
+    public GameObject levelController;
+    public string airIslandSceneName = "Air Island";
     public string battleLevelSceneName = "BattleLevel";
 
     private bool isBattleLevelLoaded = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Persist across scenes
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Load the BattleLevel scene additively
     public void SwitchToBattleLevel()
@@ -26,6 +42,7 @@ public class SceneTransitioner : MonoBehaviour
         {
             StartCoroutine(UnloadScene(battleLevelSceneName));
         }
+        FindAnyObjectByType<Level3>().GetComponent<Level3>().ReloadBackToBattle();
     }
 
     private IEnumerator LoadSceneAdditively(string sceneName)

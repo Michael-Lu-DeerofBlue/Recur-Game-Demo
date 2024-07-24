@@ -23,7 +23,9 @@ public class Level3 : LevelController
     public float waitDelay;
     public GameObject board;
     public GameObject[] SceneObjects;
+    public GameObject[] TranslatedObjects;
     public static bool firstAccess = true;
+    public GameObject transitioner;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -69,6 +71,46 @@ public class Level3 : LevelController
         }
 
         UpdateBehavior();
+    }
+
+    public void TransitionToBattle()
+    {
+        foreach (GameObject obj in TranslatedObjects)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    public void ReloadBackToBattle()
+    {
+        BlockStageController[] blockStageControllers = FindObjectsOfType<BlockStageController>();
+        foreach (BlockStageController controller in blockStageControllers)
+        {
+            Destroy(controller.gameObject);
+        }
+        foreach (GameObject obj in TranslatedObjects)
+        {
+            obj.SetActive(true);
+        }
+        if (TwoDto3D.win == true)
+        {
+            Debug.Log("here");
+            foreach (var key in ThreeDTo2DData.dataDictionary.Keys)
+            {
+                Debug.Log(key);
+                GameObject obj = GameObject.Find(key);
+                if (obj != null)
+                {
+                    Debug.Log("Here");
+                    obj.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            ResetLevel();
+        }
+        playerRef.GetComponent<PlayerController>().cam.GetComponent<CameraController>().TurnCameraOff();
     }
 
     void Start()

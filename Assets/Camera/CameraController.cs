@@ -59,6 +59,13 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    public void TurnCameraOff()
+    {
+        Debug.Log("here");
+        isCameraMode = false;
+        StartCoroutine(Fade(whiteColor, transColor));
+    }
+
     public IEnumerator Fade(Color fromColor, Color toColor)
     {
         float elapsedTime = 0f;
@@ -111,7 +118,7 @@ public class CameraController : MonoBehaviour
         
         foreach (var target in detectedTargets)
         {
-            //Debug.Log(target.name);
+            Debug.Log(target.name);
             string targetName = target.gameObject.transform.parent.name;
             //Debug.Log(target.transform.parent.rotation);
             bool isFacingAway = IsFacingAwayFromPlayer(target.parent.transform);
@@ -138,7 +145,9 @@ public class CameraController : MonoBehaviour
                 }
             }
             else{
-                LevelController.GetComponent<SceneTransitioner>().SwitchToBattleLevel();
+                ThreeDTo2DData.ThreeDScene = "Air Island Jungle";
+                LevelController.GetComponent<Level3>().TransitionToBattle();
+                FindAnyObjectByType<SceneTransitioner>().SwitchToBattleLevel();
             }
         }
         

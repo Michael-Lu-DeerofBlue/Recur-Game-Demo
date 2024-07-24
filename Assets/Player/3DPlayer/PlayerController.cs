@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Is called on the frame when a script is enabled just before any of the Update methods are called the first time.
     /// </summary>
-    private void Start()
+    private void OnEnable()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
