@@ -7,7 +7,6 @@ using UnityEngine;
 public class Level3 : LevelController
 {
     private AstarPath aStarPath;
-    public List<Transform> playerMarkers;
     public GameObject playerRef;
     public Transform bridge;
     public GameObject cube;
@@ -73,7 +72,6 @@ public class Level3 : LevelController
 
     public void ExitBoard()
     {
-        board.GetComponent<Board>().SaveTileMap();
         EnableSceneObjects();
         playerRef.gameObject.SetActive(true);
         moveCamera.gameObject.SetActive(true);
@@ -165,14 +163,21 @@ public class Level3 : LevelController
         }
     }
 
-    public Vector3 GrabNearestMarkerLocation()
+    public Vector3Int GrabNearestMarker()
     {
-        Transform nearestMarker = null;
+        GameObject[] markers = GameObject.FindGameObjectsWithTag("L3Marker");
+        if (markers.Length == 0)
+        {
+            Debug.LogWarning("No markers found with tag 'L3Maker'");
+            return Vector3Int.zero; // or some default value
+        }
+
+        GameObject nearestMarker = null;
         float minDistance = float.MaxValue;
 
-        foreach (Transform marker in playerMarkers)
+        foreach (GameObject marker in markers)
         {
-            float distance = Vector3.Distance(playerRef.transform.position, marker.position);
+            float distance = Vector3.Distance(playerRef.transform.position, marker.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -182,11 +187,18 @@ public class Level3 : LevelController
 
         if (nearestMarker != null)
         {
-            return nearestMarker.position;
+            MarkerPos markerPos = nearestMarker.GetComponent<MarkerPos>();
+            if (markerPos != null)
+            {
+                Vector3Int spawnPoint = markerPos.SpanwPoint;
+                return new Vector3Int(spawnPoint.x, spawnPoint.y, 0);
+            }
+            else
+            {
+                Debug.LogWarning("MarkerPos script not found on the nearest marker");
+            }
         }
-        else
-        {
-            return Vector3.zero;
-        }
+
+        return Vector3Int.zero;
     }
 }
