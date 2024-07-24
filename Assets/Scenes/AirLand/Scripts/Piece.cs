@@ -112,10 +112,6 @@ public class Piece : MonoBehaviour
 
     private void HardDrop()
     {
-        if (Move(Vector2Int.down) != null)
-        {
-
-        }
         while (Move(Vector2Int.down)) {
             continue;
         }
