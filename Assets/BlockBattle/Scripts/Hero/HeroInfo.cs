@@ -291,7 +291,7 @@ public class HeroInfo : MonoBehaviour
 
     public virtual void resetEnemyActionBar()
     {
-        battleManager.ResetEnemyActionBar();
+        battleManager.Stagger();
     }
 
 

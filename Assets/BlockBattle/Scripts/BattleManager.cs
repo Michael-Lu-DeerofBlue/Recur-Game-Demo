@@ -426,10 +426,10 @@ public class BattleManager : MonoBehaviour
 
 
 
-    public void ResetEnemyActionBar()
+    public void Stagger()
     {
         Enemy enemy = FindObjectOfType<Enemy>();//for now, we only have one enemy in default, have to modify that after we have method to choice enmey target.
-        enemy.ResetCasting();
+        enemy.Stagger();
     }
 
 
