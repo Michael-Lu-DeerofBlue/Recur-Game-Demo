@@ -51441,6 +51441,14 @@ GameObject:
   - component: {fileID: 1196037957}
   - component: {fileID: 1196037961}
   - component: {fileID: 1196037960}
+  - component: {fileID: 1196037965}
+  - component: {fileID: 1196037964}
+  - component: {fileID: 1196037968}
+  - component: {fileID: 1196037967}
+  - component: {fileID: 1196037969}
+  - component: {fileID: 1196037970}
+  - component: {fileID: 1196037971}
+  - component: {fileID: 1196037972}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -51461,11 +51469,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 354.01202, y: 7.977247}
+  scrollPos: {x: 414.65872, y: 42.857002}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 400
-  zoom: 0.6100004
+  zoom: 0.49050015
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -51473,7 +51481,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1196037953}
+  - {fileID: 1196037956}
   selectedCommands: []
   variables: []
   description: 
@@ -51532,7 +51540,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 197.12726
     y: 173.89354
-    width: 158.19666
+    width: 157.0336
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -51612,7 +51620,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 197.27112
     y: 99.08646
-    width: 104.918
+    width: 104.02649
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -51952,7 +51960,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 361.45712
     y: 108.60144
-    width: 124.59012
+    width: 123.39447
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -52112,15 +52120,18 @@ MonoBehaviour:
     serializedVersion: 2
     x: 439.75757
     y: 180.00974
-    width: 122.1311
+    width: 108.10396
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 58
-  blockName: DoorRotates
+  blockName: OpenDoor
   description: 
-  eventHandler: {fileID: 0}
+  eventHandler: {fileID: 1196037969}
   commandList:
+  - {fileID: 1196037971}
+  - {fileID: 1196037972}
+  - {fileID: 1196037970}
   - {fileID: 1196037941}
   - {fileID: 1196037939}
   suppressAllAutoSelections: 0
@@ -52196,7 +52207,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 49.591595
     y: 141.8605
-    width: 116.3934
+    width: 115.23953
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -52223,7 +52234,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 559.90857
     y: 132.79762
-    width: 112.295044
+    width: 112.18143
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -52442,18 +52453,20 @@ MonoBehaviour:
     serializedVersion: 2
     x: 575.90875
     y: 182.07158
-    width: 110.6557
+    width: 110.14269
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 83
   blockName: CloseDoor
   description: 
-  eventHandler: {fileID: 0}
+  eventHandler: {fileID: 1196037968}
   commandList:
+  - {fileID: 1196037965}
   - {fileID: 1196037954}
   - {fileID: 1196037955}
   - {fileID: 1196037961}
+  - {fileID: 1196037964}
   - {fileID: 1196037960}
   suppressAllAutoSelections: 0
 --- !u!114 &1196037954
@@ -52536,7 +52549,7 @@ MonoBehaviour:
   toRotationOLD: {x: 0, y: 0, z: 0}
 --- !u!114 &1196037956
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -52549,15 +52562,15 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 354.9027
-    y: 264.1014
-    width: 77.868835
+    y: 266.14014
+    width: 105.04585
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 79
-  blockName: Door
+  blockName: EndDemo
   description: 
-  eventHandler: {fileID: 0}
+  eventHandler: {fileID: 1196037967}
   commandList:
   - {fileID: 1196037959}
   - {fileID: 1196037958}
@@ -52565,7 +52578,7 @@ MonoBehaviour:
   suppressAllAutoSelections: 0
 --- !u!114 &1196037957
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -52584,7 +52597,7 @@ MonoBehaviour:
   sceneNameOLD: 
 --- !u!114 &1196037958
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -52614,7 +52627,7 @@ MonoBehaviour:
     floatVal: 1
 --- !u!114 &1196037959
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -52635,7 +52648,7 @@ MonoBehaviour:
   targetGameObjectOLD: {fileID: 0}
 --- !u!114 &1196037960
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -52652,7 +52665,7 @@ MonoBehaviour:
   delay: 0
 --- !u!114 &1196037961
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -52666,7 +52679,141 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 0.5
+    floatVal: 1.6
+  durationOLD: 0
+--- !u!114 &1196037964
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196037906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2f6be51b3d7490ba5633ee095d0391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 88
+  indentLevel: 0
+  soundClip: {fileID: 8300000, guid: 2fa377aa44884482abbbc8a7e13d80a8, type: 3}
+  volume: 1
+  waitUntilFinished: 0
+--- !u!114 &1196037965
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196037906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2f6be51b3d7490ba5633ee095d0391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 87
+  indentLevel: 0
+  soundClip: {fileID: 8300000, guid: f8c0b38a913ce4b468c56ca95c2179af, type: 3}
+  volume: 1
+  waitUntilFinished: 0
+--- !u!114 &1196037967
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196037906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000864f8e9e1748a39807861d0e60e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1196037956}
+  suppressBlockAutoSelect: 0
+  keyPressType: 0
+  keyCode: 112
+--- !u!114 &1196037968
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196037906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000864f8e9e1748a39807861d0e60e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1196037953}
+  suppressBlockAutoSelect: 0
+  keyPressType: 0
+  keyCode: 114
+--- !u!114 &1196037969
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196037906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000864f8e9e1748a39807861d0e60e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentBlock: {fileID: 1196037940}
+  suppressBlockAutoSelect: 0
+  keyPressType: 0
+  keyCode: 101
+--- !u!114 &1196037970
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196037906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2f6be51b3d7490ba5633ee095d0391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 90
+  indentLevel: 0
+  soundClip: {fileID: 8300000, guid: fefd23c7cab7b49fe98273cd9c7feda2, type: 3}
+  volume: 1
+  waitUntilFinished: 0
+--- !u!114 &1196037971
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196037906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2f6be51b3d7490ba5633ee095d0391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 91
+  indentLevel: 0
+  soundClip: {fileID: 8300000, guid: fb3c0ce4255504bf2815d0ea2335c81b, type: 3}
+  volume: 1
+  waitUntilFinished: 0
+--- !u!114 &1196037972
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196037906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 92
+  indentLevel: 0
+  _duration:
+    floatRef: {fileID: 0}
+    floatVal: 3
   durationOLD: 0
 --- !u!1 &1198498355
 GameObject:
@@ -73697,6 +73844,7 @@ MonoBehaviour:
   hintsCurrentIndex: 0
   hint: {fileID: 758991089}
   reloaded: 0
+  flowchart: {fileID: 1196037907}
 --- !u!4 &1636812606
 Transform:
   m_ObjectHideFlags: 0
@@ -97012,17 +97160,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 195792853075733300, guid: 69b2d516467f0460d95e299094349273, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: fca42f5eaf68744738a9815fe786ad74, type: 3}
     - target: {fileID: 5034229582212316556, guid: 69b2d516467f0460d95e299094349273, type: 3}
       propertyPath: m_Name
       value: SFX
-      objectReference: {fileID: 0}
-    - target: {fileID: 6734052188060901062, guid: 69b2d516467f0460d95e299094349273, type: 3}
-      propertyPath: selectedBlocks.Array.size
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
