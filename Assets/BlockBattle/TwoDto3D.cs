@@ -93,4 +93,9 @@ public class TwoDto3D : MonoBehaviour
             SceneManager.LoadScene(ThreeDTo2DData.ThreeDScene);
         }
     }
+
+    public void TheLabyrinth()
+    {
+
+    }
 }
