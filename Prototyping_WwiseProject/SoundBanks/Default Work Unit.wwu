@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{FE9D250F-83B4-4066-BC89-B97033E34020}" SchemaVersion="103">
 	<SoundBanks>
-		<WorkUnit Name="Default Work Unit" ID="{FE9D250F-83B4-4066-BC89-B97033E34020}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{FE9D250F-83B4-4066-BC89-B97033E34020}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundBank Name="Main" ID="{EB0F107E-F54F-46B5-A66E-31FBB5C887D0}">
+					<ObjectInclusionList>
+						<ObjectRef Name="PerseusClear" ID="{C5C3B472-4841-417A-A7C0-2B366F63E2A0}" WorkUnitID="{7C0C8561-59F3-44A0-87E7-A14F7ABAF7E9}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="PlayCorridorLoop" ID="{81842387-4655-429C-9A09-29CE8928A4F0}" WorkUnitID="{7C0C8561-59F3-44A0-87E7-A14F7ABAF7E9}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="PlayTutorialLoop" ID="{69D9A2D4-A7B7-45AA-AF87-7F26535B5771}" WorkUnitID="{7C0C8561-59F3-44A0-87E7-A14F7ABAF7E9}" Origin="Manual" Filter="7"/>
+					</ObjectInclusionList>
+					<ObjectExclusionList/>
+					<GameSyncExclusionList/>
+				</SoundBank>
+			</ChildrenList>
+		</WorkUnit>
 	</SoundBanks>
 </WwiseDocument>

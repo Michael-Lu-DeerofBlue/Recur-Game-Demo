@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{24166522-8104-4DFA-9900-D1EDF4A82296}" SchemaVersion="103">
 	<States>
-		<WorkUnit Name="Default Work Unit" ID="{24166522-8104-4DFA-9900-D1EDF4A82296}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{24166522-8104-4DFA-9900-D1EDF4A82296}" PersistMode="Standalone">
+			<ChildrenList>
+				<StateGroup Name="Enemy_Battle" ID="{7F8411C7-8CB3-41AA-9990-7DF3F645AED4}">
+					<ChildrenList>
+						<State Name="None" ID="{5335F732-3CD7-4402-8866-0139065E8767}"/>
+						<State Name="Battle" ID="{0C1B3B58-4274-498B-A246-1F185218B4D7}"/>
+						<State Name="Non_Battle" ID="{6A517ED8-2797-4B92-8858-EC56664D7C52}"/>
+					</ChildrenList>
+					<TransitionList>
+						<Transition>
+							<StartState Name="Non_Battle" ID="{6A517ED8-2797-4B92-8858-EC56664D7C52}"/>
+							<EndState Name="Battle" ID="{0C1B3B58-4274-498B-A246-1F185218B4D7}"/>
+							<Time>1</Time>
+							<IsShared>false</IsShared>
+						</Transition>
+					</TransitionList>
+				</StateGroup>
+			</ChildrenList>
+		</WorkUnit>
 	</States>
 </WwiseDocument>
