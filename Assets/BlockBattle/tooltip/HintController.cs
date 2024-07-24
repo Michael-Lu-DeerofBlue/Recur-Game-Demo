@@ -18,11 +18,6 @@ public class HintController : MonoBehaviour
     public TextMeshPro countText;
     public Flowchart flowchart;
     public GameObject perTutorialManager;
-    public AK.Wwise.Event PlayCorridorLoop;
-    public AK.Wwise.Event PlayTutorialLoop;
-    public AK.Wwise.State Non_Battle;
-    public AK.Wwise.State Battle;
-    public AK.Wwise.Event PerseusClear;
     void Start()
     {
         // Ensure all game objects are disabled except the first one
@@ -33,8 +28,7 @@ public class HintController : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
         if (currentSceneName == "BattleLevel - tutorial")
         {
-            PerseusClear.Post(gameObject);
-            PlayTutorialLoop.Post(gameObject);
+            //Handle To Tutorial
         }
     }
         private void Update()

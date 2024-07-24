@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Level3 : LevelController
 {
@@ -24,6 +25,11 @@ public class Level3 : LevelController
     public GameObject[] SceneObjects;
     public static bool firstAccess = true;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        ES3.Save("MoveHP", 2);
+        ES3.Save("Sprint", true);
+    }
 
     public void SpawnBridge()
     {
@@ -145,8 +151,37 @@ public class Level3 : LevelController
         }
         moveCamera.fieldOfView = endFOV;
     }
+    public void ResetLevel()
+    {
+        ClearInGameSaveData();
+        StartCoroutine(PauseAndReloadScene());
+    }
+    IEnumerator PauseAndReloadScene()
+    {
+        // Pause the game by setting the time scale to 0
+        Time.timeScale = 0f;
 
-    
+        // Wait for 5 real-time seconds
+        yield return new WaitForSecondsRealtime(0.5f);
+        Time.timeScale = 1f;
+
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void ClearInGameSaveData()
+    {
+        foreach (GameObject enemy in enemies)
+        {
+            ES3.DeleteKey(enemy.name + " Position");
+            ES3.DeleteKey(enemy.name + " Rotation");
+        }
+        ES3.DeleteKey("InLevelPlayerPosition");
+        ES3.DeleteKey("InLevelPlayerRotation");
+        ES3.DeleteKey("EnemyKeyIndex");
+        ES3.Save("MoveHP", 2);
+    }
+
+
 
     public void UpdateBehavior()
     {

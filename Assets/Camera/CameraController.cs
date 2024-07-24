@@ -1,4 +1,5 @@
 using Pathfinding;
+using PixelCrushers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -127,11 +128,17 @@ public class CameraController : MonoBehaviour
        */
         if (count > 0)
         {
-            LevelController.GetComponent<LevelController>().GoToBattle();
             string currentSceneName = SceneManager.GetActiveScene().name;
-            if (currentSceneName == "galleries")
+            if (currentSceneName != "Air Island Jungle")
             {
-                LevelController.GetComponent<GalleryLevel>().SceneChange();
+                LevelController.GetComponent<LevelController>().GoToBattle();
+                if (currentSceneName == "galleries")
+                {
+                    LevelController.GetComponent<GalleryLevel>().SceneChange();
+                }
+            }
+            else{
+                LevelController.GetComponent<SceneTransitioner>().SwitchToBattleLevel();
             }
         }
         

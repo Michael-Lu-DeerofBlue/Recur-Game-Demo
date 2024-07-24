@@ -83,6 +83,10 @@ public class TwoDto3D : MonoBehaviour
             }
           
         }
+        else if (ThreeDTo2DData.ThreeDScene == "Air Island Jungle")
+        {
+
+        }
         else
         {
             SceneManager.LoadScene(ThreeDTo2DData.ThreeDScene);

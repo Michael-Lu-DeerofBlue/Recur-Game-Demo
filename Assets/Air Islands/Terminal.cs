@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Pathfinding;
 
 public class Terminal : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Terminal : MonoBehaviour
     public float addedHP = -10;
     public string[] consumables;
     public int amount;
+    public bool breaked;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +47,7 @@ public class Terminal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pointed)
+        if (pointed && !breaked)
         {
             if (Input.GetKey(KeyCode.F))
             {
@@ -108,5 +110,17 @@ public class Terminal : MonoBehaviour
         {
             fillingBar.fillAmount = 0.0f;
         }
+    }
+    public void Break()
+    {
+        breaked = true;
+        StartCoroutine(BreakTimerStart(3f));
+    }
+
+    IEnumerator BreakTimerStart(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+       breaked = false;
+
     }
 }

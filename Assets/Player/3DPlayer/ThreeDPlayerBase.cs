@@ -25,17 +25,35 @@ public class ThreeDPlayerBase : MonoBehaviour
     public void gotHitByEnemy()
     {
         PlayEffectHit();
+        HP--;
+        ES3.Save("MoveHP", HP);
         if (GameObject.Find("GoggleCanvas") != null)
         {
             GameObject.Find("GoggleCanvas").GetComponent<Player3DUI>().DecreaseHP(HP);
         }
-        HP--;
-        ES3.Save("MoveHP",HP);
+        if (GameObject.FindAnyObjectByType<Level3>() != null)
+        {
+            Terminal[] terminals = FindObjectsOfType<Terminal>();
+
+            // Iterate through each Terminal and call the Break method
+            foreach (Terminal terminal in terminals)
+            {
+                terminal.Break();
+            }
+        }
         //UIHandler.GetComponent<PlayerToUI>().UpdateHP(HP);
         if (HP <= 0)
         {
             ThreeDTo2DData.ThreeDScene = null;
-            levelController.GetComponent<Level2>().ResetLevel();
+            GameObject.Find("GoggleCanvas").GetComponent<Player3DUI>().DecreaseHP(HP);
+            if (GameObject.FindAnyObjectByType<Level2>() != null)
+            {
+                levelController.GetComponent<Level2>().ResetLevel();
+            }
+            else if (GameObject.FindAnyObjectByType<Level3>() != null)
+            {
+                levelController.GetComponent<Level3>().ResetLevel();
+            }
             PlayEffectDie();
         }
     }

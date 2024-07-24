@@ -8,8 +8,6 @@ public class DeerProcessor : EnemyProcessor
     private Patrol patrolScript;
     private EnemyFOV fovScript;
     public AIPath aiPath;
-    public bool inPatrol;
-    public bool inPursuit;
     public bool animated;
     public Transform player; // Assuming you have a reference to the player Transform
     public float patrolSpeed = 5;
@@ -34,34 +32,35 @@ public class DeerProcessor : EnemyProcessor
             aiPath.maxSpeed = patrolSpeed;
             GetComponent<AIDestinationSetter>().enabled = true;
             GetComponent<AIDestinationSetter>().target = player; // Assuming you have an AIDestinationSetter script
-            inPatrol = true;
+            inPursuit = true;
         }
     }
 
     private void FixedUpdate()
     {
-        RounteCheck();
+        if (!inStool)
+        {
+            RounteCheck();
+
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
-        if (fovScript.canSeePlayer)
+        base.Update();
+        if (fovScript.canSeePlayer && inPursuit)
         {
             GraphNode currentNode = AstarPath.active.GetNearest(transform.position).node;
             GraphNode playerNode = AstarPath.active.GetNearest(player.position).node;
             if (PathUtilities.IsPathPossible(currentNode, playerNode))
             {
-                if (inPatrol)
-                {
-                    SwitchToRunning();
-                }
-                inPatrol = false;
+                SwitchToRunning();
                 aiPath.maxSpeed = runningSpeed;
                 GetComponent<AIDestinationSetter>().enabled = true;
                 GetComponent<AIDestinationSetter>().target = player;
             }
         }
+       
     }
-   
 }

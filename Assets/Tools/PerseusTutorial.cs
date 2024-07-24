@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PerseusTutorial : MonoBehaviour
 {
-    public AK.Wwise.State Battle;
     // Start is called before the first frame update
     void Awake()
     {
@@ -13,7 +12,7 @@ public class PerseusTutorial : MonoBehaviour
 
     void Start()
     {
-        Battle.SetValue();
+        
     }
 
     public void Pause()

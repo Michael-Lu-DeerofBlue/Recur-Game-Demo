@@ -31,11 +31,6 @@ public class Level1 : LevelController
     public GameObject goggleCanvas;
     public GameObject EscKey;
     public TextMeshProUGUI hint;
-    public AK.Wwise.Event PlayCorridorLoop;
-    public AK.Wwise.Event PlayTutorialLoop;
-    public AK.Wwise.State Non_Battle;
-    public AK.Wwise.State Battle;
-    public AK.Wwise.Event PerseusClear;
     public Dictionary<string, int> ConsumablesInventory = new Dictionary<string, int>()
     {
         { "MedKit", 2 },
@@ -124,7 +119,7 @@ public class Level1 : LevelController
         openingMenu.SetActive(false);
         flowchart.ExecuteBlock("CameraRotate");
         flowchart.ExecuteBlock("CameraDrop");
-        PlayCorridorLoop.Post(gameObject);
+        //Start to play the main bgm
     }
 
     public void OpenSetting()
@@ -169,7 +164,7 @@ public class Level1 : LevelController
         ES3.Save("First Combat", true);
         ThreeDTo2DData.ThreeDScene = "CentralMeditationRoom";
         Player.GetComponent<PlayerController>().Save();
-        PerseusClear.Post(gameObject);
+        //change to the tutorial bgm
     }
 
     public void Sentence3()
@@ -198,7 +193,6 @@ public class Level1 : LevelController
         firstTrigger.SetActive(false);
         secondTrigger.SetActive(false);
         airWall.SetActive(false);
-        Non_Battle.SetValue();
         ES3.DeleteKey("First Combat");
         //Player
         if (ES3.KeyExists("InLevelPlayerPosition"))

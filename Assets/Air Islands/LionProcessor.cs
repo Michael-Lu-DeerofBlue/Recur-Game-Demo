@@ -12,7 +12,6 @@ public class LionProcessor : EnemyProcessor
     private EnemyFOV fovScript;
     public AIPath aiPath;
     public bool inPatrol;
-    public bool inPursuit;
     public Transform player; // Assuming you have a reference to the player Transform
     public float patrolSpeed = 5;
     public float runningSpeed = 7;
@@ -31,6 +30,7 @@ public class LionProcessor : EnemyProcessor
 
         // Convert current Transform position to a node
         GraphNode currentNode = AstarPath.active.GetNearest(current.position).node;
+
 
         foreach (Transform patrolPoint in patrolPoints)
         {
@@ -59,33 +59,42 @@ public class LionProcessor : EnemyProcessor
             inPatrol = true;
             SwitchToWalking();
         }
+
+
     }
 
     private void FixedUpdate()
     {
-        RounteCheck();
+        if (!inStool)
+        {
+            RounteCheck();
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        base.Update();
         if (inPatrol)
         {
             if (fovScript.canSeePlayer)
             {
-                // Test if there is a possible path in the grid map to the player
-                GraphNode currentNode = AstarPath.active.GetNearest(transform.position).node;
-                GraphNode playerNode = AstarPath.active.GetNearest(player.position).node;
-
-                if (PathUtilities.IsPathPossible(currentNode, playerNode))
+                if (inPatrol || inPursuit)
                 {
-                    inPatrol = false;
-                    inPursuit = true;
-                    SwitchToRunning();
-                    aiPath.maxSpeed = runningSpeed;
-                    patrolScript.enabled = false;
-                    GetComponent<AIDestinationSetter>().enabled = true;
-                    GetComponent<AIDestinationSetter>().target = player; // Assuming you have an AIDestinationSetter script
+                    // Test if there is a possible path in the grid map to the player
+                    GraphNode currentNode = AstarPath.active.GetNearest(transform.position).node;
+                    GraphNode playerNode = AstarPath.active.GetNearest(player.position).node;
+
+                    if (PathUtilities.IsPathPossible(currentNode, playerNode))
+                    {
+                        inPatrol = false;
+                        inPursuit = true;
+                        SwitchToRunning();
+                        aiPath.maxSpeed = runningSpeed;
+                        patrolScript.enabled = false;
+                        GetComponent<AIDestinationSetter>().enabled = true;
+                        GetComponent<AIDestinationSetter>().target = player; // Assuming you have an AIDestinationSetter script
+                    }
                 }
             }
         }

@@ -62,7 +62,6 @@ public class GalleryLevel : LevelController
     public void SceneChange()
     {
         Save();
-      
     }
 
     public void Save()
