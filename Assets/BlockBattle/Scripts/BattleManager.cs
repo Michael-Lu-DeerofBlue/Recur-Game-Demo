@@ -153,6 +153,10 @@ public class BattleManager : MonoBehaviour
 
         }
     }
+    public void FragilePlayer(int FragileNum) 
+    {
+        heroInfo.FragiledByEnemy(FragileNum);
+    }
     public void FragileEnemy(Enemy Target)
     {
             Target.FragilingNum++;
@@ -166,7 +170,7 @@ public class BattleManager : MonoBehaviour
         
     }
 
-    public void ExcitAllEnemies(float duration)
+    public void SpeedUpCastingAllEnimes(float duration)
     {
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)
@@ -422,10 +426,10 @@ public class BattleManager : MonoBehaviour
 
 
 
-    public void ResetEnemyActionBar()
+    public void Stagger()
     {
         Enemy enemy = FindObjectOfType<Enemy>();//for now, we only have one enemy in default, have to modify that after we have method to choice enmey target.
-        enemy.ResetCasting();
+        enemy.Stagger();
     }
 
 

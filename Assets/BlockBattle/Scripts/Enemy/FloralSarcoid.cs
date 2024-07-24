@@ -48,7 +48,7 @@ public class FloralSarcoid : Enemy
                     else
                     {
                         enemies[randomIndex].HitHandle(BlindAmbushDamage);
-                        enemies[randomIndex].ResetCasting();
+                        enemies[randomIndex].Stagger();
                     }
                     Debug.Log(randomIndex);
                 }

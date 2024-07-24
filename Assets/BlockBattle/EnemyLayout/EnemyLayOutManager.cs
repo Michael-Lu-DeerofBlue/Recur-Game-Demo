@@ -111,6 +111,42 @@ public class EnemyLayOutManager : MonoBehaviour
         }
     }
 
+    public void  RelayoutEnemies()
+    {
+        // Find all existing enemies in the scene
+        Enemy[] existingEnemies = FindObjectsOfType<Enemy>();
+        int enemyCount = existingEnemies.Length;
+
+        if (enemyCount > 0 && enemyCount <= enemyLayouts.Length)
+        {
+            // Get the layout corresponding to the number of enemies
+            GameObject selectedLayout = enemyLayouts[enemyCount - 1];
+            GameObject instantiatedLayout = Instantiate(selectedLayout, Vector3.zero, Quaternion.identity);
+
+            Transform[] childTransforms = instantiatedLayout.GetComponentsInChildren<Transform>();
+
+            // Iterate over each child transform
+            for (int i = 0; i < childTransforms.Length - 1 && i < existingEnemies.Length; i++)
+            {
+                Transform child = childTransforms[i + 1]; // Skip the root transform
+                Vector3 newPosition = child.localPosition; // Get the local position of the child
+                Vector3 newScale = child.localScale;
+
+                // Reposition and rescale the existing enemy
+                existingEnemies[i].transform.position = newPosition;
+                existingEnemies[i].transform.localScale = newScale;
+                existingEnemies[i].ReCreateEnemyUI();
+            }
+
+            // Destroy the instantiated layout as it was only needed for positioning
+            targetSelector.SelectLeftTopTarget();
+
+        }
+        else
+        {
+            Debug.LogError("The number of existing enemies is not within the valid range.");
+        }
+    }
     void Update()
     {
         // Update logic (if needed)

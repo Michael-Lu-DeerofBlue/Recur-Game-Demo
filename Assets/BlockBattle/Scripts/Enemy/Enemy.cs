@@ -38,7 +38,7 @@ public abstract class Enemy : MonoBehaviour
 
     //Enemy buff type:
     public bool Invincible = false;
-
+    public int StaggerReis = 0;
     public string[] CurrentSkillIcons;
     private TextMeshProUGUI EnemyName;
     private GameObject enemyUIInstance;
@@ -54,7 +54,7 @@ public abstract class Enemy : MonoBehaviour
 
     public string in3DName;
     public bool allDead;
-    public void Start()
+    public virtual void Start()
     {
         targetSelector = FindObjectOfType<TargetSelector>();
         heroInfo = FindObjectOfType<HeroInfo>();
@@ -151,6 +151,15 @@ public abstract class Enemy : MonoBehaviour
             Debug.LogError("BattleManager or EnemyUI prefab not assigned.");
         }
         DisplaySkillIcon();
+    }
+
+    public void ReCreateEnemyUI()
+    {
+        if(enemyUIInstance != null)
+        {
+            Destroy(enemyUIInstance);
+            CreateEnemyUI();
+        }
     }
    public void UpdateEnemyUI()
     {
@@ -261,10 +270,19 @@ public virtual void ExecuteSkill()
     {
     }
 
-    public virtual void ResetCasting()
+    public virtual void Stagger()
     {
-        // timetoExecuteTurn = skillcastingtime; view in child class
-        timer = SkillCastingTime;
+        if (StaggerReis== 0)
+        {
+            timer = SkillCastingTime;
+            GetNextMove();
+        }
+        else
+        {
+            StaggerReis--;
+        }
+
+
     }
 
     public virtual void DealAttackDamage(float Damage)
