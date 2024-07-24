@@ -52,8 +52,25 @@
 						<Action Name="" ID="{F1D8E47B-39FA-461C-9A6B-4F3E46731BC4}" ShortID="400872517">
 							<PropertyList>
 								<Property Name="ActionType" Type="int16" Value="3"/>
+								<Property Name="Delay" Type="Real64" Value="3"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.1"/>
 							</PropertyList>
 							<ReferenceList/>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayPerseusLoop" ID="{B0EC5C8C-6290-41F4-916E-FF4C84BAF600}">
+					<ChildrenList>
+						<Action Name="" ID="{5B0D230D-69CB-4F59-BDCF-F06BF03BCD94}" ShortID="388526431">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="22"/>
+								<Property Name="Delay" Type="Real64" Value="1"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Battle" ID="{0C1B3B58-4274-498B-A246-1F185218B4D7}" WorkUnitID="{24166522-8104-4DFA-9900-D1EDF4A82296}"/>
+								</Reference>
+							</ReferenceList>
 						</Action>
 					</ChildrenList>
 				</Event>
