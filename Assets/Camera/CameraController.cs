@@ -2,6 +2,7 @@ using Pathfinding;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
@@ -127,6 +128,11 @@ public class CameraController : MonoBehaviour
         if (count > 0)
         {
             LevelController.GetComponent<LevelController>().GoToBattle();
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            if (currentSceneName == "galleries")
+            {
+                LevelController.GetComponent<GalleryLevel>().SceneChange();
+            }
         }
         
     }

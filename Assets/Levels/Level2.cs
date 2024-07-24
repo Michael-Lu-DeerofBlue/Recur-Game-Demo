@@ -44,7 +44,6 @@ public class Level2 : LevelController
     public int hintsCurrentIndex;
     public TextMeshProUGUI hint;
     public bool reloaded;
-    public Flowchart flowchart;
     void Awake()
     {
         ES3.Save("MoveHP", 2);
@@ -158,19 +157,11 @@ public class Level2 : LevelController
 
     }
 
-    void ResetEnemyBackToPatrol(Transform target)
+    public void GoToGallery1()
     {
-        foreach (Transform enemy in enemies)
-        {
-            if (enemy.gameObject.activeSelf)
-            {
-                enemy.GetComponent<AIDestinationSetter>().enabled = false;
-                enemy.GetComponent<Patrol>().enabled = true;
-                enemy.GetComponent<AIPath>().maxSpeed = patrolSpeed;
-
-            }
-        }
+        flowchart.ExecuteBlock("GoToGallery");
     }
+
     public void ColdStart()
     {
         StartCoroutine(GraduallyChangeExposure());
