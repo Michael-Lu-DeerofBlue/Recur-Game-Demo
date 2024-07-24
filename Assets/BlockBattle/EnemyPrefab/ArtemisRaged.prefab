@@ -350,9 +350,8 @@ GameObject:
   - component: {fileID: 7868329382648246484}
   - component: {fileID: 3197008888474548069}
   - component: {fileID: 4566422462053010225}
-  - component: {fileID: 5485591135712041209}
   m_Layer: 0
-  m_Name: ArtemisNormal
+  m_Name: ArtemisRaged
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,57 +421,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5485591135712041209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4892679668077574771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c67e3b707f2a924d95d0e87084c50ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveFrequency: 4
-  moveAmplitude: 0.5
-  HP: 150
-  MaxHp: 150
-  SkillCastingTime: 0
-  DisplayName: artemis
-  enemyInfoText: {fileID: 2320016935802981217}
-  timer: 0
-  CastingSpeedRate: 1
-  NextSkillDamage: 0
-  heroInfo: {fileID: 0}
-  battleManager: {fileID: 0}
-  nextMove: 
-  isdead: 0
-  targetSelector: {fileID: 0}
-  SpendingSkillAnim: 0
-  soundManager: {fileID: 0}
-  FragilingNum: 0
-  PauseTime: 0
-  PauseCasting: 0
-  Invincible: 0
-  CurrentSkillIcons: []
-  CurrentIcon: {fileID: 0}
-  animator: {fileID: 0}
-  ShowingTip: 0
-  in3DName: 
-  allDead: 0
-  SummonenemyPrefabs:
-  - {fileID: -99989701976949654, guid: 28f053743fff5a84c86332d67defc521, type: 3}
-  attackDamage: 12
-  ChariotofGoldenDamage: 16
-  GoldenArrowsDamage: 12
-  attackWeight: 25
-  TakeAimWeight: 20
-  ChariotOfGoldenWeight: 30
-  CallOfTheWildWeight: 15
-  GoldenArrowsWeight: 10
-  attackCastingTime: 10
-  TakeAimCastingTime: 6
-  ChariotOfGoldenCastingTime: 12
-  CallOfTheWildCastingTime: 5
-  GoldenArrowsCastingTime: 20

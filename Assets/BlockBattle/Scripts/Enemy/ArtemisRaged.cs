@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ArtemisNormal : Enemy
+public class ArtemisRaged: Enemy
 {
-    public Enemy[] SummonenemyPrefabs ;
+    public Enemy[] SummonenemyPrefabs;
     public int attackDamage = 12;
-    public int ChariotofGoldenDamage = 16;
-    public int GoldenArrowsDamage = 8;
+    public int ChariotofGoldenDamage = 20;
+    public int GoldenArrowsDamage = 12;
 
     public int attackWeight = 25;
     public int TakeAimWeight = 20;
@@ -17,11 +17,12 @@ public class ArtemisNormal : Enemy
     public int CallOfTheWildWeight = 15;
     public int GoldenArrowsWeight = 10;
 
-    public int attackCastingTime = 10;
-    public int TakeAimCastingTime = 6;
-    public int ChariotOfGoldenCastingTime = 12;
-    public int CallOfTheWildCastingTime = 5;
-    public int GoldenArrowsCastingTime = 20;
+    public int attackCastingTime = 6;
+    public int TakeAimCastingTime = 3;
+    public int ChariotOfGoldenCastingTime = 8;
+    public int CallOfTheWildCastingTime = 2;
+    public int GoldenArrowsCastingTime = 12;
+
 
 
     private enum SkillType { Attack, TakeAim, ChariotOfGolden, CallOfTheWild, GoldenArrows }
@@ -42,7 +43,7 @@ public class ArtemisNormal : Enemy
                 Enemy[] allEnemies = FindObjectsOfType<Enemy>();
                 foreach (Enemy enemy in allEnemies)
                 {
-                    if (enemy.isdead ==false)
+                    if (enemy.isdead == false)
                     {
                         enemy.Heal(ChariotofGoldenDamage / 2);
                     }
@@ -50,6 +51,7 @@ public class ArtemisNormal : Enemy
                 break;
             case SkillType.CallOfTheWild:
                 CallofTheWind();
+                battleManager.SpeedUpCastingAllEnimes(20);
                 break;
             case SkillType.GoldenArrows:
                 Enemy[] Enemies = FindObjectsOfType<Enemy>();
@@ -80,7 +82,7 @@ public class ArtemisNormal : Enemy
         EnemyLayOutManager enemyLayOutManager = FindObjectOfType<EnemyLayOutManager>();
         enemyLayOutManager.RelayoutEnemies();
         Enemy[] alEnemies = FindObjectsOfType<Enemy>();
-        if (alEnemies.Length < 4)
+        if (alEnemies.Length < 8)
         {
             CallofTheWind();
         }
@@ -98,7 +100,7 @@ public class ArtemisNormal : Enemy
 
             float randomValue = Random.value;
             Enemy[] Enemies = FindObjectsOfType<Enemy>();
-            if (Enemies.Length >= 4)
+            if (Enemies.Length >= 8)
             {
                 CallOfTheWildProbability = 0;
             }
@@ -151,29 +153,29 @@ public class ArtemisNormal : Enemy
 
 
             float randomValue = Random.value;
-                if (randomValue < attackProbability)
-                {
-                    SkillCastingTime = attackCastingTime;  // Attack action
-                    nextSkill = SkillType.Attack;
-                    CurrentSkillIcons = new string[] { "Damage" };
-                    NextSkillDamage = attackDamage;
+            if (randomValue < attackProbability)
+            {
+                SkillCastingTime = attackCastingTime;  // Attack action
+                nextSkill = SkillType.Attack;
+                CurrentSkillIcons = new string[] { "Damage" };
+                NextSkillDamage = attackDamage;
 
-                }
-                else if (randomValue < attackProbability + TakeAimProbability)
-                {
-                    SkillCastingTime = TakeAimCastingTime;
-                    nextSkill = SkillType.TakeAim;
-                    CurrentSkillIcons = new string[] { "Debuff" };
+            }
+            else if (randomValue < attackProbability + TakeAimProbability)
+            {
+                SkillCastingTime = TakeAimCastingTime;
+                nextSkill = SkillType.TakeAim;
+                CurrentSkillIcons = new string[] { "Debuff" };
 
-                }
-                else
-                {
-                    SkillCastingTime = ChariotOfGoldenCastingTime;
-                    nextSkill = SkillType.ChariotOfGolden;
-                    CurrentSkillIcons = new string[] { "Damage", "Heal" };
+            }
+            else
+            {
+                SkillCastingTime = ChariotOfGoldenCastingTime;
+                nextSkill = SkillType.ChariotOfGolden;
+                CurrentSkillIcons = new string[] { "Damage", "Heal" };
 
-                }
-                nextMove = nextSkill.ToString();
+            }
+            nextMove = nextSkill.ToString();
         }
     }
 
@@ -181,7 +183,7 @@ public class ArtemisNormal : Enemy
     public override void HitHandle(float damage)
     {
         base.HitHandle(damage);
-        if (HP / MaxHp <= 0.5&& isdead==false)
+        if (HP / MaxHp <= 0.5 && isdead == false)
         {
             SkillCastingTime = CallOfTheWildCastingTime;
             nextSkill = SkillType.CallOfTheWild;
@@ -189,12 +191,10 @@ public class ArtemisNormal : Enemy
             nextMove = nextSkill.ToString();
         }
     }
-
     public override void Start()
     {
         base.Start();
         StaggerReis = 3;
-    }
-
+}
 }
 

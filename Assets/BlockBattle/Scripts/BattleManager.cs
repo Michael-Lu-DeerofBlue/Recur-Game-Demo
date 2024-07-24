@@ -170,7 +170,7 @@ public class BattleManager : MonoBehaviour
         
     }
 
-    public void ExcitAllEnemies(float duration)
+    public void SpeedUpCastingAllEnimes(float duration)
     {
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach (Enemy enemy in enemies)

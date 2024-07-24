@@ -32,7 +32,7 @@ public class deer : Enemy
                 AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f, attackDamage);
                 break;
             case SkillType.Charge:
-                battleManager.ExcitAllEnemies(20);
+                battleManager.SpeedUpCastingAllEnimes(20);
                 soundManager.PlaySfx("Deer_Charge");
                 break;
             case SkillType.GoldenAntler:
