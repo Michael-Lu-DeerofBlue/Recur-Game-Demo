@@ -44,7 +44,7 @@ public class Daedalus1 : Enemy
 
                 break;
             case SkillType.Thelabyrinth:
-                TwoDto3D.
+                //TwoDto3D.
                 break;
 
         }

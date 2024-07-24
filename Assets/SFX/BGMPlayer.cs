@@ -53,12 +53,6 @@ public class BGMPlayer : MonoBehaviour
         var setting = SettingsInitializer.Settings.GetFloat(id: volumeId);
         var volumeAdjuster = audioSource.GetComponent<BaseVolumeAdjuster>();
 
-        if (volumeAdjuster == null)
-        {
-            Debug.LogWarning("AudioSourceVolumeAdjuster component not found on the audio source.");
-            return;
-        }
-
         if (!setting.HasConnection())
         {
             connection = new AudioSourceVolumeConnection(InputRange, new AudioSource[] { audioSource });
@@ -74,7 +68,18 @@ public class BGMPlayer : MonoBehaviour
         }
 
         // Update volumeAdjuster when the setting changes
-        setting.OnValueChanged += (volume) => volumeAdjuster.UpdateVolume(volume);
+        setting.OnValueChanged += (volume) =>
+        {
+            if (volumeAdjuster != null)
+            {
+                volumeAdjuster.UpdateVolume(volume);
+            }
+            else
+            {
+                // Apply default volume adjustment of 1.0f
+                audioSource.volume = volume;
+            }
+        };
         setting.Apply();
     }
 }
