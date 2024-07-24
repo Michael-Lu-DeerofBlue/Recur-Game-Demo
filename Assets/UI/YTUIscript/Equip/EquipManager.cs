@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class EquipManager : MonoBehaviour
 {
+    public Canvas EquipCanvas;
     public Animator animator; // Reference to the Animator component
     public Button ActionBankButton; // Reference to the Consumable button
     public Button WeaponButton; // Reference to the Sticker button
@@ -112,8 +113,13 @@ public class EquipManager : MonoBehaviour
 
     IEnumerator EnableInputAfterDelay(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         canAcceptInput = true;
         SetToShow();
+    }
+
+    public void CloseCanvas()
+    {
+        EquipCanvas.gameObject.SetActive(false);
     }
 }

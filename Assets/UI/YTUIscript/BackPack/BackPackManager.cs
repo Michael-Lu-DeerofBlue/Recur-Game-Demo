@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class BackPackManager : MonoBehaviour
 {
+    public Canvas BackPackCanvas;
     public Animator animator; // Reference to the Animator component
     public Button ConsumableButton; // Reference to the Consumable button
     public Button StickerButton; // Reference to the Sticker button
@@ -182,5 +183,10 @@ public class BackPackManager : MonoBehaviour
         
         yield return new WaitForSecondsRealtime(delay);
         canAcceptInput = true; 
+    }
+
+    public void CloseCanvas()
+    {
+        BackPackCanvas.gameObject.SetActive(false);
     }
 }

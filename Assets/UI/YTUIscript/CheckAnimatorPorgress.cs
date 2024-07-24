@@ -11,6 +11,7 @@ public class CheckAnimationProgress : StateMachineBehaviour
         Canvas parentCanvas = animator.GetComponentInParent<Canvas>();
         if (parentCanvas != null)
         {
+            Debug.Log(parentCanvas);
             parentCanvas.gameObject.SetActive(false);
         }
         else
