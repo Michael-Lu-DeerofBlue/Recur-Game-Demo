@@ -67,6 +67,18 @@ public class BGMPlayer : MonoBehaviour
             }
         }
 
+        // Apply volume immediately
+        float currentVolume = setting.GetValue();
+        if (volumeAdjuster != null)
+        {
+            volumeAdjuster.UpdateVolume(currentVolume);
+        }
+        else
+        {
+            // Apply default volume adjustment of 1.0f
+            audioSource.volume = currentVolume;
+        }
+
         // Update volumeAdjuster when the setting changes
         setting.OnValueChanged += (volume) =>
         {
@@ -89,27 +101,3 @@ public enum AudioSourceType
     Effect,
     Music
 }
-
-
-    // private void FixedUpdate()
-    // {
-    //     var settings = SettingsInitializer.Settings;
-    //     if (isEffect)
-    //     {
-
-    //     }
-    //     else if (isMusic)
-    //     {
-    //         SettingFloat volume = settings.GetFloat(id: "audioMusicVolume");
-    //         audioSource.volume = volume.GetFloatValue()/100f;
-    //     }
-    // }
-
-    // public void ChangeAudioClip(AudioClip newClip)
-    // {
-    //     if (audioSource != null)
-    //     {
-    //         audioSource.clip = newClip;
-    //         audioSource.Play();
-    //     }
-    // }
