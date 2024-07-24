@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{7C0C8561-59F3-44A0-87E7-A14F7ABAF7E9}" SchemaVersion="103">
 	<Events>
-		<WorkUnit Name="Default Work Unit" ID="{7C0C8561-59F3-44A0-87E7-A14F7ABAF7E9}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{7C0C8561-59F3-44A0-87E7-A14F7ABAF7E9}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="PlayCorridorLoop" ID="{81842387-4655-429C-9A09-29CE8928A4F0}">
+					<ChildrenList>
+						<Action Name="" ID="{45402AEA-E761-4458-B1E5-A0A5222A0CE0}" ShortID="902327863">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList/>
+						</Action>
+						<Action Name="" ID="{211B352B-9C0A-4B6B-9CAF-F93ABC453E8E}" ShortID="933366065">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Corridor" ID="{B1AA8A31-08B7-4D09-BE5D-E9EE505007EF}" WorkUnitID="{DB97CCAC-2114-432F-8704-88D8D0369302}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PlayTutorialLoop" ID="{69D9A2D4-A7B7-45AA-AF87-7F26535B5771}">
+					<ChildrenList>
+						<Action Name="" ID="{6CB1D319-FDEE-4605-8511-C267A182833E}" ShortID="106293743">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList/>
+						</Action>
+						<Action Name="" ID="{1858C97C-B327-44C2-9FE0-7BE417A349E4}" ShortID="120340203">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Perseus" ID="{13463227-AF47-4AD1-8329-D57B345EA958}" WorkUnitID="{DB97CCAC-2114-432F-8704-88D8D0369302}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+						<Action Name="" ID="{8CB7BB82-776B-456A-8C89-F26E2F2C328B}" ShortID="467504698">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="22"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="Battle" ID="{0C1B3B58-4274-498B-A246-1F185218B4D7}" WorkUnitID="{24166522-8104-4DFA-9900-D1EDF4A82296}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="PerseusClear" ID="{C5C3B472-4841-417A-A7C0-2B366F63E2A0}">
+					<ChildrenList>
+						<Action Name="" ID="{F1D8E47B-39FA-461C-9A6B-4F3E46731BC4}" ShortID="400872517">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="3"/>
+							</PropertyList>
+							<ReferenceList/>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
 	</Events>
 </WwiseDocument>

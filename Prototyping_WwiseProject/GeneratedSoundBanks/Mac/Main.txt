@@ -1,0 +1,24 @@
+Event	ID	Name			Wwise Object Path	Notes
+	137349311	PlayTutorialLoop			\Default Work Unit\PlayTutorialLoop	
+	583736263	PlayCorridorLoop			\Default Work Unit\PlayCorridorLoop	
+	2507326437	PerseusClear			\Default Work Unit\PerseusClear	
+
+State Group	ID	Name			Wwise Object Path	Notes
+	324451396	Enemy_Battle			\Default Work Unit\Enemy_Battle	
+
+State	ID	Name	State Group			Notes
+	748895195	None	Enemy_Battle			
+	2937832959	Battle	Enemy_Battle			
+	3512553307	Non_Battle	Enemy_Battle			
+
+Custom State	ID	Name	State Group	Owner		Notes
+	97639853	Non_Battle	Enemy_Battle	\Interactive Music Hierarchy\Default Work Unit\Recur\CentralMeditationRoom_Scene\Perseus\1stPerseusLoop\Battle		
+	209055139	Battle	Enemy_Battle	\Interactive Music Hierarchy\Default Work Unit\Recur\CentralMeditationRoom_Scene\Perseus\Tutorial&Perseus_Loop\Non-battle		
+	594626748	Battle	Enemy_Battle	\Interactive Music Hierarchy\Default Work Unit\Recur\CentralMeditationRoom_Scene\Perseus\1stPerseusLoop\Non-Battle		
+	773619303	Non_Battle	Enemy_Battle	\Interactive Music Hierarchy\Default Work Unit\Recur\CentralMeditationRoom_Scene\Perseus\Tutorial&Perseus_Loop\Battle		
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	125674470	Battle	C:\Users\Frenzii\Desktop\Prototyping\Prototyping_WwiseProject\.cache\Mac\SFX\Perseus_D79FB2B7.wem		\Interactive Music Hierarchy\Default Work Unit\Recur\CentralMeditationRoom_Scene\Perseus\Tutorial&Perseus_Loop\Battle		24704064
+	623615047	CorridorLoop	C:\Users\Frenzii\Desktop\Prototyping\Prototyping_WwiseProject\.cache\Mac\SFX\Meditation_D79FB2B7.wem		\Interactive Music Hierarchy\Default Work Unit\Recur\CentralMeditationRoom_Scene\Corridor\CorridorLoop\CorridorLoop		37807032
+	993500847	Non-battle	C:\Users\Frenzii\Desktop\Prototyping\Prototyping_WwiseProject\.cache\Mac\SFX\Perseus_out_D79FB2B7.wem		\Interactive Music Hierarchy\Default Work Unit\Recur\CentralMeditationRoom_Scene\Perseus\Tutorial&Perseus_Loop\Non-battle		24704064
+

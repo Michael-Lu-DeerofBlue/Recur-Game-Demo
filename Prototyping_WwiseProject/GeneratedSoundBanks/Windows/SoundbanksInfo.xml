@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="140">
+	<RootPaths>
+		<ProjectRoot>C:\Users\Frenzii\Desktop\Prototyping\Prototyping_WwiseProject\</ProjectRoot>
+		<SourceFilesRoot>C:\Users\Frenzii\Desktop\Prototyping\Prototyping_WwiseProject\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>C:\Users\Frenzii\Desktop\Prototyping\Prototyping_WwiseProject\GeneratedSoundBanks\Windows\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>C:\Users\Frenzii\Desktop\Prototyping\Prototyping_WwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles/>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Language="SFX" Hash="422449487">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+		</SoundBank>
+		<SoundBank Id="3161908922" Language="SFX" Hash="3177884012">
+			<ObjectPath>\SoundBanks\Default Work Unit\Main</ObjectPath>
+			<ShortName>Main</ShortName>
+			<Path>Main.bnk</Path>
+			<IncludedEvents>
+				<Event Id="2507326437" Name="PerseusClear" ObjectPath="\Events\Default Work Unit\PerseusClear" MaxAttenuation="0." DurationType="OneShot" DurationMin="0." DurationMax="0."/>
+				<Event Id="583736263" Name="PlayCorridorLoop" ObjectPath="\Events\Default Work Unit\PlayCorridorLoop" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="623615047" Language="SFX">
+							<ShortName>Meditation.wav</ShortName>
+							<Path>SFX\Meditation_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="137349311" Name="PlayTutorialLoop" ObjectPath="\Events\Default Work Unit\PlayTutorialLoop" DurationType="Infinite">
+					<IncludedMemoryFiles>
+						<File Id="125674470" Language="SFX">
+							<ShortName>Perseus.wav</ShortName>
+							<Path>SFX\Perseus_D79FB2B7.wem</Path>
+						</File>
+						<File Id="993500847" Language="SFX">
+							<ShortName>Perseus_out.wav</ShortName>
+							<Path>SFX\Perseus_out_D79FB2B7.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+					<ActionSetState>
+						<ActionSetStateEntry Id="2937832959" Name="Battle" ObjectPath="\States\Default Work Unit\Enemy_Battle\Battle"/>
+					</ActionSetState>
+				</Event>
+			</IncludedEvents>
+			<StateGroups>
+				<StateGroup Id="2937832959" Name="Battle" ObjectPath="\States\Default Work Unit\Enemy_Battle\Battle" GUID="{0C1B3B58-4274-498B-A246-1F185218B4D7}">
+					<States/>
+				</StateGroup>
+			</StateGroups>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>

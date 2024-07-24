@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+
     public InventoryManager CunDang;
     public Board board { get; private set; }
     public TetrominoData data { get; private set; }
@@ -79,7 +80,7 @@ public class Piece : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.S))
         {
-            if (Move(Vector2Int.down))
+            if (Move(Vector2Int.down!))
             {
                 stepTime = Time.time + stepDelay;
             }
@@ -167,7 +168,7 @@ public class Piece : MonoBehaviour
                     // If out of bounds vertically, clear the active piece and spawn a new one
                     board.ClearBlock(this);
                     board.SpawnPiece();
-                    CunDang.AddHealth(OutOfBoundDamage);
+                   CunDang.AddHealth(OutOfBoundDamage);
                 }
                 else
                 {
