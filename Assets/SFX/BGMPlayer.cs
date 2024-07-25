@@ -51,7 +51,7 @@ public class BGMPlayer : MonoBehaviour
     private void ConnectVolume(string volumeId, AudioSource audioSource, ref AudioSourceVolumeConnection connection)
     {
         var setting = SettingsInitializer.Settings.GetFloat(id: volumeId);
-        var volumeAdjuster = audioSource.GetComponent<BaseVolumeAdjuster>();
+        var baseVolumeAdjuster = audioSource.GetComponent<BaseVolumeAdjuster>();
 
         if (!setting.HasConnection())
         {
@@ -69,30 +69,25 @@ public class BGMPlayer : MonoBehaviour
 
         // Apply volume immediately
         float currentVolume = setting.GetValue();
-        if (volumeAdjuster != null)
-        {
-            volumeAdjuster.UpdateVolume(currentVolume);
-        }
-        else
-        {
-            // Apply default volume adjustment of 1.0f
-            audioSource.volume = currentVolume;
-        }
+        currentVolume = ApplyVolumeAdjusters(currentVolume, baseVolumeAdjuster);
+        audioSource.volume = currentVolume;
 
         // Update volumeAdjuster when the setting changes
         setting.OnValueChanged += (volume) =>
         {
-            if (volumeAdjuster != null)
-            {
-                volumeAdjuster.UpdateVolume(volume);
-            }
-            else
-            {
-                // Apply default volume adjustment of 1.0f
-                audioSource.volume = volume;
-            }
+            volume = ApplyVolumeAdjusters(volume, baseVolumeAdjuster);
+            audioSource.volume = volume;
         };
         setting.Apply();
+    }
+
+    private float ApplyVolumeAdjusters(float volume, BaseVolumeAdjuster baseVolumeAdjuster)
+    {
+        if (baseVolumeAdjuster != null)
+        {
+            volume *= baseVolumeAdjuster.baseVolume;
+        }
+        return volume;
     }
 }
 

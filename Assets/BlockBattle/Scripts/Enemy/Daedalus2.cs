@@ -7,6 +7,7 @@ using UnityEngine;
 public class Daedalus2 : Enemy
 {
     public Sprite WaxSprite;
+    
     public int attackDamage = 8;
     public int SwapDamage = 12;
     public int MazeShitDamage = 10;
@@ -230,5 +231,10 @@ public class Daedalus2 : Enemy
         StaggerReis = 3;
         SelectionToolUI selectionToolUI = FindObjectOfType<SelectionToolUI>();
         selectionToolUI.StartSingleBlockMode();
+    }
+    public override void deadhandle()
+    {
+        base.deadhandle();
+        twoDto3D.TheLabyrinth();
     }
 }

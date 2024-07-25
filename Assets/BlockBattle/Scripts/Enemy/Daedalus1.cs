@@ -183,5 +183,7 @@ public class Daedalus1 : Enemy
         base.Start();
         StaggerReis = 3;
     }
+
+
 }
 
