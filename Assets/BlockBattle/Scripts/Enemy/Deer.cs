@@ -46,6 +46,17 @@ public class deer : Enemy
                 break;
         }
     }
+    public void ChargeSFX()
+    {
+        soundManager.PlaySfx("Deer_Charge");
+
+    }
+
+    public void GoldenAntlerSFX()
+    {
+        soundManager.PlaySfx("Deer_Golden");
+
+    }
 
     public override void GetNextMove()
     {
