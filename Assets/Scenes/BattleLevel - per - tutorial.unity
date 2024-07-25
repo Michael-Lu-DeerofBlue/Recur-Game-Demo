@@ -3288,6 +3288,7 @@ GameObject:
   - component: {fileID: 519420034}
   - component: {fileID: 519420036}
   - component: {fileID: 519420035}
+  - component: {fileID: 519420037}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3455,6 +3456,14 @@ MonoBehaviour:
     positionOffset: {x: 0, y: 0, z: 0}
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
+--- !u!81 &519420037
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
 --- !u!1 &527967826
 GameObject:
   m_ObjectHideFlags: 0
@@ -4112,7 +4121,10 @@ MonoBehaviour:
   HeadLessBack: {fileID: -413625451543686586, guid: 1fd9f3d9c1c987e478fd741459322f60, type: 3}
   HeadLessFront: {fileID: -7529388769974055304, guid: 11ae0891cd880844794e94fd043e31b9, type: 3}
   Lion: {fileID: 648749719434240450, guid: 3710278cc8af019448984fb4c4995cf8, type: 3}
+  Deer: {fileID: 0}
   MockingBird: {fileID: 8200042195047804622, guid: ce790b5668f485e43836602fc7cf9542, type: 3}
+  Floral: {fileID: 0}
+  Artemis: {fileID: 0}
   Mondrinion:
   - {fileID: 3409838057338128444, guid: 7061efbc9c08b99459ed4bca027cc598, type: 3}
   - {fileID: 3409838057338128444, guid: ca09a1c674ed236458eb1c2efce2b11b, type: 3}
@@ -6377,6 +6389,7 @@ MonoBehaviour:
   Translator: {fileID: 1169557501}
   previousGeneratedObject: []
   previousGeneratedStorageObject: {fileID: 0}
+  singleBlockMode: 0
 --- !u!4 &1010812111
 Transform:
   m_ObjectHideFlags: 0
@@ -9250,30 +9263,6 @@ MonoBehaviour:
   countText: {fileID: 0}
   flowchart: {fileID: 1392204790}
   perTutorialManager: {fileID: 1400183154}
-  PlayCorridorLoop:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 484b3a5e92a8fa0498c2895f43bbe17c, type: 2}
-  PlayTutorialLoop:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 3dcc931432b33214683652920ec1057e, type: 2}
-  Non_Battle:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: bf4809193e561e8479ff2796233c459e, type: 2}
-  Battle:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 9fb6517639857b040af3214cb0cd2fa7, type: 2}
-  PerseusClear:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: f1e659cf880b03d489fbe630811a5033, type: 2}
 --- !u!4 &1378413686
 Transform:
   m_ObjectHideFlags: 0
@@ -9901,12 +9890,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437804db31f645a42b3a597dbe495f48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Battle:
-    idInternal: 0
-    valueGuidInternal: 
-    groupIdInternal: 0
-    groupGuidInternal: 
-    WwiseObjectReference: {fileID: 0}
 --- !u!1 &1413046380
 GameObject:
   m_ObjectHideFlags: 0
@@ -13964,6 +13947,8 @@ MonoBehaviour:
   Hp: {fileID: 1938741492}
   battleManager: {fileID: 0}
   parryCount: 0
+  FragdNum: 0
+  OverHeatNum: 0
   selectedEnemy: {fileID: 0}
   SkillIcon:
   - {fileID: -509071146, guid: 11756b69de7c5e240a2b2f2ad0c38bfd, type: 3}

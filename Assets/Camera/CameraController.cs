@@ -144,7 +144,7 @@ public class CameraController : MonoBehaviour
             if (currentSceneName != "Air Island Jungle")
             {
                 LevelController.GetComponent<LevelController>().GoToBattle();
-                if (currentSceneName == "galleries")
+                if (currentSceneName == "gallery1" || currentSceneName == "gallery2")
                 {
                     LevelController.GetComponent<GalleryLevel>().SceneChange();
                 }

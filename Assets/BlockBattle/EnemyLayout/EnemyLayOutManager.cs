@@ -18,6 +18,7 @@ public class EnemyLayOutManager : MonoBehaviour
     public Enemy MockingBird;
     public Enemy Floral;
     public Enemy Artemis;
+    public Enemy Deadalus;
     public Enemy[] Mondrinion;
     private int enemyNum;
 
@@ -79,6 +80,10 @@ public class EnemyLayOutManager : MonoBehaviour
                 case "Artemis":
                     enemy.GetComponent<Enemy>().in3DName = kvp.Key;
                     enemy = Artemis;
+                    break;
+                case "Deadalus":
+                    enemy.GetComponent<Enemy>().in3DName = kvp.Key;
+                    enemy = Deadalus;
                     break;
                 case "Mondrinion":
                     enemy.GetComponent<Enemy>().in3DName = kvp.Key;
