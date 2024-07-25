@@ -35,9 +35,11 @@ public class ArtemisNormal : Enemy
                 AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f, attackDamage);
                 break;
             case SkillType.TakeAim:
+                soundManager.PlaySfx("Artemis_TakeAim");
                 battleManager.FragilePlayer(1);
                 break;
             case SkillType.ChariotOfGolden:
+                soundManager.PlaySfx("Artemis_Chariot");
                 DealAttackDamage(ChariotofGoldenDamage);
                 Enemy[] allEnemies = FindObjectsOfType<Enemy>();
                 foreach (Enemy enemy in allEnemies)
@@ -49,9 +51,11 @@ public class ArtemisNormal : Enemy
                 }
                 break;
             case SkillType.CallOfTheWild:
+                soundManager.PlaySfx("Artemis_Call");
                 CallofTheWind();
                 break;
             case SkillType.GoldenArrows:
+                soundManager.PlaySfx("Artemis_Arrow");
                 Enemy[] Enemies = FindObjectsOfType<Enemy>();
                 List<Enemy> existingEnemiesList = new List<Enemy>(Enemies);
                 existingEnemiesList.Remove(this);
