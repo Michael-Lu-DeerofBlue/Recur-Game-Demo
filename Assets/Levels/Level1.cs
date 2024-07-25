@@ -11,6 +11,8 @@ using UnityEngine.Rendering.Universal;
 
 public class Level1 : LevelController
 {
+    public Flowchart gameFlowchart;
+    public Flowchart BGMFlowchart;
     public GameObject Player;
     public Button continueButton;
     public GameObject openingMenu;
@@ -117,8 +119,8 @@ public class Level1 : LevelController
         ES3.Save("Stickers", StickersInventory);
         ES3.Save("StickerData", stickerData);
         openingMenu.SetActive(false);
-        flowchart.ExecuteBlock("CameraRotate");
-        flowchart.ExecuteBlock("CameraDrop");
+        gameFlowchart.ExecuteBlock("CameraRotate");
+        gameFlowchart.ExecuteBlock("CameraDrop");
         //Start to play the main bgm
     }
 
@@ -138,9 +140,9 @@ public class Level1 : LevelController
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         openingMenu.SetActive(false);
-        flowchart.ExecuteBlock("CameraRotate");
-        flowchart.ExecuteBlock("CameraDrop");
-        flowchart.ExecuteBlock("ContinueWhiteScreen");
+        gameFlowchart.ExecuteBlock("CameraRotate");
+        gameFlowchart.ExecuteBlock("CameraDrop");
+        gameFlowchart.ExecuteBlock("ContinueWhiteScreen");
     }
 
     public void StartPrologue()
@@ -160,11 +162,11 @@ public class Level1 : LevelController
         JudgeLanguage();
         DialogueManager.StartConversation(conversationName[2] + "_" + language);
         Player.GetComponent<PlayerController>().movementSpeed = 0;
-        flowchart.ExecuteBlock("StunAndMove");
+        gameFlowchart.ExecuteBlock("StunAndMove");
         ES3.Save("First Combat", true);
         ThreeDTo2DData.ThreeDScene = "CentralMeditationRoom";
         Player.GetComponent<PlayerController>().Save();
-        //change to the tutorial bgm
+        BGMFlowchart.ExecuteBlock("TutorialMusicLoop"); //start bgm loop
     }
 
     public void Sentence3()
@@ -203,7 +205,7 @@ public class Level1 : LevelController
         {
             Player.transform.rotation = ES3.Load<Quaternion>("InLevelPlayerRotation");
         }
-        flowchart.ExecuteBlock("NoWhiteScreen");
+        gameFlowchart.ExecuteBlock("NoWhiteScreen");
         Sentence3();
 
     }
@@ -235,7 +237,7 @@ public class Level1 : LevelController
         {
             conversationTracker[0] = true;
             airWall.SetActive(false);
-            flowchart.ExecuteBlock("FenceDown");
+            gameFlowchart.ExecuteBlock("FenceDown");
         }
         else if (!conversationTracker[1])
         {
@@ -256,7 +258,7 @@ public class Level1 : LevelController
             ES3.Save("Gadgets", true);
             convoThreeDone = true;
             JudgeLanguage();
-            string hintText = "ÓÃTAB´ò¿ªÑ¡Ïî¿¨";
+            string hintText = "ï¿½ï¿½TABï¿½ï¿½Ñ¡ï¿½î¿¨";
             if (language == "en") {
                 hintText = "use Tab to open your pilot hatch";
             }
@@ -267,7 +269,7 @@ public class Level1 : LevelController
             conversationTracker[4] = true;
             Player.GetComponent<GadgetsTool>().Camera = true;
             JudgeLanguage();
-            string hintText = "ÓÃE½øÈëÉãÓ°×´Ì¬£¬×ó¼üÅÄÉãµÐÈË£¬½øÈëÕ½¶·";
+            string hintText = "ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½";
             if (language == "en")
             {
                 hintText = "use E to enter camera mode, left click to photo and combat the enemy";

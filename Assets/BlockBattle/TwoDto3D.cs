@@ -11,7 +11,8 @@ public class TwoDto3D : MonoBehaviour
     private Enemy[]enemies;
     public bool Victory;
     private Dictionary<string, int> inventory = new Dictionary<string, int>();
-    public Flowchart flowchart;
+    public Flowchart gameFlowchart;
+    public Flowchart BGMFlowchart;
     public static List<string> ToThreeEnemies;
     private SoundManager soundManager;
     public static bool win;
@@ -59,7 +60,7 @@ public class TwoDto3D : MonoBehaviour
 
     public void BackToLevel()
     {
-        flowchart.ExecuteBlock("WhiteScreen");
+        gameFlowchart.ExecuteBlock("WhiteScreen");
         StartCoroutine(LoadBattle());
     }
 
@@ -79,6 +80,7 @@ public class TwoDto3D : MonoBehaviour
             }
             else
             {
+                BGMFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
                 ThreeDTo2DData.ThreeDScene = null;
                 SceneManager.LoadScene("Church_with_code");
             }

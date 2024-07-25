@@ -16,7 +16,8 @@ public class HintController : MonoBehaviour
     public string language;
     public string conversationName;
     public TextMeshPro countText;
-    public Flowchart flowchart;
+    public Flowchart gameFlowchart;
+    public Flowchart BGMFlowchart;
     public GameObject perTutorialManager;
     void Start()
     {
@@ -44,7 +45,8 @@ public class HintController : MonoBehaviour
         {
             JudgeLanguage();
             DialogueManager.StartConversation(conversationName + "_" + language);
-            flowchart.ExecuteBlock("WhiteScreen");
+            BGMFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
+            gameFlowchart.ExecuteBlock("WhiteScreen");
         }
 
         void JudgeLanguage()
@@ -70,7 +72,7 @@ public class HintController : MonoBehaviour
 
         public void WaitAndSwitch()
         {
-            flowchart.ExecuteBlock("WaitAndSwitch");
+            gameFlowchart.ExecuteBlock("WaitAndSwitch");
         }
 
 
@@ -93,7 +95,7 @@ public class HintController : MonoBehaviour
                     if (currentIndex == 2)
                     {
                         perTutorialManager.GetComponent<PerseusTutorial>().Resume();
-                        flowchart.ExecuteBlock("WaitAndPause");
+                        gameFlowchart.ExecuteBlock("WaitAndPause");
                     }
                     // Enable the next game object
                     gameObjects[currentIndex].SetActive(true);
