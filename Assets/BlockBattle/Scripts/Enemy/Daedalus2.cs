@@ -74,8 +74,17 @@ public class Daedalus2 : Enemy
     public void KindledStrike()
     {
         battleManager.KindledStrike(KindledStrikeDamage, KindledStrikeEachCubeDamage);
+        DealAttackDamage(KindledStrikeDamage);
+        animator.Play("KindledStrike");
+
 
     }
+
+    public void KindledStrikeSFX2()
+    {
+        soundManager.PlaySfx("Daedalus_KindleStrike_Animation");
+    }
+
     public void WaxSpray()
     {
 
@@ -236,6 +245,7 @@ public class Daedalus2 : Enemy
         StaggerReis = 3;
         SelectionToolUI selectionToolUI = FindObjectOfType<SelectionToolUI>();
         selectionToolUI.StartSingleBlockMode();
+        KindledStrike();
     }
     public override void deadhandle()
     {
