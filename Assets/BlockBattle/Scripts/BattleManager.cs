@@ -102,15 +102,6 @@ public class BattleManager : MonoBehaviour
                     break;
                 }
             }
-
-            if (index != -1)
-            {
-                Debug.Log($"Color found at index: {index}" + "clearNumber: " + clearNumber);
-            }
-            else
-            {
-                Debug.Log("Color not found." + Colortofind);
-            }
         }
         if (index > 7)
         {
