@@ -6,6 +6,7 @@ public class GalleryLevel : LevelController
 {
     public GameObject Player;
     public Transform[] enemies;
+    public Transform point;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +59,26 @@ public class GalleryLevel : LevelController
     {
         flowchart.ExecuteBlock("GoToJungle");
     }
+    public void GoToDeadalus()
+    {
+        ThreeDTo2DData.dataDictionary = new Dictionary<string, bool>() { { "Deadalus", false } };
+        GoToBattle();
+    }
+
+    public void GoToVertical()
+    {
+        Player.GetComponent<PlayerController>().enabled = false;
+        Player.GetComponent<WToMoveUp>().enabled = true;
+        flowchart.ExecuteBlock("GoToVertical");
+        StartCoroutine(CameraMoveUp());
+    }
+
+    private IEnumerator CameraMoveUp()
+    {
+        // Wait for 0.5 seconds
+        yield return new WaitForSeconds(0.6f);
+        Player.transform.position = point.position;
+    }
 
     public void SceneChange()
     {
@@ -66,6 +87,7 @@ public class GalleryLevel : LevelController
 
     public void Save()
     {
+        Debug.Log("hee");
         Player.GetComponent<PlayerController>().Save();
 
         //Enemy
