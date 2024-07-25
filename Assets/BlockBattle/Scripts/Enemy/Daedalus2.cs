@@ -52,7 +52,7 @@ public class Daedalus2 : Enemy
                 break;
             case SkillType.MazeShift:
                 soundManager.PlaySfx("Daedalus_Maze");
-                Debug.Log("Will add with the start fill line with 1 block lost functions");
+                BlockManager.AddUselessLine();
                 break;
             case SkillType.Rekindle:
                 soundManager.PlaySfx("Daedalus_Rekindle");
@@ -264,10 +264,18 @@ public class Daedalus2 : Enemy
         StaggerReis = 3;
         SelectionToolUI selectionToolUI = FindObjectOfType<SelectionToolUI>();
         selectionToolUI.StartSingleBlockMode();
+        BlockManager.AddUselessLine();
+        BlockManager.AddUselessLine();
+        BlockManager.AddUselessLine();
+        BlockManager.AddUselessLine();
+        BlockManager.AddUselessLine();
+
+
     }
     public override void deadhandle()
     {
         base.deadhandle();
         twoDto3D.TheLabyrinth();
+        
     }
 }

@@ -14,7 +14,7 @@ public class BlockManager : MonoBehaviour
     public static int width = 12;
     public static int extendedWidth = 17; // Extended width to display blocks moved to the right side
     public static Transform[,] grid = new Transform[extendedWidth, height];
-    private SpawnBlock spawnblock;
+    private static SpawnBlock spawnblock;
     private BattleManager battleManager;
     public GameObject ghostBlock;
     public int id; //used to get a id for the block to check for homogenousty
@@ -29,7 +29,8 @@ public class BlockManager : MonoBehaviour
     private int Shapeindex;
     private bool isClearingRightSideBlocks = false;
     private SoundManager soundManager;
-
+    public GameObject uselessBlock;
+    public static GameObject uselessblockStatic;
     void Start()
     {
         twoDto3D = FindObjectOfType<TwoDto3D>();
@@ -46,6 +47,7 @@ public class BlockManager : MonoBehaviour
 
 
     }
+
     public void DropSpeedDecrese()
     {
         previousTime = previousTime * 1.2f;
@@ -154,7 +156,12 @@ public class BlockManager : MonoBehaviour
                 
                 previousTime = Time.time;
             }
-        }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            { 
+                AddUselessLine();
+            }
+            }
 
     }
 
@@ -350,19 +357,23 @@ public class BlockManager : MonoBehaviour
         int startX = extendedWidth - 1; // Display on the right side
         int startY = height - 1;
 
-        
         List<Transform> blocks = new List<Transform>();
         for (int j = 0; j < width; j++)
         {
             if (grid[j, i] != null)
             {
                 Transform block = grid[j, i];
-                blocks.Add(block);
-                grid[j, i] = null;
+                if (block.gameObject.CompareTag("UselessBlock"))
+                {
+                    Destroy(block.gameObject);
+                }
+                else
+                {
+                    blocks.Add(block);
+                    grid[j, i] = null;
+                }
             }
         }
-
-
 
         for (int k = 0; k < blocks.Count; k++)
         {
@@ -694,5 +705,43 @@ public class BlockManager : MonoBehaviour
                 floralSarcoid.OneSecFasterWhileBlockRota();
             }
         }
+    }
+
+    public static void AddUselessLine()
+    {
+        GameObject uselessblockInstance= GameObject.FindWithTag("UselessBlockExample");
+        uselessblockStatic = uselessblockInstance;
+        int missingIndex = Random.Range(0, width);
+
+
+        for (int y = height - 2; y >= 0; y--)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                if (grid[x, y] != null)
+                {
+                    grid[x, y + 1] = grid[x, y];
+                    grid[x, y] = null;
+                    grid[x, y + 1].position += new Vector3(0, 1, 0);
+                }
+            }
+        }
+
+        for (int x = 0; x < width; x++)
+        {
+            if (x != missingIndex)
+            {
+                GameObject newBlock = Instantiate(uselessblockStatic, new Vector3(x, -1, 0), Quaternion.identity);
+                newBlock.transform.position = new Vector3(x, 0, 0);
+                newBlock.transform.localPosition = new Vector3(newBlock.transform.localPosition.x-0.38f, -0.52f, 0);
+                SpriteRenderer spriteRenderer = newBlock.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.sortingOrder = 10;
+                }
+                grid[x, 0] = newBlock.transform;
+            }
+        }
+ 
     }
 }
