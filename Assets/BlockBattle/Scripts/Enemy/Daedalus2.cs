@@ -32,6 +32,7 @@ public class Daedalus2 : Enemy
     public float WaxSprayCastingTime = 12;
 
     public int RekindledNum = 0;
+    public bool onceKind = false;
 
 
 
@@ -242,13 +243,27 @@ public class Daedalus2 : Enemy
         }
 
     }
+
+    public override void HitHandle(float damage)
+    {
+        base.HitHandle(damage);
+        if (onceKind == false)
+        {
+            if (HP / MaxHp <= 1 / 2)
+            {
+                SkillCastingTime = RekindleCastingTime;
+                nextSkill = SkillType.Rekindle;
+                CurrentSkillIcons = new string[] { "buff"};
+                onceKind = true;
+            }
+        }
+    }
     public override void Start()
     {
         base.Start();
         StaggerReis = 3;
         SelectionToolUI selectionToolUI = FindObjectOfType<SelectionToolUI>();
         selectionToolUI.StartSingleBlockMode();
-        KindledStrike();
     }
     public override void deadhandle()
     {
