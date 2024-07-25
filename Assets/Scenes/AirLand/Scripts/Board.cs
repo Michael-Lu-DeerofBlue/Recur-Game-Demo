@@ -32,6 +32,8 @@ public class Board : MonoBehaviour
     public float xOffset;
     public float yOffset;
     public float zOffset;
+
+    public GameObject hintManager;
     public RectInt Bounds
     {
         get
@@ -84,7 +86,15 @@ public class Board : MonoBehaviour
     }
 
 
-    // Load the tilemap data
+    private void Start()
+    {
+        if (Level3.firstTimeEnterBoard)
+        {
+            Level3.firstTimeEnterBoard = false;
+            levelController.GetComponent<Level3>().Sentence2();
+            hintManager.SetActive(true);
+        }
+    }
 
 
     private void Exit(bool filled)
@@ -127,7 +137,7 @@ public class Board : MonoBehaviour
                 outputBlocksForBridge.Add(worldPos);
             }
         }
-
+        hintManager.SetActive(false);
         ClearBlock(activePiece);
         levelController.GetComponent<Level3>().BridgeCubePositions = outputBlocksForBridge;
         levelController.GetComponent<Level3>().ExitBoard();

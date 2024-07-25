@@ -39,8 +39,15 @@ public class BackPackManager : MonoBehaviour
     {
         // Add listeners to the buttons
         buttons = new Button[] { ConsumableButton, StickerButton, ImportantButton };
-        currentIndex = 0; 
+        currentIndex = 0;
+        
     }
+
+    private void OnEnable()
+    {
+        RefreshTable();
+    }
+
     public void OnConsumableButtonClick()
     {
         if (currentIndex != 0)

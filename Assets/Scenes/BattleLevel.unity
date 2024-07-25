@@ -1531,7 +1531,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: d9ad9ba906ed7864e846a7b4d7c3c4a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0897044d7de665d4eaeadfa57bb3630e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1717,8 +1717,7 @@ MonoBehaviour:
   - {fileID: 2761774230493300031, guid: 11f7197c0a7414345a2070e0df404c59, type: 3}
   - {fileID: 7975870270994041676, guid: 76653176a7be95c47934875287313069, type: 3}
   - {fileID: 1308384383677156122, guid: be262d8724c9dc749a0487eb019b7462, type: 3}
-  enemyPrefabs:
-  - {fileID: 641082186436374230, guid: a2771537df078d3419455235daae0d40, type: 3}
+  enemyPrefabs: []
   targetSelector: {fileID: 0}
   Perseus: {fileID: 9096006732663665390, guid: 9346f2f107391c74e9a9704d3cd6e9c7, type: 3}
   HeadLessBack: {fileID: -413625451543686586, guid: 1fd9f3d9c1c987e478fd741459322f60, type: 3}
@@ -4568,7 +4567,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Victory: 0
-  flowchart: {fileID: 1392204790}
+  gameFlowchart: {fileID: 1392204790}
+  BGMFlowchart: {fileID: 0}
 --- !u!114 &1694316786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4780,7 +4780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1938741491
 RectTransform:
   m_ObjectHideFlags: 0

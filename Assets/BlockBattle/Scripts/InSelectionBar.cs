@@ -66,7 +66,7 @@ public class InSelectionBar : MonoBehaviour
     {
         if (sprites == null)
         {
-            Debug.LogError("Sprites array is null.");
+            //Debug.LogError("Sprites array is null.");
             return null;
         }
 
@@ -77,7 +77,7 @@ public class InSelectionBar : MonoBehaviour
                 return sprite;
             }
         }
-        Debug.LogError($"Sprite with name {spriteName} not found in sprites array.");
+        //Debug.LogError($"Sprite with name {spriteName} not found in sprites array.");
         return null; 
     }
 

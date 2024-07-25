@@ -42,6 +42,7 @@ public class SceneTransitioner : MonoBehaviour
         {
             StartCoroutine(UnloadScene(battleLevelSceneName));
         }
+        Destroy(FindAnyObjectByType<SoundManager>());
         FindAnyObjectByType<Level3>().GetComponent<Level3>().ReloadBackToBattle();
     }
 

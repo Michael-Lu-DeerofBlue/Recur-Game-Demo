@@ -5,10 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Pathfinding;
+using Unity.VisualScripting;
 
 public class Terminal : MonoBehaviour
 {
     public GameObject prompt;
+    public GameObject hint;
+    public GameObject warning;
     public string text;
     public bool pointed;
     private float holdTime = 2.0f;
@@ -19,8 +22,10 @@ public class Terminal : MonoBehaviour
     public GameObject player;
     public float addedHP = -10;
     public string[] consumables;
+    public string[] stickers;
     public int amount;
     public bool breaked;
+    public bool specialed;
     public GameObject bird;
     // Start is called before the first frame update
     void Start()
@@ -35,14 +40,43 @@ public class Terminal : MonoBehaviour
 
     public void ShowPrompt()
     {
-        pointed = true;
-        prompt.gameObject.SetActive(true);
+        bool birdAlive = false;
+        if (bird != null)
+        {
+            if (bird.activeSelf)
+            {
+                birdAlive = true;
+            }
+            else
+            {
+                birdAlive = false;
+            }
+            
+        }
+        if (birdAlive)
+        {
+            if (warning != null)
+            {
+                warning.SetActive(true);
+            }
+        }
+        else
+        {
+            pointed = true;
+            prompt.gameObject.SetActive(true);
+            hint.gameObject.SetActive(true);
+        }
     }
 
     public void HidePrompt()
     {
         pointed = false;
         prompt.gameObject.SetActive(false);
+        hint.gameObject.SetActive(false);
+        if (warning != null)
+        {
+            warning.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -51,7 +85,14 @@ public class Terminal : MonoBehaviour
         bool birdAlive = false;
         if (bird != null)
         {
-            birdAlive = false;
+            if (bird.activeSelf)
+            {
+                birdAlive = true;
+            }
+            else
+            {
+                birdAlive = false;
+            }
         }
         if (pointed && !breaked && !birdAlive)
         {
@@ -65,7 +106,7 @@ public class Terminal : MonoBehaviour
                 }
                 UpdateFillingBar();
             }
-            else if (Input.GetKey(KeyCode.H) && type == "Heal")
+            else if (Input.GetKey(KeyCode.H) && type == "Heal" && !specialed)
             {
                 timer += Time.deltaTime;
                 if (timer >= holdTime)
@@ -73,10 +114,11 @@ public class Terminal : MonoBehaviour
                     Debug.Log(addedHP);
                     player.GetComponent<InventoryManager>().AddHealth(addedHP);
                     timer = 0.0f; // Reset timer after the action
+                    specialed = true;
                 }
                 UpdateFillingBar();
             }
-            else if (Input.GetKey(KeyCode.I) && type == "Chest")
+            else if (Input.GetKey(KeyCode.I) && type == "Chest" && !specialed)
             {
                 timer += Time.deltaTime;
                 if (timer >= holdTime)
@@ -85,6 +127,11 @@ public class Terminal : MonoBehaviour
                     {
                         player.GetComponent<InventoryManager>().AddConsumables(con, amount);
                     }
+                    foreach (string sti in stickers)
+                    {
+                        player.GetComponent<InventoryManager>().AddSticker(sti, amount);
+                    }
+                    specialed = true;
                     timer = 0.0f; // Reset timer after the action
                 }
                 UpdateFillingBar();

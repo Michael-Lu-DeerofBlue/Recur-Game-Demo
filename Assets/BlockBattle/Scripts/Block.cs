@@ -677,7 +677,7 @@ public class BlockManager : MonoBehaviour
                 return sprite;
             }
         }
-        Debug.LogError($"Sprite with name {spriteName} not found in sprites array.");
+        //Debug.LogError($"Sprite with name {spriteName} not found in sprites array.");
         return null;
     }
 

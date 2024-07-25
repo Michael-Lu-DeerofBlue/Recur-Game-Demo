@@ -45,7 +45,7 @@ public class ItemManager : MonoBehaviour
         }
 
 
-        inventory = ConsumablesManager.TestConsumablesInventory;
+        inventory = InventoryManager.ConsumablesInventory;
 
         int index = 0;
         foreach (var item in inventory)

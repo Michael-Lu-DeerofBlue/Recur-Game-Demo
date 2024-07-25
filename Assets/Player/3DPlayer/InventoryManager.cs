@@ -85,7 +85,8 @@ public class InventoryManager : MonoBehaviour
     }
     public void AddConsumables(string name, int number)
     {
-        Dictionary<string, int> consumablesInt = ES3.Load<Dictionary<string, int>>("Consumables");
+        Dictionary<string, int> consumablesInt = ES3.Load<Dictionary<string, int>>("Consumables"); 
+        Debug.Log(consumablesInt[name]);
         consumablesInt[name] = consumablesInt[name] + number;
         ES3.Save("Consumables", consumablesInt);
     }

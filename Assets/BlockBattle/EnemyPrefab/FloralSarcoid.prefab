@@ -192,8 +192,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -448,15 +448,19 @@ MonoBehaviour:
   battleManager: {fileID: 0}
   nextMove: 
   isdead: 0
+  targetSelector: {fileID: 0}
+  twoDto3D: {fileID: 0}
   SpendingSkillAnim: 0
   soundManager: {fileID: 0}
   FragilingNum: 0
   PauseTime: 0
   PauseCasting: 0
   Invincible: 0
+  StaggerReis: 0
   CurrentSkillIcons: []
   CurrentIcon: {fileID: 0}
   animator: {fileID: 0}
+  ShowingTip: 0
   in3DName: 
   allDead: 0
   attackDamage: 15
@@ -469,3 +473,5 @@ MonoBehaviour:
   ShapeShiftCastingTime: 5
   BlindAmbushCastingTime: 15
   SwapCastingTime: 3
+  IsAnyBlockEnable: 0
+  RotaLeftForInvincible: 0

@@ -132,7 +132,26 @@ public class HintController : MonoBehaviour
                 }
             }
 
+        //Board
+        if (currentSceneName == "Air Island Jungle")
+        {
+            if (currentIndex < gameObjects.Count - 1)
+            {
+                // Disable the current game object
+                gameObjects[currentIndex].SetActive(false);
 
-
+                // Increment the index and wrap around if needed
+                currentIndex = (currentIndex + 1);
+               
+                // Enable the next game object
+                gameObjects[currentIndex].SetActive(true);
+            }
+            else
+            {
+                foreach (GameObject go in gameObjects) { go.SetActive(false); }
+            }
         }
+
+
+    }
 }

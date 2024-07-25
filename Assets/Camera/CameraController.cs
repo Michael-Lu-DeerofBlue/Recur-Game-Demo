@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
 
     public void TurnCameraOff()
     {
-        Debug.Log("here");
+        //Debug.Log("here");
         isCameraMode = false;
         StartCoroutine(Fade(whiteColor, transColor));
     }
@@ -128,6 +128,7 @@ public class CameraController : MonoBehaviour
         ThreeDTo2DData.dataDictionary.Clear();
         ThreeDTo2DData.dataDictionary = detectedEnemies;
        
+        /*
        Debug.Log("Number of target objects in frame: " + count + " Time: " + Time.time);
         foreach (var enemy in detectedEnemies)
         {
@@ -137,7 +138,7 @@ public class CameraController : MonoBehaviour
         {
             Debug.Log($"Enemy: {enemy.Key}, Detected: {enemy.Value}" + " Time: " + Time.time);
         }
-
+        */
         if (count > 0)
         {
             string currentSceneName = SceneManager.GetActiveScene().name;

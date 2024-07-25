@@ -7,6 +7,10 @@ using UnityEngine;
 using DG.Tweening;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using PixelCrushers.DialogueSystem;
+using Unity.Burst.CompilerServices;
+using I2.Loc;
+using UnityEngine.PlayerLoop;
 
 public class Level3 : LevelController
 {
@@ -29,15 +33,83 @@ public class Level3 : LevelController
     public static bool firstAccess = true;
     public GameObject transitioner;
     public GameObject ladderBridge;
+    public string[] conversationName;
+    private string language;
+    public int ch_sub_speed;
+    public int en_sub_speed;
+    public static bool firstTimeEnterBoard = true;
+    public static bool firstTimeBuidlingBridge = true;
+    public Flowchart sfxFlowchart;
     // Start is called before the first frame update
     private void Awake()
     {
-        ES3.Save("MoveHP", 2);
+        ES3.Save("MoveHP", 5);
         ES3.Save("Sprint", true);
+        Dictionary<string, int> iniConsumablesInventory = new Dictionary<string, int>()
+    {
+        { "MedKit", 2 },
+        { "SprayCan", 2 },
+        { "Mint", 2 },
+        { "PaperCutter", 2 },
+        { "FracturedPocketWatch", 2 }
+    };
+        ES3.Save("Consumables", iniConsumablesInventory);
     }
+
+
+    void OnConversationEnd(Transform actor)
+    {
+        int conversationID = DialogueManager.Instance.currentConversationState.subtitle.dialogueEntry.conversationID;
+        Debug.Log("Conversation ended: " + conversationID.ToString());
+        if (conversationID == 13 || conversationID == 14)
+        {
+            flowchart.ExecuteBlock("GoToGallery2");
+        }
+    }
+
+    public void Sentence1() //start convo
+    {
+        JudgeLanguage();
+        string conversation = conversationName[0] + "_" + language;
+        DialogueManager.StartConversation(conversation);
+    }
+
+    public void Sentence2() //start convo
+    {
+        JudgeLanguage();
+        string conversation = conversationName[1] + "_" + language;
+        DialogueManager.StartConversation(conversation);
+    }
+
+    public void Sentence3() //start convo
+    {
+        JudgeLanguage();
+        string conversation = conversationName[2] + "_" + language;
+        DialogueManager.StartConversation(conversation);
+    }
+
+    public void Sentence4() //start convo
+    {
+        JudgeLanguage();
+        string conversation = conversationName[3] + "_" + language;
+        DialogueManager.StartConversation(conversation);
+    }
+
+    public void Sentence5() //start convo
+    {
+        JudgeLanguage();
+        string conversation = conversationName[4] + "_" + language;
+        DialogueManager.StartConversation(conversation);
+    }
+
 
     public void SpawnBridge()
     {
+        if (firstTimeBuidlingBridge)
+        {
+            firstTimeBuidlingBridge=false;
+            Sentence3();
+        }
         // Sort the list by the z value of the position
         BridgeCubePositions.Sort((a, b) => a.z.CompareTo(b.z));
 
@@ -76,32 +148,13 @@ public class Level3 : LevelController
         UpdateBehavior();
     }
 
-    private IEnumerator SpawnLadderBridgeCubes(List<Vector3> positions)
-    {
-        foreach (var position in positions)
-        {
-            GameObject lilBridge = Instantiate(ladderCube, position, Quaternion.identity);
-            lilBridge.transform.parent = bridge.transform;
-
-            // Initially set the cube below the bridge position
-            lilBridge.transform.position = new Vector3(position.x, position.y - 5, position.z);
-
-            // Animate the cube rising up to the bridge position
-            lilBridge.transform.DOMoveY(position.y, -10f).SetEase(Ease.OutBounce);
-
-            // Wait for a specified delay before spawning the next cube
-            yield return new WaitForSeconds(waitDelay);
-        }
-
-        UpdateBehavior();
-    }
-
     public void TransitionToBattle()
     {
         foreach (GameObject obj in TranslatedObjects)
         {
             obj.SetActive(false);
         }
+        sfxFlowchart.ExecuteBlock("Key Tab");
     }
 
     public void ReloadBackToBattle()
@@ -146,18 +199,12 @@ public class Level3 : LevelController
 
     void EndAirIsland()
     {
-        flowchart.ExecuteBlock("GoToGallery2");
+        Sentence5();
     }
 
     void Start()
     {
         aStarPath = FindObjectOfType<AstarPath>(); // Find the AstarPath component in the scene
-        EndBridgeCubePositions = new List<Vector3>();
-        foreach (Transform child in ladderBridge.transform)
-        {
-            // Add the child's position to the list
-            EndBridgeCubePositions.Add(child.position);
-        }
     }
 
     public void EnterBoard()
@@ -299,6 +346,10 @@ public class Level3 : LevelController
                 EnterBoard();
             }
         }
+        if (playerRef.transform.position.y < -5)
+        {
+            ResetLevel();
+        }
         
     }
 
@@ -362,5 +413,44 @@ public class Level3 : LevelController
         }
 
         return Vector3Int.zero;
+    }
+
+    void JudgeLanguage()
+    {
+        switch (LocalizationManager.CurrentLanguage)
+        {
+            case "English":
+                language = "en";
+                //set subtitle speed
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = en_sub_speed;
+                break;
+            case "Chinese (Simplified)":
+                language = "cn";
+                //set subtitle speed
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = ch_sub_speed;
+                break;
+            // Add more cases for other languages if needed
+            default:
+                language = "en";
+                break;
+        }
+    }
+
+
+
+    void OnEnable()
+    {
+        // Subscribe to the conversation end event
+        DialogueManager.Instance.conversationEnded += OnConversationEnd;
+    }
+
+    void OnDisable()
+    {
+        // Unsubscribe from the conversation end event
+        if (DialogueManager.Instance != null)
+        {
+            DialogueManager.Instance.conversationEnded -= OnConversationEnd;
+        }
+
     }
 }

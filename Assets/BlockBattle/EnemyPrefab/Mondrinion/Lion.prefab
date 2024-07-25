@@ -192,8 +192,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 16777215
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -327,18 +327,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92bb7a79044867f4da334087d5b680d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveFrequency: 4
+  moveAmplitude: 0.5
   HP: 5
   MaxHp: 5
   SkillCastingTime: 0
+  DisplayName: 
   enemyInfoText: {fileID: 2320016935802981217}
   timer: 0
-  hero: {fileID: 0}
+  CastingSpeedRate: 1
+  NextSkillDamage: 0
+  heroInfo: {fileID: 0}
   battleManager: {fileID: 0}
-  PauseCasting: 0
   nextMove: 
-  Fragiling: 0
   isdead: 0
+  targetSelector: {fileID: 0}
+  twoDto3D: {fileID: 0}
+  SpendingSkillAnim: 0
+  soundManager: {fileID: 0}
+  FragilingNum: 0
   PauseTime: 0
+  PauseCasting: 0
+  Invincible: 0
+  StaggerReis: 0
+  CurrentSkillIcons: []
+  CurrentIcon: {fileID: 0}
+  animator: {fileID: 0}
+  ShowingTip: 0
+  in3DName: 
+  allDead: 0
   attackDamage: 2
   CompanionsMinDamage: 1
   CompanionsMaxDamage: 8
