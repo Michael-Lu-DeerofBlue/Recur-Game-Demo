@@ -53,12 +53,6 @@ public class BGMPlayer : MonoBehaviour
         var setting = SettingsInitializer.Settings.GetFloat(id: volumeId);
         var volumeAdjuster = audioSource.GetComponent<BaseVolumeAdjuster>();
 
-        if (volumeAdjuster == null)
-        {
-            Debug.LogWarning("AudioSourceVolumeAdjuster component not found on the audio source.");
-            return;
-        }
-
         if (!setting.HasConnection())
         {
             connection = new AudioSourceVolumeConnection(InputRange, new AudioSource[] { audioSource });
@@ -73,8 +67,31 @@ public class BGMPlayer : MonoBehaviour
             }
         }
 
+        // Apply volume immediately
+        float currentVolume = setting.GetValue();
+        if (volumeAdjuster != null)
+        {
+            volumeAdjuster.UpdateVolume(currentVolume);
+        }
+        else
+        {
+            // Apply default volume adjustment of 1.0f
+            audioSource.volume = currentVolume;
+        }
+
         // Update volumeAdjuster when the setting changes
-        setting.OnValueChanged += (volume) => volumeAdjuster.UpdateVolume(volume);
+        setting.OnValueChanged += (volume) =>
+        {
+            if (volumeAdjuster != null)
+            {
+                volumeAdjuster.UpdateVolume(volume);
+            }
+            else
+            {
+                // Apply default volume adjustment of 1.0f
+                audioSource.volume = volume;
+            }
+        };
         setting.Apply();
     }
 }
@@ -84,27 +101,3 @@ public enum AudioSourceType
     Effect,
     Music
 }
-
-
-    // private void FixedUpdate()
-    // {
-    //     var settings = SettingsInitializer.Settings;
-    //     if (isEffect)
-    //     {
-
-    //     }
-    //     else if (isMusic)
-    //     {
-    //         SettingFloat volume = settings.GetFloat(id: "audioMusicVolume");
-    //         audioSource.volume = volume.GetFloatValue()/100f;
-    //     }
-    // }
-
-    // public void ChangeAudioClip(AudioClip newClip)
-    // {
-    //     if (audioSource != null)
-    //     {
-    //         audioSource.clip = newClip;
-    //         audioSource.Play();
-    //     }
-    // }

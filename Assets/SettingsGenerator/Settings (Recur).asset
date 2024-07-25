@@ -172,12 +172,6 @@ MonoBehaviour:
     _groups: []
     _defaultValue: 50
     ConnectionObject: {fileID: 11400000, guid: 5c8d736531357b94391c3aba171efd22, type: 2}
-  - _isActive: 1
-    ID: audioMasterVolume
-    ApplyImmediately: 1
-    _groups: []
-    _defaultValue: 50
-    ConnectionObject: {fileID: 11400000, guid: 5988387f145940c4ea34688e37d77d2f, type: 2}
   - _isActive: 0
     ID: gamma
     ApplyImmediately: 1
@@ -191,17 +185,23 @@ MonoBehaviour:
     _defaultValue: 0
     ConnectionObject: {fileID: 11400000, guid: 4c39f4ca36e21514783d955fb3a22046, type: 2}
   - _isActive: 1
+    ID: audioMasterVolume
+    ApplyImmediately: 1
+    _groups: []
+    _defaultValue: 50
+    ConnectionObject: {fileID: 11400000, guid: 5988387f145940c4ea34688e37d77d2f, type: 2}
+  - _isActive: 1
     ID: audioMusicVolume
     ApplyImmediately: 1
     _groups: []
     _defaultValue: 50
-    ConnectionObject: {fileID: 0}
+    ConnectionObject: {fileID: 11400000, guid: 5988387f145940c4ea34688e37d77d2f, type: 2}
   - _isActive: 1
     ID: audioEffectVolume
     ApplyImmediately: 1
     _groups: []
     _defaultValue: 50
-    ConnectionObject: {fileID: 0}
+    ConnectionObject: {fileID: 11400000, guid: 5988387f145940c4ea34688e37d77d2f, type: 2}
   - _isActive: 1
     ID: xsensitivity
     ApplyImmediately: 1
