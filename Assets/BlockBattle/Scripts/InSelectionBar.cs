@@ -256,10 +256,6 @@ public class InSelectionBar : MonoBehaviour
                 battleManager.PlayerGetOverheat(1);
                 Debug.Log("There are " + waxSpriteChildCount + " blocks with WaxSpriteChild.");
             }
-            else
-            {
-                Debug.Log("No blocks have a WaxSpriteChild.");
-            }
         }
     }
 

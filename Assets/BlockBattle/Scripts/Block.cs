@@ -42,11 +42,14 @@ public class BlockManager : MonoBehaviour
 
        Shapeindex=spawnblock.GetLastSpawnedIndex();
        CheckandAttachSticker();
-        soundManager = FindObjectOfType<SoundManager>();
+       soundManager = FindObjectOfType<SoundManager>();
 
 
     }
-
+    public void DropSpeedDecrese()
+    {
+        previousTime = previousTime * 1.2f;
+    }
 
     void Update()
     {
@@ -456,26 +459,26 @@ public class BlockManager : MonoBehaviour
 
         foreach (Transform child in block)
         {
-            if (child.GetComponent<SpriteRenderer>().sprite.name == "Critical")
-            {
-                battleManager.HandleStickerEffect("Critical");
-            }
-            if (child.GetComponent<SpriteRenderer>().sprite.name == "Piercing")
-            {
-                battleManager.HandleStickerEffect("Piercing");
-            }
-            if (child.GetComponent<SpriteRenderer>().sprite.name == "Sober")
-            {
-                battleManager.HandleStickerEffect("Sober");
-            }
-            if (child.GetComponent<SpriteRenderer>().sprite.name == "Swordmaster")
-            {
-                battleManager.HandleStickerEffect("Swordmaster");
-            }
-            if (child.GetComponent<SpriteRenderer>().sprite.name == "Gunslinger")
-            {
-                battleManager.HandleStickerEffect("GunSlinger");
-            }
+            //if (child.GetComponent<SpriteRenderer>().sprite.name == "Critical")
+            //{
+            //    battleManager.HandleStickerEffect("Critical");
+            //}
+            //if (child.GetComponent<SpriteRenderer>().sprite.name == "piercing")
+            //{
+            //    battleManager.HandleStickerEffect("piercing");
+            //}
+            //if (child.GetComponent<SpriteRenderer>().sprite.name == "sober")
+            //{
+            //    battleManager.HandleStickerEffect("sober");
+            //}
+            //if (child.GetComponent<SpriteRenderer>().sprite.name == "swordmaster")
+            //{
+            //    battleManager.HandleStickerEffect("swordmaster");
+            //}
+            //if (child.GetComponent<SpriteRenderer>().sprite.name == "Gunslinger")
+            //{
+            //    battleManager.HandleStickerEffect("GunSlinger");
+            //}
         }
 
 

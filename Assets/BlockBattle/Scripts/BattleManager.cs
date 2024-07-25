@@ -244,15 +244,15 @@ public class BattleManager : MonoBehaviour
         {
             case "Critical":
                 CriticalNum++;
-                Debug.Log("CriticalCriticalCriticalCriticalCriticalCritical");
                 return;
-            case "Piercing":
+            case "piercing":
                 FragileEnemy(heroInfo.selectedEnemy);
                 return;
-            case "Sober":
-                Debug.Log("SoberStickerSoberStickerSoberStickerSoberSticker");
+            case "sober":
+                BlockManager blockManager= FindObjectOfType<BlockManager>();
+                blockManager.DropSpeedDecrese();
                 return;
-            case "Swordmaster":
+            case "swordmaster":
                 Debug.Log("SwordmasterSwordmasterSwordmasterSwordmasterSwordmaster");
                 return;
             case "Gunslinger":
