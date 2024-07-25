@@ -16,7 +16,7 @@ public class Daedalus1 : Enemy
     public int attackWeight = 25;
     public int WaxedWingsWeight = 40;
     public int WaxSPrayWeight = 35;
-    public int KindledStrikeWeight=0;
+    public int KindledStrikeWeight = 0;
     public int TheLabyrinthWeight = 0;
 
     public float attackCastingTime = 8;
@@ -25,7 +25,7 @@ public class Daedalus1 : Enemy
     public float kindledStrikeCastingTime = 20;
     public float ThelabyrinthCastingTime = 5;
 
-    
+
 
     private enum SkillType { Attack, WaxedWings, WaxSPray, kindledStrike, Thelabyrinth }
     private SkillType nextSkill;
@@ -51,42 +51,35 @@ public class Daedalus1 : Enemy
         battleManager.KindledStrike(KindledStrikeDamage, KindledStrikeEachCubeDamage);
         DealAttackDamage(KindledStrikeDamage);
 
-<<<<<<< Updated upstream
-                break;
-            case SkillType.Thelabyrinth:
-                //TwoDto3D.
-                break;
-=======
     }
     public void WaxSpray()
     {
->>>>>>> Stashed changes
 
-            int times = 12;
+        int times = 12;
 
-            while (times > 0)
+        while (times > 0)
+        {
+            float randomValue = Random.value;
+
+            if (randomValue < 0.1f) // 20% probability to call WaxWings()
             {
-                float randomValue = Random.value;
-
-                if (randomValue < 0.1f) // 20% probability to call WaxWings()
+                WaxWings();
+                times -= 4;
+            }
+            else // 80% probability to call X event
+            {
+                if (WaxRandomBlockOnGrid(WaxSprite) == true)
                 {
-                    WaxWings();
-                    times -= 4;
-                }
-                else // 80% probability to call X event
-                {
-                   if(WaxRandomBlockOnGrid(WaxSprite)== true)
-                     {
-                         times -= 1;
-                     }
+                    times -= 1;
                 }
             }
+        }
     }
 
     public bool WaxRandomBlockOnGrid(Sprite WaxSprite)
     {
         BlockManager blockManager = FindObjectOfType<BlockManager>();
-         bool Success= blockManager.AddSpriteToRandomBlock(WaxSprite);
+        bool Success = blockManager.AddSpriteToRandomBlock(WaxSprite);
         return Success;
 
     }
