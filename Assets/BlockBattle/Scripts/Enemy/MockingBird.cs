@@ -55,16 +55,22 @@ public class MockingBird: Enemy
             SkillCastingTime = attackCastingTime;  // Attack action
             nextSkill = SkillType.Attack;
             NextSkillDamage= attackDamage;
+            CurrentSkillIcons = new string[] { "Damage" };
+
         }
         else if (randomValue < attackProbability + disableInputProbability)
         {
             SkillCastingTime = DisableInputCastingTime;  
             nextSkill = SkillType.Scream;
+            CurrentSkillIcons = new string[] { "Damage","Interrupt" };
+
         }
         else
         {
             SkillCastingTime = FleeCastingTime;
             nextSkill = SkillType.Flee;
+            CurrentSkillIcons = new string[] { "Interrupt" };
+
         }
         nextMove = nextSkill.ToString();
     }

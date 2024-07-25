@@ -39,10 +39,12 @@ public class Daedalus1 : Enemy
                 break;
             case SkillType.WaxedWings:
                 WaxWings();
+                soundManager.PlaySfx("Daedalus_Wing");
                 break;
             case SkillType.WaxSPray:
                 WaxSpray();
                 DealAttackDamage(WaxSprayDamage);
+                soundManager.PlaySfx("Daedalus_Spray");
                 break;
         }
     }
@@ -50,7 +52,13 @@ public class Daedalus1 : Enemy
     {
         battleManager.KindledStrike(KindledStrikeDamage, KindledStrikeEachCubeDamage);
         DealAttackDamage(KindledStrikeDamage);
+        animator.Play("KindledStrike");
 
+    }
+
+    public void KindledStrikeSFX()
+    {
+        soundManager.PlaySfx("Daedalus_KindleStrike_Animation");
     }
     public void WaxSpray()
     {

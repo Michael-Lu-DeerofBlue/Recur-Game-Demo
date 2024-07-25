@@ -47,19 +47,24 @@ public class Daedalus2 : Enemy
                 break;
             case SkillType.Swap:
                 RefreshChoiceSectionBlock();
+                soundManager.PlaySfx("Swap");
                 break;
             case SkillType.MazeShift:
+                soundManager.PlaySfx("Daedalus_Maze");
                 Debug.Log("Will add with the start fill line with 1 block lost functions");
                 break;
             case SkillType.Rekindle:
+                soundManager.PlaySfx("Daedalus_Rekindle");
                 RekindledNum += 3;
                 break;
             case SkillType.BurntWings:
+                soundManager.PlaySfx("Daedalus_Wing_Burn");
                 DealAttackDamage(BurntWingsDamage);
                 battleManager.PlayerGetOverheat(2);
                 RekindledNum--; 
                 break;
             case SkillType.WaxSPray:
+                soundManager.PlaySfx("Daedalus_Wing");
                 DealAttackDamage(WaxSprayDamage);
                 WaxSpray();
                 break;

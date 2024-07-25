@@ -21,11 +21,12 @@ public class EnemyLayOutManager : MonoBehaviour
     public Enemy Deadalus;
     public Enemy[] Mondrinion;
     private int enemyNum;
+    public  
 
     void Start()
     {
         //除了改底下的那个GenerateEnemyList，其他不要再改了！！！因为我在做整体的系统的串联，所以不要再改了
-        EnemiesList = ThreeDTo2DData.dataDictionary;
+        EnemiesList = ThreeDTo2DData.dataDictionary ;
         GenerateEnemyList();
         SpawnEnemies();
     }
@@ -51,6 +52,7 @@ public class EnemyLayOutManager : MonoBehaviour
                     if (EnemiesList[kvp.Key])
                     {
                         enemy = Lion; //有脆弱
+                        enemy.FragilingNum++;
                         Debug.Log("backstabbed lion");
                         break;
                     }
@@ -62,11 +64,13 @@ public class EnemyLayOutManager : MonoBehaviour
                 case "Deer":
                     if (EnemiesList[kvp.Key]) { 
                         enemy = Deer; //有脆弱
+                        enemy.FragilingNum++;
                         Debug.Log("backstabbed deer");
                         break;
                         }
                     else {
                         enemy = Deer; //无脆弱
+                        enemy.FragilingNum++;
                         break;
                     }
                 case "Bird":

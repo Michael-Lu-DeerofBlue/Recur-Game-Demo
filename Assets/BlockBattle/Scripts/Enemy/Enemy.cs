@@ -94,7 +94,8 @@ public abstract class Enemy : MonoBehaviour
         }
 
 
-        enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
+        // enemyInfoText.text = "HP: " + HP + "\nNext Move: " + nextMove + "\nTime to Execute Turn: " + timer.ToString("F2");
+        enemyInfoText.enabled = false;
         UpdateEnemyUI();
 
         if(targetSelector.CurrentTarget != null)
