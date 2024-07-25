@@ -25,7 +25,7 @@ public abstract class Enemy : MonoBehaviour
     public string nextMove;//name of the skill that will be executed next.
     public bool isdead=false;
     public TargetSelector targetSelector;
-    private TwoDto3D twoDto3D;
+    public TwoDto3D twoDto3D;
     public bool SpendingSkillAnim = false;
     private GameObject DamageNumUI;
     private Coroutine currentSkillIconsCoroutine;
