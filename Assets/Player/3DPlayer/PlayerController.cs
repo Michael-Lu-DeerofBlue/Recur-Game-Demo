@@ -127,6 +127,7 @@ public class PlayerController : MonoBehaviour
         if (cam.fieldOfView != fov) { DoFieldofView(); }
         if (Input.GetKeyDown(KeyCode.Q) && GetComponent<GadgetsTool>().MagneticBoots)
             {
+
                 isMagneticBootsOn = !isMagneticBootsOn; UpdateUI();
                 if (isMagneticBootsOn) { PlayEffectBootsOn(); }
                 else if (!isMagneticBootsOn) { PlayEffectBootsOff(); }
