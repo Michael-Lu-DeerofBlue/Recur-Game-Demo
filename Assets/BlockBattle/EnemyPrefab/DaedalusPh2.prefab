@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ffc1d71b8daaa8e4aba52719bb4dd587, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c974a275bbb8554494a781a3bd11f02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -350,9 +350,9 @@ GameObject:
   - component: {fileID: 7868329382648246484}
   - component: {fileID: 3197008888474548069}
   - component: {fileID: 4566422462053010225}
-  - component: {fileID: 4453038074311419204}
+  - component: {fileID: 641082186436374230}
   m_Layer: 0
-  m_Name: DaedalusPh1
+  m_Name: DaedalusPh2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -422,7 +422,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4453038074311419204
+--- !u!114 &641082186436374230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -431,15 +431,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4892679668077574771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8880a782df6da354c87dccb1931a95bf, type: 3}
+  m_Script: {fileID: 11500000, guid: d489116abb2517d4899ddb3c424ce319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveFrequency: 4
   moveAmplitude: 0.5
-  HP: 180
-  MaxHp: 180
+  HP: 240
+  MaxHp: 240
   SkillCastingTime: 0
-  DisplayName: Daedalus
+  DisplayName: 
   enemyInfoText: {fileID: 2320016935802981217}
   timer: 0
   CastingSpeedRate: 1
@@ -462,18 +462,25 @@ MonoBehaviour:
   ShowingTip: 0
   in3DName: 
   allDead: 0
-  WaxSprite: {fileID: 21300000, guid: 4cdd22d67fd73b743890097a74bc7454, type: 3}
-  attackDamage: 10
-  WaxedWingsDamage: 16
-  WaxSprayDamage: 15
-  KindledStrikeDamage: 20
-  attackWeight: 999999
-  WaxedWingsWeight: 40
-  WaxSPrayWeight: 35
-  KindledStrikeWeight: 0
-  TheLabyrinthWeight: 0
-  attackCastingTime: 8
-  WaxedWingsCastingTime: 4
-  WaxSPrayCastingTime: 10
-  kindledStrikeCastingTime: 20
-  ThelabyrinthCastingTime: 5
+  WaxSprite: {fileID: 0}
+  attackDamage: 8
+  SwapDamage: 12
+  MazeShitDamage: 10
+  KindledStrikeDamage: 15
+  KindledStrikeEachCubeDamage: 6
+  BurntWingsDamage: 12
+  WaxSprayDamage: 18
+  attackWeight: 20
+  SwapWeight: 25
+  MazeShiftWeight: 25
+  RekindleWeight: 40
+  BurntWingsWeight: 35
+  WaxSprayWeight: 65
+  attackCastingTime: 6
+  SwapCastingTime: 8
+  MazeShiftCastingTime: 10
+  RekindleCastingTime: 5
+  kindledStrikeCastingTime: 18
+  BurntWingsCastingTime: 8
+  WaxSprayCastingTime: 12
+  RekindledNum: 0

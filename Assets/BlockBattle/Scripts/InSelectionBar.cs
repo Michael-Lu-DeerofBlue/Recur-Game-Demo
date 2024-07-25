@@ -87,6 +87,7 @@ public class InSelectionBar : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
+            if (SelectionUI.singleBlockMode == true) return;
             if (battleManager.DisablePlayerInput == true) return; // 1 is the right mouse button
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -148,6 +149,7 @@ public class InSelectionBar : MonoBehaviour
                     {
                         if (!inStorage)
                         {
+                            CheckActiveBlocksForWaxSpriteChild();
                             int position = selectionToolProcessor.GetComponent<SelectionTool>().threeBlockList.IndexOf(Shapeindex);
                             if (position < 0 || position >= selectionToolProcessor.GetComponent<SelectionTool>().threeBlockList.Count)
                             {
@@ -160,6 +162,7 @@ public class InSelectionBar : MonoBehaviour
                         }
                         else if (inStorage)
                         {
+                            CheckActiveBlocksForWaxSpriteChild();
                             selectionToolProcessor.GetComponent<SelectionTool>().addToFall(Shapeindex, true);
                             Destroy(gameObject);
                         }
@@ -203,4 +206,61 @@ public class InSelectionBar : MonoBehaviour
 
         TTooltipSystem.Hide();
     }
+
+    public void CheckActiveBlocksForWaxSpriteChild()
+    {
+        InSelectionBar[] allBlocks = FindObjectsOfType<InSelectionBar>();
+        List<InSelectionBar> activeBlocks = new List<InSelectionBar>();
+
+        // Filter only active InSelectionBar scripts and exclude this block
+        foreach (InSelectionBar block in allBlocks)
+        {
+            if (block.isActiveAndEnabled && block != this)
+            {
+                activeBlocks.Add(block);
+            }
+        }
+
+        if (activeBlocks.Count == 0)
+        {
+            Debug.Log("No active blocks found excluding this one.");
+        }
+        else
+        {
+            int waxSpriteChildCount = 0;
+
+            foreach (InSelectionBar block in activeBlocks)
+            {
+                bool hasWaxSpriteChild = false;
+                foreach (Transform child in block.transform)
+                {
+                    foreach (Transform grandchild in child)
+                    {
+                        if (grandchild.name == "WaxSpriteChild")
+                        {
+                            hasWaxSpriteChild = true;
+                            waxSpriteChildCount++;
+                            break;
+                        }
+                    }
+                    if (hasWaxSpriteChild)
+                    {
+                        Debug.Log(block.name + " has a WaxSpriteChild.");
+                        break;
+                    }
+                }
+            }
+
+            if (waxSpriteChildCount > 0)
+            {
+                battleManager.PlayerGetOverheat(1);
+                Debug.Log("There are " + waxSpriteChildCount + " blocks with WaxSpriteChild.");
+            }
+            else
+            {
+                Debug.Log("No blocks have a WaxSpriteChild.");
+            }
+        }
+    }
+
 }

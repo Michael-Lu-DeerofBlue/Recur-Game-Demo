@@ -1,33 +1,40 @@
-using Fungus;
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Daedalus1 : Enemy
+public class Daedalus2 : Enemy
 {
     public Sprite WaxSprite;
-    public int attackDamage = 10;
-    public int WaxedWingsDamage = 16;
-    public int WaxSprayDamage = 15;
-    public int KindledStrikeDamage = 20;
-    public int KindledStrikeEachCubeDamage = 5;
+    public int attackDamage = 8;
+    public int SwapDamage = 12;
+    public int MazeShitDamage = 10;
+    public int KindledStrikeDamage = 15;
+    public int KindledStrikeEachCubeDamage = 6;
+    public int BurntWingsDamage = 12;
+    public int WaxSprayDamage = 18;
 
-    public int attackWeight = 25;
-    public int WaxedWingsWeight = 40;
-    public int WaxSPrayWeight = 35;
-    public int KindledStrikeWeight = 0;
-    public int TheLabyrinthWeight = 0;
+    public int attackWeight = 20;
+    public int SwapWeight = 25;
+    public int MazeShiftWeight = 25;
+    public int RekindleWeight = 40;
+    public int BurntWingsWeight = 35;
+    public int WaxSprayWeight = 65;
 
-    public float attackCastingTime = 8;
-    public float WaxedWingsCastingTime = 4;
-    public float WaxSPrayCastingTime = 10;
-    public float kindledStrikeCastingTime = 20;
-    public float ThelabyrinthCastingTime = 5;
+    public float attackCastingTime = 6;
+    public float SwapCastingTime = 8;
+    public float MazeShiftCastingTime = 10;
+    public float RekindleCastingTime = 5;
+    public float kindledStrikeCastingTime = 18;
+    public float BurntWingsCastingTime = 8;
+    public float WaxSprayCastingTime = 12;
+
+    public int RekindledNum = 0;
 
 
 
-    private enum SkillType { Attack, WaxedWings, WaxSPray, kindledStrike, Thelabyrinth }
+    private enum SkillType { Attack, Swap, MazeShift, Rekindle,  kindledStrike, BurntWings, WaxSPray }
     private SkillType nextSkill;
 
     public override void ExecuteSkill()
@@ -37,19 +44,30 @@ public class Daedalus1 : Enemy
             case SkillType.Attack:
                 AttackScaleAnimation(0.2f, 1.3f, 0.6f, 1.0f, attackDamage);
                 break;
-            case SkillType.WaxedWings:
-                WaxWings();
+            case SkillType.Swap:
+                RefreshChoiceSectionBlock();
+                break;
+            case SkillType.MazeShift:
+                Debug.Log("Will add with the start fill line with 1 block lost functions");
+                break;
+            case SkillType.Rekindle:
+                RekindledNum += 3;
+                break;
+            case SkillType.BurntWings:
+                DealAttackDamage(BurntWingsDamage);
+                battleManager.PlayerGetOverheat(2);
+                RekindledNum--; 
                 break;
             case SkillType.WaxSPray:
-                WaxSpray();
                 DealAttackDamage(WaxSprayDamage);
+                WaxSpray();
                 break;
+
         }
     }
     public void KindledStrike()
     {
         battleManager.KindledStrike(KindledStrikeDamage, KindledStrikeEachCubeDamage);
-        DealAttackDamage(KindledStrikeDamage);
 
     }
     public void WaxSpray()
@@ -146,41 +164,71 @@ public class Daedalus1 : Enemy
 
     public override void GetNextMove()
     {
-        int sum = attackWeight + WaxedWingsWeight + WaxSPrayWeight;
-        float attackProbability = (float)attackWeight / sum;
-        float WaxedWingsProbability = (float)WaxedWingsWeight / sum;
-        float WaxSPrayProbability = (float)WaxSPrayWeight / sum;
-
-        float randomValue = Random.value;
-
-
-        if (randomValue < attackProbability)
+        if(RekindledNum==0)
         {
-            SkillCastingTime = attackCastingTime;  // Attack action
-            nextSkill = SkillType.Attack;
-            CurrentSkillIcons = new string[] { "Damage" };
-            NextSkillDamage = attackDamage;
+            int sum = attackWeight + SwapWeight + MazeShiftWeight+RekindleWeight;
+            float attackProbability = (float)attackWeight / sum;
+            float SwapProbability = (float)SwapWeight / sum;
+            float MazeShiftProbability = (float)MazeShiftWeight / sum;
 
-        }
-        else if (randomValue < attackProbability + WaxedWingsProbability)
-        {
-            SkillCastingTime = WaxedWingsCastingTime;
-            nextSkill = SkillType.WaxedWings;
-            CurrentSkillIcons = new string[] { "Interrupt", "Damage" };
+            float randomValue = Random.value;
 
+
+            if (randomValue < attackProbability)
+            {
+                SkillCastingTime = attackCastingTime;  // Attack action
+                nextSkill = SkillType.Attack;
+                CurrentSkillIcons = new string[] { "Damage" };
+                NextSkillDamage = attackDamage;
+
+            }
+            else if (randomValue < attackProbability + SwapProbability)
+            {
+                SkillCastingTime = SwapCastingTime;
+                nextSkill = SkillType.Swap;
+                CurrentSkillIcons = new string[] { "Interrupt", "Damage" };
+
+            }
+            else
+            {
+                SkillCastingTime = MazeShiftCastingTime;
+                nextSkill = SkillType.MazeShift;
+                CurrentSkillIcons = new string[] { "Interrupt", "Damage" };
+
+            }
+            nextMove = nextSkill.ToString();
         }
         else
         {
-            SkillCastingTime = WaxSPrayCastingTime;
-            nextSkill = SkillType.WaxSPray;
-            CurrentSkillIcons = new string[] { "Interrupt", "Damage" };
+            int sum = BurntWingsWeight + WaxSprayWeight;
+            float BurnWingsProbability = BurntWingsWeight + WaxSprayWeight;
+            float randomValue = Random.value;
+
+             if (randomValue < BurnWingsProbability)
+            {
+                SkillCastingTime = BurntWingsCastingTime;
+                nextSkill = SkillType.BurntWings;
+                CurrentSkillIcons = new string[] { "Interrupt", "Damage" };
+
+            }
+            else
+            {
+                SkillCastingTime = WaxSprayCastingTime;
+                nextSkill = SkillType.WaxSPray;
+                CurrentSkillIcons = new string[] { "Interrupt", "Damage" };
+
+            }
+            nextMove = nextSkill.ToString();
+
 
         }
-        nextMove = nextSkill.ToString();
+
     }
     public override void Start()
     {
         base.Start();
         StaggerReis = 3;
+        SelectionToolUI selectionToolUI = FindObjectOfType<SelectionToolUI>();
+        selectionToolUI.StartSingleBlockMode();
     }
 }

@@ -375,7 +375,7 @@ public virtual void ExecuteSkill()
     }
     public virtual void SpawnDamageUI(float damage)
     {
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("BattleCanvas");
         if (canvas != null)
         {
             // Set DamageNumUI to EnemyDamageNumUI from battleManager

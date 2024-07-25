@@ -24,7 +24,11 @@ public class HeroInfo : MonoBehaviour
     public TextMeshPro Hp;
     public BattleManager battleManager;
     public int parryCount=0;
+
+    //PlayerDeff:
     public int FragdNum = 0;
+    public int OverHeatNum = 0;
+
     public Enemy selectedEnemy;
     private TargetSelector targetSelector;
     private TwoDto3D twoDto3D;
@@ -33,6 +37,7 @@ public class HeroInfo : MonoBehaviour
     private DamageNumber damageNumber;
     private List<IEnumerator> bleedingCoroutines = new List<IEnumerator>();
     private SoundManager soundManager;
+
     // List to store pairs of index and clearNumber
 
 
@@ -252,7 +257,7 @@ public class HeroInfo : MonoBehaviour
 
     public virtual void AttackEnemy(float Damage)
     {
-        battleManager.AttackEnemy(Damage,selectedEnemy);
+        battleManager.AttackEnemy(Damage - Mathf.FloorToInt(OverHeatNum / 2f), selectedEnemy);
     }
 
     public virtual async Task Zornhauy(float damagevalue)

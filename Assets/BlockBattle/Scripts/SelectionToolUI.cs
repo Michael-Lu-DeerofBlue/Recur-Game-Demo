@@ -16,11 +16,26 @@ public class SelectionToolUI : MonoBehaviour
     public GameObject Translator;
     public List<GameObject> previousGeneratedObject;
     public GameObject previousGeneratedStorageObject;
+    public bool singleBlockMode = false;
     // Start is called before the first frame update
     void Start()
     {
-    }
 
+    }
+    public void StartSingleBlockMode()
+    {
+        singleBlockMode = true;
+        if (storagePlaceholder != null)
+        {
+            storagePlaceholder.SetActive(false);
+        }
+
+        if (blockPlaceholder != null && blockPlaceholder.Length > 0)
+        {
+            blockPlaceholder[0].SetActive(false);
+            blockPlaceholder[blockPlaceholder.Length - 1].SetActive(false);
+        }
+    }
     // Update is called once per frame
     public void UpdateStorageBlocks(int storedBlock, int storedColor)
     {
@@ -38,8 +53,7 @@ public class SelectionToolUI : MonoBehaviour
         previousGeneratedStorageObject = storage;
     }
 
-
-
+    [Obsolete]
     public void UpdateChoiceBlocks()
     {
         foreach (GameObject gameObject in previousGeneratedObject)
@@ -65,11 +79,14 @@ public class SelectionToolUI : MonoBehaviour
             for (int i = 0; i < threeBlockList.Count; i++)
             {
                 GameObject block = Translator.GetComponent<IntTranslator>().intToBlock(threeBlockList[i]);
+                if (blockPlaceholder[i].active == true) 
+                { 
                 GameObject symbol = Instantiate(block, blockPlaceholder[i].transform.position, blockPlaceholder[i].transform.rotation);
                 symbol.GetComponent<BlockStageController>().inSelection = true;
                 symbol.GetComponent<BlockStageController>().index = threeBlockList[i];
                 GiveColor(threeBlockList[i], symbol, threeColorList[i]);
                 previousGeneratedObject.Add(symbol);
+                }
             }
         }
     }

@@ -33,7 +33,8 @@ public class BattleManager : MonoBehaviour
 
     //when add new debuff type, remember to add a bool to "RemoveAllPlayerDebuff" method.
     //Player debuff type:
-    public int BleedingCount = 0;  
+    //Not list : fragil ; overheat . 
+    public int BleedingCount = 0;
     public bool DisablePlayerInput = false;
     public bool RotationLocked = false;
     public bool LockNextBlockRotation = false;
@@ -45,18 +46,18 @@ public class BattleManager : MonoBehaviour
     public int CriticalNum = 0;
 
     // enemey debuff type: Fragiling 写在 Enemy上， 可以直接set Enemy.FragilingNum
-    
-   // PauseCasting in enemy.cs
+
+    // PauseCasting in enemy.cs
     //enemy status:
     public bool WeakMinionCompanionsOnHold = false;
     public static bool firstCombat = false;
 
 
     //Ui stuff
-    public int ToolTipsLevel=0;
+    public int ToolTipsLevel = 0;
     void Start()
     {
-     //   FirstCombat();
+        //   FirstCombat();
         heroInfo = FindObjectOfType<HeroInfo>();
         inttranslator = FindObjectOfType<IntTranslator>();
         spawnBlock = FindObjectOfType<SpawnBlock>();
@@ -131,19 +132,19 @@ public class BattleManager : MonoBehaviour
 
     public void AddStunBlock(int Num, int ColorIndex)
     {
-       selectionTool = FindObjectOfType<SelectionTool>();
-       selectionTool.AddDebuffBlock(Num, ColorIndex);
+        selectionTool = FindObjectOfType<SelectionTool>();
+        selectionTool.AddDebuffBlock(Num, ColorIndex);
     }
     public void AttackEnemy(float damage, Enemy Target)
     {
         if (!firstCombat)
         {
-            if(CriticalNum >= 1)
+            if (CriticalNum >= 1)
             {
-                damage = damage * 1.5f* CriticalNum;
+                damage = damage * 1.5f * CriticalNum;
                 Target.HitHandle(damage);
-                CriticalNum=0;
-            }else if(CriticalNum == 0) {
+                CriticalNum = 0;
+            } else if (CriticalNum == 0) {
                 string currentSceneName = SceneManager.GetActiveScene().name;
                 if (currentSceneName != "BattleLevel - tutorial")
                 {
@@ -153,13 +154,13 @@ public class BattleManager : MonoBehaviour
 
         }
     }
-    public void FragilePlayer(int FragileNum) 
+    public void FragilePlayer(int FragileNum)
     {
         heroInfo.FragiledByEnemy(FragileNum);
     }
     public void FragileEnemy(Enemy Target)
     {
-            Target.FragilingNum++;
+        Target.FragilingNum++;
     }
     public void ZornhauyEnmey(float damage, Enemy Target)
     {
@@ -167,7 +168,7 @@ public class BattleManager : MonoBehaviour
         {
             Target.HitHandle(damage);
         }
-        
+
     }
 
     public void SpeedUpCastingAllEnimes(float duration)
@@ -210,7 +211,7 @@ public class BattleManager : MonoBehaviour
         refreshedBlocks = false;
         heroInfo.StopAllBleeding();
         BleedingCount = 0;
-}
+    }
 
     public void RemovePlayerDebug(int num)
     {
@@ -244,7 +245,7 @@ public class BattleManager : MonoBehaviour
     public void PlayerImmueDebuffDuring(float second)
     {
         StartCoroutine(ImmueAllDebuffAfterDelay(second));
-                PlayerImmuingDebuff = true;
+        PlayerImmuingDebuff = true;
     }
     public void HandleStickerEffect(String stickerName)
     {
@@ -273,16 +274,16 @@ public class BattleManager : MonoBehaviour
     }
     private IEnumerator ImmueAllDebuffAfterDelay(float seconds)
     {
-        PlayerImmuingDebuff = true;  
-        yield return new WaitForSeconds(seconds);  
-        PlayerImmuingDebuff = false;  
+        PlayerImmuingDebuff = true;
+        yield return new WaitForSeconds(seconds);
+        PlayerImmuingDebuff = false;
     }
- 
+
 
     public void DropDownBlock(float second)
     //we can just set the bool when doing remove rebug instead of using coroutine.
     {
-        if(PlayerImmuingDebuff == false)
+        if (PlayerImmuingDebuff == false)
         {
             StartCoroutine(DropDownAfterDelay(second));
             DropCountDown = true;
@@ -332,9 +333,9 @@ public class BattleManager : MonoBehaviour
         BlockGameTimeStop = false;
         clearedline = 0;
         Enemy[] enemies = FindObjectsOfType<Enemy>();
-        foreach(Enemy enemy in enemies)
+        foreach (Enemy enemy in enemies)
         {
-           if( enemy.FragilingNum>0 )
+            if (enemy.FragilingNum > 0)
             {
                 enemy.FragilingNum--;
             }
@@ -349,7 +350,7 @@ public class BattleManager : MonoBehaviour
 
     public void LockRotation()
     {
-        if(PlayerImmuingDebuff == false)
+        if (PlayerImmuingDebuff == false)
         {
             RotationLocked = true;
             StartCoroutine(ResetLockRotation());
@@ -397,7 +398,7 @@ public class BattleManager : MonoBehaviour
         Target.PauseTime = +PausePeriod;
         Target.PauseCasting = true;
         StartCoroutine(ResumeEnemyActionBarAfterDelay(Target));
-        
+
     }
 
     private IEnumerator ResumeEnemyActionBarAfterDelay(Enemy Target)
@@ -424,8 +425,87 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public void KindledStrike(int skillDamage,int cubeDamage)
+    {
+        BlockManager blockManager = FindObjectOfType<BlockManager>();
+        int count1 = blockManager.DestroyAllWaxSquare();
+        CheckAndDesSelectionBlockWithWax();
+        heroInfo.HitHandle(count1 * cubeDamage);
+        heroInfo.HitHandle(skillDamage);
+        heroInfo.OverHeatNum = 0;
+    }
+    public void CheckAndDesSelectionBlockWithWax()
+    {
+        InSelectionBar[] allBlocks = FindObjectsOfType<InSelectionBar>();
+        List<InSelectionBar> SelectionBarBlock = new List<InSelectionBar>();
+        int WaxBlockCount = 0;
+        foreach (InSelectionBar block in allBlocks)
+        {
+            if (block.isActiveAndEnabled)
+            {
+                SelectionBarBlock.Add(block);
+            }
+        }
+
+        if (SelectionBarBlock.Count == 0)
+        {
+            Debug.Log("No Selection Bar blocks found excluding this one.");
+        }
+        else
+        {
+
+            foreach (InSelectionBar block in SelectionBarBlock)
+            {
+                bool hasWaxSpriteChild = false;
+                foreach (Transform child in block.transform)
+                {
+                    foreach (Transform grandchild in child)
+                    {
+                        if (grandchild.name == "WaxSpriteChild")
+                        {
+                            hasWaxSpriteChild = true;
+                            break;
+                        }
+                    }
+                    if (hasWaxSpriteChild)
+                    {
+                        WaxBlockCount++;
+                        int blocktodelete = block.Shapeindex;
+                        SelectionTool selectionTool = FindObjectOfType<SelectionTool>();
+                        selectionTool.SwitchSingleBlock(blocktodelete);
+                        Debug.Log(block.name + " has a WaxSpriteChild.");
+                        break;
+                    }
+                }
+            }
+        }
+        heroInfo.HitHandle(WaxBlockCount * 4*5);
+    }
 
 
+    public void PlayerGetOverheat(int Num)
+    {
+        heroInfo.OverHeatNum++;
+        if (heroInfo.OverHeatNum == 8)
+        {
+            Daedalus1 Dae1 = FindObjectOfType<Daedalus1>();
+            Daedalus2 Dae2 = FindObjectOfType<Daedalus2>();
+
+            if (Dae1 != null)
+            {
+                Dae1.KindledStrike();
+            }
+            else if (Dae2 != null)
+            {
+                Dae2.KindledStrike();
+            }
+            return;
+        }
+    }
+    public void RemovePlayer1Overheat()
+    {
+        heroInfo.OverHeatNum--;
+    }
     public void Stagger()
     {
         Enemy enemy = FindObjectOfType<Enemy>();//for now, we only have one enemy in default, have to modify that after we have method to choice enmey target.

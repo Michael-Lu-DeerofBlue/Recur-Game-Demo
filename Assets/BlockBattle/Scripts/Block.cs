@@ -25,7 +25,7 @@ public class BlockManager : MonoBehaviour
     public string color;
     public TwoDto3D twoDto3D;
     public StickerInfo StickerInfo;
-    public Sprite[] sprites;
+    public Sprite[] StickerSprite;
     private int Shapeindex;
     private bool isClearingRightSideBlocks = false;
     private SoundManager soundManager;
@@ -153,42 +153,127 @@ public class BlockManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            LockRandomBlocks();
-        }
     }
 
-    void LockRandomBlocks()
-    {
-        List<Transform> addedBlocks = new List<Transform>();
 
-        for (int y = 0; y < height; y++)
+    private bool ContainsAndMarkWaxSpriteChild(Transform parent, List<Transform> childrenToDestroy)
+    {
+        bool containsWaxSpriteChild = false;
+
+        foreach (Transform child in parent)
         {
-            for (int x = 0; x < width; x++)
+            if (child.name == "WaxSpriteChild")
+            {
+                containsWaxSpriteChild = true;
+                childrenToDestroy.Add(parent);
+                break;
+            }
+            if (ContainsAndMarkWaxSpriteChild(child, childrenToDestroy))
+            {
+                containsWaxSpriteChild = true;
+                childrenToDestroy.Add(parent);
+                break;
+            }
+        }
+
+        return containsWaxSpriteChild;
+    }
+
+    public int DestroyAllWaxSquare()
+    {
+        int count = 0;
+        List<Transform> childrenToDestroy = new List<Transform>();
+
+        // First pass: mark all blocks with "WaxSpriteChild"
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
             {
                 if (grid[x, y] != null)
                 {
-                    addedBlocks.Add(grid[x, y]);
+                    if (ContainsAndMarkWaxSpriteChild(grid[x, y], childrenToDestroy))
+                    {
+                        count++;
+                    }
                 }
             }
         }
 
-        if (addedBlocks.Count < 4)
+        // Second pass: destroy marked blocks and handle drop
+        foreach (Transform toDestroy in childrenToDestroy)
         {
-            Debug.Log("Not enough blocks in the grid to lock.");
-            return;
+            int x = Mathf.RoundToInt(toDestroy.position.x);
+            int y = Mathf.RoundToInt(toDestroy.position.y);
+            grid[x, y] = null;
+            Destroy(toDestroy.gameObject);
+            DropColumnAbove(x, y);
         }
 
-        List<Transform> randomBlocks = addedBlocks.OrderBy(x => Random.value).Take(4).ToList();
+        Debug.Log($"Total grids destroyed: {count}");
+        return count;
+    }
 
 
-        foreach (var block in randomBlocks)
+    public bool AddSpriteToRandomBlock(Sprite image)
+    {
+        List<Transform> allSquares = new List<Transform>();
+
+        for (int x = 0; x < extendedWidth; x++)
         {
-           
+            for (int y = 0; y < height; y++)
+            {
+                if (grid[x, y] != null)
+                {
+                    bool hasWaxSpriteChild = false;
+                    foreach (Transform child in grid[x, y])
+                    {
+                        if (child.name == "WaxSpriteChild")
+                        {
+                            hasWaxSpriteChild = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasWaxSpriteChild)
+                    {
+                        allSquares.Add(grid[x, y]);
+                    }
+                }
+            }
         }
 
-        Debug.Log("Locked 4 random blocks.");
+        if (allSquares.Count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            // Randomly select one square
+            Transform selectedSquare = allSquares[Random.Range(0, allSquares.Count)];
+
+            // Add a new child game object with a SpriteRenderer component to the selected square
+            GameObject newChild = new GameObject("WaxSpriteChild");
+            newChild.transform.parent = selectedSquare;
+            newChild.transform.localPosition = Vector3.zero; // Ensure the local position is (0, 0, 0)
+            SpriteRenderer spriteRenderer = newChild.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = image;
+            spriteRenderer.sortingOrder = 12;
+            return true;
+        }
+    }
+
+
+    private void DropColumnAbove(int x, int y)
+    {
+        for (int i = y + 1; i < height; i++)
+        {
+            if (grid[x, i] != null)
+            {
+                grid[x, i - 1] = grid[x, i];
+                grid[x, i] = null;
+                grid[x, i - 1].position -= new Vector3(0, 1, 0);
+            }
+        }
     }
     public bool IsOccupied(Vector3 position)
     {
@@ -579,13 +664,13 @@ public class BlockManager : MonoBehaviour
 
     Sprite GetSpriteByName(string spriteName)
     {
-        if (sprites == null)
+        if (StickerSprite == null)
         {
             Debug.LogError("Sprites array is null.");
             return null;
         }
 
-        foreach (var sprite in sprites)
+        foreach (var sprite in StickerSprite)
         {
             if (sprite.name == spriteName)
             {

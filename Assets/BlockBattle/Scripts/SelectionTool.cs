@@ -35,6 +35,27 @@ public class SelectionTool : MonoBehaviour
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
     }
 
+    public void SwitchSingleBlock(int shapeindex)
+    {
+        int position = threeBlockList.IndexOf(shapeindex);
+        List<int> allBlockList = new List<int> { 0, 1, 2, 3, 4, 5, 6 };
+        allBlockList.RemoveAll(item => threeBlockList.Contains(item));
+        if (allBlockList.Count == 0)
+        {
+            Debug.LogError("No possible shapes to switch without duplication.");
+            return;
+        }
+
+        System.Random random = new System.Random();
+        int newShapeIndex = allBlockList[random.Next(allBlockList.Count)];
+
+        // ¸üÐÂ threeBlockList ºÍ threeColorList
+        threeBlockList[position] = newShapeIndex;
+        threeColorList[position] = actionBlockDictionary[newShapeIndex];
+
+        SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
+    }
+
     public void addToStorage(int index)
     {
 
@@ -131,13 +152,13 @@ public class SelectionTool : MonoBehaviour
 
         return result;
     }
+
     public void ReShapeSelectionBlocks()
     {
         List<int> allBlockList = new List<int> {0, 1, 2, 3, 4, 5, 6};
         threeBlockList = DrawRandomIntegers(allBlockList, 3);
         SelectionUI.GetComponent<SelectionToolUI>().UpdateChoiceBlocks();
     }
-
 
     public void AddDebuffBlock(int Num, int ColorIndex)
     {
