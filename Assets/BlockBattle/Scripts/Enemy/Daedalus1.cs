@@ -60,6 +60,11 @@ public class Daedalus1 : Enemy
     {
         soundManager.PlaySfx("Daedalus_KindleStrike_Animation");
     }
+
+    public void WaxWingsSFX()
+    {
+        soundManager.PlaySfx("Daedalus_Wing");
+    }
     public void WaxSpray()
     {
 

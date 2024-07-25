@@ -418,8 +418,7 @@ public class BattleManager : MonoBehaviour
 
     public void KindledStrike(int skillDamage,int cubeDamage)
     {
-        //blockmanager blockmanager = findobjectoftype<blockmanager>();
-        //int count1 = blockmanager.destroyallwaxsquare();
+        int count1 = BlockManager.DestroyAllWaxSquare();
         CheckAndDesSelectionBlockWithWax();
         heroInfo.HitHandle(5 * cubeDamage);
         heroInfo.HitHandle(skillDamage);

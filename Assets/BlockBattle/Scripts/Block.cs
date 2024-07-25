@@ -159,7 +159,7 @@ public class BlockManager : MonoBehaviour
     }
 
 
-    private bool ContainsAndMarkWaxSpriteChild(Transform parent, List<Transform> childrenToDestroy)
+    public static bool ContainsAndMarkWaxSpriteChild(Transform parent, List<Transform> childrenToDestroy)
     {
         bool containsWaxSpriteChild = false;
 
@@ -182,7 +182,7 @@ public class BlockManager : MonoBehaviour
         return containsWaxSpriteChild;
     }
 
-    public int DestroyAllWaxSquare()
+    public static int DestroyAllWaxSquare()
     {
         int count = 0;
         List<Transform> childrenToDestroy = new List<Transform>();
@@ -266,7 +266,7 @@ public class BlockManager : MonoBehaviour
     }
 
 
-    private void DropColumnAbove(int x, int y)
+    public static void DropColumnAbove(int x, int y)
     {
         for (int i = y + 1; i < height; i++)
         {

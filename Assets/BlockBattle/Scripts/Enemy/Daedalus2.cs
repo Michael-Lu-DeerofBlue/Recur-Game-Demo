@@ -76,13 +76,16 @@ public class Daedalus2 : Enemy
         battleManager.KindledStrike(KindledStrikeDamage, KindledStrikeEachCubeDamage);
         DealAttackDamage(KindledStrikeDamage);
         animator.Play("KindledStrike");
-
-
     }
 
     public void KindledStrikeSFX2()
     {
         soundManager.PlaySfx("Daedalus_KindleStrike_Animation");
+    }
+
+    public void WaxSPraySFX()
+    {
+        soundManager.PlaySfx("Daedalus_Wing");
     }
 
     public void WaxSpray()
