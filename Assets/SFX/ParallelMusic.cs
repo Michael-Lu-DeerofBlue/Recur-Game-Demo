@@ -6,6 +6,7 @@ public class ParallelMusic : MonoBehaviour
 {
     public AudioSource audioSource1;
     public AudioSource audioSource2;
+    //public bool isLoop = false;
     
     void Start()
     {
