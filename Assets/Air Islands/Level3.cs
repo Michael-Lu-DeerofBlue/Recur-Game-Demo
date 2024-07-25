@@ -14,9 +14,11 @@ public class Level3 : LevelController
     public GameObject playerRef;
     public Transform bridge;
     public GameObject cube;
+    public GameObject ladderCube;
     public List<GameObject> enemies;
     public List<Vector3> BridgeCubePositions;
     public List<Vector3> lastBridgeCubePositions = new List<Vector3>();
+    public List<Vector3> EndBridgeCubePositions;
     public Camera playerCamera;
     public Camera moveCamera;
     public Camera topDownCamera;
@@ -26,6 +28,7 @@ public class Level3 : LevelController
     public GameObject[] TranslatedObjects;
     public static bool firstAccess = true;
     public GameObject transitioner;
+    public GameObject ladderBridge;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -73,6 +76,26 @@ public class Level3 : LevelController
         UpdateBehavior();
     }
 
+    private IEnumerator SpawnLadderBridgeCubes(List<Vector3> positions)
+    {
+        foreach (var position in positions)
+        {
+            GameObject lilBridge = Instantiate(ladderCube, position, Quaternion.identity);
+            lilBridge.transform.parent = bridge.transform;
+
+            // Initially set the cube below the bridge position
+            lilBridge.transform.position = new Vector3(position.x, position.y - 5, position.z);
+
+            // Animate the cube rising up to the bridge position
+            lilBridge.transform.DOMoveY(position.y, -10f).SetEase(Ease.OutBounce);
+
+            // Wait for a specified delay before spawning the next cube
+            yield return new WaitForSeconds(waitDelay);
+        }
+
+        UpdateBehavior();
+    }
+
     public void TransitionToBattle()
     {
         foreach (GameObject obj in TranslatedObjects)
@@ -94,15 +117,23 @@ public class Level3 : LevelController
         }
         if (TwoDto3D.win == true)
         {
-            Debug.Log("here");
+            //Debug.Log("here");
             foreach (var key in ThreeDTo2DData.dataDictionary.Keys)
             {
                 Debug.Log(key);
                 GameObject obj = GameObject.Find(key);
                 if (obj != null)
                 {
-                    Debug.Log("Here");
-                    obj.SetActive(false);
+                    //Debug.Log("Here");
+                    if (key == "Artemis")
+                    {
+                        EndAirIsland();
+                    }
+                    else
+                    {
+                        obj.SetActive(false);
+                    }
+                    
                 }
             }
         }
@@ -113,9 +144,20 @@ public class Level3 : LevelController
         playerRef.GetComponent<PlayerController>().cam.GetComponent<CameraController>().TurnCameraOff();
     }
 
+    void EndAirIsland()
+    {
+        flowchart.ExecuteBlock("GoToGallery2");
+    }
+
     void Start()
     {
         aStarPath = FindObjectOfType<AstarPath>(); // Find the AstarPath component in the scene
+        EndBridgeCubePositions = new List<Vector3>();
+        foreach (Transform child in ladderBridge.transform)
+        {
+            // Add the child's position to the list
+            EndBridgeCubePositions.Add(child.position);
+        }
     }
 
     public void EnterBoard()
@@ -165,6 +207,11 @@ public class Level3 : LevelController
 
     public void ExitBoard()
     {
+        IconShow[] icons = FindObjectsOfType<IconShow>();
+        foreach (IconShow icon in icons)
+        {
+            icon.Hide();
+        }
         EnableSceneObjects();
         playerRef.gameObject.SetActive(true);
         moveCamera.gameObject.SetActive(true);
@@ -302,6 +349,7 @@ public class Level3 : LevelController
         if (nearestMarker != null)
         {
             MarkerPos markerPos = nearestMarker.GetComponent<MarkerPos>();
+            nearestMarker.GetComponent<IconShow>().Show();
             if (markerPos != null)
             {
                 Vector3Int spawnPoint = markerPos.SpanwPoint;

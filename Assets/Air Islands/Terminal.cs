@@ -21,6 +21,7 @@ public class Terminal : MonoBehaviour
     public string[] consumables;
     public int amount;
     public bool breaked;
+    public GameObject bird;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +48,12 @@ public class Terminal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pointed && !breaked)
+        bool birdAlive = false;
+        if (bird != null)
+        {
+            birdAlive = false;
+        }
+        if (pointed && !breaked && !birdAlive)
         {
             if (Input.GetKey(KeyCode.F))
             {
@@ -59,7 +65,7 @@ public class Terminal : MonoBehaviour
                 }
                 UpdateFillingBar();
             }
-            else if (Input.GetKey(KeyCode.H))
+            else if (Input.GetKey(KeyCode.H) && type == "Heal")
             {
                 timer += Time.deltaTime;
                 if (timer >= holdTime)
@@ -70,7 +76,7 @@ public class Terminal : MonoBehaviour
                 }
                 UpdateFillingBar();
             }
-            else if (Input.GetKey(KeyCode.I))
+            else if (Input.GetKey(KeyCode.I) && type == "Chest")
             {
                 timer += Time.deltaTime;
                 if (timer >= holdTime)

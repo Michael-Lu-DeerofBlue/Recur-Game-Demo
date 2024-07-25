@@ -16,6 +16,8 @@ public class EnemyLayOutManager : MonoBehaviour
     public Enemy Lion;
     public Enemy Deer;
     public Enemy MockingBird;
+    public Enemy Floral;
+    public Enemy Artemis;
     public Enemy[] Mondrinion;
     private int enemyNum;
 
@@ -32,6 +34,7 @@ public class EnemyLayOutManager : MonoBehaviour
     {
         foreach (var kvp in EnemiesList)
         {
+            Debug.Log(kvp.Key + Time.time);
             string enemyName = kvp.Key.Split(' ')[0];
             Enemy enemy = Mondrinion[0];
             switch (enemyName)
@@ -68,6 +71,14 @@ public class EnemyLayOutManager : MonoBehaviour
                 case "Bird":
                     enemy.GetComponent<Enemy>().in3DName = kvp.Key;
                     enemy = MockingBird;
+                    break;
+                case "Floral":
+                    enemy.GetComponent<Enemy>().in3DName = kvp.Key;
+                    enemy = Floral;
+                    break;
+                case "Artemis":
+                    enemy.GetComponent<Enemy>().in3DName = kvp.Key;
+                    enemy = Artemis;
                     break;
                 case "Mondrinion":
                     enemy.GetComponent<Enemy>().in3DName = kvp.Key;

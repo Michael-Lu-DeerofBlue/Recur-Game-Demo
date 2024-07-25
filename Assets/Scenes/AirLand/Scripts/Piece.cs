@@ -168,7 +168,7 @@ public class Piece : MonoBehaviour
                     // If out of bounds vertically, clear the active piece and spawn a new one
                     board.ClearBlock(this);
                     board.SpawnPiece();
-                   CunDang.AddHealth(OutOfBoundDamage);
+                   CunDang.AddHealth(-5);
                 }
                 else
                 {

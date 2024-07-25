@@ -25,7 +25,7 @@ public class ThreeDPlayerBase : MonoBehaviour
     public void gotHitByEnemy()
     {
         PlayEffectHit();
-        HP--;
+        //HP--;
         ES3.Save("MoveHP", HP);
         if (GameObject.Find("GoggleCanvas") != null)
         {

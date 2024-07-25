@@ -34,6 +34,7 @@ public class LionProcessor : EnemyProcessor
 
         foreach (Transform patrolPoint in patrolPoints)
         {
+            //Debug.Log("here1");
             // Convert each patrol point position to a node
             GraphNode patrolNode = AstarPath.active.GetNearest(patrolPoint.position).node;
 
@@ -52,6 +53,7 @@ public class LionProcessor : EnemyProcessor
         // If there are valid patrol targets, enable the patrol script and set the targets
         if (actualPatrolTargets.Count > 0)
         {
+            //Debug.Log("here2");
             actualPatrolTargets.Add(current);
             patrolScript.targets = actualPatrolTargets.ToArray(); // Assuming the Patrol script has a public Transform[] targets
             aiPath.maxSpeed = patrolSpeed; //change the speed in to patrol speed

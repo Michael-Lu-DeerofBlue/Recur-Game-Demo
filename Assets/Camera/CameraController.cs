@@ -86,6 +86,7 @@ public class CameraController : MonoBehaviour
     {
         int count = 0;
         detectedEnemies.Clear();
+        detectedEnemies = new Dictionary<string, bool>();
         HashSet<Transform> detectedTargets = new HashSet<Transform>();
 
         for (int x = 0; x < gridResolution; x++)
@@ -118,21 +119,25 @@ public class CameraController : MonoBehaviour
         
         foreach (var target in detectedTargets)
         {
-            Debug.Log(target.name);
+            Debug.Log(target.name + Time.time);
             string targetName = target.gameObject.transform.parent.name;
-            //Debug.Log(target.transform.parent.rotation);
+            Debug.Log(targetName);
             bool isFacingAway = IsFacingAwayFromPlayer(target.parent.transform);
-            detectedEnemies[targetName] = isFacingAway;
+            detectedEnemies.Add(targetName, isFacingAway);
         }
         ThreeDTo2DData.dataDictionary.Clear();
         ThreeDTo2DData.dataDictionary = detectedEnemies;
-        /*
+       
        Debug.Log("Number of target objects in frame: " + count + " Time: " + Time.time);
-       foreach (var enemy in detectedEnemies)
-       {
-           Debug.Log($"Enemy: {enemy.Key}, Detected: {enemy.Value}" + " Time: " + Time.time);
-       }
-       */
+        foreach (var enemy in detectedEnemies)
+        {
+            Debug.Log($"Enemy: {enemy.Key}, Detected: {enemy.Value}" + " Time: " + Time.time);
+        }
+        foreach (var enemy in ThreeDTo2DData.dataDictionary)
+        {
+            Debug.Log($"Enemy: {enemy.Key}, Detected: {enemy.Value}" + " Time: " + Time.time);
+        }
+
         if (count > 0)
         {
             string currentSceneName = SceneManager.GetActiveScene().name;
