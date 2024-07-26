@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class HeroInfo : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class HeroInfo : MonoBehaviour
     private DamageNumber damageNumber;
     private List<IEnumerator> bleedingCoroutines = new List<IEnumerator>();
     private SoundManager soundManager;
+    public UnityEvent ExecuteSkill = new UnityEvent();
 
     // List to store pairs of index and clearNumber
 
@@ -129,10 +131,11 @@ public class HeroInfo : MonoBehaviour
                 yield return new WaitForSeconds(1f);
 
                 (int index, int clearNumber, int holderIndex) = iconQueue[0];
-                ExecuteBehavior(index, clearNumber);
                 iconQueue.RemoveAt(0);
+              //  ExecuteAnim(index, clearNumber);
+              //  yield return StartCoroutine(WaitForExecuteSkill());
 
-
+                ExecuteBehavior(index, holderIndex);
                 SpriteRenderer sr = SkillICoinsHolder[holderIndex].GetComponent<SpriteRenderer>();
                 if (sr != null)
                 {
@@ -156,6 +159,22 @@ public class HeroInfo : MonoBehaviour
             battleManager.ContinueBlockGame();
         }
 
+    }
+
+    private IEnumerator WaitForExecuteSkill()
+    {
+        bool notified = false;
+        ExecuteSkill.AddListener(() => notified = true);
+
+        yield return new WaitUntil(() => notified);
+
+        // Clean up the listener to prevent memory leaks
+        ExecuteSkill.RemoveAllListeners();
+    }
+
+    public void callExecuteSkill()
+    {
+        ExecuteSkill.Invoke();
     }
 
     private void AddExtraIconsToQueue()
@@ -337,6 +356,73 @@ public class HeroInfo : MonoBehaviour
     public virtual void HandleIndex8(int clearNumber)
     {
         Debug.Log("gray, stun, do nothing");
+    }
+
+    public virtual void ExecuteAnim(int index, int clearNumber)
+    //whatever the player character do, it will be executed here. 
+    {
+        if (battleManager.GameOver)
+        {
+            return;
+        }
+        switch (index)
+        {
+            //case 0:
+            //    AnimIndex0(clearNumber);
+            //    break;
+            //case 1:
+            //    AnimIndex1(clearNumber);
+            //    break;
+            //case 2:
+            //    AnimIndex2(clearNumber);
+            //    break;
+            //case 3:
+            //    AnimIndex3(clearNumber);
+            //    break;
+            //case 4:
+            //    AnimIndex4(clearNumber);
+            //    break;
+            //case 5:
+            //    AnimIndex5(clearNumber);
+            //    break;
+            //case 6:
+            //    AnimIndex6(clearNumber);
+            //    break;
+            default:
+                callExecuteSkill();
+                break;
+
+        }
+
+    }
+    public virtual void AnimIndex0(int clearNumber)
+    {
+
+    }
+
+    public virtual void AnimIndex1(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex2(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex3(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex4(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex5(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex6(int clearNumber)
+    {
+
     }
 
     public virtual void HandleIndex9(int clearNumber)
