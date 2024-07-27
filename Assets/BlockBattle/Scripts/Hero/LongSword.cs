@@ -169,34 +169,79 @@ public class LongSword : HeroInfo
     }
 
 
+
+   
     public override void AnimIndex0(int clearNumber)
     {
-        LongSwordAnimator.Play("Red");
+        LongSwordAnimator.Play("Red", 0, 0.0f);
     }
 
     public override void AnimIndex1(int clearNumber)
     {
-        LongSwordAnimator.Play("Red");
+        LongSwordAnimator.Play("Green", 0, 0.0f);
+
     }
     public override void AnimIndex2(int clearNumber)
     {
-        LongSwordAnimator.Play("Red");
+        LongSwordAnimator.Play("Orange", 0, 0.0f);
+
     }
     public override void AnimIndex3(int clearNumber)
     {
-        LongSwordAnimator.Play("Red");
+        LongSwordAnimator.Play("Dblue", 0, 0.0f);
+
     }
     public override void AnimIndex4(int clearNumber)
     {
-        LongSwordAnimator.Play("Red");
+        LongSwordAnimator.Play("Purple", 0, 0.0f);
     }
     public override void AnimIndex5(int clearNumber)
     {
-        LongSwordAnimator.Play("Red");
+        LongSwordAnimator.Play("Yellow", 0, 0.0f);
     }
     public override void AnimIndex6(int clearNumber)
     {
-        LongSwordAnimator.Play("Red");
+        if(clearNumber==4  && battleManager.clearedline == 4)
+        {
+            LongSwordAnimator.Play("Lblue", 0, 0.0f);
+        }
+        else
+        {
+            LongSwordAnimator.Play("LblueWu", 0, 0.0f);
+
+
+        }
+    }
+
+
+    public void PlayRedSFX()
+    {
+        soundManager.PlaySfx("Longsword_Light");
+    }
+
+    public void PlayOrangeSFX()
+    {
+        soundManager.PlaySfx("Longsword_Heavy_NoImpact");
+    }
+
+    public void PlayDblueSFX()
+    {
+        soundManager.PlaySfx("Longsword_RestoreStance");
+    }
+
+    public void PlayPurpleSFX()
+    {
+        soundManager.PlaySfx("Longsword_Krumphau");
+    }
+
+    public void PlayLblueSFX()
+    {
+        soundManager.PlaySfx("Longsword_Zornhau");
+    }
+
+    public void PlayLblueWuSFX()
+    {
+        soundManager.PlaySfx("Longsword_ZornhauW");
     }
 
 }

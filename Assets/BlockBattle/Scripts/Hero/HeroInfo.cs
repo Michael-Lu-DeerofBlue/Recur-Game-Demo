@@ -37,7 +37,7 @@ public class HeroInfo : MonoBehaviour
     public float horizontalSpacing =7.0f;
     private DamageNumber damageNumber;
     private List<IEnumerator> bleedingCoroutines = new List<IEnumerator>();
-    private SoundManager soundManager;
+    public SoundManager soundManager;
     private bool CanskillExecuted;
     public Animator LongSwordAnimator;
 
@@ -137,10 +137,8 @@ public class HeroInfo : MonoBehaviour
 
                 (int index, int clearNumber, int holderIndex) = iconQueue[0];
                 iconQueue.RemoveAt(0);
-               //ExecuteAnim(index, clearNumber);
-               // yield return StartCoroutine(WaitForExecuteSkill());
-               // Debug.Log("After WaitForExecuteSkill");
-               // Debug.Log($"Executing behavior for index: {index}, holderIndex: {holderIndex}");
+          //      ExecuteAnim(index, clearNumber);
+           //     yield return StartCoroutine(WaitForExecuteSkill());
                 ExecuteBehavior(index, clearNumber);
                 SpriteRenderer sr = SkillICoinsHolder[holderIndex].GetComponent<SpriteRenderer>();
                 if (sr != null)
@@ -176,6 +174,7 @@ public class HeroInfo : MonoBehaviour
 
     public void CallExecuteSkill()
     {
+
         CanskillExecuted = true;
     }
 
@@ -363,12 +362,14 @@ public class HeroInfo : MonoBehaviour
     public virtual void ExecuteAnim(int index, int clearNumber)
     //whatever the player character do, it will be executed here. 
     {
+        Debug.Log("start ExecuteAnim");
         if (battleManager.GameOver)
         {
             return;
         }
         switch (index)
         {
+           
             case 0:
                 AnimIndex0(clearNumber);
                 break;
