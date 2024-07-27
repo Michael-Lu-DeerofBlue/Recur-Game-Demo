@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using Unity.VisualScripting;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class HeroInfo : MonoBehaviour
 {
@@ -36,7 +37,11 @@ public class HeroInfo : MonoBehaviour
     public float horizontalSpacing =7.0f;
     private DamageNumber damageNumber;
     private List<IEnumerator> bleedingCoroutines = new List<IEnumerator>();
-    private SoundManager soundManager;
+    public SoundManager soundManager;
+    private bool CanskillExecuted;
+    public Animator LongSwordAnimator;
+
+
 
     // List to store pairs of index and clearNumber
 
@@ -54,6 +59,7 @@ public class HeroInfo : MonoBehaviour
         soundManager = FindObjectOfType<SoundManager>();
 
     }
+
 
     // Update is called once per frame
     public virtual void Update()
@@ -110,6 +116,7 @@ public class HeroInfo : MonoBehaviour
         Debug.LogWarning("No empty SpriteRenderer found in SkillICoinsHolder.");
     }
 
+
     public virtual void ExecuteIconSkill()
     {
         if (battleManager.GameOver)
@@ -129,10 +136,10 @@ public class HeroInfo : MonoBehaviour
                 yield return new WaitForSeconds(1f);
 
                 (int index, int clearNumber, int holderIndex) = iconQueue[0];
-                ExecuteBehavior(index, clearNumber);
                 iconQueue.RemoveAt(0);
-
-
+          //      ExecuteAnim(index, clearNumber);
+           //     yield return StartCoroutine(WaitForExecuteSkill());
+                ExecuteBehavior(index, clearNumber);
                 SpriteRenderer sr = SkillICoinsHolder[holderIndex].GetComponent<SpriteRenderer>();
                 if (sr != null)
                 {
@@ -156,6 +163,19 @@ public class HeroInfo : MonoBehaviour
             battleManager.ContinueBlockGame();
         }
 
+    }
+
+    private IEnumerator WaitForExecuteSkill()
+    {
+        CanskillExecuted = false;
+
+        yield return new WaitUntil(() => CanskillExecuted);
+    }
+
+    public void CallExecuteSkill()
+    {
+
+        CanskillExecuted = true;
     }
 
     private void AddExtraIconsToQueue()
@@ -337,6 +357,75 @@ public class HeroInfo : MonoBehaviour
     public virtual void HandleIndex8(int clearNumber)
     {
         Debug.Log("gray, stun, do nothing");
+    }
+
+    public virtual void ExecuteAnim(int index, int clearNumber)
+    //whatever the player character do, it will be executed here. 
+    {
+        Debug.Log("start ExecuteAnim");
+        if (battleManager.GameOver)
+        {
+            return;
+        }
+        switch (index)
+        {
+           
+            case 0:
+                AnimIndex0(clearNumber);
+                break;
+            case 1:
+                AnimIndex1(clearNumber);
+                break;
+            case 2:
+                AnimIndex2(clearNumber);
+                break;
+            case 3:
+                AnimIndex3(clearNumber);
+                break;
+            case 4:
+                AnimIndex4(clearNumber);
+                break;
+            case 5:
+                AnimIndex5(clearNumber);
+                break;
+            case 6:
+                AnimIndex6(clearNumber);
+                break;
+            default:
+                ExecuteBehavior(index, clearNumber);
+                break;
+
+        }
+
+    }
+    public virtual void AnimIndex0(int clearNumber)
+    {
+
+    }
+
+    public virtual void AnimIndex1(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex2(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex3(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex4(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex5(int clearNumber)
+    {
+
+    }
+    public virtual void AnimIndex6(int clearNumber)
+    {
+
     }
 
     public virtual void HandleIndex9(int clearNumber)
