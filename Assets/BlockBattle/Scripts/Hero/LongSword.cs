@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LongSword : HeroInfo
 {
-
     public override void HandleIndex0(int clearNumber) // 0: Red
     {
         switch (clearNumber)
@@ -168,4 +167,36 @@ public class LongSword : HeroInfo
                 break;
         }
     }
+
+
+    public override void AnimIndex0(int clearNumber)
+    {
+        LongSwordAnimator.Play("Red");
+    }
+
+    public override void AnimIndex1(int clearNumber)
+    {
+        LongSwordAnimator.Play("Red");
+    }
+    public override void AnimIndex2(int clearNumber)
+    {
+        LongSwordAnimator.Play("Red");
+    }
+    public override void AnimIndex3(int clearNumber)
+    {
+        LongSwordAnimator.Play("Red");
+    }
+    public override void AnimIndex4(int clearNumber)
+    {
+        LongSwordAnimator.Play("Red");
+    }
+    public override void AnimIndex5(int clearNumber)
+    {
+        LongSwordAnimator.Play("Red");
+    }
+    public override void AnimIndex6(int clearNumber)
+    {
+        LongSwordAnimator.Play("Red");
+    }
+
 }

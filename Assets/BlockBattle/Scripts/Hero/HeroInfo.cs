@@ -38,7 +38,10 @@ public class HeroInfo : MonoBehaviour
     private DamageNumber damageNumber;
     private List<IEnumerator> bleedingCoroutines = new List<IEnumerator>();
     private SoundManager soundManager;
-    public UnityEvent ExecuteSkill = new UnityEvent();
+    private bool CanskillExecuted;
+    public Animator LongSwordAnimator;
+
+
 
     // List to store pairs of index and clearNumber
 
@@ -56,6 +59,7 @@ public class HeroInfo : MonoBehaviour
         soundManager = FindObjectOfType<SoundManager>();
 
     }
+
 
     // Update is called once per frame
     public virtual void Update()
@@ -112,6 +116,7 @@ public class HeroInfo : MonoBehaviour
         Debug.LogWarning("No empty SpriteRenderer found in SkillICoinsHolder.");
     }
 
+
     public virtual void ExecuteIconSkill()
     {
         if (battleManager.GameOver)
@@ -132,10 +137,11 @@ public class HeroInfo : MonoBehaviour
 
                 (int index, int clearNumber, int holderIndex) = iconQueue[0];
                 iconQueue.RemoveAt(0);
-              //  ExecuteAnim(index, clearNumber);
-              //  yield return StartCoroutine(WaitForExecuteSkill());
-
-                ExecuteBehavior(index, holderIndex);
+               //ExecuteAnim(index, clearNumber);
+               // yield return StartCoroutine(WaitForExecuteSkill());
+               // Debug.Log("After WaitForExecuteSkill");
+               // Debug.Log($"Executing behavior for index: {index}, holderIndex: {holderIndex}");
+                ExecuteBehavior(index, clearNumber);
                 SpriteRenderer sr = SkillICoinsHolder[holderIndex].GetComponent<SpriteRenderer>();
                 if (sr != null)
                 {
@@ -163,18 +169,14 @@ public class HeroInfo : MonoBehaviour
 
     private IEnumerator WaitForExecuteSkill()
     {
-        bool notified = false;
-        ExecuteSkill.AddListener(() => notified = true);
+        CanskillExecuted = false;
 
-        yield return new WaitUntil(() => notified);
-
-        // Clean up the listener to prevent memory leaks
-        ExecuteSkill.RemoveAllListeners();
+        yield return new WaitUntil(() => CanskillExecuted);
     }
 
-    public void callExecuteSkill()
+    public void CallExecuteSkill()
     {
-        ExecuteSkill.Invoke();
+        CanskillExecuted = true;
     }
 
     private void AddExtraIconsToQueue()
@@ -367,29 +369,29 @@ public class HeroInfo : MonoBehaviour
         }
         switch (index)
         {
-            //case 0:
-            //    AnimIndex0(clearNumber);
-            //    break;
-            //case 1:
-            //    AnimIndex1(clearNumber);
-            //    break;
-            //case 2:
-            //    AnimIndex2(clearNumber);
-            //    break;
-            //case 3:
-            //    AnimIndex3(clearNumber);
-            //    break;
-            //case 4:
-            //    AnimIndex4(clearNumber);
-            //    break;
-            //case 5:
-            //    AnimIndex5(clearNumber);
-            //    break;
-            //case 6:
-            //    AnimIndex6(clearNumber);
-            //    break;
+            case 0:
+                AnimIndex0(clearNumber);
+                break;
+            case 1:
+                AnimIndex1(clearNumber);
+                break;
+            case 2:
+                AnimIndex2(clearNumber);
+                break;
+            case 3:
+                AnimIndex3(clearNumber);
+                break;
+            case 4:
+                AnimIndex4(clearNumber);
+                break;
+            case 5:
+                AnimIndex5(clearNumber);
+                break;
+            case 6:
+                AnimIndex6(clearNumber);
+                break;
             default:
-                callExecuteSkill();
+                ExecuteBehavior(index, clearNumber);
                 break;
 
         }
