@@ -52,7 +52,7 @@ public class EnemyLayOutManager : MonoBehaviour
                     if (EnemiesList[kvp.Key])
                     {
                         enemy = Lion; //”–¥‡»ı
-                        enemy.FragilingNum++;
+                        enemy.FragilingNum = 10;
                         Debug.Log("backstabbed lion");
                         break;
                     }
@@ -64,13 +64,12 @@ public class EnemyLayOutManager : MonoBehaviour
                 case "Deer":
                     if (EnemiesList[kvp.Key]) { 
                         enemy = Deer; //”–¥‡»ı
-                        enemy.FragilingNum++;
+                        enemy.FragilingNum = 10;
                         Debug.Log("backstabbed deer");
                         break;
                         }
                     else {
                         enemy = Deer; //Œﬁ¥‡»ı
-                        enemy.FragilingNum++;
                         break;
                     }
                 case "Bird":

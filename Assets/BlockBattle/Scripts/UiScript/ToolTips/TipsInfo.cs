@@ -155,6 +155,16 @@ public class TipsInfo : MonoBehaviour
                 return "无首新娘";
             case "Perseus":
                 return "帕尔修斯";
+            case "lion":
+                return "狮子";
+            case "deer":
+                return "鹿";
+            case "mocking bird":
+                return "啄木鸟"; 
+            case "floral sarcoid":
+                return "花瘤";
+            case "artemis":
+                return "阿尔特弥斯";
         }
         return Name;
     }
@@ -171,6 +181,28 @@ public class TipsInfo : MonoBehaviour
                 return "扫视";
             case "SculptureGaze":
                 return "破碎凝视";
+            case "Bite":
+                return "撕咬";
+            case "GoldenAntler":
+                return "黄金鹿角";
+            case "Charge":
+                return "激励";
+            case "Scream":
+                return "鸣叫";
+            case "ShapeShift":
+                return "拟态";
+            case "BlindAmbush":
+                return "贪婪突袭";
+            case "Swap":
+                return "变换";
+            case "TakeAim":
+                return "瞄准";
+            case "ChariotOfGolden":
+                return "金角战车";
+            case "Golden Arrows":
+                return "荒野的呼唤";
+            case "CalloftheWild":
+                return "黄金箭雨";
         }
         return SkillName;
     }
@@ -187,6 +219,28 @@ public class TipsInfo : MonoBehaviour
                 return "造成7点伤害，并将1个眩晕置入选择区。";
             case "SculptureGaze":
                 return "敌人被偷袭后，失去该技能。造成8点伤害，并将3个眩晕置入选择区。";
+            case "Bite":
+                return "造成" + damage + "伤害，并施加1层流血。";
+            case "GoldenAntler":
+                return "造成12点伤害，并治疗所有敌人，治疗量为造成的伤害的一半。";
+            case "Charge":
+                return "对所有敌人施加兴奋，持续20秒。";
+            case "Scream":
+                return "施加停滞，持续2秒。";
+            case "ShapeShift":
+                return "获得无敌。当旋转4次指令块时，移除无敌。";
+            case "BlindAmbush":
+                return "选择1个随机目标（包括战斗中的其他敌人），对其造成12点伤害。如果目标为其他敌人，使其蹒跚。否则，造成的伤害 * 3。";
+            case "Swap":
+                return "随机变换选择区的指令块形状。";
+            case "TakeAim":
+                return "施加1层脆弱。";
+            case "ChariotOfGolden":
+                return "造成16点伤害，并治疗所有敌人，治疗量为造成的伤害的一半。";
+            case "GoldenArrows":
+                return "召唤狮子、嘲鸟和鹿，直到战斗中有四个敌人。";
+            case "CalloftheWild":
+                return "将所有其他单位作为目标（包括其他敌人），对其造成等同于所选目标数8倍的伤害。";
         }
         return SkillName;
     }

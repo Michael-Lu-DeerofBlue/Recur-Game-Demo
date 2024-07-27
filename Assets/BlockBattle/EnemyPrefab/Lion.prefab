@@ -414,27 +414,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveFrequency: 2
   moveAmplitude: 0.2
-  HP: 35
-  MaxHp: 35
+  HP: 40
+  MaxHp: 40
   SkillCastingTime: 0
   DisplayName: lion
   enemyInfoText: {fileID: 2320016935802981217}
   timer: 0
+  CastingSpeedRate: 1
+  NextSkillDamage: 0
   heroInfo: {fileID: 0}
   battleManager: {fileID: 0}
   nextMove: 
   isdead: 0
+  targetSelector: {fileID: 0}
+  twoDto3D: {fileID: 0}
+  SpendingSkillAnim: 0
+  soundManager: {fileID: 0}
   FragilingNum: 0
   PauseTime: 0
   PauseCasting: 0
+  Invincible: 0
+  StaggerReis: 0
   CurrentSkillIcons: []
   CurrentIcon: {fileID: 0}
+  animator: {fileID: 0}
+  ShowingTip: 0
+  in3DName: 
+  allDead: 0
   attackDamage: 9
   BleedBlockDamage: 7
   FleeDamage: 0
   attackWeight: 4
   BleedBlockWeight: 6
   FleeWeight: 0
-  attackCastingTime: 12
-  BleedBlockCastingTime: 15
-  FleeCastingTime: 10
+  attackCastingTime: 6
+  BleedBlockCastingTime: 7
+  FleeCastingTime: 5

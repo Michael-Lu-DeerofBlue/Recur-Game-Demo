@@ -2,6 +2,7 @@ using Kamgam.SettingsGenerator;
 using Unity.VisualScripting;
 using UnityEngine;
 using Fungus;
+using System;
 
 /// <summary>
 /// Controls the character by magnetizing to nearby objects that he can walk on.
@@ -34,6 +35,9 @@ public class PlayerController : MonoBehaviour
     [Header("Layers on which the character can walk.")]
     [SerializeField] private LayerMask RayCastLayerMask = ~LAYER_EVERYTHING;
 
+    public double curve;
+    public float curve_2;
+    public float curve_3;
     private float currentMagneticRotationSpeed;
     public bool isGrounded;
     public bool inMovement;
@@ -249,8 +253,8 @@ public class PlayerController : MonoBehaviour
     public void ProcessLook()
     {
 
-        float mouseX = Input.GetAxis("Mouse X") * xSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * ySensitivity;
+        float mouseX = Input.GetAxis("Mouse X") * (float) Math.Pow(xSensitivity, curve) * curve_2;
+        float mouseY = Input.GetAxis("Mouse Y") * (float )Math.Pow(ySensitivity, curve) * curve_3;
 
         // Calculate camera rotation for looking up and down
         xRotation -= mouseY;

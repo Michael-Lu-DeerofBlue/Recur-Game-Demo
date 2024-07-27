@@ -142,7 +142,7 @@ public class BlockManager : MonoBehaviour
                 }
             }
 
-            if (Time.time - previousTime > (Input.GetKey(KeyCode.S) ? fallTime / 10 : fallTime))
+            if (Time.time - previousTime > (Input.GetKey(KeyCode.S) ? (fallTime * 2f) / 10 : (fallTime * 2f)))
             {
                 transform.position += new Vector3(0, -1, 0);
                 if (!ValidMove())

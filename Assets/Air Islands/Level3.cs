@@ -397,6 +397,8 @@ public class Level3 : LevelController
             }
         }
 
+        Debug.Log(nearestMarker.gameObject.name);
+
         if (nearestMarker != null)
         {
             MarkerPos markerPos = nearestMarker.GetComponent<MarkerPos>();
