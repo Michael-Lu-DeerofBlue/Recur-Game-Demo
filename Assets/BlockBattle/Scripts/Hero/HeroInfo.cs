@@ -137,8 +137,8 @@ public class HeroInfo : MonoBehaviour
 
                 (int index, int clearNumber, int holderIndex) = iconQueue[0];
                 iconQueue.RemoveAt(0);
-          //      ExecuteAnim(index, clearNumber);
-           //     yield return StartCoroutine(WaitForExecuteSkill());
+                ExecuteAnim(index, clearNumber);
+               yield return StartCoroutine(WaitForExecuteSkill());
                 ExecuteBehavior(index, clearNumber);
                 SpriteRenderer sr = SkillICoinsHolder[holderIndex].GetComponent<SpriteRenderer>();
                 if (sr != null)
