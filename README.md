@@ -1,0 +1,1 @@
+Recur is a 3D first person narrative + roguelike game that BlueX Game Studio is developing since May 2024. As the General Manager and the Lead Programmer, I established the programming workflow, the 3D dynamic environment building system, and the 2D combat system inspired by Tetris. The demo will be alive soon in late August.
