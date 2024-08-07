@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -235,6 +235,7 @@ public class Level1 : LevelController
 
         if (!conversationTracker[0])
         {
+            //Debug.Log("Conversation ende");
             conversationTracker[0] = true;
             airWall.SetActive(false);
             gameFlowchart.ExecuteBlock("FenceDown");
@@ -258,7 +259,7 @@ public class Level1 : LevelController
             ES3.Save("Gadgets", true);
             convoThreeDone = true;
             JudgeLanguage();
-            string hintText = "��TAB��ѡ�";
+            string hintText = "用TAB打开背包";
             if (language == "en") {
                 hintText = "use Tab to open your pilot hatch";
             }
@@ -269,7 +270,7 @@ public class Level1 : LevelController
             conversationTracker[4] = true;
             Player.GetComponent<GadgetsTool>().Camera = true;
             JudgeLanguage();
-            string hintText = "��E������Ӱ״̬�����������ˣ�����ս��";
+            string hintText = "按E进入拍摄模式，对敌人按左键以拍摄并进入战斗";
             if (language == "en")
             {
                 hintText = "use E to enter camera mode, left click to photo and combat the enemy";
@@ -286,12 +287,12 @@ public class Level1 : LevelController
             case "English":
                 language = "en";
                 //set subtitle speed
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 15;
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 1500;
                 break;
             case "Chinese (Simplified)":
                 language = "cn";
                 //set subtitle speed
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 7;
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 700;
                 break;
             // Add more cases for other languages if needed
             default:
