@@ -35,9 +35,9 @@ public class PlayerController : MonoBehaviour
     [Header("Layers on which the character can walk.")]
     [SerializeField] private LayerMask RayCastLayerMask = ~LAYER_EVERYTHING;
 
-    public double curve;
-    public float curve_2;
-    public float curve_3;
+    public double curve = 1.15f;
+    public float curve_2 = 0.01f;
+    public float curve_3 = 0.15f;
     private float currentMagneticRotationSpeed;
     public bool isGrounded;
     public bool inMovement;
@@ -253,8 +253,8 @@ public class PlayerController : MonoBehaviour
     public void ProcessLook()
     {
 
-        float mouseX = Input.GetAxis("Mouse X") * (float) Math.Pow(xSensitivity, curve) * curve_2;
-        float mouseY = Input.GetAxis("Mouse Y") * (float )Math.Pow(ySensitivity, curve) * curve_3;
+        float mouseX = Input.GetAxis("Mouse X") * (float) Math.Pow(xSensitivity, 1.15f) * 0.01f;
+        float mouseY = Input.GetAxis("Mouse Y") * (float )Math.Pow(ySensitivity, 1.15f) * 0.15f;
 
         // Calculate camera rotation for looking up and down
         xRotation -= mouseY;
