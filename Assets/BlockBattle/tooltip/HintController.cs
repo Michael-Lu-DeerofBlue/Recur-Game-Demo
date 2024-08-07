@@ -17,7 +17,7 @@ public class HintController : MonoBehaviour
     public string conversationName;
     public TextMeshPro countText;
     public Flowchart gameFlowchart;
-    public Flowchart BGMFlowchart;
+    private SingletonFlowchart bgmFlowchart;
     public GameObject perTutorialManager;
     void Start()
     {
@@ -30,6 +30,12 @@ public class HintController : MonoBehaviour
         if (currentSceneName == "BattleLevel - tutorial")
         {
             //Handle To Tutorial
+        }
+        
+        bgmFlowchart = SingletonFlowchart.Instance; //get the singleton bgm flowchart in the scene
+        if (bgmFlowchart == null)
+        {
+            Debug.LogWarning("BGM flowchart not found!");
         }
     }
         private void Update()
@@ -45,7 +51,7 @@ public class HintController : MonoBehaviour
         {
             JudgeLanguage();
             DialogueManager.StartConversation(conversationName + "_" + language);
-            BGMFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
+            bgmFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
             gameFlowchart.ExecuteBlock("WhiteScreen");
         }
 

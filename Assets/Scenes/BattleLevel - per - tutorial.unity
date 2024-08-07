@@ -1390,52 +1390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mTarget: {fileID: 2030624101}
---- !u!1 &275932444
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 275932446}
-  - component: {fileID: 275932445}
-  m_Layer: 0
-  m_Name: Music Loop
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &275932445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 275932444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1460ed9064041b6ada0158b67aa410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource1: {fileID: 1706542512}
-  audioSource2: {fileID: 1838186872}
---- !u!4 &275932446
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 275932444}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1284468928}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &283174411
 GameObject:
   m_ObjectHideFlags: 0
@@ -5235,7 +5189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 1835847622}
+  selectedFlowchart: {fileID: 1392204790}
 --- !u!4 &833061331
 Transform:
   m_ObjectHideFlags: 1
@@ -8681,6 +8635,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3810400569969385430, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
+      propertyPath: audioSource1
+      value: 
+      objectReference: {fileID: 1706542512}
+    - target: {fileID: 3810400569969385430, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
+      propertyPath: audioSource2
+      value: 
+      objectReference: {fileID: 1838186872}
     - target: {fileID: 6126126086213510953, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
       propertyPath: m_Name
       value: BGM Player
@@ -8689,6 +8651,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6731005114626682020, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
+      propertyPath: audioSource1
+      value: 
+      objectReference: {fileID: 1856847690}
+    - target: {fileID: 6731005114626682020, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
+      propertyPath: audioSource2
+      value: 
+      objectReference: {fileID: 1836383494}
     - target: {fileID: 7809374531625984392, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
       propertyPath: SourceTypes.Array.size
       value: 4
@@ -8731,23 +8701,17 @@ PrefabInstance:
       objectReference: {fileID: 1838186872}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2510808512723575151, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1384799690}
-    - targetCorrespondingSourceObject: {fileID: 2510808512723575151, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 275932446}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
---- !u!4 &1284468928 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2510808512723575151, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
+--- !u!1 &1284468928 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4346697479918391108, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
   m_PrefabInstance: {fileID: 1284468927}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1284468929 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 6126126086213510953, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7235876533499675101, guid: f1aae8914ff434bf0bf880a885d86ddf, type: 3}
   m_PrefabInstance: {fileID: 1284468927}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1297890831
@@ -9457,52 +9421,6 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_SortAtRoot: 0
---- !u!1 &1384799689
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1384799690}
-  - component: {fileID: 1384799691}
-  m_Layer: 0
-  m_Name: Music Start
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1384799690
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1384799689}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1284468928}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1384799691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1384799689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1460ed9064041b6ada0158b67aa410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource1: {fileID: 1856847690}
-  audioSource2: {fileID: 1836383494}
 --- !u!1 &1391525212
 GameObject:
   m_ObjectHideFlags: 0
@@ -13617,15 +13535,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1835847623}
   - component: {fileID: 1835847622}
-  - component: {fileID: 1835847621}
-  - component: {fileID: 1835847620}
-  - component: {fileID: 1835847619}
   - component: {fileID: 1835847618}
   - component: {fileID: 1835847617}
   - component: {fileID: 1835847616}
-  - component: {fileID: 1835847615}
   - component: {fileID: 1835847614}
-  - component: {fileID: 1835847613}
   - component: {fileID: 1835847612}
   - component: {fileID: 1835847611}
   - component: {fileID: 1835847610}
@@ -13633,10 +13546,6 @@ GameObject:
   - component: {fileID: 1835847608}
   - component: {fileID: 1835847607}
   - component: {fileID: 1835847606}
-  - component: {fileID: 1835847605}
-  - component: {fileID: 1835847604}
-  - component: {fileID: 1835847603}
-  - component: {fileID: 1835847602}
   - component: {fileID: 1835847601}
   - component: {fileID: 1835847600}
   - component: {fileID: 1835847599}
@@ -13882,93 +13791,6 @@ MonoBehaviour:
   fadeDuration: 0
   waitUntilFinished: 0
   audioSourceOLD: {fileID: 0}
---- !u!114 &1835847602
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835847591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 31
-  indentLevel: 0
-  targetObject: {fileID: 275932444}
-  methodName: PlayAudio
-  delay: 0
---- !u!114 &1835847603
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835847591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 27
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 1838186872}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
---- !u!114 &1835847604
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835847591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 26
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 1
-  durationOLD: 0
---- !u!114 &1835847605
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835847591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 242.36633
-    y: 158.5915
-    width: 193.13716
-    height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
-  itemId: 32
-  blockName: TutorialMusicLoop (Test)
-  description: 
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 1835847604}
-  - {fileID: 1835847603}
-  - {fileID: 1835847602}
-  suppressAllAutoSelections: 0
 --- !u!114 &1835847606
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -13983,7 +13805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 24
   indentLevel: 0
-  targetObject: {fileID: 275932444}
+  targetObject: {fileID: 1284468928}
   methodName: PlayAudio
   delay: 0
 --- !u!114 &1835847607
@@ -14018,7 +13840,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 22
   indentLevel: 0
-  targetObject: {fileID: 1384799689}
+  targetObject: {fileID: 1284468929}
   methodName: PlayAudio
   delay: 0
 --- !u!114 &1835847609
@@ -14107,24 +13929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e6a39a10aac9c499e74f0e05b975d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1835847613
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835847591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fab8abf0343545abbfebd9a7b7b34bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 16
-  indentLevel: 0
-  logType: 0
-  logMessage:
-    stringRef: {fileID: 0}
-    stringVal: start music
 --- !u!114 &1835847614
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -14143,29 +13947,6 @@ MonoBehaviour:
   logMessage:
     stringRef: {fileID: 0}
     stringVal: xfade
---- !u!114 &1835847615
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835847591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc30c92f7ffe3d746ac76cd528d616e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 14
-  indentLevel: 0
-  control: 4
-  _audioSource:
-    audioSourceRef: {fileID: 0}
-    audioSourceVal: {fileID: 1836383494}
-  startVolume: 1
-  endVolume: 0
-  fadeDuration: 0
-  waitUntilFinished: 0
-  audioSourceOLD: {fileID: 0}
 --- !u!114 &1835847616
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -14243,71 +14024,6 @@ MonoBehaviour:
   - {fileID: 1835847599}
   - {fileID: 1835847598}
   suppressAllAutoSelections: 0
---- !u!114 &1835847619
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835847591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17a200dbd67304446a3019434503338a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 6
-  indentLevel: 0
-  targetObject: {fileID: 1284468929}
-  methodName: PlayAudio
-  delay: 0
---- !u!114 &1835847620
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835847591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 5
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 1
-  durationOLD: 0
---- !u!114 &1835847621
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835847591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 243.73851
-    y: 73.94117
-    width: 113.39865
-    height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
-  itemId: 4
-  blockName: Start music
-  description: 
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 1835847620}
-  - {fileID: 1835847615}
-  - {fileID: 1835847613}
-  - {fileID: 1835847619}
-  suppressAllAutoSelections: 0
 --- !u!114 &1835847622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14332,8 +14048,7 @@ MonoBehaviour:
     y: -340
     width: 1114
     height: 859
-  selectedBlocks:
-  - {fileID: 1835847611}
+  selectedBlocks: []
   selectedCommands: []
   variables: []
   description: 
@@ -17652,8 +17367,8 @@ SceneRoots:
   - {fileID: 1378413686}
   - {fileID: 762619938}
   - {fileID: 1284468927}
-  - {fileID: 1838186875}
   - {fileID: 1836383497}
+  - {fileID: 1838186875}
   - {fileID: 1856847693}
   - {fileID: 1706542515}
   - {fileID: 1835847623}
