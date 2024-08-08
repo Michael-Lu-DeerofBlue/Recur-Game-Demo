@@ -89,6 +89,26 @@ public class BGMPlayer : MonoBehaviour
         }
         return volume;
     }
+
+    public void PlayMusic(AudioSource _audioSource)
+    {
+        if (_audioSource.isPlaying) return;
+        _audioSource.Play();
+    }
+
+    public void StopMusic(AudioSource _audioSource)
+    {
+        _audioSource.Stop();
+    }
+
+    public void StopAllAudio()
+    {
+        for (int i = 0; i < AudioSources.Length; i++)
+        if (AudioSources[i] != null && AudioSources[i].isPlaying)
+        {
+            StopMusic(AudioSources[i]);
+        }
+    }
 }
 
 public enum AudioSourceType
