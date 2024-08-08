@@ -85,8 +85,9 @@ public class TwoDto3D : MonoBehaviour
             }
             else
             {
-                bgmFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
-                bgmFlowchart.ExecuteBlock("StopMusic");
+                //bgmFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
+                Debug.Log("load battle stoppping music");
+                //bgmFlowchart.ExecuteBlock("StopMusic");
                 ThreeDTo2DData.ThreeDScene = null;
                 SceneManager.LoadScene("Church_with_code");
             }

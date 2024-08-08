@@ -173,7 +173,7 @@ public class Level1 : LevelController
         ES3.Save("First Combat", true);
         ThreeDTo2DData.ThreeDScene = "CentralMeditationRoom";
         Player.GetComponent<PlayerController>().Save();
-        bgmFlowchart.ExecuteBlock("StopMusic");
+        Debug.Log("playing tutorial music (sentence 2)");
         bgmFlowchart.ExecuteBlock("TutorialMusicLoop");
     }
 
@@ -214,6 +214,7 @@ public class Level1 : LevelController
             Player.transform.rotation = ES3.Load<Quaternion>("InLevelPlayerRotation");
         }
         gameFlowchart.ExecuteBlock("NoWhiteScreen");
+        Debug.Log("playing music again on reload");
         bgmFlowchart.ExecuteBlock("MainMusicLoop");
         Sentence3();
 

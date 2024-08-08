@@ -8,6 +8,7 @@ public class BGMPlayer : MonoBehaviour
     private static BGMPlayer instance;
     public AudioSource[] AudioSources;
     public AudioSourceType[] SourceTypes;
+    public AudioSource[] allAudioSources;
     public Kamgam.SettingsGenerator.SettingsProvider Provider;
 
     [Tooltip("How the input should be mapped to the required output of 0f..1f (X = min, Y = max).\n" +
@@ -31,6 +32,7 @@ public class BGMPlayer : MonoBehaviour
 
         // Make this GameObject persist across scenes
         DontDestroyOnLoad(gameObject);
+
     }
 
     public void Start()
@@ -46,6 +48,8 @@ public class BGMPlayer : MonoBehaviour
                 ConnectVolume("audioMusicVolume", AudioSources[i], ref MusicConnection);
             }
         }
+
+        allAudioSources = FindObjectsOfType<AudioSource>();
     }
 
     private void ConnectVolume(string volumeId, AudioSource audioSource, ref AudioSourceVolumeConnection connection)
@@ -101,12 +105,14 @@ public class BGMPlayer : MonoBehaviour
         _audioSource.Stop();
     }
 
-    public void StopAllAudio()
+    public void StopAllMusic()
     {
-        for (int i = 0; i < AudioSources.Length; i++)
-        if (AudioSources[i] != null && AudioSources[i].isPlaying)
+        for (int i = 0; i < allAudioSources.Length; i++)
         {
-            StopMusic(AudioSources[i]);
+            if (allAudioSources[i] != null && allAudioSources[i].isPlaying)
+            {
+                StopMusic(allAudioSources[i]);
+            }
         }
     }
 }

@@ -51,7 +51,9 @@ public class HintController : MonoBehaviour
         {
             JudgeLanguage();
             DialogueManager.StartConversation(conversationName + "_" + language);
-            bgmFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
+            //bgmFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
+            Debug.Log("stoppping music (exit out)");
+            bgmFlowchart.ExecuteBlock("StopMusic");
             gameFlowchart.ExecuteBlock("WhiteScreen");
         }
 
