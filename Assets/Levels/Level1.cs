@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +12,7 @@ using UnityEngine.Rendering.Universal;
 public class Level1 : LevelController
 {
     public Flowchart gameFlowchart;
-    public Flowchart BGMFlowchart;
+    private SingletonFlowchart bgmFlowchart;
     public GameObject Player;
     public Button continueButton;
     public GameObject openingMenu;
@@ -68,6 +68,13 @@ public class Level1 : LevelController
                 Reload();
             }
         }
+        
+        bgmFlowchart = SingletonFlowchart.Instance; //access the singleton bgm flowchart in the scene
+        if (bgmFlowchart == null)
+        {
+            Debug.LogWarning("BGM flowchart not found!");
+        }
+
         Player.GetComponent<GadgetsTool>().MagneticBoots = false;
         Player.GetComponent<GadgetsTool>().Camera = false;
     }
@@ -121,7 +128,7 @@ public class Level1 : LevelController
         openingMenu.SetActive(false);
         gameFlowchart.ExecuteBlock("CameraRotate");
         gameFlowchart.ExecuteBlock("CameraDrop");
-        //Start to play the main bgm
+        bgmFlowchart.ExecuteBlock("MainMusicLoop"); //Start to play the main bgm
     }
 
     public void OpenSetting()
@@ -166,7 +173,8 @@ public class Level1 : LevelController
         ES3.Save("First Combat", true);
         ThreeDTo2DData.ThreeDScene = "CentralMeditationRoom";
         Player.GetComponent<PlayerController>().Save();
-        BGMFlowchart.ExecuteBlock("TutorialMusicLoop"); //start bgm loop
+        Debug.Log("playing tutorial music (sentence 2)");
+        bgmFlowchart.ExecuteBlock("TutorialMusicLoop");
     }
 
     public void Sentence3()
@@ -207,6 +215,8 @@ public class Level1 : LevelController
             Player.transform.rotation = ES3.Load<Quaternion>("InLevelPlayerRotation");
         }
         gameFlowchart.ExecuteBlock("NoWhiteScreen");
+        Debug.Log("playing music again on reload");
+        bgmFlowchart.ExecuteBlock("MainMusicLoop");
         Sentence3();
 
     }

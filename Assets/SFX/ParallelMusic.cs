@@ -6,8 +6,7 @@ public class ParallelMusic : MonoBehaviour
 {
     public AudioSource audioSource1;
     public AudioSource audioSource2;
-    //public bool isLoop = false;
-    
+
     void Start()
     {
         //PlayAudio();
@@ -15,6 +14,9 @@ public class ParallelMusic : MonoBehaviour
 
     void PlayAudio()
     {
+        // Stop any currently playing audio
+        StopAllAudio();
+
         if (audioSource1 != null && audioSource2 != null)
         {
             if (audioSource1.clip != null && audioSource2.clip != null)
@@ -45,4 +47,16 @@ public class ParallelMusic : MonoBehaviour
         _audioSource.Stop();
     }
 
+    void StopAllAudio()
+    {
+        if (audioSource1 != null && audioSource1.isPlaying)
+        {
+            StopMusic(audioSource1);
+        }
+
+        if (audioSource2 != null && audioSource2.isPlaying)
+        {
+            StopMusic(audioSource2);
+        }
+    }
 }

@@ -12,13 +12,18 @@ public class TwoDto3D : MonoBehaviour
     public bool Victory;
     private Dictionary<string, int> inventory = new Dictionary<string, int>();
     public Flowchart gameFlowchart;
-    public Flowchart BGMFlowchart;
+    private SingletonFlowchart bgmFlowchart;
     public static List<string> ToThreeEnemies;
     private SoundManager soundManager;
     public static bool win;
     void Start()
     {
         soundManager = FindAnyObjectByType<SoundManager>();
+        bgmFlowchart = SingletonFlowchart.Instance; //get the singleton bgm flowchart in the scene
+        if (bgmFlowchart == null)
+        {
+            Debug.LogWarning("BGM flowchart not found!");
+        }
     }
     // Start is called before the first frame update
     public void TwoDGameOver()
@@ -80,7 +85,9 @@ public class TwoDto3D : MonoBehaviour
             }
             else
             {
-                BGMFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
+                //bgmFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
+                Debug.Log("load battle stoppping music");
+                //bgmFlowchart.ExecuteBlock("StopMusic");
                 ThreeDTo2DData.ThreeDScene = null;
                 SceneManager.LoadScene("Church_with_code");
             }

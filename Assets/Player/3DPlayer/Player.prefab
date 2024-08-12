@@ -151,7 +151,6 @@ GameObject:
   - component: {fileID: 216549328370529599}
   - component: {fileID: 3759652728878987193}
   - component: {fileID: 5626038089879900453}
-  - component: {fileID: 1802322715346511737}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -251,6 +250,7 @@ MonoBehaviour:
   minZoom: 20
   maxZoom: 60
   maxDistance: 100
+  isCameraMode: 0
   targetLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -260,6 +260,10 @@ MonoBehaviour:
   UIIndicator: {fileID: 0}
   LevelController: {fileID: 0}
   gridResolution: 100
+  googleFrame: {fileID: 0}
+  duration: 0.2
+  whiteColor: {r: 1, g: 1, b: 1, a: 1}
+  transColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!114 &5626038089879900453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,19 +308,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &1802322715346511737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6864073379212566497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attenuationObject: {fileID: 0}
 --- !u!1 &7180200166747538672
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +535,7 @@ GameObject:
   - component: {fileID: 8381012213085924531}
   - component: {fileID: 526049803991173599}
   - component: {fileID: 8934807120922108804}
+  - component: {fileID: 5795624277127425517}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -690,6 +682,9 @@ MonoBehaviour:
   RayCastLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  curve: 1.149999976158142
+  curve_2: 0.01
+  curve_3: 0.15
   isGrounded: 0
   inMovement: 0
   inSprint: 0
@@ -704,7 +699,8 @@ MonoBehaviour:
   xSensitivity: 30
   ySensitivity: 30
   rotationSmoothTime: 0.1
-  isMageticBootsOn: 0
+  isMagneticBootsOn: 0
+  flowchart: {fileID: 0}
 --- !u!114 &526049803991173599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +726,7 @@ MonoBehaviour:
   grapplingCd: 1
   grappleKey: 324
   grappling: 0
+  flowchart: {fileID: 0}
 --- !u!114 &8934807120922108804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,3 +740,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visible: 1
+--- !u!114 &5795624277127425517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574356886743310673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f666e7ed2aa6f4f7da8c106fe0b41e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7574356886743310673}
+  flowchart: {fileID: 0}
