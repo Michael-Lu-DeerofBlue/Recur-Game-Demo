@@ -44,6 +44,7 @@ public class Level2 : LevelController
     public int hintsCurrentIndex;
     public TextMeshProUGUI hint;
     public bool reloaded;
+    public GameObject fakeEnemy;
     void Awake()
     {
         ES3.Save("MoveHP", 2);
@@ -100,11 +101,11 @@ public class Level2 : LevelController
       
     }
 
-    IEnumerator GraduallyChangeExposure()
+    IEnumerator GraduallyChangeExposure(float initialExposure)
     {
 
         float elapsedTime = 0.0f;
-        float initialExposure = colorAdjustments.postExposure.value;
+        Debug.Log(initialExposure);
 
         while (elapsedTime < duration)
         {
@@ -162,9 +163,21 @@ public class Level2 : LevelController
         flowchart.ExecuteBlock("GoToGallery");
     }
 
+    public void BackToNormal()
+    {
+        foreach(Transform enemy in enemies)
+        {
+            enemy.gameObject.SetActive(false);
+        }
+        spotlightManager.GetComponent<SpotlightManager>().TurnOffAllSpotlight();
+        fakeEnemy.SetActive(true);
+        targetExposure = 0.73f;
+        StartCoroutine(GraduallyChangeExposure(-2.5f));
+    }
+
     public void ColdStart()
     {
-        StartCoroutine(GraduallyChangeExposure());
+        StartCoroutine(GraduallyChangeExposure(0.73f));
         Player.GetComponent<PlayerInteract>().canInteract = true;
         Player.GetComponent<GadgetsTool>().Camera = true;
         flowchart.ExecuteBlock("ColdStart");

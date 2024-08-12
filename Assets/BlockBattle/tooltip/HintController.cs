@@ -37,7 +37,7 @@ public class HintController : MonoBehaviour
             string currentSceneName = SceneManager.GetActiveScene().name;
             if (currentSceneName == "BattleLevel - tutorial")
             {
-                countText.text = lineCleared.ToString() + "/5";
+                countText.text = lineCleared.ToString() + "/3";
             }
         }
 

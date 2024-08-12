@@ -5082,9 +5082,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 86.88231
-    y: 186.54243
-    width: 123.20257
+    x: 84.26793
+    y: 191.77116
+    width: 120.58819
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5260,7 +5260,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 242.36633
     y: 158.5915
-    width: 193.13716
+    width: 191.17638
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5382,7 +5382,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 48.51014
     y: 125.91182
-    width: 157.18948
+    width: 154.5751
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5532,7 +5532,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 89.10454
     y: 75.43137
-    width: 127.12414
+    width: 125.81694
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5598,7 +5598,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 243.73851
     y: 73.94117
-    width: 113.39865
+    width: 112.745056
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -5637,7 +5637,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 797417734}
+  - {fileID: 797417720}
   selectedCommands: []
   variables: []
   description: 
@@ -5667,7 +5667,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &797417747
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -5682,7 +5682,7 @@ MonoBehaviour:
   waitForFrames: 1
 --- !u!114 &797417748
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -5698,7 +5698,7 @@ MonoBehaviour:
   keyCode: 102
 --- !u!114 &797417749
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -5846,7 +5846,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 797417745}
+  selectedFlowchart: {fileID: 1392204790}
 --- !u!4 &833061331
 Transform:
   m_ObjectHideFlags: 1
@@ -9311,8 +9311,8 @@ MonoBehaviour:
   language: 
   conversationName: tetris
   countText: {fileID: 1094750231}
-  gameFlowchart: {fileID: 0}
-  BGMFlowchart: {fileID: 0}
+  gameFlowchart: {fileID: 1392204790}
+  BGMFlowchart: {fileID: 797417745}
   perTutorialManager: {fileID: 0}
 --- !u!4 &1212301880
 Transform:
@@ -10034,7 +10034,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 1392204796}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 1392204800}
   variables: []
   description: 
   stepPause: 0
@@ -10108,7 +10109,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 221.18176
     y: 129.8409
-    width: 120.45454
+    width: 121.21211
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -15339,6 +15340,8 @@ MonoBehaviour:
   - {fileID: -853884800, guid: 11756b69de7c5e240a2b2f2ad0c38bfd, type: 3}
   - {fileID: -252298803, guid: 11756b69de7c5e240a2b2f2ad0c38bfd, type: 3}
   horizontalSpacing: 5
+  soundManager: {fileID: 0}
+  LongSwordAnimator: {fileID: 0}
 --- !u!1 &2011669567
 GameObject:
   m_ObjectHideFlags: 0

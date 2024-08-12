@@ -69,8 +69,31 @@ public class GalleryLevel : LevelController
     {
         Player.GetComponent<PlayerController>().enabled = false;
         Player.GetComponent<WToMoveUp>().enabled = true;
+        Player.GetComponent<Rigidbody>().useGravity = false;
+        //increase the y of the player by 100 over time
         flowchart.ExecuteBlock("GoToVertical");
         StartCoroutine(CameraMoveUp());
+        StartCoroutine(MovePlayerUp());
+    }
+
+    private IEnumerator MovePlayerUp()
+    {
+        yield return new WaitForSeconds(2f);
+        float duration = 5.0f; // Duration in seconds
+        float targetHeight = Player.transform.position.y + 100;
+        Vector3 startPosition = Player.transform.position;
+        Vector3 targetPosition = new Vector3(startPosition.x, targetHeight, startPosition.z);
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            Player.transform.position = Vector3.Lerp(startPosition, targetPosition, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        Player.transform.position = targetPosition;
     }
 
     private IEnumerator CameraMoveUp()

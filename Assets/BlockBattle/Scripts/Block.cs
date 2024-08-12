@@ -320,7 +320,7 @@ public class BlockManager : MonoBehaviour
                     if (controller != null)
                     {
                         controller.GetComponent<HintController>().lineCleared++;
-                        if (controller.GetComponent<HintController>().lineCleared == 5)
+                        if (controller.GetComponent<HintController>().lineCleared == 3)
                         {
                             controller.GetComponent<HintController>().ExitOut();
                             battleManager.BlockGameTimeStop = true;

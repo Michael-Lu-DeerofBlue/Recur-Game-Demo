@@ -27,7 +27,8 @@ public class Door : Interactable
         if (Keyed)
         {
             PlayEffectDoor();
-            EndDemo();
+            levelScript.GetComponent<Level2>().BackToNormal();
+            //EndDemo();
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
         else

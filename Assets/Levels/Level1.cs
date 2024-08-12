@@ -185,6 +185,7 @@ public class Level1 : LevelController
 
     public void Reload() //Player, Enemy, SpotLights
     {
+        perseus = true;
         anotherWhiteScreen.SetActive(false);
         EscKey.SetActive(true);
         goggleCanvas.SetActive(true);

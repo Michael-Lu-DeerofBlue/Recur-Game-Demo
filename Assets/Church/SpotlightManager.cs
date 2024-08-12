@@ -101,6 +101,15 @@ public class SpotlightManager : MonoBehaviour
         StartCoroutine(TurnOffAllSpotlight(turnoffLightInterval));
     }
 
+    public void TurnOffAllSpotlight()
+    {
+        foreach (GameObject spotlight in spotlights)
+        {
+            spotlight.GetComponent<SpotLightMove>().inOff = true;
+            spotlight.GetComponent<Light>().intensity = 0;
+        }
+    }
+
     public void CentralSpotlight()
     {
         StartCoroutine(TurnOffAllSpotlight(2));
