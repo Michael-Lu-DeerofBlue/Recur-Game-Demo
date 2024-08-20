@@ -1,5 +1,8 @@
+using I2.Loc;
+using PixelCrushers.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GalleryLevel : LevelController
@@ -7,6 +10,14 @@ public class GalleryLevel : LevelController
     public GameObject Player;
     public Transform[] enemies;
     public Transform point;
+    public static bool deadalus;
+
+    public string language;
+    public string[] conversationName;
+    public int ch_sub_speed;
+    public int en_sub_speed;
+    private Queue<string> conversationQueue = new Queue<string>();
+    private bool isConversationRunning = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +53,6 @@ public class GalleryLevel : LevelController
                 GameObject obj = GameObject.Find(key);
                 if (obj != null)
                 {
-                    Debug.Log("here");
                     obj.SetActive(false);
                 }
             }
@@ -62,7 +72,63 @@ public class GalleryLevel : LevelController
     public void GoToDeadalus()
     {
         ThreeDTo2DData.dataDictionary = new Dictionary<string, bool>() { { "Deadalus", false } };
+        deadalus = true;
         GoToBattle();
+    }
+
+    public void Sentence1() //must possess key
+    {
+        JudgeLanguage();
+        string conversation = conversationName[0] + "_" + language;
+        if (isConversationRunning)
+        {
+            conversationQueue.Enqueue(conversation);
+        }
+        else
+        {
+            StartConversation(conversation);
+        }
+    }
+    public void Sentence2() //must possess key
+    {
+        JudgeLanguage();
+        string conversation = conversationName[0] + "_" + language;
+        if (isConversationRunning)
+        {
+            conversationQueue.Enqueue(conversation);
+        }
+        else
+        {
+            StartConversation(conversation);
+        }
+    }
+
+    private void StartConversation(string conversation)
+    {
+        isConversationRunning = true;
+        //Debug.Log("Starting conversation: " + conversation);
+        DialogueManager.StartConversation(conversation);
+    }
+
+    void JudgeLanguage()
+    {
+        switch (LocalizationManager.CurrentLanguage)
+        {
+            case "English":
+                language = "en";
+                //set subtitle speed
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = en_sub_speed;
+                break;
+            case "Chinese (Simplified)":
+                language = "cn";
+                //set subtitle speed
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = ch_sub_speed;
+                break;
+            // Add more cases for other languages if needed
+            default:
+                language = "en";
+                break;
+        }
     }
 
     public void GoToVertical()

@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.013520718, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.013520718, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -772,7 +772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.6681624, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.6681624, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1287,7 +1287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1540,6 +1540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 576198297}
   - component: {fileID: 576198296}
+  - component: {fileID: 576198298}
   m_Layer: 0
   m_Name: background
   m_TagString: Untagged
@@ -1614,6 +1615,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &576198298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576198295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea412a43257a9f4f80d4974ad4755b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelNumber: 0
+  background: {fileID: 576198295}
+  hallway: {fileID: 21300000, guid: f32eb8e786434ef4b869c204fe074e8f, type: 3}
+  church: {fileID: 21300000, guid: d9ad9ba906ed7864e846a7b4d7c3c4a6, type: 3}
+  airIsland: {fileID: 21300000, guid: 0897044d7de665d4eaeadfa57bb3630e, type: 3}
 --- !u!224 &580787257 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8939281967067177581, guid: 076c2549172cf0647bab164e5a0910c2, type: 3}
@@ -4718,7 +4736,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Victory: 0
   gameFlowchart: {fileID: 1392204790}
-  BGMFlowchart: {fileID: 0}
 --- !u!114 &1694316786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4805,7 +4822,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -4816,7 +4833,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &1824281293
 RectTransform:
@@ -7507,6 +7524,10 @@ PrefabInstance:
       propertyPath: mLocalizeTarget
       value: 
       objectReference: {fileID: 1268107070}
+    - target: {fileID: 4068277024077909208, guid: 895cdf72bbc0fa449b8b235e0d6b97b6, type: 3}
+      propertyPath: battleManager
+      value: 
+      objectReference: {fileID: 283174413}
     - target: {fileID: 4283665503398293564, guid: 895cdf72bbc0fa449b8b235e0d6b97b6, type: 3}
       propertyPath: m_Pivot.x
       value: 0

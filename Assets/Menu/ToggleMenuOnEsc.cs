@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ToggleMenuOnEsc : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class ToggleMenuOnEsc : MonoBehaviour
 
     public void sendEscMessage()
     {
+        Debug.Log("Sent Esc Message");
         mainUIManager.OnEsc();
     }
 
@@ -38,6 +40,7 @@ public class ToggleMenuOnEsc : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            Debug.Log("Hit Tab");
             if (MainUIManager.gameStateString == "pauseMenu" || MainUIManager.gameStateString == "gaming")
             {
                 sendEscMessage();
@@ -45,7 +48,24 @@ public class ToggleMenuOnEsc : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            sendEscMessage();
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            Debug.Log("Hit Esc");
+            if (currentSceneName == "CentralMeditationRoom")
+            {
+                bool inOp = GameObject.Find("Level Script").GetComponent<Level1>().inOpenin;
+                if (inOp)
+                {
+                    mainUIManager.SettingForceQuit();
+                }
+                else
+                {
+                    sendEscMessage();
+                }
+            }
+            else
+            {
+                sendEscMessage();
+            }
         }
 
     } 

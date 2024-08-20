@@ -54,6 +54,8 @@ public class Level3 : LevelController
         { "FracturedPocketWatch", 2 }
     };
         ES3.Save("Consumables", iniConsumablesInventory);
+        ES3.Save("Level", 3);
+
     }
 
 
@@ -61,7 +63,7 @@ public class Level3 : LevelController
     {
         int conversationID = DialogueManager.Instance.currentConversationState.subtitle.dialogueEntry.conversationID;
         Debug.Log("Conversation ended: " + conversationID.ToString());
-        if (conversationID == 13 || conversationID == 14)
+        if (conversationID == 11 || conversationID == 14)
         {
             flowchart.ExecuteBlock("GoToGallery2");
         }

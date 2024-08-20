@@ -1,3 +1,4 @@
+using I2.Loc;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,7 +15,7 @@ public class EnemyTip : MonoBehaviour
     public TextMeshProUGUI NextMoveName;
     private string SkillDetail;
     public TextMeshProUGUI NextMoveDetail;
-    private BattleManager battleManager;
+    public BattleManager battleManager;
     private TipsInfo tipsinfo;
 
     private void Start()
@@ -27,11 +28,24 @@ public class EnemyTip : MonoBehaviour
     {
         if (battleManager.ToolTipsLevel == 0)
         {
-            NameField.text = tipsinfo.GetEnemyChineseName(Name);
-            HPField.text = "HP: "+HP;
-            CastingTimeField.text = "倒计时： "+CastingTime;
-            NextMoveName.text = "技能： " + tipsinfo.GetEnemySkillChineseName(NextMove);
-            NextMoveDetail.text = "效果： " + tipsinfo.GetEnemySkillDetail(NextMove, nextskilldamage); ;
+            switch (LocalizationManager.CurrentLanguage)
+            {
+                case "English":
+                    NameField.text = tipsinfo.GetEnemyChineseName(Name);
+                    HPField.text = "HP: " + HP;
+                    CastingTimeField.text = "Time: " + CastingTime;
+                    NextMoveName.text = "Skill: " + tipsinfo.GetEnemySkillChineseName(NextMove);
+                    NextMoveDetail.text = "Effect: " + tipsinfo.GetEnemySkillDetail(NextMove, nextskilldamage); ;
+                    break;
+                case "Chinese (Simplified)":
+                    NameField.text = tipsinfo.GetEnemyChineseName(Name);
+                    HPField.text = "HP: " + HP;
+                    CastingTimeField.text = "倒计时： " + CastingTime;
+                    NextMoveName.text = "技能： " + tipsinfo.GetEnemySkillChineseName(NextMove);
+                    NextMoveDetail.text = "效果： " + tipsinfo.GetEnemySkillDetail(NextMove, nextskilldamage); ;
+                    break;
+            }
+           
         }
         else if (battleManager.ToolTipsLevel == 1)
         {

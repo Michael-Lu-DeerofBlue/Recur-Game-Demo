@@ -169,6 +169,11 @@ public class MainUIManager : MonoBehaviour
 
     }
 
+    public void SettingForceQuit()
+    {
+        SettingMenu.gameObject.SetActive(false);
+    }
+
     public void QuitGame()
     {
         Application.Quit();

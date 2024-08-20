@@ -45,10 +45,12 @@ public class Level2 : LevelController
     public TextMeshProUGUI hint;
     public bool reloaded;
     public GameObject fakeEnemy;
+    public GameObject trap;
     void Awake()
     {
         ES3.Save("MoveHP", 2);
         ES3.Save("Sprint", true);
+        ES3.Save("Level", 2);
         colorAdjustments = (ColorAdjustments)volume.profile.components.Find(x => x is ColorAdjustments);
         Player.GetComponent<GadgetsTool>().MagneticBoots = false;
         if (ThreeDTo2DData.ThreeDScene != null)
@@ -215,6 +217,7 @@ public class Level2 : LevelController
 
     public void Reload() //Player, Enemy, SpotLights
     {
+        trap.SetActive(false);
         reloaded = true;
         secondTrigger.SetActive(true); //key reminder
         //Exposure

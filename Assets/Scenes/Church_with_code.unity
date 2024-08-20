@@ -54831,7 +54831,6 @@ GameObject:
   - component: {fileID: 1196037960}
   - component: {fileID: 1196037965}
   - component: {fileID: 1196037968}
-  - component: {fileID: 1196037969}
   - component: {fileID: 1196037971}
   - component: {fileID: 1196037972}
   - component: {fileID: 1196037973}
@@ -54870,7 +54869,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1196037953}
+  - {fileID: 1196037940}
   selectedCommands: []
   variables: []
   description: 
@@ -54929,7 +54928,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 197.12726
     y: 173.89354
-    width: 153.29593
+    width: 145.82056
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -55009,7 +55008,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 197.27112
     y: 99.08646
-    width: 103.007126
+    width: 98.92965
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -55349,7 +55348,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 361.45712
     y: 108.60144
-    width: 120.67616
+    width: 115.23953
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -55509,14 +55508,14 @@ MonoBehaviour:
     serializedVersion: 2
     x: 439.75757
     y: 178.65057
-    width: 107.084595
+    width: 100.96838
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
   itemId: 58
   blockName: OpenDoor
   description: 
-  eventHandler: {fileID: 1196037969}
+  eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1196037971}
   - {fileID: 1196037972}
@@ -55595,7 +55594,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 49.591595
     y: 141.8605
-    width: 113.88038
+    width: 109.12332
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -55622,7 +55621,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 559.90857
     y: 132.79762
-    width: 109.8029
+    width: 107.084595
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -55841,7 +55840,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 575.90875
     y: 182.07158
-    width: 108.44375
+    width: 103.00712
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -55950,7 +55949,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -20.224579
     y: 232.16132
-    width: 103.007126
+    width: 98.92965
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -56101,22 +56100,6 @@ MonoBehaviour:
   suppressBlockAutoSelect: 0
   keyPressType: 0
   keyCode: 114
---- !u!114 &1196037969
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1196037906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000864f8e9e1748a39807861d0e60e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentBlock: {fileID: 1196037940}
-  suppressBlockAutoSelect: 0
-  keyPressType: 0
-  keyCode: 101
 --- !u!114 &1196037971
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -56168,7 +56151,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 199.68016
     y: 273.1472
-    width: 120.67616
+    width: 113.20079
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -72521,7 +72504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1430320572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78691,7 +78674,7 @@ MonoBehaviour:
   - scene2f
   - scene2g
   - scene2h
-  ch_sub_speed: 9
+  ch_sub_speed: 7
   en_sub_speed: 15
   pursuitSpeed: 7
   patrolSpeed: 0
@@ -78704,6 +78687,7 @@ MonoBehaviour:
   hint: {fileID: 758991089}
   reloaded: 0
   fakeEnemy: {fileID: 1430320571}
+  trap: {fileID: 293860713}
 --- !u!4 &1636812606
 Transform:
   m_ObjectHideFlags: 0
@@ -99500,7 +99484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2083906432
 Transform:
   m_ObjectHideFlags: 0
@@ -99510,7 +99494,7 @@ Transform:
   m_GameObject: {fileID: 2083906431}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.174398, y: 7.2386556, z: 17.161423}
+  m_LocalPosition: {x: 0.174398, y: 6.7, z: 17.161423}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -100302,6 +100286,10 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5795624277127425517, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
+      propertyPath: flowchart
+      value: 
+      objectReference: {fileID: 830114162}
     - target: {fileID: 6871722702525468286, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
       propertyPath: m_BackGroundColor.a
       value: 1
@@ -103272,7 +103260,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

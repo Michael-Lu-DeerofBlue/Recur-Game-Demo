@@ -3267,8 +3267,8 @@ MonoBehaviour:
   - Sentence3
   - Sentence4
   - Sentence5
-  ch_sub_speed: 8
-  en_sub_speed: 12
+  ch_sub_speed: 7
+  en_sub_speed: 15
   sfxFlowchart: {fileID: 613397894}
 --- !u!1 &182189109
 GameObject:
@@ -4286,7 +4286,6 @@ MonoBehaviour:
   conversationName: 
   countText: {fileID: 0}
   gameFlowchart: {fileID: 0}
-  BGMFlowchart: {fileID: 0}
   perTutorialManager: {fileID: 0}
 --- !u!4 &241536877
 Transform:
@@ -10433,6 +10432,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 37fac418603267d4bb763c55c27adcd9, type: 2}
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: dontDestroyOnLoad
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: instantiateDatabase
       value: 1
       objectReference: {fileID: 0}
@@ -13374,7 +13377,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 575.90875
     y: 182.07158
-    width: 106.19045
+    width: 108.5714
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -13587,7 +13590,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 294.90262
     y: 268.86334
-    width: 75.71428
+    width: 77.142845
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -13803,7 +13806,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 559.90857
     y: 132.79762
-    width: 109.04759
+    width: 111.42854
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -13852,7 +13855,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 49.591595
     y: 141.8605
-    width: 110.952354
+    width: 115.71426
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -13957,7 +13960,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 417.8528
     y: 201.91454
-    width: 116.66664
+    width: 121.42854
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14078,7 +14081,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 361.45712
     y: 107.64906
-    width: 119.52378
+    width: 124.28568
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14442,7 +14445,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 197.27112
     y: 99.08646
-    width: 100.476166
+    width: 104.28569
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14512,7 +14515,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 197.12726
     y: 206.27452
-    width: 151.90472
+    width: 157.14282
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14558,7 +14561,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -153.71906
     y: 285.77176
-    width: 116.66664
+    width: 121.42854
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14618,7 +14621,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -155.45695
     y: 227.10193
-    width: 89.999985
+    width: 92.857124
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14678,7 +14681,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 15.135566
     y: 333.36734
-    width: 157.619
+    width: 165.71423
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -14712,7 +14715,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 18.632935
     y: 289.39413
-    width: 138.5714
+    width: 142.8571
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -15154,7 +15157,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 309.77057
     y: 358.2468
-    width: 169.04758
+    width: 178.57138
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -15219,7 +15222,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 577.5297
     y: 348.4106
-    width: 124.28568
+    width: 128.5714
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -17874,6 +17877,44 @@ MonoBehaviour:
   mAlignment_LTR: 257
   mAlignmentWasRTL: 0
   mInitializeAlignment: 0
+--- !u!84 &1301657135
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 256
+  m_Height: 256
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthStencilFormat: 0
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_EnableRandomWrite: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 0
+    m_WrapV: 0
+    m_WrapW: 0
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &1301788177
 GameObject:
   m_ObjectHideFlags: 0
@@ -20655,7 +20696,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 1671122785}
+        m_Texture: {fileID: 1301657135}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -20680,7 +20721,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor: {r: 0.575, g: 0.575, b: 0.575, a: 0}
     - _DetailData: {r: 0.5, g: 4, b: -0.5, a: 0}
-    - _DetailWindDirection: {r: -1.0042782, g: 0, b: 0, a: 0}
+    - _DetailWindDirection: {r: -0.039745286, g: 0, b: 0, a: 0}
     - _DistanceData: {r: 0, g: 5, b: 1, a: 1}
     - _FogOfWarCenter: {r: 0, g: 0, b: 0, a: 1}
     - _FogOfWarCenterAdjusted: {r: 0, g: 0, b: 0, a: 1}
@@ -20691,7 +20732,7 @@ Material:
     - _ShadowData: {r: 0.5, g: 0, b: 250, a: 0}
     - _SpecularColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
     - _SunDir: {r: 0.07723552, g: 0.58929414, b: -0.8042183, a: 0}
-    - _WindDirection: {r: -1.0042782, g: 0, b: 0, a: 0}
+    - _WindDirection: {r: -0.039745286, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!1 &1531391588
 GameObject:
@@ -21112,6 +21153,10 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5795624277127425517, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
+      propertyPath: flowchart
+      value: 
+      objectReference: {fileID: 613397894}
     - target: {fileID: 6864073379212566497, guid: a0aa32a8ef9f0fa428d1487e7efa4626, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -22345,44 +22390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 321522170}
---- !u!84 &1671122785
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 5
-  m_Width: 256
-  m_Height: 256
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthStencilFormat: 0
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_EnableRandomWrite: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 0
-    m_WrapV: 0
-    m_WrapW: 0
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1 &1691139111
 GameObject:
   m_ObjectHideFlags: 0
@@ -25616,7 +25623,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

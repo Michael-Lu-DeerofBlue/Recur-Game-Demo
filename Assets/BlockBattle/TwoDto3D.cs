@@ -87,11 +87,15 @@ public class TwoDto3D : MonoBehaviour
             {
                 //bgmFlowchart.ExecuteBlock("FadeToCalm"); //fade music to calm ver.
                 Debug.Log("load battle stoppping music");
-                //bgmFlowchart.ExecuteBlock("StopMusic");
+                bgmFlowchart.ExecuteBlock("StopMusic");
                 ThreeDTo2DData.ThreeDScene = null;
                 SceneManager.LoadScene("Church_with_code");
             }
           
+        }
+        else if (GalleryLevel.deadalus)
+        {
+            SceneManager.LoadScene("Yellow_Red_Blue");
         }
         else if (ThreeDTo2DData.ThreeDScene == "Air Island Jungle")
         {

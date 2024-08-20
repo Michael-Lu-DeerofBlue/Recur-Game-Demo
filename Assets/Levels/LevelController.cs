@@ -31,6 +31,7 @@ public abstract class LevelController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if (perseus)
         {
+            gameObject.GetComponent<Level1>().BattleMusic();
             SceneManager.LoadScene("BattleLevel - per - tutorial");
 
         }

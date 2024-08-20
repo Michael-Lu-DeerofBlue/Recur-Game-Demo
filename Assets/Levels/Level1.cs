@@ -33,6 +33,8 @@ public class Level1 : LevelController
     public GameObject goggleCanvas;
     public GameObject EscKey;
     public TextMeshProUGUI hint;
+    public bool inOpenin = true;
+    public GameObject MainTitle;
     public Dictionary<string, int> ConsumablesInventory = new Dictionary<string, int>()
     {
         { "MedKit", 2 },
@@ -55,6 +57,11 @@ public class Level1 : LevelController
     // Start is called before the first frame update
     void Awake()
     {
+        bgmFlowchart = SingletonFlowchart.Instance; //access the singleton bgm flowchart in the scene
+        if (bgmFlowchart == null)
+        {
+            Debug.LogWarning("BGM flowchart not found!");
+        }
         if (!ES3.KeyExists("First Time"))
         {
             continueButton.interactable = false;
@@ -63,17 +70,14 @@ public class Level1 : LevelController
         {
             if (ES3.Load<bool>("First Combat"))
             {
+                MainTitle.SetActive(false);
                 ES3.DeleteKey("First Combat");
                 secondTrigger.SetActive(false);
                 Reload();
             }
         }
-        
-        bgmFlowchart = SingletonFlowchart.Instance; //access the singleton bgm flowchart in the scene
-        if (bgmFlowchart == null)
-        {
-            Debug.LogWarning("BGM flowchart not found!");
-        }
+        ES3.Save("Level", 1);
+
 
         Player.GetComponent<GadgetsTool>().MagneticBoots = false;
         Player.GetComponent<GadgetsTool>().Camera = false;
@@ -112,6 +116,7 @@ public class Level1 : LevelController
 
     public void NewGame()
     {
+        inOpenin = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         ES3.Save("First Time", false);
@@ -128,6 +133,7 @@ public class Level1 : LevelController
         openingMenu.SetActive(false);
         gameFlowchart.ExecuteBlock("CameraRotate");
         gameFlowchart.ExecuteBlock("CameraDrop");
+        bgmFlowchart.ExecuteBlock("StopMusic");
         bgmFlowchart.ExecuteBlock("MainMusicLoop"); //Start to play the main bgm
     }
 
@@ -144,6 +150,7 @@ public class Level1 : LevelController
 
     public void Continue()
     {
+        inOpenin = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         openingMenu.SetActive(false);
@@ -191,8 +198,14 @@ public class Level1 : LevelController
         DialogueManager.StartConversation(conversationName[4] + "_" + language);
     }
 
+    public void BattleMusic()
+    {
+        bgmFlowchart.ExecuteBlock("TutorialMusicLoop");
+    }
+
     public void Reload() //Player, Enemy, SpotLights
     {
+        inOpenin = false;
         perseus = true;
         anotherWhiteScreen.SetActive(false);
         EscKey.SetActive(true);
@@ -298,12 +311,12 @@ public class Level1 : LevelController
             case "English":
                 language = "en";
                 //set subtitle speed
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 1500;
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 15;
                 break;
             case "Chinese (Simplified)":
                 language = "cn";
                 //set subtitle speed
-                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 700;
+                DialogueManager.displaySettings.subtitleSettings.subtitleCharsPerSecond = 7;
                 break;
             // Add more cases for other languages if needed
             default:

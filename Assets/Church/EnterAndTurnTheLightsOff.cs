@@ -13,6 +13,7 @@ public class EnterAndTurnTheLightsOff : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             LevelController.GetComponent<Level2>().ColdStart(); 
+            gameObject.SetActive(false);
         }
     }
 
